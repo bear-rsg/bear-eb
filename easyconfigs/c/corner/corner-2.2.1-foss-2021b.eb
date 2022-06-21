@@ -1,0 +1,24 @@
+# This easyconfig was created by Simon Branford of the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'corner'
+version = '2.2.1'
+
+homepage = 'https://corner.readthedocs.io/en/latest/'
+description = """Make some beautiful corner plots."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+sources = [SOURCE_TAR_GZ]
+checksums = ['d39f1d9ad31093bb2aa06d80b23573e51ad7130af4c4af0931fca745a64751e5']
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('matplotlib', '3.4.3'),
+]
+
+use_pip = True
+download_dep_fail = True
+
+moduleclass = 'vis'
