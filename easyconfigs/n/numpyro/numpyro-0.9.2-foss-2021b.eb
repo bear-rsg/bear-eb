@@ -26,6 +26,7 @@ exts_list = [
     }),
     (name, version, {
         'checksums': ['4dbcf222dd7bff3e7a8ee73c907d4bf2b4e4bd281cb13e5a87ac66bd64e8ead3'],
+        'use_pip_extras': 'cpu',
     }),
 ]
 
