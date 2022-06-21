@@ -3,18 +3,16 @@ easyblock = 'PythonBundle'
 
 name = 'numpyro'
 version = '0.9.2'
-versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = "https://github.com/pyro-ppl/numpyro"
 description = """NumPyro is a lightweight probabilistic programming library that provides a NumPy backend for Pyro.
  We rely on JAX for automatic differentiation and JIT compilation to GPU / CPU."""
 
-toolchain = {'name': 'foss', 'version': '2021a'}
+toolchain = {'name': 'foss', 'version': '2021b'}
 
 dependencies = [
-    ('CUDA', '11.4.1'),
     ('Python', '3.9.6'),
-    ('jax', '0.3.13', versionsuffix),
+    ('jax', '0.3.13'),
     ('SciPy-bundle', '2021.10'),
     ('tqdm', '4.62.3'),
 ]
