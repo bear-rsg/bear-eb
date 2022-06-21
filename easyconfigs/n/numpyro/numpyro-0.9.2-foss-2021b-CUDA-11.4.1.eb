@@ -12,7 +12,7 @@ description = """NumPyro is a lightweight probabilistic programming library that
 toolchain = {'name': 'foss', 'version': '2021b'}
 
 dependencies = [
-    ('CUDA', '11.4.1'),
+    ('CUDA', '11.4.1', '', True),
     ('Python', '3.9.6'),
     ('jax', '0.3.13', versionsuffix),
     ('SciPy-bundle', '2021.10'),
