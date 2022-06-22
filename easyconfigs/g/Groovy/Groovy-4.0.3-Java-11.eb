@@ -12,6 +12,7 @@ familiar and easy to learn syntax."""
 toolchain = SYSTEM
 
 source_urls = ['https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/']
+
 sources = ['apache-groovy-sdk-%(version)s.zip']
 checksums = ['7c2e0df8d4c2b4695cb127bcef31e40223671215866fcf23da6fdccbb5ff93c5']
 
