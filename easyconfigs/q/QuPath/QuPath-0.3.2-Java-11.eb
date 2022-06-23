@@ -1,0 +1,40 @@
+easyblock = 'Tarball'
+
+name = 'QuPath'
+version = '0.3.2'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://qupath.readthedocs.io/'
+description = """QuPath is open source software for bioimage analysis.Tools to annotate and view images, including whole slide & microscopy images
+Workflows for brightfield & fluorescence image analysis;New algorithms for common tasks, including cell segmentation, tissue microarray dearraying
+Interactive machine learning for both object & pixel classification;Customization, batch-processing & data interrogation by scripting;Easy integration with other tools, including ImageJ"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/%(name)s/%(name)s/releases/download/v%(version)s/']
+sources = ['%(name)s-%(version)s-linux.tar.xz']
+checksums = ['6b6e099690f457087ad1eed0adcc89b28843fcb6c16188d837517af495cdbd42']
+
+dependencies = [('Java', '11')] 
+
+modextrapaths = {'PATH': 'bin', 'lib/app', 'lib/runtime'}
+
+postinstallcmds = ['chmod -x %(installdir)s/bin/QuPath.sh']
+
+citing ="""
+Bankhead, P. et al. QuPath: Open source software for digital pathology image analysis. Scientific Reports (2017).
+https://doi.org/10.1038/s41598-017-17204-5
+"""
+
+sanity_check_paths = {
+    'files': [  
+        "bin/QuPath", 
+        "bin/QuPath.sh", 
+        "lib/app/qupath-app-0.3.2.jar",
+        "lib/app/qupath-core-0.3.2.jar",
+        "lib/runtime/lib/jrt-fs.jar",
+    ],
+    'dirs': ["bin", "lib/app", "lib/runtime"],
+}
+
+moduleclass = 'bio'
