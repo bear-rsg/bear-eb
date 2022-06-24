@@ -23,9 +23,9 @@ sanity_check_paths = {
     'dirs': [],
 }
 
-examples =""" 
-    %(namelower)s -e   'println "Hello World. Groovy"'
-    %(namelower)s testscript.groovy"'
+examples =""" \n
+    %(namelower)s -e   'println "Hello World. Groovy"'\n
+    %(namelower)s testscript.groovy \n
  """
 sanity_check_commands = ["""%(namelower)s --help """]
 
