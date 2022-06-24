@@ -22,10 +22,11 @@ sanity_check_paths = {
     'files': ['bin/groovy', 'bin/grape'],
     'dirs': [],
 }
+
 examples =""" 
     %(namelower)s -e   'println "Hello World. Groovy"'
     %(namelower)s testscript.groovy"'
  """
-sanity_check_commands = ["""%(namelower)s --h """]
+sanity_check_commands = ["""%(namelower)s --help """]
 
 moduleclass = 'devel'
