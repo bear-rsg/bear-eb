@@ -5,9 +5,11 @@ version = '0.3.2'
 versionsuffix = '-Java-%(javaver)s'
 
 homepage = 'https://qupath.readthedocs.io/'
-description = """QuPath is open source software for bioimage analysis.Tools to annotate and view images, including whole slide & microscopy images
-Workflows for brightfield & fluorescence image analysis;New algorithms for common tasks, including cell segmentation, tissue microarray dearraying
-Interactive machine learning for both object & pixel classification;Customization, batch-processing & data interrogation by scripting;Easy integration with other tools, including ImageJ"""
+description = """QuPath is open source software for bioimage analysis.Tools to annotate and view images, including
+ whole slide & microscopy images Workflows for brightfield & fluorescence image analysis; New algorithms for common
+ tasks, including cell segmentation, tissue microarray dearraying Interactive machine learning for both object &
+ pixel classification; Customization, batch-processing & data interrogation by scripting; Easy integration with other
+ tools, including ImageJ"""
 
 toolchain = SYSTEM
 
