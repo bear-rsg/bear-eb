@@ -17,7 +17,10 @@ source_urls = ['https://github.com/%(name)s/%(name)s/releases/download/v%(versio
 sources = ['%(name)s-%(version)s-linux.tar.xz']
 checksums = ['6b6e099690f457087ad1eed0adcc89b28843fcb6c16188d837517af495cdbd42']
 
-dependencies = [ ('Java', '11'), ('Groovy','4.0.3', versionsuffix, True),]  
+dependencies = [
+    ('Java', '11'),
+    ('Groovy','4.0.3', versionsuffix, True),
+]  
  
 local_path_dirs = [ 'bin', 'lib/app', 'lib/runtime', 'lib/runtime/lib/' ] 
 
