@@ -6,7 +6,7 @@ labels: build
 assignees: ''
 ---
 
-For INC?????? - `EBFILENAME`
+For INC______ - `EBFILENAME`
 
 Default:
 * [ ] EL8-icelake
