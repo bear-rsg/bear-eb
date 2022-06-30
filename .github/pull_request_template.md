@@ -7,6 +7,5 @@ Default:
 * [ ] EL8-cascadelake
 * [ ] EL8-haswell
 
-Delete these if not requested:
-* [ ] EL8-power9
+Delete this if not requested:
 * [ ] Ubuntu20 VM
