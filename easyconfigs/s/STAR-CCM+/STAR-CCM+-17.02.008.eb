@@ -8,6 +8,7 @@ description = """STAR-CCM+ is a complete multidisciplinary platform for the simu
 toolchain = {'name': 'system', 'version': 'system'}
 
 sources = ['%(name)s%(version)s_01_linux-%(arch)s-r8.tar.gz']
+checksums = ['15a341c7140275498c294f9c573682f57f82110a99f8d59435e8fdc3943ba84c']
 
 dependencies = [
     ('Java', '11'),
