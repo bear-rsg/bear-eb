@@ -22,8 +22,8 @@ homepage = 'https://github.com/COMBINE-lab/salmon'
 description = """Salmon is a wicked-fast program to produce a highly-accurate,
  transcript-level quantification estimates from RNA-seq data."""
 
-toolchain = {'name': 'gompi', 'version': '2021b'}
-toolchainopts = {'pic': True, 'openmp': True}
+toolchain = {'name': 'GCC', 'version': '11.2.0'}
+toolchainopts = {'pic': True}
 
 github_account = 'COMBINE-lab'
 source_urls = [GITHUB_LOWER_SOURCE]
