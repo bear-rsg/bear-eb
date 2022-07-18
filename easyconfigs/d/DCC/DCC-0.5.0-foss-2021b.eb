@@ -10,7 +10,7 @@ toolchain = {'name': 'foss', 'version': '2021b'}
 
 github_account = 'dieterich-lab'
 source_urls = [GITHUB_SOURCE]
-sources = ['%(version)s.tar.gz']
+sources = ['v%(version)s.tar.gz']
 checksums = ['f0a960ba3720ab54d3e78e172230dd950085291f7ad7d5ab1fc7c1f0b3e36e19']
 
 dependencies = [
