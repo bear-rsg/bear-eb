@@ -4,11 +4,9 @@ name = 'DCC'
 version = '0.5.0'
 
 homepage = 'https://github.com/dieterich-lab/DCC'
-description = """
-DCC is a python package intended to detect and quantify circRNAs with high specificity. 
+description = """DCC is a python package intended to detect and quantify circRNAs with high specificity.
  DCC works with the STAR (Dobin et al., 2013) chimeric.out.junction files 
- which contains chimerically aligned reads including circRNA junction spanning reads.
- """
+ which contains chimerically aligned reads including circRNA junction spanning reads."""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 
