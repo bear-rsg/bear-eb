@@ -1,0 +1,34 @@
+easyblock = 'PythonPackage'
+
+name = 'DCC'
+version = '0.5.0'
+
+homepage = 'https://github.com/dieterich-lab/DCC'
+description = """DCC is a python package intended to detect and quantify circRNAs with high specificity.
+ DCC works with the STAR (Dobin et al., 2013) chimeric.out.junction files 
+ which contains chimerically aligned reads including circRNA junction spanning reads."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+github_account = 'dieterich-lab'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['f0a960ba3720ab54d3e78e172230dd950085291f7ad7d5ab1fc7c1f0b3e36e19']
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('HTSeq', '0.11.3'),
+    ('Pysam', '0.17.0'),
+    ('SciPy-bundle', '2021.10'), # numpy, scipy, pandas
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+sanity_check_paths = {
+    'files': ['bin/DCC'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+options = {'modulename': 'DCC'}
+moduleclass = 'bio'
