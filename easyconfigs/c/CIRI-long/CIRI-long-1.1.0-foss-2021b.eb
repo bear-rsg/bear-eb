@@ -60,5 +60,4 @@ sanity_check_paths = {
 sanity_check_commands = [
     'CIRI-long --help',
 ]
-options = {'modulename': 'CIRI-long'}
 moduleclass = 'bio'
