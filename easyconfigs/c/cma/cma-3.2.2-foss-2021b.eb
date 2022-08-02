@@ -1,0 +1,30 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'cma'
+version = '3.2.2'
+
+homepage = "https://github.com/CMA-ES/pycma"
+description = """Python implementation of CMA-ES"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('matplotlib', '3.4.3'),
+]
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['47ac71ddd2b9a922daa601516064a585a1a3dbbae7802bca935db25e525547eb']
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+sanity_check_commands = [
+       ("python -c 'import cma; help(cma)'"),
+]
+
+moduleclass = 'base'
