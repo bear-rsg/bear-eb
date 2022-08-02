@@ -6,7 +6,8 @@ version = '2.24.1'
 versionsuffix = '-R-%(rver)s'
 
 homepage = "https://bioconductor.org/packages/release/bioc/html/monocle.html"
-description = """"""
+description = """The monocle package provides a toolkit for analyzing single cell gene expression experiments.
+This vignette provides an overview of a single cell RNA-Seq analysis workflow with Monocle"""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 
