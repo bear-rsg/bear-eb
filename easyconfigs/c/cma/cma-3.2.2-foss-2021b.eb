@@ -6,7 +6,7 @@ version = '3.2.2'
 
 homepage = "https://github.com/CMA-ES/pycma"
 description = """Python implementation of CMA-ES (Covariance Matrix Adaptation Evolution Strategy for non-linear
- numerical optimization)"""
+ numerical optimization)."""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 
