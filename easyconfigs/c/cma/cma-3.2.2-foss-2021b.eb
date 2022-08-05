@@ -28,4 +28,4 @@ sanity_check_commands = [
        ("python -c 'import cma; help(cma)'"),
 ]
 
-moduleclass = 'base'
+moduleclass = 'math'
