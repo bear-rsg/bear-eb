@@ -1,0 +1,22 @@
+easyblock = 'PythonPackage'
+
+name = 'graphviz'
+version = '0.20.1'
+
+homepage = 'https://pypi.python.org/pypi/graphviz'
+description = """Simple Python interface for Graphviz"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+sources = [SOURCE_ZIP]
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('Graphviz', '2.50.0'),
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'vis'

@@ -1,0 +1,70 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'BioServices'
+version = '1.10.1'
+
+homepage = "http://bioservices.readthedocs.io/"
+description = """Bioservices is a Python package that provides access to many Bioinformatices Web Services (e.g.,
+ UniProt) and a framework to easily implement Web Services wrappers (based on WSDL/SOAP or REST protocols)."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('BeautifulSoup', '4.10.0'),
+    ('lxml', '4.6.3'),
+    ('matplotlib', '3.4.3'),
+    ('SciPy-bundle', '2021.10'),
+    ('scikit-learn', '1.0.1'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('colorlog', '6.6.0', {
+    }),
+    #('flit_core', '3.0.0', {
+    #}),
+    #('flit', '3.0.0', {
+    #}),
+    #('ptyprocess', '0.6.0', {
+    #}),
+    #('pexpect', '4.8.0', {
+    #}),
+    #('colorama', '0.4.4', {
+    #}),
+    ('easydev', '0.12.0', {
+    }),
+    ('zope.interface', '5.4.0', {
+    }),
+    ('zope.event', '4.5.0', {
+    }),
+    ('greenlet', '1.1.2', {
+    }),
+    ('gevent', '21.12.0', {
+    }),
+    ('grequests', '0.6.0', {
+    }),
+    ('exceptiongroup', '1.0.0rc8', {
+    }),
+    ('cattrs', '22.1.0', {
+    }),
+    ('url-normalize', '1.4.3', {
+    }),
+    ('requests-cache', '0.9.5', {
+    }),
+    ('suds-community', '1.1.2', {
+    #    'modulename': 'suds',
+    }),
+    ('xmltodict', '0.13.0', {
+    }),
+    ('wrapt', '1.14.1', {
+    }),
+    (name, version, {
+        'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+    }),
+]
+
+moduleclass = 'bio'

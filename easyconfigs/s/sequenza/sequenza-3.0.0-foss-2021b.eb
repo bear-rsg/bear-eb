@@ -1,0 +1,57 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'sequenza'
+version = '3.0.0'
+
+homepage = "https://cran.r-project.org/package=sequenza"
+description = """Tools to analyze genomic sequencing data from paired normal-tumor samples, including cellularity and
+ ploidy estimation; mutation and copy number (allele-specific and total copy number) detection, quantification and
+ visualization."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.15', '-R-4.2.0'),
+    ('Pandoc', '2.13', '', True),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.11/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.11/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.11/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.11/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('squash', '1.0.9', {
+    }),
+    ('iotools', '0.3-2', {
+    }),
+    ('seqminer', '8.4', {
+    }),
+    ('copynumber', '1.36.0', {
+    }),
+    (name, version, {
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['sequenza/R/sequenza'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
