@@ -11,7 +11,7 @@ toolchain = {'name': 'foss', 'version': '2021b'}
 
 dependencies = [
     ('Python', '3.9.6'),
-    # ('BioServices', '1.10.1'),
+    ('BioServices', '1.10.1'),
     ('matplotlib', '3.4.3'),
     ('mlxtend', '0.19.0'),
     ('scikit-learn', '1.0.1'),
@@ -26,7 +26,7 @@ dependencies = [
     ('wittgenstein', '0.3.2'),
     ('statsmodels', '0.13.1'),
     ('plotly.py', '5.4.0'),
-    ('sequenza-utils', '3.0.0'),
+    # ('sequenza-utils', '3.0.0'),
     ('networkx', '2.6.3'),
     ('NLTK', '3.7'),
     ('OpenCV', '4.5.5', '-contrib'),

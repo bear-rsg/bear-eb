@@ -17,6 +17,7 @@ dependencies = [
     ('matplotlib', '3.4.3'),
     ('SciPy-bundle', '2021.10'),
     ('scikit-learn', '1.0.1'),
+    ('tqdm', '4.62.3'),
 ]
 
 sanity_pip_check = True
@@ -24,46 +25,69 @@ use_pip = True
 
 exts_list = [
     ('colorlog', '6.6.0', {
+        'checksums': ['344f73204009e4c83c5b6beb00b3c45dc70fcdae3c80db919e0a4171d006fde8'],
     }),
-    #('flit_core', '3.0.0', {
-    #}),
-    #('flit', '3.0.0', {
-    #}),
-    #('ptyprocess', '0.6.0', {
-    #}),
-    #('pexpect', '4.8.0', {
-    #}),
-    #('colorama', '0.4.4', {
-    #}),
+    ('flit_core', '3.7.1', {
+        'checksums': ['14955af340c43035dbfa96b5ee47407e377ee337f69e70f73064940d27d0a44f'],
+    }),
+    ('tomli', '2.0.1', {
+        'checksums': ['de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f'],
+    }),
+    ('tomli_w', '1.0.0', {
+        'checksums': ['f463434305e0336248cac9c2dc8076b707d8a12d019dd349f5c1e382dd1ae1b9'],
+    }),
+    ('setuptools_scm', '6.4.2', {
+        'checksums': ['6833ac65c6ed9711a4d5d2266f8024cfa07c533a0e55f4c12f6eff280a5a9e30'],
+    }),
+    ('flit_scm', '1.6.2', {
+        'checksums': ['6feb1334be1f31616ffb6d54485fdcd2d86796db304e126a137510139e90745c'],
+    }),
+    ('flit', '3.7.1', {
+        'checksums': ['3c9bd9c140515bfe62dd938c6610d10d6efb9e35cc647fc614fe5fb3a5036682'],
+    }),
     ('easydev', '0.12.0', {
+        'checksums': ['f4a340c5ffe193654c387d271bcd466d1fe56bf9850f2704122d3b52b1e6090d'],
     }),
     ('zope.interface', '5.4.0', {
+        'checksums': ['5dba5f530fec3f0988d83b78cc591b58c0b6eb8431a85edd1569a0539a8a5a0e'],
     }),
     ('zope.event', '4.5.0', {
+        'checksums': ['5e76517f5b9b119acf37ca8819781db6c16ea433f7e2062c4afc2b6fbedb1330'],
     }),
     ('greenlet', '1.1.2', {
+        'checksums': ['e30f5ea4ae2346e62cedde8794a56858a67b878dd79f7df76a0767e356b1744a'],
     }),
     ('gevent', '21.12.0', {
+        'checksums': ['f48b64578c367b91fa793bf8eaaaf4995cb93c8bc45860e473bf868070ad094e'],
     }),
     ('grequests', '0.6.0', {
+        'checksums': ['7dec890c6668e6755a1ea968565535867956639301268394d24df67b478df666'],
     }),
     ('exceptiongroup', '1.0.0rc8', {
+        'checksums': ['6990c24f06b8d33c8065cfe43e5e8a4bfa384e0358be036af9cc60b6321bd11a'],
     }),
     ('cattrs', '22.1.0', {
+        'checksums': ['94b67b64cf92c994f8784c40c082177dc916e0489a73a9a36b24eb18a9db40c6'],
     }),
     ('url-normalize', '1.4.3', {
+        'checksums': ['d23d3a070ac52a67b83a1c59a0e68f8608d1cd538783b401bc9de2c0fac999b2'],
     }),
     ('requests-cache', '0.9.5', {
+        'checksums': ['bd67575f541f9c10f44f8b49d8d449fb55db8af2e27d93c56349f227b78e4b70'],
     }),
     ('suds-community', '1.1.2', {
-    #    'modulename': 'suds',
+        'modulename': 'suds',
+        'checksums': ['883b4173ad23e7b20e9779ac7238b06140c50d7852afd5dc49dad1ea5f5a3d08'],
     }),
     ('xmltodict', '0.13.0', {
+        'checksums': ['341595a488e3e01a85a9d8911d8912fd922ede5fecc4dce437eb4b6c8d037e56'],
     }),
     ('wrapt', '1.14.1', {
+        'checksums': ['380a85cf89e0e69b7cfbe2ea9f765f004ff419f34194018a6827ac0e3edfed4d'],
     }),
     (name, version, {
         'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'checksums': ['3550b62b3c6f08e15711fcb17d0b555cb98a246c3dba36db97a759702afe7091'],
     }),
 ]
 
