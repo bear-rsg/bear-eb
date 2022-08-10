@@ -1,0 +1,32 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pyhpo'
+version = '3.1.2'
+
+homepage = "https://github.com/anergictcell/pyhpo"
+description = """A Python library to work with, analyze, filter and inspect the Human Phenotype Ontology"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('backports.cached-property', '1.0.1', {
+        'checksums': ['1a5ef1e750f8bc7d0204c807aae8e0f450c655be0cf4b30407a35fd4bb27186c'],
+    }),
+    ('pydantic', '1.9.1', {
+        'checksums': ['1ed987c3ff29fff7fd8c3ea3a3ea877ad310aae2ef9889a119e22d3f2db0691a'],
+    }),
+    (name, version, {
+        'checksums': ['f0322a343b90a96988bbde298b24e80684ad214b97c36656ed0c72ba64b861ef'],
+    }),
+]
+
+moduleclass = 'tools'

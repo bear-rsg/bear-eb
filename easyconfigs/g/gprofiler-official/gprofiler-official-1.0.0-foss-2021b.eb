@@ -1,0 +1,28 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'gprofiler-official'
+version = '1.0.0'
+
+homepage = "https://biit.cs.ut.ee/gprofiler/"
+description = """The official Python 3 interface to the g:Profiler toolkit for enrichment analysis of functional (GO
+ and other) terms, conversion between identifier namespaces and mapping orhologous genes in related organisms."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'modulename': 'gprofiler',
+        'checksums': ['5015b47f10fbdcb59c57e342e815c9c07afbe57cd3984154f75b845ddef2445d'],
+    }),
+]
+
+moduleclass = 'tools'
