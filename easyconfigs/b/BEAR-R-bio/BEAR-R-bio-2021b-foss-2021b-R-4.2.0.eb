@@ -14,6 +14,7 @@ dependencies = [
     ('R', '4.2.0'),
     ('R-bundle-Bioconductor', '3.15', versionsuffix),
     ('monocle', '2.24.1', versionsuffix),
+    ('SpaTalk', '1.0', versionsuffix),
 ]
 
 moduleclass = 'bio'
