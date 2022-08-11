@@ -1,0 +1,87 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'SpaTalk'
+version = '1.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://github.com/ZJUFanLab/SpaTalk"
+description = """A spatially resolved cell-cell communication inference method relying on
+ the graph network and knowledge graph to model ligand-receptor-target signaling
+ network between the spatially proximal cells, which were decomposed from the ST data 
+ through the non-negative linear model and spatial mapping between single-cell RNA-seq
+ and ST data. SpaTalk is a reliable method that can help scientists uncover the spatially
+ resolved cell-cell communications for either single-cell or spot-based ST data universally,
+ providing new insights into the understanding of spatial cellular dynamics in tissues. """
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+
+exts_list = [
+    ('doParallel', '1.0.17', {
+        'checksums': ['b96a25ad105a654d70c7b4ca27290dc9967bc47f4668b2763927a886b178abd7'],
+    }),
+    ('ggalluvial', '0.12.3', {
+        'checksums': ['032e5959be201df54b19ebe2bc2e3f900a48375cdd0b517594dd8fd75fb26a56'],
+    }),
+    ('RcppAnnoy', '0.0.19', {
+        'checksums': ['89b209900516f3096b53c90937081fb8965c605c867aa465f1b3b68092b7688a'],
+    }),
+    ('scattermore', '0.7', {
+        'checksums': ['f36280197b8476314d6ce81a51c4ae737180b180204043d2937bc25bf3a5dfa2'],
+    }),
+    ('SeuratObject', '4.1.0', {
+        'checksums': ['9ca406cb3bd95c588e1a81c5383e3173a446cc0667142b139ca32685b4b20a05'],
+    }),
+    ('sitmo', '2.0.2', {
+        'checksums': ['448ef8d56e36783354011845daf33f1efb83ea3b9685eea75eaf5134e24fa8c2'],
+    }),
+    ('dqrng', '0.3.0', {
+        'checksums': ['4beeabfe245ce7196b07369f2a7d277cb08869ad8b45a22c6354c4cc70a39abb'],
+    }),
+    ('uwot', '0.1.11', {
+        'checksums': ['4fcf90f1369a2a1f01db9e05a2365b155b2ada8e51e1f7f3ba5122d86affd41b'],
+    }),
+    ('Seurat', '4.1.1', {
+        'checksums': ['201aa96919b32378fc4cb67557188214c1242dcbae50cadd7d12c86666af8ace'],
+    }),
+    ('NNLM', '0.4.3', {
+        'checksums': ['7266717f45ecd9f6a9badfe50cbe801e1cd2dead37a158fe295270708011f75c'],
+    }),
+    ('ggfun', '0.0.6', {
+        'checksums': ['59989ed260fcc71cd95487cf3493113a2d8a47d273d9a2f3e5e842609620511b'],
+    }),
+    ('scatterpie', '0.1.7', {
+        'checksums': ['3f7807519cfe135066ca79c8d8a09b59da9aa6d8aaee5e9aff40cca3d0bebade'],
+    }),
+    (name, version, {
+        'source_tmpl': 'version%(version)s.tar.gz',
+        'source_urls': ['https://github.com/ZJUFanLab/SpaTalk/archive'],
+        'checksums': ['cf8a8d73a58cf67387cbfc336f0aae0097c05e1008966341ea54baf5059a4506'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['SpaTalk/R/SpaTalk'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
