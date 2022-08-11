@@ -18,6 +18,7 @@ toolchain = {'name': 'foss', 'version': '2021b'}
 
 dependencies = [
     ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.15', versionsuffix),
 ]
 
 exts_defaultclass = 'RPackage'
@@ -34,32 +35,8 @@ exts_default_options = {
 # Order is important!
 
 exts_list = [
-    ('doParallel', '1.0.17', {
-        'checksums': ['b96a25ad105a654d70c7b4ca27290dc9967bc47f4668b2763927a886b178abd7'],
-    }),
     ('ggalluvial', '0.12.3', {
         'checksums': ['032e5959be201df54b19ebe2bc2e3f900a48375cdd0b517594dd8fd75fb26a56'],
-    }),
-    ('RcppAnnoy', '0.0.19', {
-        'checksums': ['89b209900516f3096b53c90937081fb8965c605c867aa465f1b3b68092b7688a'],
-    }),
-    ('scattermore', '0.7', {
-        'checksums': ['f36280197b8476314d6ce81a51c4ae737180b180204043d2937bc25bf3a5dfa2'],
-    }),
-    ('SeuratObject', '4.1.0', {
-        'checksums': ['9ca406cb3bd95c588e1a81c5383e3173a446cc0667142b139ca32685b4b20a05'],
-    }),
-    ('sitmo', '2.0.2', {
-        'checksums': ['448ef8d56e36783354011845daf33f1efb83ea3b9685eea75eaf5134e24fa8c2'],
-    }),
-    ('dqrng', '0.3.0', {
-        'checksums': ['4beeabfe245ce7196b07369f2a7d277cb08869ad8b45a22c6354c4cc70a39abb'],
-    }),
-    ('uwot', '0.1.11', {
-        'checksums': ['4fcf90f1369a2a1f01db9e05a2365b155b2ada8e51e1f7f3ba5122d86affd41b'],
-    }),
-    ('Seurat', '4.1.1', {
-        'checksums': ['201aa96919b32378fc4cb67557188214c1242dcbae50cadd7d12c86666af8ace'],
     }),
     ('NNLM', '0.4.3', {
         'checksums': ['7266717f45ecd9f6a9badfe50cbe801e1cd2dead37a158fe295270708011f75c'],
