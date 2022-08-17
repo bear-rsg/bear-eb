@@ -12,7 +12,6 @@ sources = [SOURCELOWER_TAR_GZ]
 checksums = ['3582e8fc0e0b8bc8284fb5f09876a7243b1422819af2ba7861bf1cacc643d1bc']
 
 dependencies = [
-    ('Java', '11'),
     ('alsa-lib', '1.2.7.2'),  # libasound.so.2 is needed for simulink
 ]
 
