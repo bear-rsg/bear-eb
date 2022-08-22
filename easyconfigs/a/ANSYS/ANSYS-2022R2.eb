@@ -13,10 +13,8 @@ toolchain = {'name': 'system', 'version': 'system'}
 # Note that some of the content is duplicated across the ISOs but this can be overwritten
 # as required. N.B. ensure the copy operation also copies permissions.
 sources = [SOURCE_ZIP]
-patches = [('%(name)s-%(version)s_bear-el8.patch', 1)]
 checksums = [
     '0aacfa18188c3c0499b19949493f4985820ab1dc06fb6c06c69ddeb433f49a5c',  # ANSYS-2022R2.zip
-    'f47f9749b02e3041f3a4e578817ad1fe1c0acef717e3edf26c0569fc795102d7',  # ANSYS-2022R2_bear-el8.patch
 ]
 
 dependencies = [
@@ -26,17 +24,6 @@ dependencies = [
 # To run the workbench "runwb2" certain deps are required, otherwise you get an error saying:
 # "System.DllNotFoundException: Ans.QT.dll":
 osdependencies = ['libxslt']
-
-# We include a patch to make ANSYS work on EL8 (tested on EL8.3)
-# ansyscl loads libldap-2.4.so.2 - which brings in the krb5 libraries and libk5crypto.so.3 doesn't like the openssl
-# shipped with ANSYS. So, we'll symlink libz.so (random innoffensive library) to libldap-2.4.so.2 - thus hiding all
-# the ldap functionality and not including any of those other libraries...
-postinstallcmds = [
-    "cp -r %(builddir)s/bear/* %(installdir)s/v222/.",
-    "chmod a+x %(installdir)s/v222/Framework/bin/Linux64/ssh",
-    "chmod a+x %(installdir)s/v222/licensingclient/linx64/ansyscl.bear",
-    "cd %(installdir)s/v222/licensingclient/linx64 && ln -s %(installdir)s/v222/Framework/bin/Linux64/libz.so libldap-2.4.so.2 && mv ansyscl ansyscl.bin && ln -s ansyscl.bear ansyscl",
-]
 
 modextravars = {'KMP_AFFINITY': 'disabled'}
 
