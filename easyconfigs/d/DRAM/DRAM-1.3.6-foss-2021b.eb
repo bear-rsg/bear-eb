@@ -1,0 +1,76 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'DRAM'
+version = '1.3.6'
+
+homepage = "https://github.com/WrightonLabCSU/DRAM"
+description = """DRAM (Distilled and Refined Annotation of Metabolism) is a tool for annotating 
+ metagenomic assembled genomes and VirSorter identified viral contigs. DRAM annotates MAGs and 
+ viral contigs using KEGG (if provided by the user), UniRef90, PFAM, dbCAN, RefSeq viral, VOGDB
+ and the MEROPS peptidase database as well as custom user databases.
+"""
+citing = """Michael Shaffer, Mikayla A Borton, Bridget B McGivern, Ahmed A Zayed, Sabina Leanti La Rosa,
+ Lindsey M Solden, Pengfei Liu, Adrienne B Narrowe, Josué Rodríguez-Ramos, Benjamin Bolduc,
+ M Consuelo Gazitúa, Rebecca A Daly, Garrett J Smith, Dean R Vik, Phil B Pope, Matthew B Sullivan,
+ Simon Roux, Kelly C Wrighton, DRAM for distilling microbial metabolism to automate the curation of
+ microbiome function, Nucleic Acids Research, Volume 48, Issue 16, 18 September 2020, Pages 8883–8900,
+ https://doi.org/10.1093/nar/gkaa621
+"""
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('scikit-bio', '0.5.7'), # for scikit-learn, IPython, h5py, matplotlib
+    ('tRNAscan-SE', '2.0.9'),
+    ('prodigal', '2.6.3'),
+    ('MMseqs2', '13-45111'),
+    ('HMMER', '3.3.2'),
+    ('barrnap', '0.9'),
+    ('parallel', '20210722'),
+    ('Ruby', '3.0.1'), # listed in conda installation method
+    ('networkx', '2.6.3'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('et-xmlfile', '1.1.0', {
+        'sources': [{'download_filename': 'et_xmlfile-1.1.0.tar.gz', 'filename': 'et-xmlfile-1.1.0.tar.gz'}],
+        'checksums': ['8eb9e2bc2f8c97e37a2dc85a09ecdcdec9d8a396530a6d5a33b30b9a92da0c5c'],
+    }),
+    ('openpyxl', '3.0.9', {
+        'checksums': ['40f568b9829bf9e446acfffce30250ac1fa39035124d55fc024025c41481c90f'],
+    }),
+    ('greenlet', '1.1.2', {
+        'checksums': ['e30f5ea4ae2346e62cedde8794a56858a67b878dd79f7df76a0767e356b1744a'],
+    }),
+    ('SQLAlchemy', '1.4.40', {
+        'checksums': ['44a660506080cc975e1dfa5776fe5f6315ddc626a77b50bf0eee18b0389ea265'],
+    }),
+    ('toolz', '0.12.0', {
+        'checksums': ['88c570861c440ee3f2f6037c4654613228ff40c93a6c25e0eba70d17282c6194'],
+    }),
+    ('altair', '4.2.0', {
+        'checksums': ['d87d9372e63b48cd96b2a6415f0cf9457f50162ab79dc7a31cd7e024dd840026'],
+    }),
+    ('DRAM-bio', version, {
+        'modulename': 'mag_annotator',
+        'checksums': ['04cbac506279cd88beebbdb54404c89414728e2e2e6656204be559c65caf8cfb'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/DRAM.py', 'lib/python%(pyshortver)s/site-packages/mag_annotator/database_setup.py'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+sanity_check_commands = [
+    'DRAM-setup.py version',
+]
+moduleclass = 'bio'
