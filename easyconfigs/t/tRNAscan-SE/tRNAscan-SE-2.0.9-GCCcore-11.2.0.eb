@@ -1,0 +1,32 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+
+name = 'tRNAscan-SE'
+version = '2.0.9'
+
+homepage = "http://lowelab.ucsc.edu/tRNAscan-SE/"
+description = """Searching for tRNA Genes in Genomic Sequences."""
+
+toolchain = {'name': 'GCCcore', 'version': '11.2.0'}
+
+source_urls = ['http://trna.ucsc.edu/software/']
+sources = ['%(namelower)s-%(version)s.tar.gz']
+checksums = ['566b5c8221bf90c55eb3733e1dbe67ba6b722e70e8eae3065959c0633c02002a']
+
+builddependencies = [
+    ('binutils', '2.37'),
+    ('Autoconf', '2.71'),
+]
+
+dependencies = []
+
+parallel = 1
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['%(name)s --help']
+
+moduleclass = 'bio'
