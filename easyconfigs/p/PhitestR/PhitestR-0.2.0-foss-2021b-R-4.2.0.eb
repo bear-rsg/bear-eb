@@ -1,0 +1,46 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'PhitestR'
+version = '0.2.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=PhitestR"
+description = """A bioinformatics method developed for analyzing the heterogeneity
+of single-cell populations. Phitest provides an objective and automatic method
+to evaluate the performance of clustering and quality of cell clusters.
+"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),  # contains all imports & suggests: parallel,fitdistrplus/ knitr,rmarkdown
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'checksums': ['94c0c76005eb76b138446b79c8556da77ff60d4d8fe11d71854fcd84cd096e84'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['PhitestR/R/PhitestR'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
