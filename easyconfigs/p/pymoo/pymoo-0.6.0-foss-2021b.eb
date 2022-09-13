@@ -1,0 +1,50 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pymoo'
+version = '0.6.0'
+
+homepage = "https://pymoo.org"
+description = """Our open-source framework pymoo offers state of the art single- and multi-objective algorithms and
+ many more features related to multi-objective optimization such as visualization and decision making."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('cma', '3.2.2'),
+    ('matplotlib', '3.4.3'),
+    ('SciPy-bundle', '2021.10'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('about-time', '3.1.1', {
+        'checksums': ['586b329450c9387d1ae8c42d2db4f5b4c57a54508d0f1b7bb00322ffd5ce9f9b'],
+    }),
+    ('grapheme', version, {
+        'checksums': ['44c2b9f21bbe77cfb05835fec230bd435954275267fea1858013b102f8603cca'],
+    }),
+    ('wrapt', '1.14.1', {
+        'checksums': ['380a85cf89e0e69b7cfbe2ea9f765f004ff419f34194018a6827ac0e3edfed4d'],
+    }),
+    ('alive-progress', '2.4.1', {
+        'checksums': ['089757c8197f27ad972ba27e1060f6db92368d83c736884e159034fd74865323'],
+    }),
+    ('autograd', '1.4', {
+        'checksums': ['383de0f537ef2e38b85ff9692593b0cfae8958c9b3bd451b52c255fd9171ffce'],
+    }),
+    ('Deprecated', '1.2.13', {
+        'checksums': ['43ac5335da90c31c24ba028af536a91d41d53f9e6901ddb021bcc572ce44e38d'],
+    }),
+    ('dill', '0.3.5.1', {
+        'checksums': ['d75e41f3eff1eee599d738e76ba8f4ad98ea229db8b085318aa2b3333a208c86'],
+    }),
+    (name, version, {
+        'checksums': ['babca5478055871db1e800ed5f4830dbfdc3669d9d4d5ef2ba9334f082b6cf47'],
+    }),
+]
+
+moduleclass = 'tools'
