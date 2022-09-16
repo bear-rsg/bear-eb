@@ -1,0 +1,36 @@
+easyblock = 'Bundle'
+
+name = 'ottr'
+version = '1.2.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://cran.r-project.org/package=ottr'
+description = """An R autograding extension for Otter-Grader (<https://otter-grader.readthedocs.io>).
+ It supports grading R scripts, R Markdown documents, and R Jupyter Notebooks."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [('R', '4.2.0')]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/',
+        'https://cran.rstudio.com/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s/',
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+exts_list = [(name, version, {})]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['%(name)s'],
+}
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+moduleclass = 'lib'
