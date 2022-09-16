@@ -24,7 +24,11 @@ exts_default_options = {
     'source_tmpl': '%(name)s_%(version)s.tar.gz',
 }
 
-exts_list = [(name, version, {})]
+exts_list = [
+    (name, version, {
+        'checksums': ['90106e5b28000cb39ca4eefaa58fd0228a9c8ba73036f38fa63ed4edb18c0855'],
+    }),
+]
 
 sanity_check_paths = {
     'files': [],
