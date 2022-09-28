@@ -1,0 +1,51 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'flowVS'
+version = '1.28.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://bioconductor.org/packages/flowVS/'
+description = """Per-channel variance stabilization from a collection of flow cytometry samples by Bertlett test for
+ homogeneity of variances. The approach is applicable to microarrays data as well."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.15', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = (
+    "R -q --no-save",
+    'library(%(ext_name)s)',
+)
+
+exts_default_options = {
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+    'source_urls': [
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.15/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',
+        'https://cran.r-project.org/src/contrib/',
+        'https://cran.freestatistics.org/src/contrib'
+    ],
+}
+
+exts_list = [
+    (name, version, {
+        'checksums': ['4d4839d2055ad0bd1309837205d8aab25af01ffb2010fa874076447920af0eba'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+modextrapaths = {'R_LIBS': ''}
+
+moduleclass = 'bio'
