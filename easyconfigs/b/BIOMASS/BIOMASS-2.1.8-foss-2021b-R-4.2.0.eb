@@ -1,0 +1,50 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'BIOMASS'
+version = '2.1.8'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://cran.r-project.org/package=BIOMASS'
+description = """BIOMASS: Estimating Aboveground Biomass and Its Uncertainty in Tropical Forests. Contains functions
+ to estimate aboveground biomass/carbon and its uncertainty in tropical forests. These functions allow to (1) retrieve
+ and to correct taxonomy, (2) estimate wood density and its uncertainty, (3) construct height-diameter models, (4)
+ manage tree and plot coordinates, (5) estimate the aboveground biomass/carbon at the stand level with associated
+ uncertainty. To cite BIOMASS, please use citation("BIOMASS")."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('PROJ', '8.1.0'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = (
+    "R -q --no-save",
+    'library(%(ext_name)s)',
+)
+
+exts_default_options = {
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+    'source_urls': ['https://cran.r-project.org/src/contrib/Archive/%(name)s', 'https://cran.r-project.org/src/contrib/', 'https://cran.freestatistics.org/src/contrib'],
+}
+
+# Order is important!
+exts_list = [
+    ('proj4', '1.0-11', {
+        'checksums': ['c5f186530267005d53cc2e86849613b254ca4515a8b10310146f712d45a1d11d'],
+    }),
+    (name, version, {
+        'checksums': ['8364622588b1d320597800589f5afeb9aa5d9bd236168fb03f2a3157206ed7a3'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+modextrapaths = {'R_LIBS': ''}
+
+moduleclass = 'geo'
