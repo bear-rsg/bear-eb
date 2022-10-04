@@ -1,0 +1,71 @@
+easyblock = 'PythonBundle'
+
+name = 'MNE-Python'
+version = '1.1.1'
+
+homepage = 'https://mne.tools/stable/index.html'
+description = """
+MNE-Python software is an open-source Python package for exploring,
+visualizing, and analyzing human neurophysiological data such as MEG, EEG,
+sEEG, ECoG, and more. It includes modules for data input/output, preprocessing,
+visualization, source estimation, time-frequency analysis, connectivity
+analysis, machine learning, and statistics."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('libxml2', '2.9.10'),
+    ('libxslt', '1.1.34'),
+    ('matplotlib', '3.4.3'),
+    ('tqdm', '4.62.3'),
+    ('scikit-learn', '1.0.1'),
+    ('numba', '0.54.1'),
+    ('NiBabel', '3.2.2'),
+    ('h5py', '3.6.0'),
+    ('imageio', '2.13.5'),
+    ('VTK', '9.1.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('pooch', '1.6.0', {
+        'checksums': ['57d20ec4b10dd694d2b05bb64bc6b109c6e85a6c1405794ce87ed8b341ab3f44'],
+    }),
+    ('python-picard', '0.7', {
+        'modulename': 'picard',
+        'checksums': ['8061a1f0c4660c805b7617f2f0bd0284c6e6e84ac3ec782081c67b27cfd185a7'],
+    }),
+    ('dipy', '1.5.0', {
+        'checksums': ['a19cf40166be09c5b7c31ab00b12fed136ae9531483a9cd7019cc3f3b95f6271'],
+    }),
+    ('scooby', '0.6.0', {
+        'checksums': ['9c6536cd11b1832f22d7a0d5ed49b529b5d3c8783f9f2481b76be57e75b7781b'],
+    }),
+    ('pyvista', '0.36.1', {
+        'checksums': ['b84460a9a33967d2e9a03555907d7883ff7c21ee957e4b95c096d796f6841bf9'],
+    }),
+    ('wrapt', '1.14.1', {
+        'checksums': ['380a85cf89e0e69b7cfbe2ea9f765f004ff419f34194018a6827ac0e3edfed4d'],
+    }),
+    ('Deprecated', '1.2.13', {
+        'checksums': ['43ac5335da90c31c24ba028af536a91d41d53f9e6901ddb021bcc572ce44e38d'],
+    }),
+    ('mffpy', '0.7.4', {
+        'checksums': ['b08fc1aed6cfa35ca19f67f83eea4e32e54abf2f96967c20d6f3be8edbd5d4a1'],
+    }),
+    ('h5io', '0.1.7', {
+        'checksums': ['be2684e678a28a5d59140de838f0165f095af865e48b8e498a279a3c2b89303e'],
+    }),
+    ('lxml', '4.9.1', {
+        'checksums': ['fe749b052bb7233fe5d072fcb549221a8cb1a16725c47c37e42b0b9cb3ff2c3f'],
+    }),
+    ('mne', version, {
+        'checksums': ['339fbb902c50a30c7d6494b810af875a31aa7229baae6f8ff574458749cdfe3d'],
+    }),
+]
+
+moduleclass = 'math'
