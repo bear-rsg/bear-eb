@@ -1,0 +1,77 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'Bisbee'
+version = '20210108'
+_hash_ = 'd12ded4'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://github.com/tgen/bisbee"
+description = """alternative splicing analysis package."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('h5py', '3.6.0'),
+    ('Biopython', '1.79'),
+    ('PyEnsembl', '2.0.1'),
+    ('SplAdder', '3.0.3'),
+]
+
+github_account = 'tgen'
+source_urls = [GITHUB_SOURCE]
+checksums = ['1811834050d6298b8aeb5eef6035c13f24868b4b2955d9b462d47bd2782cde6b']
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+components = [
+    (name, version, {
+        'easyblock': 'Tarball',
+        'github_account': 'tgen',
+        'source_urls': [GITHUB_SOURCE],
+        'sources': ['d12ded4.tar.gz'],
+        'checksums': ['1811834050d6298b8aeb5eef6035c13f24868b4b2955d9b462d47bd2782cde6b'],
+    }),
+]
+
+
+# Order is important!
+exts_list = [
+    ('fitdistrplus', '1.1-8', {
+        'checksums': ['f3c72310f40773b3839a9506c3cb781d044e09b94f2f38d332bb24e5f9960f5a'],
+    }),
+    ('extraDistr', '1.9.1', {
+        'checksums': ['9990348c4dbc611684fcb58ab8db7e856dfde1c9c86ffb7705f4b3dff6b2d7bf'],
+    }),
+]
+
+modextrapaths = {
+    'R_LIBS_SITE': '',
+    'BISBEE': 'bisbee-d12ded4e4ee497e18a8b8e4929dac0e08de9f7f6',
+}
+
+
+sanity_check_paths = {
+    'files': ['bisbee-d12ded4e4ee497e18a8b8e4929dac0e08de9f7f6/utils/prep.py'],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+       ("python $BISBEE/prot/getUnique.py $BISBEE/prot WangKuster"),
+]
+
+modloadmsg = """Bisbbe runs programs from the Bisbee directory use $BISBEE to access Bisbee files and directories e.g. ls $BISBEE"""
+
+moduleclass = 'bio'
