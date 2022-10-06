@@ -9,11 +9,6 @@ description = """Python interface to access reference genome features
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 
-#github_account = 'ratschlab'
-#source_urls = [PYPI_SOURCE]
-#sources = [SOURCELOWER_TAR_GZ]
-#checksums = ['a12e8a2fcef03da982771c58ff38549cabe41c2c0a8635c76a3f4b67588109c8']
-
 dependencies = [
     ('Python', '3.9.6'),
     ('SciPy-bundle', '2021.10'),
