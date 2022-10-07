@@ -1,0 +1,11 @@
+--- /dev/shm/yearwoog/build-2021b-21b/PyEnsembl/2.0.1/foss-2021b/tinytimer/tinytimer-0.0.0/setup.py	2015-03-20 20:00:14.000000000 +0000
++++ setup.py	2022-09-23 16:21:44.882866000 +0100
+@@ -40,7 +40,7 @@
+ if __name__ == '__main__':
+     setup(
+         name='tinytimer',
+-        version="0.0.0",
++        version="0.0.1",
+         description="Tiny Python benchmarking library",
+         author="Alex Rubinsteyn",
+         author_email="alex {dot} rubinsteyn {at} gmail {dot} com",

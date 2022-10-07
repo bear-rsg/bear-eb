@@ -1,0 +1,63 @@
+easyblock = 'PythonBundle'
+
+name = 'PyEnsembl'
+version = '2.0.1'
+
+homepage = 'https://github.com/openvax/pyensembl'
+description = """Python interface to access reference genome features
+(such as genes, transcripts and exons) from Ensembl."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('progressbar33', '2.4', {
+        'modulename': 'progressbar',
+        'checksums': ['51fe0d9b3b4023db2f983eeccdfc8c9846b84db8443b9bee002c7f58f4376eff'],
+    }),
+    ('datacache', '1.1.5', {
+        'checksums': ['b2ca31b2b9d3803a49645ab4f5b30fdd0820e833a81a6952b4ec3a68c8ee24a7'],
+    }),
+    ('gtfparse', '1.2.1', {
+        'checksums': ['559d4d36b0bd5d4494f925cab3c00cd969783ebb6408fa025df92663965834b8'],
+    }),
+    ('memoized-property', '1.0.3', {
+        'checksums': ['4be4d0209944b9b9b678dae9d7e312249fe2e6fb8bdc9bdaa1da4de324f0fcf5'],
+    }),
+    ('serializable', '0.2.1', {
+        'checksums': ['ec604e5df0c1236c06d190043a407495c4412dd6b6fd3b45a8514518173ed961'],
+    }),
+    ('tinytimer', '20150320', {
+        'patches': ['tinytimer_version.patch'],
+        'sources': ['%(name)s-0.0.0.tar.gz'],
+        'checksums': [
+            '6ad13c8f01ab6094e58081a5367ffc4c5831f2d6b29034d2434d8ae106308fa5',  # tinytimer-0.0.0.tar.gz
+            '176b2f795600e1d2129099e764863c5cfdde9750eeb2a97413d794208c09532d',  # tinytimer_version.patch
+        ],
+    }),
+    ('typechecks', '0.1.0', {
+        'checksums': ['7d801a6018f60d2a10aa3debc3af65f590c96c455de67159f39b9b183107c83b'],
+    }),
+    (name, version, {
+        'sources': ['%(namelower)s-%(version)s.tar.gz'],
+        'checksums': ['a12e8a2fcef03da982771c58ff38549cabe41c2c0a8635c76a3f4b67588109c8'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/pyensembl'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/%(namelower)s']
+}
+
+moduleclass = 'bio'

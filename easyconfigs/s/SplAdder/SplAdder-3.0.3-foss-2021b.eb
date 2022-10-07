@@ -1,0 +1,41 @@
+easyblock = 'PythonPackage'
+
+name = 'SplAdder'
+version = '3.0.3'
+
+homepage = 'https://github.com/ratschlab/spladder'
+description = """
+Splicing Adder is a toolbox for alternative splicing analysis based on RNA-Seq
+alignment data. Briefly, the software takes a given annotation and RNA-Seq read
+alignments in standardized formats, transforms the annotation into a splicing
+graph representation, augments the splicing graph with additional information
+extracted from the read data, extracts alternative splicing events from the
+graph and quantifies the events based on the alignment data."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+github_account = 'ratschlab'
+source_urls = [PYPI_SOURCE]
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['e49ce660ccd133fba570f5b2241b0c8eff14621f38662e8dd286a6e9a064808b']
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('matplotlib', '3.4.3'),
+    ('h5py', '3.6.0'),
+    ('statsmodels', '0.13.1'),
+    ('Pysam', '0.18.0'),
+    ('numba', '0.54.1'),
+]
+
+use_pip = True
+download_dep_fail = True
+sanity_pip_check = True
+
+sanity_check_paths = {
+    'files': ['bin/spladder'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/%(namelower)s']
+}
+
+moduleclass = 'bio'
