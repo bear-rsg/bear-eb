@@ -1,0 +1,54 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'canopus_treemap'
+version = '0.0.1'
+_hash = '5f22db0'
+github_account =  'kaibioinfo'
+
+homepage = "https://github.com/kaibioinfo/canopus_treemap"
+description = """CANOPUS visualization for Jupyter notebook """
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('IPython', '7.26.0'),
+    ('matplotlib', '3.4.3'),
+    ('scikit-learn', '1.0.1'),
+    ('Seaborn', '0.11.2'),
+    ('JupyterLab', '3.1.6'),
+    ('PyQt5', '5.15.4'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('QtPy', '2.2.1', {
+        'checksums': ['7d5231133b772e40b4ee514b6673aca558331e4b88ca038b26c9e16c5c95524f'],
+    }),
+    ('qtconsole', '5.3.2', {
+        'checksums': ['8eadf012e83ab018295803c247c6ab7eacd3d5ab1e1d88a0f37fdcfdab9295a3'],
+    }),
+    ('jupyter', '1.0.0', {
+        'checksums': ['d9dc4b3318f310e34c82951ea5d6683f67bed7def4b259fafbfe4f1beb1d8e5f'],
+    }),
+    ('jupyter_console', '6.3.0', {
+        'checksums': ['947f66bbdeee2221b4fb3a6b78225d337b8f10832f14cecf7932183635abe1d9'],
+    }),
+    (name, version, {
+        'github_account': 'kaibioinfo',
+        'modulename': 'canopus',
+        'source_urls': ['https://github.com/%(github_account)s/%(name)s/archive'],
+        'sources': [{'download_filename': '5f22db0.tar.gz', 'filename': '%(namelower)s-%(version)s.tar.gz'}],
+        'checksums': ['e8b332a1803b51d684e12bc61212f71357c87d5d2c4f89a7709a48026d4fc258'],
+    }),
+]
+
+moduleclass = 'vis'
