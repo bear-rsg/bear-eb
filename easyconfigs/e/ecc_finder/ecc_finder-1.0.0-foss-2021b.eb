@@ -1,0 +1,41 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+# we use the source from the git master as it was more stable than the older v1.0.0 release
+name = 'ecc_finder'
+local_version = '1.0.0'
+local_commit = '67d06f336d93eef56f2126448a4f8812259bd1cc'
+local_commit_date = '20221007'
+version = '%s_%s_%s' % (local_version, local_commit_date, local_commit[:7])
+
+homepage = "https://github.com/njaupan/ecc_finder"
+description = """A robust and accurate detection tool to detect eccDNA using Illumina and ONT sequencing"""
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+source_urls = ['https://github.com/njaupan/%(namelower)s/archive/']
+sources = [{'download_filename': '%s.zip' % local_commit, 'filename': 'ecc_finder-%(version)s.zip'}]
+checksums = ['75d72f2261e4e67a99a74ad4651400db6e358b2b96ddb0ebdab15d2bb21ef2c8']
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('matplotlib', '3.4.3'),
+    ('Pysam', '0.17.0'),
+    ('pybedtools', '0.8.2'),
+    ('Biopython', '1.79'),
+]
+
+# setup.py is missing closing parenthesis
+preinstallopts = "sed -i '$a )' setup.py && "
+
+download_dep_fail = True
+use_pip = True
+
+sanity_check_paths = {
+    'files': ['bin/ecc_finder.py'],
+    'dirs': ['bin/'],
+}
+options = {'modulename': 'eccFinder_lib'}
+sanity_check_commands = ["%s -h" % x for x in ['asm-ont.py', 'asm-sr.py', 'ecc_finder.py', 'map-ont.py', 'map-sr.py',
+                                               'setup.py', 'split_fasta_byID.py']]
+moduleclass = 'bio'
