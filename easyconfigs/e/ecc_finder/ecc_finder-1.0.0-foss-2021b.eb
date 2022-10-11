@@ -22,6 +22,7 @@ dependencies = [
     ('matplotlib', '3.4.3'),
     ('Pysam', '0.17.0'),
     ('pybedtools', '0.8.2'),
+    ('Biopython', '1.79'),
 ]
 
 # setup.py is missing closing parenthesis
@@ -34,5 +35,7 @@ sanity_check_paths = {
     'files': ['bin/ecc_finder.py'],
     'dirs': ['bin/'],
 }
-options = {'modulename': False}
+options = {'modulename': 'eccFinder_lib'}
+sanity_check_commands = ["%s -h" % x for x in ['asm-ont.py', 'asm-sr.py', 'ecc_finder.py', 'map-ont.py', 'map-sr.py',
+                                               'setup.py', 'split_fasta_byID.py']]
 moduleclass = 'bio'
