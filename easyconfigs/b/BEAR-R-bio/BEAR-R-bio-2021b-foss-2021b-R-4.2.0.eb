@@ -16,6 +16,9 @@ dependencies = [
     ('monocle', '2.24.1', versionsuffix),
     ('ottr', '1.2.0', versionsuffix),
     ('SpaTalk', '1.0', versionsuffix),
+    ('celldex', '1.6.0', versionsuffix),
+    ('clusterProfiler', '4.4.4', versionsuffix),
+    ('ggfortify', '0.4.14', versionsuffix),
 ]
 
 moduleclass = 'bio'
