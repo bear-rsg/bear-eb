@@ -1,0 +1,45 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'ggfortify'
+version = '0.4.14'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=ggfortify"
+description = """Unified plotting tools for statistics commonly used, such as GLM, time series, PCA families,
+ clustering and survival analysis. The package offers a single plotting interface for these analysis results
+ and plots in a unified style using 'ggplot2'."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'checksums': ['5c5ad3d94ee43c39635419d1ae622a7906ba3a37d187ae924183f8fb1539150d'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['ggfortify/R/ggfortify'],
+    'dirs': [],
+}
+
+moduleclass = 'tools'
