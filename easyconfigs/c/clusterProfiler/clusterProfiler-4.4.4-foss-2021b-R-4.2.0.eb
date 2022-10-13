@@ -1,0 +1,95 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'clusterProfiler'
+version = '4.4.4'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html"
+description = """This package supports functional characteristics of both coding and non-coding genomics data for
+ thousands of species with up-to-date gene annotation. It provides a univeral interface for gene functional
+ annotation from a variety of sources and thus can be applied in diverse scenarios. It provides a tidy interface
+ to access, manipulate, and visualize enrichment results to help users achieve efficient data interpretation.
+ Datasets obtained from multiple treatments and time points can be analyzed and compared in a single run, easily
+ revealing functional consensus and differences among distinct conditions."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.15', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.15/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('GOSemSim', '2.22.0', {
+        'checksums': ['6d93c0bd9075bb3fb3b65d08906a657ddb8ee5d3ced337914b0f54d0fe2de1c2'],
+    }),
+    ('DO.db', '2.9', {
+        'checksums': ['762bcb9b5188274fd81d82f785cf2846a5acc61fad55e2ff8ec1502282c27881'],
+    }),
+    ('DOSE', '3.22.1', {
+        'checksums': ['b19853ee01ef6016ec37b4efca6cce17b6bd8ef756eb45e2fb10e6d6a61190d5'],
+    }),
+    ('ggfun', '0.0.7', {
+        'checksums': ['a83b5fb95f61e366f96d6d8e6b04dafff8e885e7c80c913614876b50ebb8e174'],
+    }),
+    ('yulab.utils', '0.0.5', {
+        'checksums': ['6ecd4dc5dae40e86b7a462fdac3ab8c0b276dcae5a284eb43390a05b01e3056b'],
+    }),
+    ('gridGraphics', '0.5-1', {
+        'checksums': ['29086e94e63891884c933b186b35511aac2a2f9c56967a72e4050e2980e7da8b'],
+    }),
+    ('ggplotify', '0.1.0', {
+        'checksums': ['178f73d6d3dc391c3efb1a62c95fe38587044f9e3288dffb915d3687941bb38a'],
+    }),
+    ('aplot', '0.1.8', {
+        'checksums': ['d931d7769dc7ce4bc938e8c068973721e89da0aa5f40a04f8a9119621b33459c'],
+    }),
+    ('scatterpie', '0.1.8', {
+        'checksums': ['a6ccc63a8be63fa113704cf5d4893c1ec1b75d3081ab971bd70e650e708872a0'],
+    }),
+    ('shadowtext', '0.1.2', {
+        'checksums': ['253c4e737dbb302aa0729e5074e84cbfde2a73bfd7a0fd2c74b557cb728bae7d'],
+    }),
+    ('tidytree', '0.4.1', {
+        'checksums': ['fbc4364d17e1b1c26ed06af0cdf36c88a5bc562fdbd4731ab179e30bba4009eb'],
+    }),
+    ('treeio', '1.20.2', {
+        'checksums': ['a103a6953abf2014bd1bb8b2da4f2d7375bab338724d0bf864085981a85fd5cb'],
+    }),
+    ('ggtree', '3.4.4', {
+        'checksums': ['c59f4879b4e4ee1a24d61bbec9bfddced3a7a6a747c9bc537bf2c84c2ca43840'],
+    }),
+    ('enrichplot', '1.16.2', {
+        'checksums': ['5a5b5ad4dcf2ed5dc9f597bcde3f90a63229cc6af9c742a813ded83c225b0762'],
+    }),
+    (name, version, {
+        'checksums': ['e5e23a5a1b9580f3801291affb2e547e2fd228e1190e9bce398a1b097c86b24c'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['clusterProfiler/R/clusterProfiler'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
