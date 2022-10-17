@@ -1,0 +1,61 @@
+--- ecc_finder.py.orig	2022-10-17 12:07:58.741953000 +0100
++++ ecc_finder.py	2022-10-17 12:13:11.707640000 +0100
+@@ -22,6 +22,7 @@
+ #--------------------------------------------------------------------------+
+ """
+ 
++import os
+ import sys
+ import subprocess
+ from eccFinder_lib.utilities import get_eccFinder_version
+@@ -56,6 +57,7 @@
+ 
+     if arg_len > 1:
+         cmd = sys.argv[1]
++        dir_path = os.path.dirname(os.path.realpath(__file__))
+ 
+         if cmd == "-h" or cmd == "--help":
+             print(description)
+@@ -65,34 +67,34 @@
+ 
+         elif cmd == "map-sr":
+             if sys.argv[2:] ==[] or sys.argv[2:] ==['-h'] or sys.argv[2:] ==['-help']:
+-                subcmd = "python map-sr.py"
++                subcmd = "python %s" % os.path.join(dir_path, "map-sr.py")
+                 subprocess.call(subcmd, shell=True) 
+             else:
+-                subcmd = ["python", "map-sr.py"] + sys.argv[2:] 
++                subcmd = ["python", os.path.join(dir_path, "map-sr.py")] + sys.argv[2:] 
+                 subcmd_out = subprocess.run(subcmd, stdout=subprocess.PIPE).stdout.decode()
+ 
+         elif cmd == "map-ont":
+             if sys.argv[2:] ==[] or sys.argv[2:] ==['-h'] or sys.argv[2:] ==['-help']:
+-                subcmd = "python map-ont.py"
++                subcmd = "python %s" % os.path.join(dir_path, "map-ont.py")
+                 subprocess.call(subcmd, shell=True) 
+             else:
+-                subcmd = ["python", "map-ont.py"] + sys.argv[2:] 
++                subcmd = ["python", os.path.join(dir_path, "map-ont.py")] + sys.argv[2:] 
+                 subcmd_out = subprocess.run(subcmd, stdout=subprocess.PIPE).stdout.decode()
+ 
+         elif cmd == "asm-sr":
+             if sys.argv[2:] ==[] or sys.argv[2:] ==['-h'] or sys.argv[2:] ==['-help']:
+-                subcmd = "python asm-sr.py"
++                subcmd = "python %s" % os.path.join(dir_path, "asm-sr.py")
+                 subprocess.call(subcmd, shell=True) 
+             else:
+-                subcmd = ["python", "asm-sr.py"] + sys.argv[2:] 
++                subcmd = ["python", os.path.join(dir_path, "asm-sr.py")] + sys.argv[2:] 
+                 subcmd_out = subprocess.run(subcmd, stdout=subprocess.PIPE).stdout.decode()
+ 
+         elif cmd == "asm-ont":
+             if sys.argv[2:] ==[] or sys.argv[2:] ==['-h'] or sys.argv[2:] ==['-help']:
+-                subcmd = "python " +"asm-ont.py"
++                subcmd = "python %s" % os.path.join(dir_path, "asm-ont.py")
+                 subprocess.call(subcmd, shell=True) 
+             else:
+-                subcmd = ["python", "asm-ont.py"] + sys.argv[2:] 
++                subcmd = ["python", os.path.join(dir_path, "asm-ont.py")] + sys.argv[2:] 
+                 subcmd_out = subprocess.run(subcmd, stdout=subprocess.PIPE).stdout.decode()
+ 
+         else:

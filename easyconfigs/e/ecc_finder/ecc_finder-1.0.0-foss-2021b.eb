@@ -14,7 +14,11 @@ toolchain = {'name': 'foss', 'version': '2021b'}
 
 source_urls = ['https://github.com/njaupan/%(namelower)s/archive/']
 sources = [{'download_filename': '%s.zip' % local_commit, 'filename': 'ecc_finder-%(version)s.zip'}]
-checksums = ['75d72f2261e4e67a99a74ad4651400db6e358b2b96ddb0ebdab15d2bb21ef2c8']
+patches = ['ecc_finder-1.0.0_fix-paths.patch']
+checksums = [
+    '75d72f2261e4e67a99a74ad4651400db6e358b2b96ddb0ebdab15d2bb21ef2c8',  # ecc_finder-1.0.0_20221007_67d06f3.zip
+    '8b56ccec6bd86821f1ada3d97861b91201ea38b344ea261bcf2d6cacd5afb02b',  # ecc_finder-1.0.0_fix-paths.patch
+]
 
 dependencies = [
     ('Python', '3.9.6'),
@@ -23,19 +27,34 @@ dependencies = [
     ('Pysam', '0.17.0'),
     ('pybedtools', '0.8.2'),
     ('Biopython', '1.79'),
+    ('CD-HIT', '4.8.1'),
+    ('fastp', '0.23.2'),
+    ('Unicycler', '0.5.0'),
+    ('TideHunter', '1.5.4'),
+    ('Genrich', '0.6.1'),
+    ('seqtk', '1.3'),
+    ('BWA', '0.7.17'),
+    ('minimap2', '2.24'),
 ]
 
 # setup.py is missing closing parenthesis
 preinstallopts = "sed -i '$a )' setup.py && "
+# consistent message in usage instructions
+preinstallopts += """sed -i 's/usage="python/usage="/' *.py && """
 
 download_dep_fail = True
 use_pip = True
 
+options = {'modulename': 'eccFinder_lib'}
+
 sanity_check_paths = {
     'files': ['bin/ecc_finder.py'],
-    'dirs': ['bin/'],
+    'dirs': [],
 }
-options = {'modulename': 'eccFinder_lib'}
-sanity_check_commands = ["%s -h" % x for x in ['asm-ont.py', 'asm-sr.py', 'ecc_finder.py', 'map-ont.py', 'map-sr.py',
-                                               'setup.py', 'split_fasta_byID.py']]
+sanity_check_commands = [
+    "%s -h" % x for x in ['asm-ont.py', 'asm-sr.py', 'ecc_finder.py', 'map-ont.py', 'map-sr.py', 'split_fasta_byID.py']
+] + [
+    "ecc_finder.py %s" % x for x in ['map-sr', 'map-ont', 'asm-sr', 'asm-ont']
+]
+
 moduleclass = 'bio'
