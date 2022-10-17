@@ -1,0 +1,30 @@
+easyblock = 'MakeCp'
+
+name = 'Genrich'
+version = '0.6.1'
+
+homepage = "https://github.com/jsh58/Genrich"
+description = """Genrich is a peak-caller for genomic enrichment assays (e.g. ChIP-seq, ATAC-seq).
+ It analyzes alignment files generated following the assay and produces a file detailing peaks of
+ significant enrichment."""
+
+toolchain = {'name': 'GCC', 'version': '11.2.0'}
+
+source_urls = ['https://github.com/jsh58/Genrich/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['2c70239e1caf33519b9e99142470bb4dd2f4c69e71f68cee33d6d6a1032d0e33']
+
+dependencies = [
+    ('zlib', '1.2.11'),
+]
+
+files_to_copy = [(['%(name)s'], 'bin'), 'LICENSE', 'findNs.py']
+
+fix_python_shebang_for = ['findNs.py']
+
+sanity_check_paths = {
+    'files': ['bin/Genrich'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

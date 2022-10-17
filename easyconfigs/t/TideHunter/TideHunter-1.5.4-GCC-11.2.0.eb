@@ -1,0 +1,32 @@
+easyblock = 'MakeCp'
+
+name = 'TideHunter'
+version = '1.5.4'
+
+homepage = "https://github.com/yangao07/TideHunter"
+description = """TideHunter: efficient and sensitive tandem repeat detection from
+ noisy long reads using seed-and-chain."""
+
+toolchain = {'name': 'GCC', 'version': '11.2.0'}
+
+source_urls = ['https://github.com/yangao07/TideHunter/releases/download/v%(version)s/']
+sources = ['%(name)s-v%(version)s.tar.gz']
+checksums = ['052b3ebd92b9c794bfe93d0e406686ae3d77b01d537e7fa797be91438a50c567']
+
+dependencies = [
+    ('zlib', '1.2.11'),
+]
+
+files_to_copy = ['bin', 'lib', 'LICENSE']
+
+sanity_check_paths = {
+    'files': ['bin/TideHunter'],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    "%(name)s %(builddir)s/%(name)s-v%(version)s/test_data/test_50x4.fa",
+    "%(name)s %(builddir)s/%(name)s-v%(version)s/test_data/test_1000x10.fa",
+]
+
+moduleclass = 'bio'
