@@ -19,6 +19,7 @@ dependencies = [
     ('celldex', '1.6.0', versionsuffix),
     ('clusterProfiler', '4.4.4', versionsuffix),
     ('ggfortify', '0.4.14', versionsuffix),
+    ('maftools', '2.12.0', versionsuffix),
 ]
 
 moduleclass = 'bio'
