@@ -1,0 +1,37 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham. 
+easyblock = 'ConfigureMake'
+
+name = 'tree'
+version = '2.0.4'
+
+homepage = 'https://linux.die.net/man/1/tree'
+description = """Tree is a recursive directory listing program that produces a depth indented listing of files."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://mama.indstate.edu/users/ice/tree/src/']
+sources = ['%(name)s-%(version)s.tgz']
+patches = ['tree_makefile.patch']
+checksums = [
+    'b0ea92197849579a3f09a50dbefc3d4708caf555d304a830e16e20b73b4ffa74',  # tree-2.0.4.tgz
+    '34fc368cd7c7bfa5eae8b9f819d242966a0713fd1ff2fe83135ec69cd9519c72',  # tree_makefile.patch
+]
+
+buildininstalldir = True
+
+skipsteps = ['configure', 'install']
+
+postinstallcmds = [
+    "mkdir -p %(installdir)s/bin",
+    "cp tree ../bin"
+]
+modextrapaths = {'PATH': 'bin/'}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ["."]
+}
+
+sanity_check_commands = ['tree -DU']
+
+moduleclass = 'base'
