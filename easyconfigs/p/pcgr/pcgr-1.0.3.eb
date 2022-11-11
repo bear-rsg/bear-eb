@@ -30,6 +30,8 @@ sanity_check_paths = {
     'dirs': [],
 }
 
+postinstallcmds = ["cd %(installdir)s/../ && ln -s 1.0.3/pcgr . && ln -s $EBROOTPCGRR/pcgrr ."]
+
 sanity_check_commands = ['pcgr --version']
 
 moduleclass = 'bio'
