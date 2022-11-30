@@ -1,0 +1,42 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'Gdspy'
+version = '1.6.12'
+
+homepage = "https://github.com/heitzmann/gdspy"
+description = """Gdspy is a Python module for creation and manipulation of GDSII stream files."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),  # for numpy
+    ('Tkinter', '3.9.6'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'source_tmpl': '%(namelower)s-%(version)s.zip',
+        'source_urls': [PYPI_SOURCE],
+        'checksums': ['a062930a7f0f222d59275c2900f187d2b059b4fe95909d29bde4241dc0a6388f'],
+    }),
+]
+
+local_files = ['curve.py', 'gdsiiformat.py', 'hobby.py', 'label.py', 'library.py', 'operation.py',
+               'path.py', 'polygon.py', 'viewer.py']
+
+sanity_check_paths = {
+    'files': ['lib/python%%(pyshortver)s/site-packages/%%(namelower)s/%s' % x for x in local_files],
+    'dirs': [
+        'lib/python%(pyshortver)s/site-packages/%(namelower)s',
+        'lib/python%(pyshortver)s/site-packages/%(namelower)s/data'
+    ],
+}
+
+sanity_check_commands = [('python', "-c 'import gdspy'")]
+
+moduleclass = 'phys'
