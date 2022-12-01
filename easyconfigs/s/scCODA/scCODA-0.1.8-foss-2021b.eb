@@ -1,0 +1,42 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'scCODA'
+version = '0.1.8'
+
+homepage = "https://github.com/theislab/scCODA"
+description = """scCODA allows for identification of compositional changes in high-throughput sequencing count data,
+ especially cell compositions from scRNA-seq. It also provides a framework for integration of cell-type annotated
+ data directly from scanpy and other sources. Aside from the scCODA model (Büttner, Ostner et al (2021)), the package
+ also allows the easy application of other differential testing methods."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('ArviZ', '0.11.4'),
+    ('matplotlib', '3.4.3'),
+    ('rpy2', '3.4.5'),
+    ('scanpy', '1.8.2'),
+    ('scikit-bio', '0.5.7'),
+    ('scikit-learn', '1.0.1'),
+    ('Seaborn', '0.11.2'),
+    ('statsmodels', '0.13.1'),
+    ('TensorFlow', '2.8.4'),
+    ('tensorflow-probability', '0.16.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    (name, version, {
+        'checksums': ['77fed7b07310855af6e6f664cceacd9fbdb6c57c14e36274b7b7e68f6db5ee0a'],
+    }),
+]
+
+moduleclass = 'bio'
