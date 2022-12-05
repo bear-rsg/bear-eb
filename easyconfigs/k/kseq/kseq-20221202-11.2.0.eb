@@ -1,4 +1,4 @@
-easyblock = 'MakeCp'
+easyblock = 'CmdCp'
 
 name = 'kseq'
 version = '20221202'
@@ -6,7 +6,7 @@ local_commit = 'bbc9eec9265c'
 
 homepage = "https://bitbucket.org/qzhudfci/cutruntools"
 description = """This tool further trims the reads by 6 nt to get rid of the problem of
- possible adapter run-through"""
+ possible adapter run-through. It is a single component from the CutRunTools suite."""
 
 toolchain = SYSTEM
 
@@ -14,7 +14,10 @@ source_urls = ['https://bitbucket.org/qzhudfci/cutruntools/get/']
 sources = [{'download_filename': '%s.zip' % local_commit, 'filename': '%(namelower)s-%(version)s.zip'}]
 checksums = ['794e4b48d0172439e4b98f5473e776ef731f2d5197165bb4f890505ae87fea35']
 
-build_cmd = "sh make_kseq_test.sh"
+dependencies = [('zlib', '1.2.11')]
+
+# from make_kseq_test.sh
+cmds_map = [('.*', "gcc -O2 kseq_test.c -lz -o kseq_test")]
 
 files_to_copy = [(['kseq_test'], 'bin'), 'LICENSE.md', 'README.md', ]
 
