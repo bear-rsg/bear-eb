@@ -1,0 +1,26 @@
+easyblock = 'MakeCp'
+
+name = 'kseq'
+version = '20221202'
+local_commit = 'bbc9eec9265c'
+
+homepage = "https://bitbucket.org/qzhudfci/cutruntools"
+description = """This tool further trims the reads by 6 nt to get rid of the problem of
+ possible adapter run-through"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://bitbucket.org/qzhudfci/cutruntools/get/']
+sources = [{'download_filename': '%s.zip' % local_commit, 'filename': '%(namelower)s-%(version)s.zip'}]
+checksums = ['794e4b48d0172439e4b98f5473e776ef731f2d5197165bb4f890505ae87fea35']
+
+build_cmd = "sh make_kseq_test.sh"
+
+files_to_copy = [(['kseq_test'], 'bin'), 'LICENSE.md', 'README.md', ]
+
+sanity_check_paths = {
+    'files': ['bin/kseq_test'],
+    'dirs': []
+}
+
+moduleclass = 'bio'
