@@ -1,0 +1,68 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'awscli'
+version = '2.9.4'
+
+homepage = "https://github.com/aws/aws-cli"
+description = """This package provides a unified command line interface to Amazon Web Services."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+builddependencies = [
+    ('binutils', '2.37'),
+    ('CMake', '3.22.1'),
+]
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('PyYAML', '5.4.1'),
+    ('XZ', '5.2.5'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+# remove the strict requirements; important for exts in our python toolchain & for awscrt <v0.16
+local_preinstallopts = "sed -i '/^dep/,/^]/d' pyproject.toml && "
+
+exts_list = [
+    ('ruamel.yaml.clib', '0.2.7', {
+        'checksums': ['1f08fd5a2bea9c4180db71678e850b995d2a5f4537be0e94557668cf0f5f9497'],
+        'modulename': False,
+    }),
+    ('prompt_toolkit', '3.0.28', {
+        'checksums': ['9f1cd16b1e86c2968f2519d7fb31dd9d669916f515612c269d14e9ed52b51650'],
+    }),
+    ('ruamel.yaml', '0.17.21', {
+        'checksums': ['8b7ce697a2f212752a35c1ac414471dc16c424c9573be4926b56ff3f5d23b7af'],
+    }),
+    ('awscrt', '0.16.0', {
+        'checksums': ['159ee94e96113116691a5fbbc1544643323a4e4ac8bad6fc328ea342438dd262'],
+    }),
+    ('jmespath', '1.0.1', {
+        'checksums': ['90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe'],
+    }),
+    ('distro', '1.5.0', {
+        'checksums': ['0e58756ae38fbd8fc3020d54badb8eae17c5b9dcbed388b17bb55b8a5928df92'],
+    }),
+    (name, version, {
+        'preinstallopts': local_preinstallopts,
+        'source_tmpl': '%(version)s.tar.gz',
+        'source_urls': ['https://github.com/aws/aws-cli/archive/'],
+        'checksums': ['304e9f5c84291cbfa027fe8fdb72cdb00180f7d8323f26bcfad1668163d2a5b0'],
+    }),
+]
+
+sanity_check_commands = ["aws help"]
+sanity_check_paths = {
+    'files': ['bin/aws'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/'],
+}
+
+moduleclass = 'tools'
