@@ -39,3 +39,6 @@ sanity_check_paths = {
 }
 
 moduleclass = 'phys'
+
+# Need to ensure that only members of the p-castep group can access the module
+local_bham_group = "p-castep"
