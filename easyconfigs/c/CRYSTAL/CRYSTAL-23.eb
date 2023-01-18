@@ -1,0 +1,25 @@
+easyblock = 'Tarball'
+
+name = 'CRYSTAL'
+version = '23'
+
+homepage = 'https://www.crystal.unito.it/index.php '
+description = """CRYSTAL is a general-purpose program for the study of crystalline solids."""
+
+toolchain = {'name': 'iomkl', 'version': '2021b'}
+
+# Request the tar.gz from the licence holder
+sources = ["crystal%(version)s_v1_0_1_Linux-ifort21.4_openmpi4.1.1_omp_exe.tar.gz"]
+checksums = ['4e64acfbbb203435fbf028828a58f0268f190a7b4c49c419b47cb172e2feb24f']
+
+postinstallcmds = [
+    "mkdir %(installdir)s/bin",
+    "cp -a %(builddir)s/crystal%(version)s_v1_0_1_Linux-ifort21.4_openmpi4.1.1_omp_exe/v1.0.1/* %(installdir)s/bin"
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['crystalOMP', 'PcrystalOMP', 'Pproperties', 'properties']],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
