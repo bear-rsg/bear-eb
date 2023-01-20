@@ -1,0 +1,68 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'nichenetr'
+version = '20220911'
+_hash = '7ca211e'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://github.com/saeyslab/nichenetr"
+description = """NicheNet: predict active ligand-target links between interacting cells"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.15', '-R-%(rver)s'),
+]
+
+github_account = 'saeyslab'
+source_urls = [GITHUB_SOURCE]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.15/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('limma', '3.52.4', {
+        'checksums': ['b09ccf301dc4c4a83b712f3207dd651b420b2b32e7bfaec3f89909953d1ebe93'],
+    }),
+    ('mco', '1.15.6', {
+        'checksums': ['17ebe279cb9c89b7cd8054ac50d3b657d2b10dadbc584b88da7e79c3a9680582'],
+    }),
+    ('smoof', '1.6.0.2', {
+        'checksums': ['d82dba9702eade00afb84c2c12167de6cec790be7d23ac227f8fe705bdcefc93'],
+    }),
+    ('mlrMBO', '1.1.5.1', {
+        'checksums': ['0cf26e5e9b180d15b932541cf081a552703a60edf762aafca9933c24ea91dc99'],
+    }),
+    ('emoa', '0.5-0.1', {
+        'checksums': ['bff6c84274e9bdcbdb82d6edd90265844f7cd23f22abbf68d6b563ef48237966'],
+    }),
+    (name, version, {
+        'source_tmpl': '7ca211e.tar.gz',
+        'checksums': ['a53ab2940451cb195d5dc47a124f8d61f68104defce152e20282b00834a5efbb'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['nichenetr/R/nichenetr'],
+    'dirs': ['nichenetr/R'],
+}
+
+moduleclass = 'bio'
