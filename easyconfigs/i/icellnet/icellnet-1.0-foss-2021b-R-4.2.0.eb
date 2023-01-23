@@ -1,0 +1,57 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'icellnet'
+version = '1.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://github.com/soumelis-lab/ICELLNET"
+description = """This repository hosts the source code corresponding to the method described in 
+Noël, F., Massenet-Regad, L., Carmi-Levy, I. et al. to infer intercellular communication networks and 
+dissect intercellular communication between multiples cell types based on their transcriptomic profiles."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.15', '-R-%(rver)s'),
+]
+
+github_account = 'soumelis-lab'
+source_urls = [GITHUB_SOURCE]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.15/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    ('jetset', '3.4.0', {
+        'checksums': ['1776e30d76d7c2cf8998d3b37c87e20bca8ad58498e8545a714f6c7d6d812931'],
+    }),
+    (name, version, {
+        'source_tmpl': 'refs/tags/v%(version)s.tar.gz',
+        'start_dir': 'icellnet',
+        'checksums': ['985e7df309c90a6d4613d6d71378699b5c23afd362478daf1a0468340e886059'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['icellnet/R/icellnet'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
