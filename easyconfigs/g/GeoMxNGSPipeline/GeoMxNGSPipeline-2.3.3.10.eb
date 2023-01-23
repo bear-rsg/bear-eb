@@ -1,0 +1,35 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+
+easyblock = 'Binary'
+
+name = 'GeoMxNGSPipeline'
+version = '2.3.3.10'
+
+homepage = "https://www.nanostring.com/products/geomx-digital-spatial-profiler/geomx-dsp"
+description = """The GeoMx NGS Pipeline uses a series of novel algorithms to process sequencing
+ files from FASTQ to the Digital Count Conversion (DCC) file format that is read by the DSP
+ instrument for further analysis"""
+
+toolchain = SYSTEM
+
+# download from https://www.nanostring.com/products/geomx-digital-spatial-profiler/geomx-dsp/
+sources = ['%(name)s-%(version)s.tgz']
+checksums = ['263445fe742968c2361639a56e0e2881952f45a5a2bc4e7d82ffe7b8f4e7739b']
+
+extract_sources = True
+buildininstalldir = True
+install_cmd = 'chmod a+x %(namelower)s && '
+install_cmd += 'touch agreement_cli_yes'  # agree to the terms in agreement_cli.txt
+
+modloadmsg = """\nBY USING THIS SOFTWARE, YOU AGREE TO THE TERMS AND CONDITIONS OF THE
+NANOSTRING TECHNOLOGIES INC GEOMX NGS PIPELINE (DND) END USER LICENSE
+AGREEMENT, WHICH CAN BE FOUND AT $EBROOTGEOMXNGSPIPELINE/agreement_cli.txt.\n"""
+
+sanity_check_paths = {
+    'files': ['%(namelower)s', 'agreement_cli_yes'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['%(namelower)s --help']
+
+moduleclass = 'bio'
