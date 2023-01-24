@@ -1,0 +1,60 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'CellChat'
+version = '1.6.0'
+versionsuffix = '-R-%(rver)s'
+_hash = '88b3c1f'
+
+homepage = "https://github.com/sqjin/CellChat"
+description = """R toolkit for inference, visualization and analysis of cell-cell communication from single-cell 
+data."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.15', versionsuffix),
+]
+
+github_account = 'sqjin'
+source_urls = [GITHUB_SOURCE]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('ggalluvial', '0.12.3', {
+        'checksums': ['032e5959be201df54b19ebe2bc2e3f900a48375cdd0b517594dd8fd75fb26a56'],
+    }),
+    ('systemfonts', '1.0.4', {
+        'checksums': ['ef766c75b942f147d382664a00d6a4930f1bfe0cce9d88943f571682a85a84c0'],
+    }),
+    ('svglite', '2.1.1', {
+        'checksums': ['48700169eec1b05dbee9e2bae000aa84c544617b018cb3ac431a128cfd8dac56'],
+    }),
+    (name, version, {
+        'preinstallopts': "rm src/{CellChat.so,RcppExports.o,CellChat_Rcpp.o} &&",
+        'source_tmpl': '88b3c1f.tar.gz',
+        'checksums': ['dffecf5f097acc59c59e7b8979d7b7ef702951094149be265b292a6b3d65de9f'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['CellChat/R/CellChat'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
