@@ -1,0 +1,58 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'hypervolume'
+version = '3.1.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=hypervolume"
+description = """Estimates the shape and volume of high-dimensional datasets and performs set operations:
+ intersection / overlap, union, unique components, inclusion test, and hole detection. Uses stochastic geometry
+ approach to high-dimensional kernel density estimation, support vector machine delineation, and convex hull
+ generation. Applications include modeling trait and niche hypervolumes and species distribution modeling."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('pdist', '1.2.1', {
+        'checksums': ['06904ee8c609cebd62553b5593c5d4e08abd3ed95b9f96c64e47c380a2466f2f'],
+    }),
+    ('rcdd', '1.5', {
+        'checksums': ['592614c8fd2dc1c3d9fd8a4be2159d38a7028962bba23a25186a19b13706bd7f'],
+    }),
+    ('hitandrun', '0.5-6', {
+        'checksums': ['8f651c6f1935cd36cf3ca160ddd8c06e452abefec3e67a6cc063475859f51164'],
+    }),
+    ('palmerpenguins', '0.1.1', {
+        'checksums': ['2a40d48ba6c7978fdf2a6daf647ccb39cd17590680138931d11194d3dd1a30b4'],
+    }),
+    (name, version, {
+        'checksums': ['97bda641edbac6c8c17fabcf73109aac4c6a68dc8f8e8a44ba2c1656053fd7ff'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['hypervolume/R/hypervolume'],
+    'dirs': [],
+}
+
+moduleclass = 'geo'
