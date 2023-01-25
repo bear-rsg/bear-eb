@@ -21,6 +21,7 @@ dependencies = [
     ('ggfortify', '0.4.14', versionsuffix),
     ('maftools', '2.12.0', versionsuffix),
     ('nichenetr', '20220911', versionsuffix),
+    ('cyCombine', '0.2.15', versionsuffix),
 ]
 
 moduleclass = 'bio'
