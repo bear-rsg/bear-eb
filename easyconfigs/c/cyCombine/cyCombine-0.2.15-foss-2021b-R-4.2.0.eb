@@ -1,0 +1,52 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'cyCombine'
+version = '0.2.15'
+versionsuffix = '-R-%(rver)s'
+_hash = '58f4dc5'
+
+homepage = "https://github.com/biosurf/cyCombine"
+description = """Robust Integration of Single-Cell Cytometry Datasets"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.15', '-R-%(rver)s'),
+]
+
+github_account = 'biosurf'
+source_urls = [GITHUB_SOURCE]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.15/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'source_tmpl': '58f4dc5.tar.gz',
+        'checksums': ['5d6797c994ed6a3fc098161f5756f8d636bb55425e91f305e3cd7c8753e3b54e'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['cyCombine/R/cyCombine'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
