@@ -1,0 +1,57 @@
+easyblock = 'PythonBundle'
+
+name = 'lightkurve'
+version = '2.3.0'
+
+homepage = 'https://docs.lightkurve.org/'
+description = """Lightkurve offers a user-friendly way to analyze time series data on the brightness of planets, stars,
+ and galaxies. The package is focused on supporting science with NASA’s Kepler and TESS space telescopes, but can
+ equally be used to analyze light curves obtained by your backyard telescope."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('astropy', '5.0.4'),
+    ('BeautifulSoup', '4.10.0'),
+    ('bokeh', '2.4.2'),
+    ('matplotlib', '3.4.3'),
+    ('scikit-learn', '1.0.1'),
+    ('tqdm', '4.62.3'),
+    ('statsmodels', '0.13.1'),
+    ('autograd', '1.5'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('oktopus', '0.1.2', {
+        'checksums': ['54ac25dfc21ce3507e2ad4f080f2d5e692986414be50c84a0789aa03371ac7d9'],
+    }),
+    ('uncertainties', '3.1.7', {
+        'checksums': ['80111e0839f239c5b233cb4772017b483a0b7a1573a581b92ab7746a35e6faab'],
+    }),
+    ('memoization', '0.4.0', {
+        'checksums': ['fde5e7cd060ef45b135e0310cfec17b2029dc472ccb5bbbbb42a503d4538a135'],
+    }),
+    ('fbpca', '1.0', {
+        'checksums': ['150677642479663f317fdbb5e06dab3f98721cf7031bb4a84113d7a631c472d1'],
+    }),
+    ('pyvo', '1.4', {
+        'checksums': ['476b6d2e815de88734299978f5dccde4db5602a3e95d169e922e97f02446b02c'],
+    }),
+    ('astroquery', '0.4.6', {
+        'checksums': ['307ca554cb734a0ca9a22f86f5effe7e413af913ae65e1578972d847b1fe13ee'],
+    }),
+    (name, version, {
+        'checksums': ['81ac781acb7ebf42b3d5eb441aec4a84016daadb364ec21d7ee1b0e972d126a7'],
+    }),
+]
+
+moduleclass = 'astro'
