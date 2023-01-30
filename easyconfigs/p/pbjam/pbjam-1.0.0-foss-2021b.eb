@@ -1,0 +1,42 @@
+easyblock = 'PythonBundle'
+
+name = 'pbjam'
+version = '1.0.0'
+
+homepage = 'https://docs.lightkurve.org/'
+description = """PBjam is toolbox for modeling the oscillation spectra of solar-like oscillators. This involves two
+ main parts: identifying a set of modes of interest, and accurately modeling those modes to measure their frequencies.
+"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('lightkurve', '2.3.0'),
+    ('emcee', '3.1.3'),
+    ('PyMC3', '3.11.1'),
+    ('corner', '2.2.1'),
+    ('HDBSCAN', '0.8.29'),
+    ('IPython', '7.26.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('nbsphinx', '0.8.12', {
+        'checksums': ['76570416cdecbeb21dbf5c3d6aa204ced6c1dd7ebef4077b5c21b8c6ece9533f'],
+    }),
+    ('cpnest', '0.11.5', {
+        'checksums': ['2e4e1d8ceefc9bad2b1a44d954c34d4e4953e956873ed9e2851c81b3970fc0c3'],
+    }),
+    (name, version, {
+        'checksums': ['79af77573f6aa72290afd77dacfa04828bea79135fa18d90f22cae70b72462ea'],
+    }),
+]
+
+moduleclass = 'astro'
