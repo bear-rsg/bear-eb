@@ -1,0 +1,40 @@
+easyblock = 'MakeCp'
+
+name = 'modbam2bed'
+version = '0.7.0'
+
+homepage = "https://github.com/epi2me-labs/modbam2bed"
+description = """A program to aggregate modified base counts stored in a 
+ modified-base BAM (Section 2.1) file to a bedMethyl file."""
+
+toolchain = {'name': 'GCC', 'version': '11.2.0'}
+
+source_urls = ['https://github.com/epi2me-labs/%(namelower)s/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['fcdf8127477547c7e1d4b7a1993e6d851e549762c5af62684e2f86e73e4d385b']
+
+dependencies = [
+    ('HTSlib', '1.14'),
+    ('libdeflate', '1.8'),
+    ('bzip2', '1.0.8'),
+    ('zlib', '1.2.11'),
+]
+
+#buildopts = 'DEFLATE="$EBROOTLIBDEFLATE/lib" '
+buildopts = 'STATIC_HTSLIB="$EBROOTHTSLIB/lib/libhts.a" '
+
+# we only want the cmdline tool
+build_cmd_targets = 'modbam2bed'
+
+files_to_copy = [
+    (['modbam2bed'], 'bin'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/modbam2bed'],
+    'dirs': ['bin'],
+}
+
+sanity_check_commands = [('%(namelower)s', '--help')]
+
+moduleclass = 'bio'
