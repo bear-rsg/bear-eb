@@ -1,0 +1,12 @@
+--- Makefile.orig	2023-02-01 14:53:05.714487292 +0000
++++ Makefile	2023-02-01 14:53:57.329173015 +0000
+@@ -1,6 +1,6 @@
+-CXX=g++
+-CXXFLAGS=-Wall -O3 -std=c++0x
+-LINKFLAGS=-I . -lpthread -lz
++CXX := $(CXX) 
++CXXFLAGS := $(CXXFLAGS)
++LINKFLAGS := -I. $(LDFLAGS) $(LIBS) -lz
+ DEBUG=
+ jellyfishPath=`which jellyfish`
+ jellyfishVersion=`jellyfish --version | cut -f2 -d' ' | cut -f1 -d'.'`

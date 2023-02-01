@@ -1,0 +1,35 @@
+easyblock = 'MakeCp'
+
+name = 'Rcorrector'
+version = '1.0.5'
+
+homepage = 'https://github.com/mourisl/Rcorrector'
+description = """Rcorrector(RNA-seq error CORRECTOR) is a kmer-based error correction method for RNA-seq data."""
+
+toolchain = {'name': 'GCC', 'version': '11.2.0'}
+toolchainopts = {'cstd': 'c++11'}
+
+source_urls = ['https://github.com/mourisl/Rcorrector/archive']
+sources = ['v%(version)s.tar.gz']
+patches = ['%(name)s-%(version)s-fix-makefile.patch']
+checksums = [
+    {'v1.0.5.tar.gz': '169f06284ac7791f47522276973fd8c80aed5aadfa7b225684e0b82849cef7d6'},
+    {'Rcorrector-1.0.5-fix-makefile.patch': 'fa29ca923b3d6d044528d2cfaef63675bc08dbc3855b6a59a1bc5ff0e9c00690'},
+]
+
+dependencies = [
+    ('zlib', '1.2.11'),
+    ('Perl', '5.34.0'),
+    ('Jellyfish', '2.3.0'),
+]
+
+files_to_copy = [(['rcorrector', 'run_rcorrector.pl'], 'bin'), 'README.md', 'LICENSE', 'Sample']
+
+postinstallcmds = ["chmod +x %(installdir)s/bin/run_rcorrector.pl"]
+
+sanity_check_paths = {
+    'files': ['bin/rcorrector'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
