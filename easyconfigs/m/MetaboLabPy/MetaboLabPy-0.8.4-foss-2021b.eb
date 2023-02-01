@@ -1,0 +1,43 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'MetaboLabPy'
+version = '0.8.4'
+
+homepage = "https://github.com/ludwigc/metabolabpy"
+description = """Python package to process 1D and 2D NMR spectroscopic data for metabolomics and tracer based
+ metabolism analysis"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('matplotlib', '3.4.3'),
+    ('numba', '0.54.1'),
+    ('scikit-learn', '1.0.1'),
+    ('SciPy-bundle', '2021.10'),
+    ('XlsxWriter', '3.0.2'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('dill', '0.3.6', {
+        'checksums': ['e5db55f3687856d8fbdab002ed78544e1c4559a130302693d839dfe8f93f2373'],
+    }),
+    ('multiprocess', '0.70.14', {
+        'checksums': ['3eddafc12f2260d27ae03fe6069b12570ab4764ab59a75e81624fac453fbf46a'],
+    }),
+    ('et_xmlfile', '1.1.0', {
+        'checksums': ['8eb9e2bc2f8c97e37a2dc85a09ecdcdec9d8a396530a6d5a33b30b9a92da0c5c'],
+    }),
+    ('openpyxl', '3.1.0', {
+        'checksums': ['eccedbe1cdd8b2494057e73959b496821141038dbb7eb9266ea59e3f34208231'],
+    }),
+    ('metabolabpy', version, {
+        'checksums': ['bd7ad5cb79ce1400325fcaf84da00aec071d669f21327f2fffba81f4e255a1de'],
+    }),
+]
+
+moduleclass = 'bio'
