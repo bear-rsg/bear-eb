@@ -5,8 +5,9 @@ name = 'msPurity'
 version = '1.22.0'
 versionsuffix = '-R-%(rver)s'
 
-homepage = "https://github.com/biosurf/cyCombine"
-description = """Robust Integration of Single-Cell Cytometry Datasets"""
+homepage = "https://www.bioconductor.org/packages/release/bioc/html/msPurity.html"
+description = """msPurity R package was developed to: 1) Assess the spectral quality of fragmentation spectra by
+ evaluating the "precursor ion purity". 2) Process fragmentation spectra. 3) Perform spectral matching. """
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 
