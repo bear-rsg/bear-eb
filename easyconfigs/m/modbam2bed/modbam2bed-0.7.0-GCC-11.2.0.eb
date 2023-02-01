@@ -20,7 +20,6 @@ dependencies = [
     ('zlib', '1.2.11'),
 ]
 
-#buildopts = 'DEFLATE="$EBROOTLIBDEFLATE/lib" '
 buildopts = 'STATIC_HTSLIB="$EBROOTHTSLIB/lib/libhts.a" '
 
 # we only want the cmdline tool
@@ -28,6 +27,7 @@ build_cmd_targets = 'modbam2bed'
 
 files_to_copy = [
     (['modbam2bed'], 'bin'),
+    (['LICENSE', 'README.md', 'test_data'], '%(installdir)s')
 ]
 
 sanity_check_paths = {
