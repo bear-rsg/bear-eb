@@ -30,6 +30,7 @@ dependencies = [
     ('networkx', '2.6.3'),
     ('NLTK', '3.7'),
     ('OpenCV', '4.5.5', '-contrib'),
+    ('MetaboLabPy', '0.8.4'),
 ]
 
 moduleclass = 'tools'
