@@ -6,7 +6,7 @@ version = '1.8.2'
 versionsuffix = '-R-%(rver)s'
 
 homepage = "https://cran.r-project.org/package=picante"
-description = """"""
+description = """Functions for phylocom integration, community analyses, null-models, traits and evolution."""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 
