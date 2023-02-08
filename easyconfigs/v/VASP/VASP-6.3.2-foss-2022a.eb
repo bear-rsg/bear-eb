@@ -1,0 +1,66 @@
+easyblock = 'MakeCp'
+
+name = 'VASP'
+version = '6.3.2'
+
+homepage = 'https://www.vasp.at'
+description = """The Vienna Ab initio Simulation Package (VASP) is a computer program for atomic scale
+materials modelling, e.g. electronic structure calculations and quantum-mechanical molecular dynamics,
+from first principles."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'openmp': True}
+
+download_instructions = """Vasp is proprietary software, see http://www.vasp.at/index.php/faqs
+ on how to get access to the code."""
+
+sources = ['%(namelower)s.%(version)s.tgz']
+patches = ['enableHDF5-gnu.patch']
+checksums = [
+    {'vasp.6.3.2.tgz': 'f7595221b0f9236a324ea8afe170637a578cdd5a837cc7679e7f7812f6edf25a'},
+    {'enableHDF5-gnu.patch': '787a7cdc8f4a25a2e2671d0a65d6eeb56f48645523879fffb4651293466693f9'},
+]
+
+dependencies = [
+    ('HDF5', '1.13.1'),
+]
+
+prebuildopts = 'cp arch/makefile.include.gnu_omp ./makefile.include && '
+prebuildopts += 'sed -i "s/-lopenblas/-lflexiblas/" makefile.include && '
+
+# Makefile uses LIBS as a list of folders
+prebuildopts += 'unset LIBS && '
+
+local_targets = ['std', 'gam', 'ncl']
+
+buildopts = '%s ' % ' '.join(local_targets)
+buildopts += 'HDF5_ROOT="${EBROOTHDF5}" '
+buildopts += 'FFTW_ROOT="${EBROOTFFTW}" '
+buildopts += 'SCALAPACK_ROOT="${EBROOTSCALAPACK}" '
+buildopts += 'OPENBLAS_ROOT="${EBROOTFLEXIBLAS}" '  # override the existing OpenBLAS make variables with FlexiBLAS
+
+# Don't parallelise the build step
+parallel = 1
+
+# These values should be scaled depending on the resources available during the easybuild process
+local_test_mpiprocs = 4
+local_test_numthreads = 2
+
+pretestopts = 'export MPIRUN="mpirun -np %s -x OMP_NUM_THREADS=%s -x OMP_STACKSIZE=512m" && ' % (local_test_mpiprocs,
+                                                                                                 local_test_numthreads)
+pretestopts += 'export VASP_TESTSUITE_EXE_STD="${MPIRUN} %(builddir)s/vasp.%(version)s/bin/vasp_std" && '
+pretestopts += 'export VASP_TESTSUITE_EXE_NCL="${MPIRUN} %(builddir)s/vasp.%(version)s/bin/vasp_ncl" && '
+pretestopts += 'export VASP_TESTSUITE_EXE_GAM="${MPIRUN} %(builddir)s/vasp.%(version)s/bin/vasp_gam" && '
+
+runtest = 'test'
+
+files_to_copy = [(['bin/vasp_' + x for x in local_targets], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/vasp_' + x for x in local_targets],
+    'dirs': []
+}
+
+moduleclass = 'phys'
+
+local_bham_group = "p-vasp6"
