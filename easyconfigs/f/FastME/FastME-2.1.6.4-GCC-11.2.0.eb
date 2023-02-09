@@ -1,0 +1,28 @@
+easyblock = 'ConfigureMake'
+
+name = 'FastME'
+version = '2.1.6.4'
+
+homepage = 'http://www.atgc-montpellier.fr/fastme/'
+description = "FastME: a comprehensive, accurate and fast distance-based phylogeny inference program."
+
+toolchain = {'name': 'GCC', 'version': '11.2.0'}
+
+source_urls = ['https://gite.lirmm.fr/atgc/FastME/-/archive/master']
+sources = ['%(name)s-master.tar.gz']
+checksums = ['a3c2f45cb8a446f6cc054a5062f454f0e64f842f7dec40f0f668db8b0cc990e7']
+
+builddependencies = [
+    ('Autotools', '20210726'),
+]
+
+preconfigopts = "autoreconf -if && "
+
+sanity_check_paths = {
+    'files': ['bin/fastme'],
+    'dirs': []
+}
+
+sanity_check_commands = ["fastme --help"]
+
+moduleclass = 'bio'
