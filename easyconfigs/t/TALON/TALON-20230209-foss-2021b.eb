@@ -42,7 +42,7 @@ exts_list = [
         'checksums': ['7df679f5e8ab45d81cae6b4d537337c1e71f54c98901044f1236f66730abd938'],
     }),
     (name, version, {
-        'source_tmpl': 'a41f86d.tar.gz',
+        'source_tmpl': '%s.tar.gz' % _hash,
         'sources_url': ['https://github.com/mortazavilab/%(name)s/archive/'],
         'checksums': ['2bfc4591272f02e8bce1f4d6b31696fd1d0fdb693357a4ed6dad2e281e8b20b3'],
     }),
