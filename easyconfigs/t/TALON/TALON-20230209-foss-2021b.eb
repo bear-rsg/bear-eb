@@ -1,0 +1,54 @@
+easyblock = 'PythonBundle'
+
+name = 'TALON'
+version = '20230209'
+_hash = 'a41f86d'
+
+homepage = 'https://github.com/mortazavilab/TALON'
+description = """TALON is a Python package for identifying and quantifying known and
+novel genes/isoforms in long-read transcriptome data sets. TALON is technology-agnostic
+in that it works from mapped SAM files, allowing data from different sequencing platforms
+(i.e. PacBio and Oxford Nanopore) to be analyzed side by side."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('pyfaidx', '0.7.0'),
+    ('SciPy-bundle', '2021.10'),
+    ('BEDTools', '2.30.0'),
+    ('Pysam', '0.17.0'),
+    ('pybedtools', '0.8.2'),
+    ('scanpy', '1.9.1'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('ncls', '0.0.66', {
+        'checksums': ['cf65863021b318975bf5a0d17aaa838eef2fa64487fc129c7c78a7f1c94bca36'],
+    }),
+    ('pyrle', '0.0.35', {
+        'checksums': ['c120a099371ec1adcc050c3b7e542c610582a20dd0b108dce951a4fcdd1e106c'],
+    }),
+    ('sorted_nearest', '0.0.38', {
+        'checksums': ['8ada23bb7925aec2f76ac3f5f575aaeeeedf300d6ffd7a5fccbb70e4b2cba8b0'],
+    }),
+    ('pyranges', '0.0.120', {
+        'checksums': ['44768a3c33e919369f2d16d4ba9f712e685e41259919f895dd9126fc8b2fbd4d'],
+    }),
+    ('bamread', '0.0.11', {
+        'checksums': ['7df679f5e8ab45d81cae6b4d537337c1e71f54c98901044f1236f66730abd938'],
+    }),
+    (name, version, {
+        'source_tmpl': 'a41f86d.tar.gz',
+        'sources_url': ['https://github.com/mortazavilab/%(name)s/archive/'],
+        'checksums': ['2bfc4591272f02e8bce1f4d6b31696fd1d0fdb693357a4ed6dad2e281e8b20b3'],
+    }),
+]
+
+sanity_pip_check = True
+sanity_check_commands = ['talon_label_reads -h']
+
+moduleclass = 'bio'
