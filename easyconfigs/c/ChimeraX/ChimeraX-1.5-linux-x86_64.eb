@@ -1,4 +1,4 @@
-# This Easyconfig was created by the BEAR team at the University of Birmingham
+# This Easyconfig was created by the BEAR team at the University of Birmingham.
 easyblock = 'Binary'
 
 name = 'ChimeraX'
