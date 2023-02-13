@@ -1,0 +1,25 @@
+# This Easyconfig was created by the BEAR team at the University of Birmingham
+easyblock = 'Binary'
+
+name = 'ChimeraX'
+version = '1.5'
+versionsuffix = '-linux-x86_64'
+
+homepage = 'https://www.rbvi.ucsf.edu/chimerax'
+description = """ChimeraX) is the next-generation molecular visualization program from the Resource for 
+Biocomputing, Visualization, and Informatics (RBVI), following UCSF Chimera."""
+
+toolchain = SYSTEM
+
+sources = ['%(name)s-%(version)s.tar.gz']
+
+extract_sources = True
+
+sanity_check_paths = {
+    'files': ["bin/ChimeraX"],
+    'dirs': ["bin"]
+}
+
+modloadmsg = "Please see https://www.rbvi.ucsf.edu/chimerax/docs/credits.html for information on how to cite this application"
+
+moduleclass = 'bio'
