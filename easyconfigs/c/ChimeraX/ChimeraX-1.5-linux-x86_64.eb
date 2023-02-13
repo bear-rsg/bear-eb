@@ -12,6 +12,7 @@ Biocomputing, Visualization, and Informatics (RBVI), following UCSF Chimera."""
 toolchain = SYSTEM
 
 sources = ['%(name)s-%(version)s.tar.gz']
+checksums = ['14a93dec5f2851f7c0c0e09f00b6b030d40838f7f600617e8cfbb99f359e13ff']
 
 extract_sources = True
 
