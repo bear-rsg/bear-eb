@@ -1,0 +1,37 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'SHAP'
+version = '0.39.0'
+
+homepage = "https://github.com/slundberg/shap"
+description = """SHAP (SHapley Additive exPlanations) is a game theoretic approach to explain the output of any
+ machine learning model. It connects optimal credit allocation with local explanations using the classic Shapley
+ values from game theory and their related extensions."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('numba', '0.56.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('scikit-learn', '1.1.2'),
+    ('tqdm', '4.64.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('cloudpickle', '2.0.0', {
+        'checksums': ['5cd02f3b417a783ba84a4ec3e290ff7929009fe51f6405423cfccfadd43ba4a4'],
+    }),
+    ('slicer', '0.0.7', {
+        'checksums': ['f5d5f7b45f98d155b9c0ba6554fa9770c6b26d5793a3e77a1030fb56910ebeec'],
+    }),
+    ('shap', version, {
+        'checksums': ['0196a6c12cc98f8b48ce9c5968550902432b80290da6fa7be8655441a1c6251a'],
+    }),
+]
+
+moduleclass = 'data'
