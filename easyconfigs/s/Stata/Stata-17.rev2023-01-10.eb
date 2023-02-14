@@ -1,0 +1,39 @@
+name = 'Stata'
+local_base_version = '17'
+local_revision = 'rev2023-01-10'
+version = '%s.%s' % (local_base_version, local_revision)
+
+homepage = 'https://www.stata.com/'
+description = """Stata is a complete, integrated statistical software package that provides everything you need
+ for data analysis, data management, and graphics."""
+
+toolchain = SYSTEM
+
+# Requires license to access source files
+# See also https://www.stata.com/support/faqs/unix/install-download-on-linux/
+# You can download the source tarball from: https://download.stata.com/download/
+
+sources = ['Stata%sLinux64.tar.gz' % local_base_version]
+# If the Stata download matches local_base_version but doesn't match this checksum then it may be
+# a different revision (see local_revision for date). The revision date is given next to the link
+# at https://download.stata.com/download/ or in the following command: `stata -q about`
+checksums = [('6dc55669523ddb738e66bf6069b64cfae5e10f19e5e0d1cc3690a37950357f56')]
+
+dependencies = [
+    ('libpng', '1.5.30'),
+    ('ncurses', '5.9'),
+    ('zlib', '1.2.11'),
+]
+
+# Post-install to insert licence file as required
+postinstallcmds = ['ln -s ${STATA_LICENSE_FILE} %(installdir)s/%(namelower)s.lic']
+
+# Bindings
+modextrapaths = {
+    'PYTHONPATH': ['utilities'],
+    'CLASSPATH': ['utilities/jar'],
+}
+
+sanity_check_commands = ['stata -h']
+
+moduleclass = 'data'
