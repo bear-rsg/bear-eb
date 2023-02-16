@@ -1,0 +1,37 @@
+# EasyBuild recipy for PCGR
+easyblock = 'Conda'
+
+name = 'pcgr'
+version = '1.2.0'
+
+homepage = 'https://sigven.github.io/pcgr/index.html'
+description = """The Personal Cancer Genome Reporter (PCGR) is a stand-alone software package for 
+functional annotation and translation of individual tumor genomes for precision cancer medicine."""
+
+toolchain = SYSTEM
+
+builddependencies = [
+   ('Miniconda3', '22.11.1-1'),
+]
+
+
+dependencies = [
+   ('pcgrr', '1.2.0'),
+]
+
+buildininstalldir = True
+
+requirements = "--file https://raw.githubusercontent.com/sigven/pcgr/v%(version)s/conda/env/lock/pcgr-linux-64.lock --prefix ./pcgr"
+
+modextrapaths = {'PATH': 'pcgr/bin/'}
+
+sanity_check_paths = {
+    'files': ["pcgr/bin/pcgr"],
+    'dirs': [],
+}
+
+postinstallcmds = ["cd %(installdir)s/../ && ln -s 1.2.0/pcgr . && ln -s $EBROOTPCGRR/pcgrr ."]
+
+sanity_check_commands = ['pcgr --version']
+
+moduleclass = 'bio'
