@@ -12,7 +12,7 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 dependencies = [
     ('Python', '3.10.4'),
-    ('Poetry', '1.2.2'),
+    ('poetry', '1.2.2'),
     ('Pillow', '9.1.1'),
 ]
 
