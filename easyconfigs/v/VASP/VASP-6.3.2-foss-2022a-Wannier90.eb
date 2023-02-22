@@ -36,14 +36,12 @@ prebuildopts += 'unset LIBS && '
 local_targets = ['std', 'gam', 'ncl']
 
 buildopts = '%s ' % ' '.join(local_targets)
+buildopts += 'DEPS=1 '  # required for VASP parallel builds
 buildopts += 'HDF5_ROOT="${EBROOTHDF5}" '
 buildopts += 'FFTW_ROOT="${EBROOTFFTW}" '
 buildopts += 'WANNIER90_ROOT="${EBROOTWANNIER90}" '
 buildopts += 'SCALAPACK_ROOT="${EBROOTSCALAPACK}" '
 buildopts += 'OPENBLAS_ROOT="${EBROOTFLEXIBLAS}" '  # override the existing OpenBLAS make variables with FlexiBLAS
-
-# Don't parallelise the build step
-parallel = 1
 
 # These values should be scaled depending on the resources available during the easybuild process
 local_test_mpiprocs = 4
