@@ -1,0 +1,49 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'embarcadero'
+version = '1.2.0.1003'
+_hash = '0024d9a'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://github.com/cjcarlson/embarcadero"
+description = """A convenience tool package for running and analyzing species distribution models with Bayesian additive regression trees."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('Metrics', '0.1.4', {
+        'checksums': ['7395694d57cc6efa33d2af8ef22f0e4b32ccfa22993f2a8e804f7d4ee5c2083a'],
+    }),
+    (name, version, {
+        'source_tmpl': '%s.tar.gz' % _hash,
+        'source_urls': ['https://github.com/cjcarlson/embarcadero/archive/'],
+        'checksums': ['4f90d351459eeb8f59712e4eb37833e70a9631fe240b876a0c00303b8458bf31'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['embarcadero/R/embarcadero'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
