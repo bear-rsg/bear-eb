@@ -28,4 +28,6 @@ osdependencies = [('p7zip-plugins', 'p7zip-full')]  # for extracting iso-files
 
 modextravars = {'KMP_AFFINITY': 'disabled'}
 
+modtclfooter = "unsetenv UCX_NET_DEVICES"
+
 moduleclass = 'tools'
