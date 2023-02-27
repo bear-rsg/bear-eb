@@ -15,13 +15,13 @@ dependencies = [
     ('matplotlib', '3.5.2'),
     ('h5py', '3.7.0'),
     ('IPython', '8.5.0'),
-    ('jax', '0.4.4'),  # + CUDA ver
-    ('openpyxl', '3.0.10'),  # 16361
+    ('jax', '0.4.4'),
+    ('openpyxl', '3.0.10'),
     ('PyTorch-Lightning', '1.9.3'),
     ('scikit-learn', '1.1.2'),
     ('dm-tree', '0.1.8'),
     ('scanpy', '1.9.1'),
-    ('scikit-misc', '0.1.4'),  # in 17142
+    ('scikit-misc', '0.1.4'),
     ('poetry', '1.2.2'),
 ]
 

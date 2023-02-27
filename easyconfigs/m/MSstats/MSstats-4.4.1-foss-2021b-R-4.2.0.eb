@@ -1,0 +1,57 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'MSstats'
+version = '4.4.1'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://www.bioconductor.org/packages/release/bioc/html/MSstats.html"
+description = """Protein Significance Analysis in DDA, SRM and DIA for Label-free or Label-based Proteomics
+ Experiments"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.15', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.15/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    ('log4r', '0.4.3', {
+        'checksums': ['dfe3d49d35a8d8f3ad63f156d18e860540a01bd0af0e343cbab3e31a2cf5904c'],
+    }),
+    ('MSstatsConvert', '1.6.0', {
+        'checksums': ['cf697bc02fc27d079406642f4fb71c20ce5e8c21b2d6dd8e7563ae58d4013007'],
+    }),
+    (name, version, {
+        'checksums': ['44d77270e6f128600b706747f1a67f5f46043575e55738a8c6fc1495dad50358'],
+    }),
+    ('MSstatsTMT', '2.4.1', {
+        'checksums': ['9230519037468310a3ab94055a119fb1a033ad647b941c462d09b7e6a6a47bbc'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['MSstats/R/MSstats'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
