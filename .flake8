@@ -2,4 +2,4 @@
 exclude = __pycache__,.git
 max-line-length = 120
 filename = *.py,*.eb
-ignore = F821
+extend-ignore = F821
