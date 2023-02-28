@@ -23,9 +23,13 @@ dependencies = [
 
 skipsteps = ['install']  # the install step blows-away the directory created by the above command
 files_to_copy = []
-cmds_map = [
-    ('.*', 'rm -rf %(installdir)s && ./%(namelower)s-%(version)s-Linux.run install --accept-licenses --confirm-command --auto-answer installationErrorWithCancel=Ignore --default-answer --root %(installdir)s'),
-]
+
+local_install_cmd = "rm -rf %(installdir)s && "
+local_install_cmd += "./%(namelower)s-%(version)s-Linux.run install "
+local_install_cmd += "--accept-licenses --confirm-command --auto-answer "
+local_install_cmd += "installationErrorWithCancel=Ignore --default-answer --root %(installdir)s"
+
+cmds_map = [('.*', local_install_cmd)]
 
 sanity_check_paths = {
     'files': ['bin/barracuda'],
