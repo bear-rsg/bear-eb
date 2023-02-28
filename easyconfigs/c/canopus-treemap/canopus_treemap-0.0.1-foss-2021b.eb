@@ -4,7 +4,7 @@ easyblock = 'PythonBundle'
 name = 'canopus_treemap'
 version = '0.0.1'
 _hash = '5f22db0'
-github_account =  'kaibioinfo'
+github_account = 'kaibioinfo'
 
 homepage = "https://github.com/kaibioinfo/canopus_treemap"
 description = """CANOPUS visualization for Jupyter notebook """

@@ -5,7 +5,7 @@ version = '0.5.0'
 
 homepage = 'https://github.com/dieterich-lab/DCC'
 description = """DCC is a python package intended to detect and quantify circRNAs with high specificity.
- DCC works with the STAR (Dobin et al., 2013) chimeric.out.junction files 
+ DCC works with the STAR (Dobin et al., 2013) chimeric.out.junction files
  which contains chimerically aligned reads including circRNA junction spanning reads."""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
@@ -19,7 +19,7 @@ dependencies = [
     ('Python', '3.9.6'),
     ('HTSeq', '0.11.3'),
     ('Pysam', '0.17.0'),
-    ('SciPy-bundle', '2021.10'), # numpy, scipy, pandas
+    ('SciPy-bundle', '2021.10'),  # numpy, scipy, pandas
 ]
 
 download_dep_fail = True
