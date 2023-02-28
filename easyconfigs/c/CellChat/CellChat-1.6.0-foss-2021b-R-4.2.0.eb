@@ -7,8 +7,8 @@ versionsuffix = '-R-%(rver)s'
 _hash = '88b3c1f'
 
 homepage = "https://github.com/sqjin/CellChat"
-description = """R toolkit for inference, visualization and analysis of cell-cell communication from single-cell 
-data."""
+description = """R toolkit for inference, visualization and analysis of cell-cell communication from single-cell
+ data."""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 

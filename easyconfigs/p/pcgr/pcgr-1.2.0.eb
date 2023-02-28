@@ -5,18 +5,18 @@ name = 'pcgr'
 version = '1.2.0'
 
 homepage = 'https://sigven.github.io/pcgr/index.html'
-description = """The Personal Cancer Genome Reporter (PCGR) is a stand-alone software package for 
-functional annotation and translation of individual tumor genomes for precision cancer medicine."""
+description = """The Personal Cancer Genome Reporter (PCGR) is a stand-alone software package for
+ functional annotation and translation of individual tumor genomes for precision cancer medicine."""
 
 toolchain = SYSTEM
 
 builddependencies = [
-   ('Miniconda3', '22.11.1-1'),
+    ('Miniconda3', '22.11.1-1'),
 ]
 
 
 dependencies = [
-   ('pcgrr', '1.2.0'),
+    ('pcgrr', '1.2.0'),
 ]
 
 buildininstalldir = True

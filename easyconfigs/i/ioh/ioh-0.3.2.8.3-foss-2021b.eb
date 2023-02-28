@@ -6,9 +6,9 @@ name = 'ioh'
 version = '0.3.2.8.3'
 
 homepage = "https://iohprofiler.github.io/IOHexperimenter/"
-description = """this is the python interface to iohexperimenter, which is the experimentation environment for 
-iterative optimization heuristics (iohs). the source code of iohexperimenter is written in c++ and its 
-python interface is realized using swig. iohexperimenter is a part of the bigger project called iohprofiler."""
+description = """this is the python interface to iohexperimenter, which is the experimentation environment for
+ iterative optimization heuristics (iohs). the source code of iohexperimenter is written in c++ and its
+ python interface is realized using swig. iohexperimenter is a part of the bigger project called iohprofiler."""
 
 builddependencies = [
     ('binutils', '2.37'),

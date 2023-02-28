@@ -10,7 +10,7 @@ description of electrons and nuclei. It uses the robust methods of a plane-wave 
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 
-# CASTEP is proprietary software, available under a free-of-charge license for academic use only. 
+# CASTEP is proprietary software, available under a free-of-charge license for academic use only.
 # Visit http://www.castep.org and navigate to "Getting Castep" to apply for a license.
 sources = ['%(name)s-%(version)s.tar.gz']
 patches = ['%(name)s-%(version)s_flexiblas.patch']

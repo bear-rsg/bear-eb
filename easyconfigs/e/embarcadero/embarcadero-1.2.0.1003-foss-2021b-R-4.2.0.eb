@@ -7,7 +7,8 @@ _hash = '0024d9a'
 versionsuffix = '-R-%(rver)s'
 
 homepage = "https://github.com/cjcarlson/embarcadero"
-description = """A convenience tool package for running and analyzing species distribution models with Bayesian additive regression trees."""
+description = """A convenience tool package for running and analyzing species distribution models with
+ Bayesian additive regression trees."""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 
