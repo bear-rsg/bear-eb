@@ -21,13 +21,14 @@ dependencies = [
 
 buildininstalldir = True
 
-requirements = "--file https://raw.githubusercontent.com/sigven/pcgr/v%(version)s/conda/env/lock/pcgr-linux-64.lock --prefix ./pcgr"
+local_conda_lock_url = "https://raw.githubusercontent.com/sigven/pcgr/v%(version)s/conda/env/lock/pcgr-linux-64.lock"
+requirements = "--file %s --prefix ./pcgr" % local_conda_lock_url
 
 modextrapaths = {'PATH': 'pcgr/bin/'}
 
 sanity_check_paths = {
-    'files': ["pcgr/bin/pcgr"],
-    'dirs': [],
+     'files': ["pcgr/bin/pcgr"],
+     'dirs': [],
 }
 
 postinstallcmds = ["cd %(installdir)s/../ && ln -s 1.2.0/pcgr . && ln -s $EBROOTPCGRR/pcgrr ."]
