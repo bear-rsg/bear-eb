@@ -23,7 +23,7 @@ sanity_check_paths = {
     'dirs': [],
 }
 
-examples =""" \n
+examples = """ \n
     %(namelower)s -e   'println "Hello World. Groovy"'\n
     %(namelower)s testscript.groovy \n
  """

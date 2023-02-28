@@ -25,7 +25,7 @@ sanity_pip_check = True
 use_pip = True
 
 sanity_check_commands = [
-       ("python -c 'import cma; help(cma)'"),
+    ("python -c 'import cma; help(cma)'"),
 ]
 
 moduleclass = 'math'

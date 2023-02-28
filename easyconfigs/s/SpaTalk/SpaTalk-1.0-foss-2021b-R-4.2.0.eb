@@ -8,7 +8,7 @@ versionsuffix = '-R-%(rver)s'
 homepage = "https://github.com/ZJUFanLab/SpaTalk"
 description = """A spatially resolved cell-cell communication inference method relying on
  the graph network and knowledge graph to model ligand-receptor-target signaling
- network between the spatially proximal cells, which were decomposed from the ST data 
+ network between the spatially proximal cells, which were decomposed from the ST data
  through the non-negative linear model and spatial mapping between single-cell RNA-seq
  and ST data. SpaTalk is a reliable method that can help scientists uncover the spatially
  resolved cell-cell communications for either single-cell or spot-based ST data universally,

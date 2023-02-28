@@ -5,8 +5,8 @@ name = 'pcgr'
 version = '1.0.3'
 
 homepage = 'https://sigven.github.io/pcgr/index.html'
-description = """The Personal Cancer Genome Reporter (PCGR) is a stand-alone software package for 
-functional annotation and translation of individual tumor genomes for precision cancer medicine."""
+description = """The Personal Cancer Genome Reporter (PCGR) is a stand-alone software package for
+ functional annotation and translation of individual tumor genomes for precision cancer medicine."""
 
 toolchain = SYSTEM
 
@@ -21,7 +21,8 @@ dependencies = [
 
 buildininstalldir = True
 
-requirements = "--file https://raw.githubusercontent.com/sigven/pcgr/v%(version)s/conda/env/lock/pcgr-linux-64.lock --prefix ./pcgr"
+local_conda_lock_url = "https://raw.githubusercontent.com/sigven/pcgr/v%(version)s/conda/env/lock/pcgr-linux-64.lock"
+requirements = "--file %s --prefix ./pcgr" % local_conda_lock_url
 
 modextrapaths = {'PATH': 'pcgr/bin/'}
 
