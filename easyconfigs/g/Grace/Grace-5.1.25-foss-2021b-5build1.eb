@@ -12,7 +12,7 @@ source_urls = ['https://plasma-gate.weizmann.ac.il/pub/grace/src/stable']
 sources = [SOURCELOWER_TAR_GZ]
 patches = [
     ('Grace-5.1.25-tirpc-dependency.patch'),
-    ('Grace-5.1.25-5build1.patch') # needed to fix type1 fonts not loading properly
+    ('Grace-5.1.25-5build1.patch')  # needed to fix type1 fonts not loading properly
 ]
 
 checksums = [

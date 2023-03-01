@@ -6,9 +6,9 @@ version = '1.0'
 versionsuffix = '-R-%(rver)s'
 
 homepage = "https://github.com/soumelis-lab/ICELLNET"
-description = """This repository hosts the source code corresponding to the method described in 
-Noël, F., Massenet-Regad, L., Carmi-Levy, I. et al. to infer intercellular communication networks and 
-dissect intercellular communication between multiples cell types based on their transcriptomic profiles."""
+description = """This repository hosts the source code corresponding to the method described in
+ Noël, F., Massenet-Regad, L., Carmi-Levy, I. et al. to infer intercellular communication networks and
+ dissect intercellular communication between multiples cell types based on their transcriptomic profiles."""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 

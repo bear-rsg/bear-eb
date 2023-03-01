@@ -34,7 +34,7 @@ configopts = ['--with-boost-libdir=$EBROOTBOOST/lib']
 modextrapaths = {'LD_LIBRARY_PATH': 'lib/micro-manager'}
 
 sanity_check_paths = {
-    'files': ['lib/micro-manager/libmmgr_dal_Utilities.so.0','lib/micro-manager/libmmgr_dal_SerialManager.so.0'],
+    'files': ['lib/micro-manager/libmmgr_dal_Utilities.so.0', 'lib/micro-manager/libmmgr_dal_SerialManager.so.0'],
     'dirs': ['lib/micro-manager', 'share/micro-manager'],
 }
 

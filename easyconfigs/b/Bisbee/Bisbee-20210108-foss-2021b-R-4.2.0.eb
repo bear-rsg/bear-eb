@@ -64,10 +64,9 @@ sanity_check_paths = {
     'dirs': [],
 }
 
-sanity_check_commands = [
-       ("python $BISBEE/prot/getUnique.py $BISBEE/prot WangKuster"),
-]
+sanity_check_commands = [("python $BISBEE/prot/getUnique.py $BISBEE/prot WangKuster")]
 
-modloadmsg = """Bisbee runs programs from the Bisbee directory use $BISBEE to access Bisbee files and directories e.g. ls $BISBEE"""
+modloadmsg = """Bisbee runs programs from the Bisbee directory use $BISBEE to access
+ Bisbee files and directories e.g. ls $BISBEE"""
 
 moduleclass = 'bio'

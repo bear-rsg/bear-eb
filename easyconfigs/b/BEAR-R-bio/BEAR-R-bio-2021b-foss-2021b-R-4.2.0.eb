@@ -23,6 +23,7 @@ dependencies = [
     ('nichenetr', '20220911', versionsuffix),
     ('cyCombine', '0.2.15', versionsuffix),
     ('msPurity', '1.22.0', versionsuffix),
+    ('MSstats', '4.4.1', versionsuffix),
 ]
 
 moduleclass = 'bio'

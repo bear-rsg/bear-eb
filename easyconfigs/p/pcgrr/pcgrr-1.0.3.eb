@@ -6,8 +6,8 @@ name = 'pcgrr'
 version = '1.0.3'
 
 homepage = 'https://sigven.github.io/pcgr/index.html'
-description = """The Personal Cancer Genome Reporter (PCGR) is a stand-alone software package for functional annotation and translation
-of individual tumor genomes for precision cancer medicine. PCGRR is a component of PCGR"""
+description = """The Personal Cancer Genome Reporter (PCGR) is a stand-alone software package for functional annotation
+ and translation of individual tumor genomes for precision cancer medicine. PCGRR is a component of PCGR"""
 
 sources = ['pcgrr-%(version)s-linux-64.lock']
 checksums = ['9a90722fc3de9928bb3283c739517ed847c0b7e04c1680eb92644a0c0f04b7a0']
