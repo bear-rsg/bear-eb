@@ -6,7 +6,7 @@ version = '4.1.4'
 
 homepage = 'https://www.open-mpi.org/'
 description = """This is an OpenMPI module provided to complement containerised OpenMPI installs.
- For further information please see the documentation page: <BLAH>"""
+ For further information please see the relevant documentation page on https://docs.bear.bham.ac.uk"""
 
 toolchain = SYSTEM
 
