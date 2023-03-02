@@ -24,6 +24,9 @@ dependencies = [
     ('cyCombine', '0.2.15', versionsuffix),
     ('msPurity', '1.22.0', versionsuffix),
     ('MSstats', '4.4.1', versionsuffix),
+    ('faahKO', '1.36.0', versionsuffix),
+    ('pandaR', '1.28.0', versionsuffix),
+    ('iRF', '3.0.0', versionsuffix),
 ]
 
 moduleclass = 'bio'

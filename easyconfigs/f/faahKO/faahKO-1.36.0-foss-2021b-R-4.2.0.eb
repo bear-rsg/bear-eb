@@ -1,13 +1,14 @@
 # This easyconfig was created by the BEAR Software team at the University of Birmingham.
 easyblock = 'Bundle'
 
-name = 'msPurity'
-version = '1.22.0'
+name = 'faahKO'
+version = '1.36.0'
 versionsuffix = '-R-%(rver)s'
 
-homepage = "https://www.bioconductor.org/packages/release/bioc/html/msPurity.html"
-description = """msPurity R package was developed to: 1) Assess the spectral quality of fragmentation spectra by
- evaluating the "precursor ion purity". 2) Process fragmentation spectra. 3) Perform spectral matching. """
+homepage = "https://www.bioconductor.org/packages/release/bioc/html/faahKO.html"
+description = """Positive ionization mode data in NetCDF file format. Centroided subset from 200-600 m/z and 2500-4500
+ seconds. Data originally reported in "Assignment of Endogenous Substrates to Enzymes by Global Metabolite Profiling"
+ Biochemistry; 2004; 43(45). Also includes detected peaks in an xcmsSet."""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 
@@ -34,17 +35,14 @@ exts_default_options = {
 # Order is important!
 exts_list = [
     (name, version, {
-        'checksums': ['11d8496e7a6fbbd279a0107ac2cee20cf2db4d702e097dceb01fa85d35e9e129'],
-    }),
-    ('msPurityData', '1.24.0', {
-        'checksums': ['c73881c5d2e76b8bdaac18ae0ae5c6a423bfbc14ab3874689bf66abb45f58716'],
+        'checksums': ['b33d457561c1195c79f4de52ad0147923f5dfdc206569794d33ab847ad6043fc'],
     }),
 ]
 
 modextrapaths = {'R_LIBS_SITE': ''}
 
 sanity_check_paths = {
-    'files': ['msPurity/R/msPurity'],
+    'files': ['faahKO/R/faahKO'],
     'dirs': [],
 }
 

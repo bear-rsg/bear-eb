@@ -1,0 +1,39 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'iRF'
+version = '3.0.0'
+# v3 was not tagged, this is the git hash for it
+_hash = '7476536'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://github.com/sumbose/iRF'
+description = """iterative Random Forests (iRF): iteratively grows weighted random forests, finds
+ interaction among features"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'source_tmpl': '%s.tar.gz' % _hash,
+        'source_urls': ['https://github.com/sumbose/iRF/archive'],
+        'checksums': ['fe516c463423fc4b025b1de5cdf8f3be53617eb613bb81ba73766fd02fef9008'],
+    }),
+]
+
+modextrapaths = {'R_LIBS': ''}
+
+sanity_check_paths = {
+    'files': ['iRF/R/iRF'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
