@@ -1,0 +1,26 @@
+# System-compilation of OpenMPI for compatibility with containers
+easyblock = 'ConfigureMake'
+
+name = 'OpenMPI-container'
+version = '4.1.4'
+
+homepage = 'https://www.open-mpi.org/'
+description = """This is an OpenMPI module provided to complement containerised OpenMPI installs.
+ For further information please see the relevant documentation page on https://docs.bear.bham.ac.uk"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://www.open-mpi.org/software/ompi/v%(version_major_minor)s/downloads']
+sources = ['openmpi-%(version)s.tar.bz2']
+checksums = ['92912e175fd1234368c8730c03f4996fe5942e7479bb1d10059405e7f2b3930d']
+
+# libgfortran is installed on build nodes only as it's required for the OpenMPI installation test
+osdependencies = [OS_PKG_IBVERBS_DEV, 'libgfortran']
+
+_bins = ['mpicc', 'mpicxx', 'mpif90', 'mpifort', 'mpirun', 'ompi_info', 'opal_wrapper']
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in _bins],
+    'dirs': [],
+}
+
+moduleclass = 'mpi'
