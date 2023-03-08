@@ -5,7 +5,7 @@ homepage = 'https://www.plm.automation.siemens.com/global/en/products/simcenter/
 description = """STAR-CCM+ is a complete multidisciplinary platform for the simulation of products and
  designs operating under real-world conditions."""
 
-toolchain = {'name': 'system', 'version': 'system'}
+toolchain = SYSTEM
 
 sources = ['%(name)s%(version)s_01_linux-%(arch)s-r8.tar.gz']
 
