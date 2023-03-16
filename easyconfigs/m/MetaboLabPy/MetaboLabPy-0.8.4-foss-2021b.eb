@@ -12,8 +12,12 @@ toolchain = {'name': 'foss', 'version': '2021b'}
 
 dependencies = [
     ('Python', '3.9.6'),
+    ('IPython', '7.26.0'),
     ('matplotlib', '3.4.3'),
     ('numba', '0.54.1'),
+    ('PyAutoGUI', '0.9.53'),
+    ('PySide2', '5.15.2'),
+    ('Qtconsole', '5.3.2'),
     ('scikit-learn', '1.0.1'),
     ('SciPy-bundle', '2021.10'),
     ('XlsxWriter', '3.0.2'),
@@ -38,6 +42,30 @@ exts_list = [
     ('metabolabpy', version, {
         'checksums': ['bd7ad5cb79ce1400325fcaf84da00aec071d669f21327f2fffba81f4e255a1de'],
     }),
+    ('qtmodern', '0.2.0', {
+        'checksums': ['d433a54fbb400d49790aff65d35f203de2a8cc67795ac5bb04c5e766433fafae'],
+    }),
+    ('jupyter_console', '6.3.0', {
+        'checksums': ['947f66bbdeee2221b4fb3a6b78225d337b8f10832f14cecf7932183635abe1d9'],
+    }),
+    ('jupyter', '1.0.0', {
+        'checksums': ['d9dc4b3318f310e34c82951ea5d6683f67bed7def4b259fafbfe4f1beb1d8e5f'],
+    }),
+    ('lesscpy', '0.15.1', {
+        'checksums': ['1045d17a98f688646ca758dff254e6e9c03745648e051a081b0395c3b77c824c'],
+    }),
+    ('jupyterthemes', '0.20.0', {
+        'checksums': ['2a8ebc0c84b212ab99b9f1757fc0582a3f53930d3a75b2492d91a7c8b36ab41e'],
+    }),
+    ('darkdetect', '0.8.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['a7509ccf517eaad92b31c214f593dbcf138ea8a43b2935406bbd565e15527a85'],
+    }),
+    ('qtmetabolabpy', version, {
+        'checksums': ['49c88df240dbd8be0fb7d8ff81e6eea37908a03707fe4c9761b2bf465318e77f'],
+    }),
 ]
+
+sanity_check_commands = ["qtmetabolabpy --help"]
 
 moduleclass = 'bio'
