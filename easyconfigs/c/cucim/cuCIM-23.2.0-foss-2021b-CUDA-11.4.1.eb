@@ -5,7 +5,7 @@ version = '23.2.0'
 versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/rapidsai/cucim'
-description = """RAPIDS cuCIM is an open-source, accelerated computer vision and 
+description = """RAPIDS cuCIM is an open-source, accelerated computer vision and
  image processing software library for multidimensional images used in biomedical,
  geospatial, material and life science, and remote sensing use cases."""
 
