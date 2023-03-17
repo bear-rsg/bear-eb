@@ -10,7 +10,6 @@ description = """RAPIDS cuCIM is an open-source, accelerated computer vision and
  geospatial, material and life science, and remote sensing use cases."""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
-toolchainopts = {'pic': True, 'cstd': 'c++17', 'lowopt': True}
 
 dependencies = [
     ('Python', '3.9.6'),
