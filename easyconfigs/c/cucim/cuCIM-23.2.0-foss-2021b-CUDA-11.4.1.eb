@@ -1,0 +1,42 @@
+easyblock = 'PythonBundle'
+
+name = 'cuCIM'
+version = '23.2.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/rapidsai/cucim'
+description = """RAPIDS cuCIM is an open-source, accelerated computer vision and
+ image processing software library for multidimensional images used in biomedical,
+ geospatial, material and life science, and remote sensing use cases."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('scikit-image', '0.19.1'),
+    ('IPython', '7.26.0'),
+    ('CUDA', '11.4.1', '', SYSTEM),
+    ('CuPy', '11.4.0', versionsuffix),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'source_tmpl': '%(namelower)s-%(version)s-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl',
+        'checksums': ['0d81cad3327859727353d57ff43cb875bc06a224b49bf728f68004ec21c5aa9d'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/cucim'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    'cucim --help',
+]
+
+moduleclass = 'bio'
