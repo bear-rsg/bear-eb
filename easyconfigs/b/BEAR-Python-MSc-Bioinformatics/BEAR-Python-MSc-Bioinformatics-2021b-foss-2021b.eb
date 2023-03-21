@@ -31,6 +31,7 @@ dependencies = [
     ('NLTK', '3.7'),
     ('OpenCV', '4.5.5', '-contrib'),
     ('MetaboLabPy', '0.8.4'),
+    ('scikit-image', '0.19.1'),
 ]
 
 moduleclass = 'tools'
