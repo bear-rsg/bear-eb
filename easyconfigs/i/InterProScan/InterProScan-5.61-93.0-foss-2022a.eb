@@ -1,0 +1,66 @@
+easyblock = 'Binary'
+
+name = 'InterProScan'
+version = '5.61-93.0'
+
+homepage = 'https://www.ebi.ac.uk/interpro/'
+description = """InterProScan is a sequence analysis application (nucleotide and protein sequences) that combines
+ different protein signature recognition methods into one resource [code only: libraries and external binaries
+ but no data]."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = [
+    'https://ftp.ebi.ac.uk/pub/software/unix/iprscan/%(version_major)s/%(version)s/alt/',
+]
+sources = [
+    '%(namelower)s-core-%(version)s.tar.gz',
+    '%(namelower)s-data-%(version)s.tar.gz',
+]
+checksums = [
+    {'interproscan-core-5.61-93.0.tar.gz': 'e1d1008ac39def021a7079268fee28df9ce8c819435a65a027085770de1d8131'},
+    {'interproscan-data-5.61-93.0.tar.gz': '064aa4b4c3b2e27b457298359087878e48fc785bff801c95691f090d1b83867d'},
+]
+
+dependencies = [
+    ('Java',    '11', '', True),
+    ('Perl',    '5.34.1'),
+    ('libgd',   '2.3.3'),
+    ('Python',  '3.10.4'),
+]
+# NOTE some analyses done by InterProScan require extra tools not included in the interproscan
+# distribution because of license issues.
+# Those tools are SignalP, TMHMM and Phobius.
+# To allow InterProScan to use them you have to copy or symlink their executable in the
+# corresponding %(installdir)s/bin/TOOL/VERSION/ folder.
+
+extract_sources = False
+
+# NOTE The data can be added manually afterwards with for example a symlink called *data*
+# in %(installdir)s/
+# But simpler to use the InterProScan_data-*.eb file. The regular InterProScan data package
+# does not contain the lookup_service data way too large!
+install_cmd = 'tar xfz %(namelower)s-core-%(version)s.tar.gz && '
+install_cmd += 'cd %(namelower)s-%(version)s/ && '
+install_cmd += 'find . -type d -name bin32 | xargs rm -Rf && '
+install_cmd += 'rm -f test* && rm -Rf src/ && '
+install_cmd += 'chmod -x *.jar && '
+install_cmd += 'cp -r * %(installdir)s/ && cd .. && '
+install_cmd += 'rm -Rf %(namelower)s-%(version)s/ && '
+# add the data
+install_cmd += 'tar xfz %(namelower)s-data-%(version)s.tar.gz --directory %(installdir)s/ --strip-components=1 && '
+install_cmd += 'rm -f %(namelower)s-data-%(version)s.tar.gz'
+
+# NOTE finalize the data indexing that needs to be done before/at the first use
+postinstallcmds = ["%(installdir)s/interproscan.sh || true"]
+
+sanity_check_paths = {
+    'files': ['interproscan-%(version_major)s.jar', 'interproscan.sh', 'interproscan.properties'],
+    'dirs': ['bin', 'lib', 'data/antifam', 'data/cdd', 'data/gene3d', 'data/hamap', 'data/panther',
+             'data/pfam', 'data/phobius', 'data/pirsf', 'data/pirsr', 'data/prints', 'data/prosite',
+             'data/sfld', 'data/smart', 'data/superfamily', 'data/tigrfam', 'data/tmhmm'],
+}
+
+sanity_check_commands = ["interproscan.sh 2>&1 | grep 'Welcome to InterProScan-%(version)s'"]
+
+moduleclass = 'bio'
