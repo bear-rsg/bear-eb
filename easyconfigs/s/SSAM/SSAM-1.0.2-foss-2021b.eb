@@ -1,0 +1,54 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'SSAM'
+version = '1.0.2'
+
+homepage = "https://github.com/HiDiHlabs/ssam"
+description = """Spot-based Spatial cell-type Analysis by Multidimensional mRNA
+ density estimation"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('R', '4.2.0'),  # needs sctransform and feather
+    ('scikit-learn', '1.0.1'),
+    ('scikit-image', '0.19.1'),
+    ('IPython', '7.26.0'),
+    ('Seaborn', '0.11.2'),
+    ('Arrow', '6.0.0'),
+    ('numba', '0.54.1'),
+    ('tqdm', '4.62.3'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('pynndescent', '0.5.8', {
+        'checksums': ['a7c552569bf604a101fd54bba1d27c12389e065945dee3a6777a518c63a46f2b'],
+    }),
+    ('umap-learn', '0.5.3', {
+        'modulename': 'umap',
+        'checksums': ['dbd57cb181c2b66d238acb5635697526bf24c798082daed0cf9b87f6a3a6c0c7'],
+    }),
+    ('python-louvain', '0.16', {
+        'modulename': 'community',
+        'checksums': ['b7ba2df5002fd28d3ee789a49532baad11fe648e4f2117cf0798e7520a1da56b'],
+    }),
+    ('sparse', '0.14.0', {
+        'checksums': ['5f5827a37f6cd6f6730a541f994c95c60a3ae2329e01f4ba21ced5339aea0098'],
+    }),
+    (name, version, {
+        'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'checksums': ['2e76b341931d37ddcb3c912d6e9c3fcdad1263b741dc2ca9eb92add6b66ad873'],
+    }),
+]
+
+moduleclass = 'bio'
