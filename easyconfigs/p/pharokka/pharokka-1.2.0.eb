@@ -1,0 +1,41 @@
+# Easyconfig created by the University of Birmingham ARC team
+easyblock = 'Conda'
+
+name = 'pharokka'
+version = '1.2.0'
+
+homepage = 'https://github.com/gbouras13/pharokka'
+description = """fast phage annotation program"""
+
+toolchain = SYSTEM
+
+builddependencies = [
+   ('Miniconda3', '4.12.0'),
+]
+
+channels = ['bioconda', 'conda-forge']
+
+requirements = '%(name)s=%(version)s'
+
+postinstallcmds = [
+     "mkdir %(installdir)s/databases",
+     "cd %(installdir)s/databases",
+     "wget https://zenodo.org/record/7563578/files/pharokka_v1.2.0_database.tar.gz",
+     "tar zxf %(name)s_v%(version)s_database.tar.gz",
+]
+
+modextrapaths = {
+     'PATH': 'bin/',
+     'PHAROKKA_DATA': 'databases',
+}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ["bin"],
+}
+
+sanity_check_commands = ['pharokka.py -h']
+
+modloadmsg = "If you need the pharokka databases please use pharokka.py -d $PHAROKKA_DATA"
+
+moduleclass = 'bio'
