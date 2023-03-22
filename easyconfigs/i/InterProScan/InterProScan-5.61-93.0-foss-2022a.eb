@@ -36,10 +36,7 @@ dependencies = [
 
 extract_sources = False
 
-# NOTE The data can be added manually afterwards with for example a symlink called *data*
-# in %(installdir)s/
-# But simpler to use the InterProScan_data-*.eb file. The regular InterProScan data package
-# does not contain the lookup_service data way too large!
+# install IPS
 install_cmd = 'tar xfz %(namelower)s-core-%(version)s.tar.gz && '
 install_cmd += 'cd %(namelower)s-%(version)s/ && '
 install_cmd += 'find . -type d -name bin32 | xargs rm -Rf && '
