@@ -1,0 +1,41 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'czifile'
+version = '2019.7.2'
+
+homepage = "https://www.cgohlke.com"
+description = """Czifile is a Python library to read Carl Zeiss Image (CZI) files, the native file format
+ of the ZEN(r) software by Carl Zeiss Microscopy GmbH. CZI files contain multidimensional images and 
+ metadata from microscopy experiments."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('tifffile', '2023.2.3', {
+        'checksums': ['458df5ad9a5217f668edd636dc19fbc736062bf78aac823ab84cdbae9de8eaa6'],
+    }),
+    ('imagecodecs', '2023.1.23', {
+        'source_tmpl': '%(name)s-%(version)s-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['633e0bd0abce7706a6d7251d95423c9adcf70618869f1fc7a86439e8bdbe62b2'],
+    }),
+    (name, version, {
+        'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'use_pip_extras': 'gui',
+        'checksums': ['04c0e6bed3b24d1bf42bc2cf899a5a08986641379305ce88600fd1c710486436'],
+    }),
+]
+
+moduleclass = 'bio'

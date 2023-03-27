@@ -1,0 +1,22 @@
+--- setup.py.orig	2023-03-27 11:50:40.779625000 +0100
++++ setup.py	2023-03-27 11:51:25.885749000 +0100
+@@ -36,13 +36,12 @@
+     ],
+     "nd2": ["nd2[legacy]>=0.2.0"],
+     "dv": ["mrc>=0.2.0"],
+-    "bfio": ["bfio>=2.3.0", "tifffile<2022.4.22"],
+-    # "czi": [  # excluded for licensing reasons
+-    #     "fsspec>=2022.7.1",
+-    #     "aicspylibczi>=3.0.5",
+-    # ],
+-    # "bioformats": ["bioformats_jar"],  # excluded for licensing reasons
+-    # "lif": ["readlif>=0.6.4"],  # excluded for licensing reasons
++    "bfio": ["bfio>=2.3.0", "tifffile"],
++    "czi": ["fsspec>=2022.7.1",
++        "aicspylibczi>=3.0.5",
++    ],
++    "bioformats": ["bioformats_jar"],
++    "lif": ["readlif>=0.6.4"],
+ }
+ 
+ all_formats: List[str] = []
