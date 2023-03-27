@@ -6,7 +6,7 @@ version = '2019.7.2'
 
 homepage = "https://www.cgohlke.com"
 description = """Czifile is a Python library to read Carl Zeiss Image (CZI) files, the native file format
- of the ZEN(r) software by Carl Zeiss Microscopy GmbH. CZI files contain multidimensional images and 
+ of the ZEN(r) software by Carl Zeiss Microscopy GmbH. CZI files contain multidimensional images and
  metadata from microscopy experiments."""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
