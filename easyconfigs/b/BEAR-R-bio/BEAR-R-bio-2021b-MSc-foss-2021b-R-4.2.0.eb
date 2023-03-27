@@ -1,0 +1,32 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'BEAR-R-bio'
+version = '2021b-MSc'
+versionsuffix = '-R-%(rver)s'
+
+homepage = ""
+description = """This module provides access to several R bio libraries."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.16', versionsuffix),
+    # ('monocle', '2.24.1', versionsuffix),  # Bioc 3.16
+    ('ottr', '1.2.0', versionsuffix),
+    # ('SpaTalk', '1.0', versionsuffix),  # Bioc 3.16
+    # ('celldex', '1.6.0', versionsuffix),  # Bioc 3.16
+    # ('clusterProfiler', '4.4.4', versionsuffix),  # Bioc 3.16
+    ('ggfortify', '0.4.14', versionsuffix),
+    # ('maftools', '2.12.0', versionsuffix),  # Bioc 3.16
+    # ('nichenetr', '20220911', versionsuffix),  # Bioc 3.16
+    # ('cyCombine', '0.2.15', versionsuffix),  # Bioc 3.16
+    # ('msPurity', '1.22.0', versionsuffix),  # Bioc 3.16
+    # ('MSstats', '4.4.1', versionsuffix),  # Bioc 3.16
+    # ('faahKO', '1.36.0', versionsuffix),  # Bioc 3.16
+    # ('pandaR', '1.28.0', versionsuffix),  # Bioc 3.16
+    ('iRF', '3.0.0', versionsuffix),
+]
+
+moduleclass = 'bio'
