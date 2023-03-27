@@ -20,6 +20,8 @@ dependencies = [
     ('GSL', '2.7'),  # for flowClust
     ('HDF5', '1.12.1'),  # for rhdf5
     ('arrow-R', '6.0.0.2', versionsuffix),  # required by RcisTarget
+    ('FriBidi', '1.0.10'),
+    ('HarfBuzz', '2.8.2'),
 ]
 
 exts_default_options = {
