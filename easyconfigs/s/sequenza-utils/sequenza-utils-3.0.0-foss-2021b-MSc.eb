@@ -1,0 +1,42 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'sequenza-utils'
+version = '3.0.0'
+versionsuffix = '-MSc'
+
+homepage = "http://sequenza-utils.readthedocs.org"
+description = """Sequenza-utils is The supporting python library for the sequenza R package.
+
+Sequenza is a software for the estimation and quantification of purity/ploidy and copy number alteration in sequencing
+experiments of tumor samples. Sequenza-utils provide command lines programs to transform common NGS file format - such
+as BAM, pileup and VCF - to input files for the R package.
+"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('R', '4.2.0'),
+    ('sequenza', version, versionsuffix),
+    ('SAMtools', '1.15.1'),
+    ('HTSlib', '1.14'),
+]
+
+sources = [SOURCE_TAR_GZ]
+checksums = ['0640f3d73e7c320b5234b86f1b94d6315b3248e1b2715c01fe44fbd23ffb2370']
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+options = {'modulename': 'sequenza'}
+
+sanity_check_paths = {
+    'files': ['bin/sequenza-utils'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages']
+}
+
+sanity_check_commands = ['sequenza-utils --help']
+
+moduleclass = 'bio'
