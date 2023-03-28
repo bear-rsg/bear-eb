@@ -1,0 +1,182 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'aicsimageio'
+version = '4.9.4'
+
+homepage = "https://github.com/AllenCellModeling/aicsimageio"
+description = """Image Reading, Metadata Conversion, and Image Writing for Microscopy Images in Pure Python"""
+citing = """Eva Maxfield Brown, Dan Toloudis, Jamie Sherman, Madison Swain-Bowden, Talley Lambert,
+ AICSImageIO Contributors (2021). AICSImageIO: Image Reading, Metadata Conversion, and Image Writing
+ for Microscopy Images in Pure Python [Computer software]. GitHub.
+ https://github.com/AllenCellModeling/aicsimageio
+"""
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('scikit-image', '0.19.1'),
+    ('Java', '11', '', SYSTEM),  # Bio-Formats support
+    ('Maven', '3.6.3', '', SYSTEM),  # Bio-Formats support
+    ('Pillow', '8.3.2'),
+    ('imageio', '2.13.5'),
+    ('lxml', '4.6.3'),
+    ('dask', '2022.1.0'),
+    ('xarray', '0.20.1'),
+    ('zarr', '2.13.3'),
+    ('aiohttp', '3.8.1'),
+    ('typing-extensions', '3.10.0.2'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+local_hatchling_preinstallopts = "sed -i 's|packaging>=21.3|packaging>=20.9|g' pyproject.toml && "
+local_hatchling_preinstallopts += "sed -i 's|pluggy>=1.0.0|pluggy>=0.13.1|g' pyproject.toml && "
+local_hatchling_preinstallopts += "sed -i 's|packaging>=21.3|packaging>=20.9|g' src/hatchling/ouroboros.py && "
+local_bfio_preinstallopts = "sed -i 's|bioformats_jar==6.7.0.post2|bioformats_jar>=6.7.0.post2|g' setup.py && "
+local_bfio_preinstallopts += "cp bfio/VERSION . && "
+
+exts_list = [
+    ('setuptools', '61.3.1', {
+        'checksums': ['88fafba4abc2f047e08a188fd4bbc10b0e464592c37b514c19f8f8f88d94450b'],
+    }),
+    ('mrc', '0.3.0', {
+        'checksums': ['69318075eb9cd87f1d7c1f1c9a62bd5179639327430dac68f206467280264c51'],
+    }),
+    ('wurlitzer', '3.0.3', {
+        'checksums': ['224f5fe70618be3872c05dfddc8c457191ec1870654596279fcc1edadebe3e5b'],
+    }),
+    ('nd2', '0.5.3', {
+        'use_pip_extras': 'legacy',
+        'checksums': ['a9d541719db16acc577565a5aa7941b280ea7acad6b92c574e188f1d774a1f0f'],
+    }),
+    ('imageio-ffmpeg', '0.4.8', {
+        'checksums': ['fdaa05ad10fe070b7fa8e5f615cb0d28f3b9b791d00af6d2a11e694158d10aa9'],
+    }),
+    ('lxml', '4.9.2', {
+        'checksums': ['2455cfaeb7ac70338b3257f41e21f0724f4b5b0c0e7702da67ee6c3640835b67'],
+    }),
+    ('editables', '0.3', {
+        'checksums': ['167524e377358ed1f1374e61c268f0d7a4bf7dbd046c656f7b410cde16161b1a'],
+    }),
+    ('fsspec', '2022.11.0', {
+        'checksums': ['259d5fd5c8e756ff2ea72f42e7613c32667dc2049a4ac3d84364a7ca034acb8b'],
+    }),
+    ('tifffile', '2023.2.3', {
+        'checksums': ['458df5ad9a5217f668edd636dc19fbc736062bf78aac823ab84cdbae9de8eaa6'],
+    }),
+    ('imagecodecs', '2023.1.23', {
+        'source_tmpl': '%(name)s-%(version)s-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['633e0bd0abce7706a6d7251d95423c9adcf70618869f1fc7a86439e8bdbe62b2'],
+    }),
+    ('elementpath', '2.5.3', {
+        'checksums': ['b8aeb6f27dddc10fb9201b62090628a846cbae8577f3544cb1075fa38d0817f6'],
+    }),
+    ('xmlschema', '1.4.1', {
+        'checksums': ['ade693114ff2e4a9ed5a2371ce29ae888f689bc58e326e5796f8a7dc8954dd4a'],
+    }),
+    ('pathspec', '0.11.1', {
+        'checksums': ['2798de800fa92780e33acca925945e9a19a133b715067cf165b8866c15a31687'],
+    }),
+    ('tomli', '2.0.1', {
+        'checksums': ['de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f'],
+    }),
+    ('hatchling', '1.13.0', {
+        'preinstallopts': local_hatchling_preinstallopts,
+        'checksums': ['f8d275a2cc720735286b7c2e2bc35da05761e6d3695c2fa416550395f10c53c7'],
+    }),
+    ('hatch-vcs', '0.3.0', {
+        'preinstallopts': "sed -i 's|setuptools-scm>=6.4.0|setuptools-scm>=6.0.1|g' pyproject.toml && ",
+        'source_tmpl': 'hatch_vcs-%(version)s.tar.gz',
+        'checksums': ['cec5107cfce482c67f8bc96f18bbc320c9aa0d068180e14ad317bbee5a153fee'],
+    }),
+    ('hatch-fancy-pypi-readme', '22.8.0', {
+        'source_tmpl': 'hatch_fancy_pypi_readme-%(version)s.tar.gz',
+        'checksums': ['da91282ca09601c18aded8e378daf8b578c70214866f0971156ee9bb9ce6c26a'],
+    }),
+    ('pydantic', '1.9.1', {
+        'checksums': ['1ed987c3ff29fff7fd8c3ea3a3ea877ad310aae2ef9889a119e22d3f2db0691a'],
+    }),
+    ('black', '23.1.0', {
+        'preinstallopts': "sed -i 's|packaging>=22.0|packaging>=20.9|g' pyproject.toml && ",
+        'checksums': ['b0bd97bea8903f5a2ba7219257a44e3f1f9d00073d6cc1add68f0beec69692ac'],
+    }),
+    ('Pint', '0.20.1', {
+        'checksums': ['387cf04078dc7dfe4a708033baad54ab61d82ab06c4ee3d4922b1e45d5626067'],
+    }),
+    ('mypy-extensions', '1.0.0', {
+        'modulename': 'mypy_extensions',
+        'source_tmpl': 'mypy_extensions-%(version)s.tar.gz',
+        'checksums': ['75dbf8955dc00442a438fc4d0666508a9a97b6bd41aa2f0ffe9d2f2725af0782'],
+    }),
+    ('isort', '5.12.0', {
+        'checksums': ['8bef7dde241278824a6d83f44a544709b065191b95b6e50894bdc722fcba0504'],
+    }),
+    ('autoflake', '2.0.2', {
+        'checksums': ['e0164421ff13f805f08a023e249d84200bd00463d213b490906bfefa67e83830'],
+    }),
+    ('pyflakes', '3.0.1', {
+        'checksums': ['ec8b276a6b60bd80defed25add7e439881c19e64850afd9b346283d4165fd0fd'],
+    }),
+    ('numpydoc', '1.4.0', {
+        'checksums': ['9494daf1c7612f59905fa09e65c9b8a90bbacb3804d91f7a94e778831e6fcfa5'],
+    }),
+    ('ome-types', '0.3.3', {
+        'preinstallopts': "sed -i 's|lxml>=4.8.0|lxml>=4.6.3|g' pyproject.toml && ",
+        'source_tmpl': 'ome_types-%(version)s.tar.gz',
+        'checksums': ['434703bbd4079f7c8227fb074988c11a2d5e8cdbfbfc18675e45540eea6285e0'],
+    }),
+    ('wrapt', '1.14.0', {
+        'checksums': ['8323a43bd9c91f62bb7d4be74cc9ff10090e7ef820e27bfe8815c57e68261311'],
+    }),
+    ('resource-backed-dask-array', '0.1.0', {
+        'source_tmpl': 'resource_backed_dask_array-%(version)s.tar.gz',
+        'checksums': ['8fabcccf5c7e29059b5badd6786dd7675a258a203c58babf10077d9c90ada54f'],
+    }),
+    ('ome-zarr', '0.2.1', {
+        'checksums': ['7e1c0304982252bcb5fd0e3b68ff67e0aca09b3928f78fe090f2a48e46576ba4'],
+    }),
+    ('aicspylibczi', '3.1.0', {
+        'source_tmpl': '%(name)s-%(version)s-cp39-cp39-manylinux_2_12_x86_64.manylinux2010_x86_64.whl',
+        'checksums': ['051eccdf97cb59c448219f8e0f95600b1f9c163a4344de75c21400860b0086a7'],
+    }),
+    ('readlif', '0.6.5', {
+        'checksums': ['273de3847c9a4c832d9cd486c2bf0656b99f30c157a7781254664bd9c9ccce0d'],
+    }),
+    ('jgo', '1.0.5', {
+        'checksums': ['48cfab8ec880692d93b22c42e0239f4792c009461c121c15549c456c6a6a4eb6'],
+    }),
+    ('JPype1', '1.4.1', {
+        'modulename': 'jpype',
+        'checksums': ['dc8ee854073474ad79ae168d90c2f6893854f58936cfa18f3587cadae0d3696d'],
+    }),
+    ('scyjava', '1.8.1', {
+        'checksums': ['de94bf2f1569af0c5c41f38eade53930ae3d17dc584eed712fac6494a7f20efc'],
+    }),
+    ('bioformats-jar', '2020.5.27', {
+        'source_tmpl': 'bioformats_jar-%(version)s.tar.gz',
+        'checksums': ['36f9842ea5680f8f645a20195ab57c869db6a0cbe56dfd2729c6fd6bc07bfe29'],
+    }),
+    ('bfio', '2.3.0', {
+        'preinstallopts': local_bfio_preinstallopts,
+        'use_pip_extras': 'bioformats,zarr',
+        'checksums': ['963a56aed17cf0fcbcac3995daf61dd75b8d68d8358b144003d79cf17dce16fe'],
+    }),
+    (name, version, {
+        'patches': ['aicsimageio-4.9.4_deps.patch'],
+        'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'use_pip_extras': 'all',
+        'checksums': [
+            {'aicsimageio-4.9.4.tar.gz': '91d02102370e837e41edc865405f6aaea18920334726d3795f7b756ed466d269'},
+            {'aicsimageio-4.9.4_deps.patch': '43e7b79e7e1a21804a4670b7501dc210c03ebcaadee4005b207a369891be6ed1'},
+        ],
+    }),
+]
+
+moduleclass = 'vis'
