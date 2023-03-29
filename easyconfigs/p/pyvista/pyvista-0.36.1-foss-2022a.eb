@@ -1,0 +1,33 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pyvista'
+version = '0.36.1'
+
+homepage = "https://docs.pyvista.org"
+description = """PyVista is a helper module for the Visualization Toolkit (VTK) that wraps the VTK library through
+ NumPy and direct array access through a variety of methods and classes."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),  # numpy
+    ('Pillow', '9.1.1'),
+    ('imageio', '2.22.2'),
+    ('VTK', '9.2.2'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('scooby', '0.7.1', {
+        'checksums': ['52014f4681bcc3295932e0f3d94b69e40e6195a6965b34e68941312ce6b636de'],
+    }),
+    (name, version, {
+        'checksums': ['b84460a9a33967d2e9a03555907d7883ff7c21ee957e4b95c096d796f6841bf9'],
+    }),
+]
+
+moduleclass = 'bio'
