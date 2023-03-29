@@ -26,7 +26,7 @@ dependencies = [
     ('wittgenstein', '0.3.2'),
     ('statsmodels', '0.13.1'),
     ('plotly.py', '5.4.0'),
-    ('sequenza-utils', '3.0.0'),
+    ('sequenza-utils', '3.0.0', '-MSc'),
     ('networkx', '2.6.3'),
     ('NLTK', '3.7'),
     ('OpenCV', '4.5.5', '-contrib'),
