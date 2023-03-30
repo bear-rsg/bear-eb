@@ -1,0 +1,47 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'SCENIC'
+version = '20220502'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=SCENIC"
+description = """SCENIC is an R package to infer Gene Regulatory Networks and cell types from single-cell RNA-seq
+ data."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.15', versionsuffix),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'source_urls': ['https://github.com/aertslab/%(name)s/archive/'],
+        'sources': [{'download_filename': '06d3f34.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['5f78e876d1b3884f0d8acbe8ef268691d18d77fedbd61153086504b78ce24c3e'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['SCENIC/R/SCENIC'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
