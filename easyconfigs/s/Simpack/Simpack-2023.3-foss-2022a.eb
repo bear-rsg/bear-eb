@@ -1,0 +1,44 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CmdCp'
+
+name = 'Simpack'
+version = '2023.3'
+
+homepage = "https://www.3ds.com/products-services/simulia/products/simpack/"
+description = """Simpack is a general multibody simulation (MBS) software enabling analysts and engineers to simulate
+ the non-linear motion of any mechanical or mechatronic system. It enables engineers to generate and solve virtual 3D
+ models in order to predict and visualize motion, coupling forces and stresses. """
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+# Login required to download installer. Acquired from license holder.
+# Package the installer with: tar -czf [installer] Simpack-[version].tar.gz
+
+sources = [SOURCE_TAR_GZ]
+checksums = ['1dcae53b3efbf1fc15e6e29fa42efdbd763d88748f73f6eee953401e82b992b3']
+
+dependencies = [
+    ('Mesa', '22.0.3'),
+    ('libxslt', '1.1.34'),
+    ('libGLU', '9.0.2'),
+    ('libpng', '1.6.37'),
+]
+
+cmds_map = [('.*', "./spck-2023.3-build145-linux64-installer.bin --prefix %(installdir)s --mode unattended")]
+skipsteps = ['configure', 'install']
+files_to_copy = []
+
+sanity_check_paths = {
+    'files': ['run/bin/linux64/simpack-gui'],
+    'dirs': [],
+}
+
+modextrapaths = {'PATH': 'run/bin/linux64'}
+
+modloadmsg = """The Simpack GUI does not work consistently, so the Simpack solver `simpack-slv`
+ must be used directly. See https://bear-apps.bham.ac.uk/applications/Simpack/ for more information."""
+
+moduleclass = 'cae'
+
+# Need to ensure that only members of the p-simpack group can access the module
+local_bham_group = 'p-simpack'
