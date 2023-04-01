@@ -1,0 +1,31 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'cma'
+version = '3.3.0'
+
+homepage = "https://github.com/CMA-ES/pycma"
+description = """Python implementation of CMA-ES (Covariance Matrix Adaptation Evolution Strategy for non-linear
+ numerical optimization)."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('matplotlib', '3.5.2'),
+]
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['b748b8e03f4e7ae816157d7b9bb2fc6b1fb2fee1d5fd3399329b646bb75861ec']
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+sanity_check_commands = [
+    ("python -c 'import cma; help(cma)'"),
+]
+
+moduleclass = 'math'
