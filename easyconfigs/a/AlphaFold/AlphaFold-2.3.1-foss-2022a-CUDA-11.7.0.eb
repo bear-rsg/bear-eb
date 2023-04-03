@@ -162,8 +162,8 @@ sanity_pip_check = True
 modextravars = {
     'TF_FORCE_UNIFIED_MEMORY': '1',
     'XLA_PYTHON_CLIENT_MEM_FRACTION': '3',
-    # 'ALPHAFOLD_DATA_DIR': '/path/to/AlphaFold_DBs',  # please adapt
     'OPENMM_RELAX': 'CUDA'  # unset or set to 'CPU' in order not to run the energy minimization on GPU; PR#189
+    # N.B. Not setting ALPHAFOLD_DATA_DIR in modextravars and instead advising users to set it manually
 }
 
 moduleclass = 'bio'
