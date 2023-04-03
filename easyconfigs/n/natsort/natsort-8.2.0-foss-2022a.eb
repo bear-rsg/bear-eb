@@ -1,0 +1,25 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'natsort'
+version = '8.2.0'
+
+homepage = "https://natsort.readthedocs.io/en/stable"
+description = """Simple yet flexible natural sorting in Python."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'checksums': ['57f85b72c688b09e053cdac302dd5b5b53df5f73ae20b4874fcbffd8bf783d11'],
+    }),
+]
+
+moduleclass = 'bio'

@@ -1,0 +1,36 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'coexist'
+version = '0.3.1'
+
+homepage = "https://github.com/uob-positron-imaging-centre/ACCES-CoExSiST"
+description = """A Python library for autonomously learning simulation parameters from experimental data, from the
+ micro to the macro, from laptops to clusters."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('matplotlib', '3.5.2'),
+    ('cma', '3.3.0'),
+    ('plotly.py', '5.12.0'),
+    ('tqdm', '4.64.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('pyevtk', '1.5.0', {
+        'checksums': ['09db6b09b50e61b7cefedc53b85150096cdbc307f26cc97b2d0f4d56b30199eb'],
+    }),
+    ('astunparse', '1.6.3', {
+        'checksums': ['5ad93a8456f0d084c3456d059fd9a92cce667963232cbf763eac3bc5b7940872'],
+    }),
+    (name, version, {
+        'checksums': ['047f0124e9ba4cd13a6ede6d2e76dbe6c6aca412f45011ff835c4ca51d92df06'],
+    }),
+]
+
+moduleclass = 'bio'
