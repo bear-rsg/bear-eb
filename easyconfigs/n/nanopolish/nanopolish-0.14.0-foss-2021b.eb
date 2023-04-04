@@ -1,0 +1,54 @@
+# This easyconfig is created by the Advanced Research Computing team at the University of Birmingham
+easyblock = 'MakeCp'
+
+name = 'nanopolish'
+version = '0.14.0'
+
+homepage = 'https://github.com/jts/nanopolish'
+description = "Software package for signal-level analysis of Oxford Nanopore sequencing data."
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/jts',
+        'repo_name': '%(namelower)s',
+        'tag': 'v%(version)s',
+        'recursive': True,
+    }
+}]
+
+checksums = [None]
+
+builddependencies = [('Eigen', '3.4.0')]
+
+dependencies = [
+    ('zlib', '1.2.11'),
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('Biopython', '1.79'),
+    ('OrthoFinder', '2.5.4'),
+    ('Pysam', '0.18.0'),
+    ('HDF5', '1.12.1'),
+    ('HTSlib', '1.14'),
+    ('minimap2', '2.24'),
+    ('VBZ-Compression', '1.0.2'),
+]
+
+buildopts = "HDF5=noinstall EIGEN=noinstall HTS=noinstall MINIMAP2=noinstall"
+
+runtest = 'test ' + buildopts
+
+files_to_copy = [(['nanopolish'], 'bin'), 'scripts']
+
+postinstallcmds = ["chmod a+rx %(installdir)s/scripts/*"]
+
+sanity_check_paths = {
+    'files': ['bin/nanopolish'],
+    'dirs': ['scripts'],
+}
+
+modextrapaths = {'PATH': 'scripts'}
+
+moduleclass = 'bio'
