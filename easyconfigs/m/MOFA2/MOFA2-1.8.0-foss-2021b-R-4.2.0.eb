@@ -1,0 +1,63 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'MOFA2'
+version = '1.8.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://www.bioconductor.org/packages/release/bioc/html/MOFA2.html"
+description = """The MOFA2 package contains a collection of tools for training and analysing multi-omic factor analysis
+ (MOFA). MOFA is a probabilistic factor model that aims to identify principal axes of variation from data sets that can
+ comprise multiple omic layers and/or groups of samples. Additional time or space information on the samples can be
+ incorporated using the MEFISTO framework, which is part of MOFA2. Downstream analysis functions to inspect molecular
+ features underlying each factor, vizualisation, imputation etc are available."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.16', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.16/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.16/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.16/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.16/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    ('dir.expiry', '1.6.0', {
+        'checksums': ['c8157d9ea86ad244923b344fe39bd73931fe2399e46ba0ae08af8de8980ca3c7'],
+    }),
+    ('basilisk.utils', '1.10.0', {
+        'checksums': ['dca17bf5ca9ae225258241744a9829c71fb07b5450f37cb9a20fbcac104f023e'],
+    }),
+    ('basilisk', '1.10.2', {
+        'checksums': ['09b402dae2d9328f76d7ffb91311cde639e55c967462ed279345caa3e2a84f93'],
+    }),
+    (name, version, {
+        'checksums': ['009adf79638deac694ec6f1fa9d1d0146f209d4ada155879b526c419933d11c5'],
+    }),
+    ('MOFAdata', '1.14.0', {
+        'checksums': ['0b6dedf83996f46d0bcf345735823bd3d06e2461534388d883a71095c7da3990'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['MOFA2/R/MOFA2'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
