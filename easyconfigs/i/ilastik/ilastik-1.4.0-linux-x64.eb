@@ -1,0 +1,35 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Tarball'
+
+name = 'ilastik'
+version = '1.4.0'
+versionsuffix = '-linux-x64'
+
+homepage = "https://www.ilastik.org/"
+description = """ilastik is a simple, user-friendly tool for interactive image classification, segmentation and
+ analysis. It is built as a modular software framework, which currently has workflows for automated (supervised)
+ pixel- and object-level classification, automated and semi-automated object tracking, semi-automated segmentation
+ and object counting without detection. Most analysis operations are performed lazily, which enables targeted
+ interactive processing of data subvolumes, followed by complete volume analysis in offline batch mode."""
+
+toolchain = SYSTEM
+
+source_urls = ['http://files.ilastik.org']
+sources = ['%(name)s-%(version)s-Linux.tar.bz2']
+checksums = ['b4520f1e90b82c6824df941878e62df320f4e9815d00ee4444feed370b9e2574']
+
+dependencies = []
+
+buildininstalldir = True
+skipsteps = ['install']
+
+sanity_check_paths = {
+    'files': ['%(name)s-%(version)s-Linux/run_ilastik.sh'],
+    'dirs': [],
+}
+
+modextrapaths = {'PATH': '%(name)s-%(version)s-Linux'}
+
+sanity_check_commands = ['run_ilastik.sh --help']
+
+moduleclass = 'bio'
