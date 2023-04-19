@@ -12,7 +12,6 @@ description = """ilastik is a simple, user-friendly tool for interactive image c
  and object counting without detection. Most analysis operations are performed lazily, which enables targeted
  interactive processing of data subvolumes, followed by complete volume analysis in offline batch mode."""
 
-# toolchain = {'name': 'dummy', 'version': 'dummy'}
 toolchain = SYSTEM
 
 source_urls = ['http://files.ilastik.org']
