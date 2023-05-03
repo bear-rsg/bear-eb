@@ -32,6 +32,7 @@ dependencies = [
     ('OpenCV', '4.5.5', '-contrib'),
     ('MetaboLabPy', '0.8.4'),
     ('scikit-image', '0.19.1'),
+    ('mvlearn', '0.5.0'),
 ]
 
 moduleclass = 'tools'
