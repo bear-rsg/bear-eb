@@ -3,6 +3,7 @@ easyblock = 'PythonBundle'
 
 name = 'SSAM'
 version = '1.0.2'
+local_r_versionsuffix = '-R-4.2.0'
 
 homepage = "https://github.com/HiDiHlabs/ssam"
 description = """Spot-based Spatial cell-type Analysis by Multidimensional mRNA
@@ -13,7 +14,7 @@ toolchain = {'name': 'foss', 'version': '2021b'}
 dependencies = [
     ('Python', '3.9.6'),
     ('SciPy-bundle', '2021.10'),
-    ('R', '4.2.0'),  # needs sctransform and feather
+    ('R', '4.2.0'),  # needs sctransform
     ('scikit-learn', '1.0.1'),
     ('scikit-image', '0.19.1'),
     ('IPython', '7.26.0'),
@@ -21,6 +22,7 @@ dependencies = [
     ('Arrow', '6.0.0'),
     ('numba', '0.54.1'),
     ('tqdm', '4.62.3'),
+    ('arrow-R', '6.0.0.2', local_r_versionsuffix),  # needed for arrow
 ]
 
 sanity_pip_check = True
@@ -46,8 +48,13 @@ exts_list = [
         'checksums': ['5f5827a37f6cd6f6730a541f994c95c60a3ae2329e01f4ba21ced5339aea0098'],
     }),
     (name, version, {
+        'patches': ['SSAM-1.0.2-use_arrow_for_data_exchange.patch'],
         'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
-        'checksums': ['2e76b341931d37ddcb3c912d6e9c3fcdad1263b741dc2ca9eb92add6b66ad873'],
+        'checksums': [
+            {'ssam-1.0.2.tar.gz': '2e76b341931d37ddcb3c912d6e9c3fcdad1263b741dc2ca9eb92add6b66ad873'},
+            {'SSAM-1.0.2-use_arrow_for_data_exchange.patch':
+             '08c025861e437347b87f683758e4f03090c600df3382712ed4c70fdfe67f0049'},
+        ],
     }),
 ]
 
