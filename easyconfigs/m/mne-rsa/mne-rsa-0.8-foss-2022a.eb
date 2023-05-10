@@ -25,6 +25,8 @@ use_pip = True
 download_dep_fail = True
 sanity_pip_check = True
 
-modloadmsg = """Use import mne_rsa"""
+modloadmsg = """
+Use import mne_rsa
+"""
 
 moduleclass = 'data'
