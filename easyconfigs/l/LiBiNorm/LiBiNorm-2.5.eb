@@ -7,7 +7,7 @@ version = '2.5'
 homepage = "https://warwick.ac.uk/fac/sci/lifesci/research/libinorm"
 description = """
 LiBiNorm has been designed to perform gene expression analysis using RNA-seq data.
-It is command line and output compatible with htseq-count and also includes RNA-seq bias compensation 
+It is command line and output compatible with htseq-count and also includes RNA-seq bias compensation
 tailored to Smart-seq2 library preparation.
 """
 
