@@ -1,0 +1,25 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Binary'
+
+name = 'LiBiNorm'
+version = '2.5'
+
+homepage = "https://warwick.ac.uk/fac/sci/lifesci/research/libinorm"
+description = """
+LiBiNorm has been designed to perform gene expression analysis using RNA-seq data.
+It is command line and output compatible with htseq-count and also includes RNA-seq bias compensation
+tailored to Smart-seq2 library preparation.
+"""
+
+toolchain = SYSTEM
+
+source_urls = ['https://files.warwick.ac.uk/ndyer/files/LiBiNorm2.5/Linux']
+sources = ['%(name)s']
+checksums = ['ea9cf4d5d92afa02625e1c2dcbd4e9de513f5edfacbd622b0a02f6ea37a77e3c']
+
+sanity_check_paths = {
+    'files': ['LiBiNorm'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
