@@ -27,7 +27,11 @@ exts_list = [
     ('anndata', '0.8.0', {
         'checksums': ['94d2cc6f76c0317c0ac28564e3092b313b7ad19c737d66701961f3e620b9066e'],
     }),
+    ('argparse', '1.4.0', {
+        'checksums': ['62b089a55be1d8949cd2bc7e0df0bddb9e028faefc8c32038cc84862aefdd6e4'],
+    }),
     (name, version, {
+        'preinstallopts': "touch description.md && ",
         'checksums': ['df084a59f15397886691fc0045032635914da118e73c76cec573e36ed930eb85'],
     }),
 ]
