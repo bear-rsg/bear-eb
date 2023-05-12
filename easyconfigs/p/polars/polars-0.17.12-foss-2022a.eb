@@ -1,0 +1,65 @@
+easyblock = 'PythonBundle'
+
+name = 'polars'
+version = '0.17.12'
+
+homepage = 'https://pola.rs/'
+description = """Lightning-fast DataFrame library for Rust and Python."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'pic': True}
+
+builddependencies = [
+    # required for setuptools-rust, which is needed for maturin
+    # (and is needed in a more recent version than supplied with Python 3.10.4)
+    ('Rust', '1.65.0'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('Arrow', '8.0.0'),
+    ('SciPy-bundle', '2022.05'),
+    ('matplotlib', '3.5.2'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('setuptools', '65.6.3', {
+        'checksums': ['a7620757bf984b58deaf32fc8a4577a9bbc0850cf92c20e1ce41c38c19e5fb75'],
+    }),
+    ('setuptools-rust', '1.5.2', {
+        'checksums': ['d8daccb14dc0eae1b6b6eb3ecef79675bd37b4065369f79c35393dd5c55652c7'],
+    }),
+    ('maturin', '0.15.1', {
+        'checksums': ['247bec13d82021972e5cb4eb38e7a7aea0e7a034beab60f0e0464ffe7423f24b'],
+    }),
+    ('connectorx', '0.3.1', {
+        'source_tmpl': 'connectorx-%(version)s-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['71d2c2678339fb01f89469bbe22e66e75cabcf727a52ed72d576fef5744ebc58'],
+    }),
+    ('xlsx2csv', '0.8.1', {
+        'checksums': ['7ecd6d2bc2426f2e432f4fdac12211e1976d3cbb65f9033e1eda65edda2045e3'],
+    }),
+    ('XlsxWriter', '3.1.0', {
+        'checksums': ['02913b50b74c00f165933d5da3e3a02cab4204cb4932722a1b342c5c71034122'],
+    }),
+    ('deltalake', '0.9.0', {
+        # wheel supports Python 3.10
+        'source_tmpl': 'deltalake-0.9.0-1-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['5d3d8b20b2e3e98edb4a8ab4d6f05f22259b0c355186e557008ece981a39fd01'],
+    }),
+    (name, version, {
+        # Avoid ICE when compiling of argminmax https://github.com/jvdd/argminmax/issues/55#issuecomment-1544618951
+        'preinstallopts': 'echo -e "\n[profile.release.package.argminmax]\nopt-level = 1" >> Cargo.toml &&',
+        'checksums': ['0d043f1fbcf4efced53b048f76ffd7cf2e203caec635517de2e9cf2e235cb3e5'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'lib'
