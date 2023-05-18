@@ -1,0 +1,28 @@
+easyblock = 'Tarball'
+
+name = 'MiXCR'
+version = '4.3.2'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://milaboratory.com/software/mixcr'
+description = """MiXCR is a universal software for fast and accurate extraction of T- and B- cell receptor repertoires
+from any type of sequencing data."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/milaboratory/mixcr/releases/download/v%(version)s/']
+sources = [SOURCELOWER_ZIP]
+checksums = ['8f67cda8e55eeee66b46db0f33308418b6ddb63ca8914623035809ccb5aae2c2']
+
+dependencies = [('Java', '11')]
+
+sanity_check_paths = {
+    'files': ['mixcr', 'mixcr.jar'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["mixcr --help"]
+
+modextrapaths = {'PATH': ''}
+
+moduleclass = 'bio'
