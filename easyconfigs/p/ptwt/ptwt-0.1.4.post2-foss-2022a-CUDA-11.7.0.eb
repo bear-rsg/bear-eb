@@ -1,0 +1,31 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'ptwt'
+version = '0.1.4.post2'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = "https://github.com/v0lta/PyTorch-Wavelet-Toolbox"
+description = """Differentiable and gpu enabled fast wavelet transforms in PyTorch"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('CUDA', '11.7.0', '', SYSTEM),
+    ('matplotlib', '3.5.2'),
+    ('Python', '3.10.4'),
+    ('PyTorch', '1.12.1', versionsuffix),
+    ('scikit-image', '0.19.3'),  # PyWavelets
+    ('SciPy-bundle', '2022.05'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'checksums': ['4efeb0e9d389f69af3e71b985e0690ec7e78e2181593abaf84a87351e3b25b46'],
+    }),
+]
+
+moduleclass = 'tools'
