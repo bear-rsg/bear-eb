@@ -1,0 +1,50 @@
+easyblock = 'PythonBundle'
+
+name = 'Transformers'
+version = '4.24.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/huggingface/transformers'
+description = """
+State-of-the-art Natural Language Processing for PyTorch and TensorFlow 2.0"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+builddependencies = [
+    ('pkgconf', '1.8.0'),
+    ('Rust', '1.65.0'),
+]
+dependencies = [
+    ('CUDA', '11.7.0', '', True),
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('PyYAML', '6.0'),
+    ('PyTorch', '1.12.1', versionsuffix),
+    ('tqdm', '4.64.0'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('regex', '2023.5.5', {
+        'checksums': ['7d76a8a1fc9da08296462a18f16620ba73bcbf5909e42383b253ef34d9d5141e'],
+    }),
+    ('tokenizers', '0.13.3', {
+        'checksums': ['2e546dbb68b623008a5442353137fbb0123d311a6d7ba52f2667c8862a75af2e'],
+    }),
+    ('huggingface-hub', '0.14.1', {
+        'source_tmpl': 'huggingface_hub-%(version)s.tar.gz',
+        'checksums': ['9ab899af8e10922eac65e290d60ab956882ab0bf643e3d990b1394b6b47b7fbc'],
+    }),
+    ('accelerate', '0.19.0', {
+        'checksums': ['84920226b9e642e453ef37593ee55b956b08d8200dea4087c546c34e26157e76'],
+    }),
+    ('transformers', version, {
+        'use_pip_extras': 'torch',
+        'checksums': ['486f353a8e594002e48be0e2aba723d96eda839e63bfe274702a4b5eda85559b'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'math'
