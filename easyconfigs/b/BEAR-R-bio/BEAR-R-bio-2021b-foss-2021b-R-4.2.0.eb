@@ -28,6 +28,7 @@ dependencies = [
     ('pandaR', '1.28.0', versionsuffix),
     ('iRF', '3.0.0', versionsuffix),
     ('SCENIC', '20220502', versionsuffix),
+    ('phateR', '1.0.7', versionsuffix),
 ]
 
 moduleclass = 'bio'
