@@ -1,0 +1,52 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'PHATE'
+version = '1.0.10'
+
+homepage = "https://pypi.org/project/phate/"
+description = """PHATE (Potential of Heat-diffusion for Affinity-based Trajectory Embedding) is a tool for visualizing
+ high dimensional single-cell data with natural progressions or trajectories. PHATE uses a novel conceptual framework
+ for learning and visualizing the manifold inherent to biological systems in which smooth transitions mark the
+ progressions of cells from one state to another."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('matplotlib', '3.4.3'),
+    ('scikit-learn', '1.0.1'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('wrapt', '1.15.0', {
+        'checksums': ['d06730c6aed78cee4126234cf2d071e01b44b915e725a6cb439a879ec9754a3a'],
+    }),
+    ('Deprecated', '1.2.14', {
+        'checksums': ['e5323eb936458dccc2582dc6f9c322c852a775a27065ff2b0c4970b9d53d01b3'],
+    }),
+    ('tasklogger', '1.2.0', {
+        'checksums': ['b0a390dbe1d4c6f7465e58ee457b5bb381657b5ede3a85bcf45199cb56ac01a4'],
+    }),
+    ('PyGSP', '0.5.1', {
+        'checksums': ['4874ad88793d622d4f578b40c6617a99b1f02bc6c6c4077f0e48cd71c7275800'],
+    }),
+    ('graphtools', '1.5.3', {
+        'checksums': ['b35ae2974d24c507fe01b110d10b1d8c949e20bc49ff9d7d04f94849f9795907'],
+    }),
+    ('scprep', '1.2.2', {
+        'checksums': ['eaa800cc0519798716fd8b3efdcc290743e95d122e096df321e5f004ddea6ce4'],
+    }),
+    ('s_gd2', '1.8.1', {
+        'checksums': ['977597da6d7f6f4b7a479732e374e48d34369e047090720c5d78ca3ca59dc269'],
+    }),
+    ('phate', version, {
+        'checksums': ['39de6ba19c83713cd5d378c9bcdb4ef9db8f3ca79a0f43c0dddf63a21edff29d'],
+    }),
+]
+
+moduleclass = 'bio'

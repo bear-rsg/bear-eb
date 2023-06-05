@@ -1,0 +1,48 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'phateR'
+version = '1.0.7'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=phateR"
+description = """PHATE (Potential of Heat-diffusion for Affinity-based Trajectory Embedding) is a tool for visualizing
+ high dimensional single-cell data with natural progressions or trajectories. PHATE uses a novel conceptual framework
+ for learning and visualizing the manifold inherent to biological systems in which smooth transitions mark the
+ progressions of cells from one state to another."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('Python', '3.9.6'),
+    ('PHATE', '1.0.10'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'checksums': ['c5c221d644f6ee6f69f03f7b73c93392c3bfe456cb71490a20022805bc33ab9b'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['phateR/R/phateR'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
