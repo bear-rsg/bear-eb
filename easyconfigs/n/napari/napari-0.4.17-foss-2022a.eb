@@ -1,0 +1,131 @@
+# Thomas Hoffmann, EMBL Heidelberg, structures-it@embl.de, 2022/10
+easyblock = 'PythonBundle'
+
+name = 'napari'
+version = '0.4.17'
+
+homepage = 'https://napari.org/'
+description = """napari is a fast, interactive, multi-dimensional image viewer for Python. It's designed for
+ browsing, annotating, and analyzing large multi-dimensional images. It's built on top of Qt (for the GUI),
+ vispy (for performant GPU-based rendering), and the scientific Python stack (numpy, scipy)."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('PyQt5', '5.15.5'),
+    ('SciPy-bundle', '2022.05'),
+    ('PyYAML', '6.0'),
+    ('dask', '2022.12.0'),
+    ('PyOpenGL', '3.1.6'),
+    ('imageio', '2.22.2'),
+    ('tqdm', '4.64.0'),
+    ('IPython', '8.5.0'),
+    ('Qtconsole', '5.4.0'),
+    ('scikit-image', '0.19.3'),
+    ('matplotlib', '3.5.2'),
+]
+
+use_pip = True
+sanity_pip_check = True
+exts_list = [
+    ('commonmark', '0.9.1', {
+        'checksums': ['452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60'],
+    }),
+    ('rich', '12.5.1', {
+        'checksums': ['63a5c5ce3673d3d5fbbf23cd87e11ab84b6b451436f1b7f19ec54b6bc36ed7ca'],
+    }),
+    ('in_n_out', '0.1.7', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['7b980b368c4ca48252b831970de18c9d37c218b69cafac1da30229fd830cb2e2'],
+    }),
+    ('app_model', '0.1.4', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['0a809a314427826b787e9cf35c6316b34af8010cfb9ba9d2fc63a21c6a85a968'],
+    }),
+    ('pytomlpp', '1.0.13', {
+        'checksums': ['a0bd639a8f624d1bdf5b3ea94363ca23dbfef38ab7b5b9348881a84afab434ad'],
+    }),
+    ('freetype_py', '2.4.0', {
+        'modulename': 'freetype',
+        'sources': ['freetype-py-%(version)s.zip'],
+        'checksums': ['8ad81195d2f8f339aba61700cebfbd77defad149c51f59b75a2a5e37833ae12e'],
+    }),
+    ('hsluv', '5.0.3', {
+        'checksums': ['2586bcb61d29d76e89e563a6836df24d86939961c9657f129a59f7617de45377'],
+    }),
+    ('vispy', '0.11.0', {
+        'checksums': ['ce2d256a531d405f295933c74996912fbf43f655216db5fc6a8ff3a78747841a'],
+    }),
+    ('wrapt', '1.14.1', {
+        'checksums': ['380a85cf89e0e69b7cfbe2ea9f765f004ff419f34194018a6827ac0e3edfed4d'],
+    }),
+    ('cachey', '0.2.1', {
+        'checksums': ['0310ba8afe52729fa7626325c8d8356a8421c434bf887ac851e58dcf7cf056a6'],
+    }),
+    ('docstring_parser', '0.15', {
+        'checksums': ['48ddc093e8b1865899956fcc03b03e66bb7240c310fac5af81814580c55bf682'],
+    }),
+    ('magicgui', '0.7.2', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['d7d78bcf26230701c092d5922e25b0f7673a58704459e9c185defdcf5d47909c'],
+    }),
+    ('napari-console', '0.0.8', {
+        'checksums': ['9fa3f665ec0f5f351c364b212e73cdc4004615461dca6cbfaacf028525ec740a'],
+    }),
+    ('napari-plugin-engine', '0.2.0', {
+        'checksums': ['fa926f869d70e0d652c005661948cd0c7fee5508ae17d437937f34f5287590b3'],
+    }),
+    ('napari-svg', '0.1.8', {
+        'checksums': ['b042af60425ffdd19cfc37720bc1afe247db5d07122e9047d8e23b34fdbd941f'],
+    }),
+    ('Pint', '0.22', {
+        'checksums': ['2d139f6abbcf3016cad7d3cec05707fe908ac4f99cf59aedfd6ee667b7a64433'],
+    }),
+    ('pyproject_hooks', '1.0.0', {
+        'checksums': ['f271b298b97f5955d53fb12b72c1fb1948c22c1a6b70b315c54cedaca0264ef5'],
+    }),
+    ('build', '0.10.0', {
+        'checksums': ['d5b71264afdb5951d6704482aac78de887c80691c52b88a9ad195983ca2c9269'],
+    }),
+    ('psygnal', '0.9.1', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['b5ec4f7771cdd3e364253e2ef6460a91accde39b9a6f68e326b538ab4e950207'],
+    }),
+    ('pydantic', '1.10.8', {
+        'checksums': ['1410275520dfa70effadf4c21811d755e7ef9bb1f1d077a21958153a92c8d9ca'],
+    }),
+    ('typer', '0.9.0', {
+        'checksums': ['50922fd79aea2f4751a8e0408ff10d2662bd0c8bbfa84755a699f3bada2978b2'],
+    }),
+    ('npe2', '0.7.0', {
+        'checksums': ['35d62cf725a1ca2051a22827062bfbbe68e23589e782f2c2fda889d4927d5ba3'],
+    }),
+    ('mypy_extensions', '1.0.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['4392f6c0eb8a5668a69e23d168ffa70f0be9ccfd32b5cc2d26a34ae5b844552d'],
+    }),
+    ('numpydoc', '1.5.0', {
+        'checksums': ['b0db7b75a32367a0e25c23b397842c65e344a1206524d16c8069f0a1c91b5f4c'],
+    }),
+    ('superqt', '0.4.1', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['a21de1515d174e6b2dca59968d219778528481fdb37145f25a526fc2ae220fd0'],
+    }),
+    (name, version, {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['35a580488b279c1148e6fbcdb5962cc04a8204de65182128f1531f2c1bf23f4f'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/%(name)s'],
+}
+
+sanity_check_commands = [
+    '%(name)s --help',
+    'pyrcc5 -version 2>&1 |grep pyrcc5'  # make sure PyQt5 module was not built with --no-tools
+]
+
+moduleclass = 'vis'
