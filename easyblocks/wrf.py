@@ -340,7 +340,8 @@ class EB_WRF(EasyBlock):
 
             # Gavin addition remove test with chem extension
             if self.cfg['withchem']:
-                for test in ["em_esmf_exp", "em_scm_xy", "em_tropical_cyclone", "em_heldsuarez", "em_convrad", "em_b_wave", "em_quarter_ss", "em_les"]:
+                for test in ["em_esmf_exp", "em_scm_xy", "em_tropical_cyclone", "em_heldsuarez", "em_convrad",
+                             "em_b_wave", "em_quarter_ss", "em_les"]:
                     if test in self.testcases:
                         self.testcases.remove(test)
 
@@ -401,15 +402,10 @@ class EB_WRF(EasyBlock):
                 # build and install
                 cmd = "./compile %s %s" % (self.par, test)
                 run_cmd(cmd, log_all=True, simple=True)
-#################################DELETE#################################
-#                # Gavin attempt at a repeat
-#                cmd = "./compile %s %s" % (self.par, test)
-#                run_cmd(cmd, log_all=True, simple=True)
-######################################################################
                 # Gavin moodification of build and install
                 # Gavin attempt to slove WRF-chem issue:
-                # https://forum.mmm.ucar.edu/threads/wrf-chem-v4-4.11470/ 
-              
+                # https://forum.mmm.ucar.edu/threads/wrf-chem-v4-4.11470/
+
                 if self.cfg['withchem']:
                     cmd = "./compile %s %s" % (self.par, test)
                     run_cmd(cmd, log_all=True, simple=True)
