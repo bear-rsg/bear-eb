@@ -48,13 +48,10 @@ dependencies = [
     ('netCDF-Fortran', '4.6.0'),
     ('WRF', '4.4', '-dmpar'),
     ('flex', '2.6.4'),
-    ('Bison', '3.8.2'), # for YACC
+    ('Bison', '3.8.2'),  # for YACC
 ]
 
 preconfigopts = "./clean all && "
-#preconfigopts += "sed -i 's/module_data_sorgam.o/module_data_sorgam.o module_gocart_dust.o/g' chem/depend.chem && "
-
-#configopts = "wrfda"
 
 prebuildopts = "rm -r Registry"
 
