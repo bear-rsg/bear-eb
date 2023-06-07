@@ -140,7 +140,6 @@ class EB_WRF(EasyBlock):
             env.setvar('WRF_CHEM', '1')
             env.setvar('WRF_KPP', '1')
             env.setvar('WRF_EM_CORE', '1')
-#            env.setvar('WRF_PLUS_CORE', '1') # Secondary addition
             env.setvar('WRF_NMM_CORE', '0')
             netcdff = get_software_root('netCDF-Fortran')
             env.setvar('NETCDF_INC', os.path.join(netcdff, "include"))
@@ -270,7 +269,6 @@ class EB_WRF(EasyBlock):
         self.par = ''
         if par:
             self.par = "-j %s" % par
-#            self.par = "all wrf_var -j %s" % par # Gavin addition
 
         # fix compile script shebang to use provided tcsh
         cmpscript = os.path.join(self.start_dir, 'compile')
@@ -296,7 +294,6 @@ class EB_WRF(EasyBlock):
 
         # build wrf
         cmd = "%s %s wrf" % (cmpscript, self.par)
-#        cmd = "%s %s all_wrfvar" % (cmpscript, self.par) # Gavin addition
         run_cmd(cmd, log_all=True, simple=True, log_output=True)
 
         # build two testcases to produce ideal.exe and real.exe
