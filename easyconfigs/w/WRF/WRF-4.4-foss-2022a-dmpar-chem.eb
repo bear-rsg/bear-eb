@@ -40,20 +40,20 @@ builddependencies = [
     ('tcsh', '6.24.01'),
     ('time', '1.9'),
     ('Perl', '5.34.1'),
+    ('flex', '2.6.4'),
+    ('Bison', '3.8.2'),  # for YACC
 ]
 
 dependencies = [
     ('JasPer', '2.0.33'),
     ('netCDF', '4.9.0'),
     ('netCDF-Fortran', '4.6.0'),
-    ('WRF', '4.4', '-dmpar'),
-    ('flex', '2.6.4'),
-    ('Bison', '3.8.2'),  # for YACC
+#    ('WRF', '4.4', '-dmpar'),
 ]
 
 preconfigopts = "./clean all && "
 
-prebuildopts = "rm -r Registry"
+#prebuildopts = "rm -r Registry"
 
 # limit parallel build to 20
 maxparallel = 20
