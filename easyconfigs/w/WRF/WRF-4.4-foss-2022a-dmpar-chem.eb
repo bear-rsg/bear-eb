@@ -48,12 +48,9 @@ dependencies = [
     ('JasPer', '2.0.33'),
     ('netCDF', '4.9.0'),
     ('netCDF-Fortran', '4.6.0'),
-#    ('WRF', '4.4', '-dmpar'),
 ]
 
 preconfigopts = "./clean all && "
-
-#prebuildopts = "rm -r Registry"
 
 # limit parallel build to 20
 maxparallel = 20
