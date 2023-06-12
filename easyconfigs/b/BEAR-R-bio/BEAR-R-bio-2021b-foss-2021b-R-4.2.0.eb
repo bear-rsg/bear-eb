@@ -29,6 +29,7 @@ dependencies = [
     ('iRF', '3.0.0', versionsuffix),
     ('SCENIC', '20220502', versionsuffix),
     ('phateR', '1.0.7', versionsuffix),
+    ('CellChat', '1.6.0', versionsuffix),
 ]
 
 moduleclass = 'bio'
