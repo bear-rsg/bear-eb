@@ -30,6 +30,7 @@ dependencies = [
     ('SCENIC', '20220502', versionsuffix),
     ('phateR', '1.0.7', versionsuffix),
     ('CellChat', '1.6.0', versionsuffix),
+    ('showtext', '0.9-6', versionsuffix),
 ]
 
 moduleclass = 'bio'

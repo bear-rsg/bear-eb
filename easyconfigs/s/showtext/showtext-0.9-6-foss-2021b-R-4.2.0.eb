@@ -1,0 +1,53 @@
+easyblock = 'Bundle'
+
+name = 'showtext'
+version = '0.9-6'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://cran.r-project.org/package=showtext'
+description = """Making it easy to use various types of fonts ('TrueType', 'OpenType', Type 1, web fonts, etc.) in R
+ graphs, and supporting most output formats of R graphics including PNG, PDF and SVG."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('freetype', '2.11.0'),
+    ('libpng', '1.6.37'),
+    ('zlib', '1.2.11'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/',
+        'https://cran.rstudio.com/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s/',
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+exts_list = [
+    ('sysfonts', '0.8.8', {
+        'checksums': ['f6b2a8d6af4803f895c29b45fe833983bd4ddc542c7d67ffca4f2740896d05bb'],
+    }),
+    ('showtextdb', '3.0', {
+        'checksums': ['027f5d0ab91eb27c72b6e918a2915b6087f7408b66c1630d69b3e507dd609642'],
+    }),
+    (name, version, {
+        'checksums': ['0eca59cb519bc4b9e64f7d1d79d5e78a78f84f8ad19de55dbf476832b1d68c30'],
+    }),
+]
+
+modextrapaths = {
+    'R_LIBS_SITE': '',
+}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+moduleclass = 'tools'
