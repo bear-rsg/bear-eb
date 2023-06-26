@@ -1,0 +1,36 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Binary'
+
+name = 'MICRESS'
+version = '7.200'
+
+homepage = 'https://micress.rwth-aachen.de/'
+description = "The Microstructure Evolution Simulation Software"
+
+toolchain = {'name': 'system', 'version': 'system'}
+
+# Download the .run file from Micress
+# N.B. not publically available - researchers normally provide link and password to installation content
+sources = ['%(name)s-%(version)s-linux-installer.run']
+checksums = ['eaf31b140cc1c1ea6d200937fadecf9195266e3b4f61f340a6691001396a648a']
+
+extract_sources = False
+
+install_cmd = "./%(name)s-%(version)s-linux-installer.run "
+install_cmd += "--mode unattended "
+install_cmd += "--prefix %(installdir)s "
+install_cmd += "--installDesktopShortcuts 0"
+
+sanity_check_paths = {
+    'files': ['Bin/MICpad.exe', 'Bin/MICRESS_par_noTQ.exe'],
+    'dirs': ['Tools', 'Examples'],
+}
+
+sanity_check_commands = ['MICRESS_TQ.exe --help']
+
+modextrapaths = {
+    'LD_LIBRARY_PATH': 'Bin',
+    'PATH': 'Bin',
+}
+
+moduleclass = 'cae'
