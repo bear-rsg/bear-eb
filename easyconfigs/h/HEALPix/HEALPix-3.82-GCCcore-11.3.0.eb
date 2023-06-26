@@ -1,0 +1,60 @@
+easyblock = 'MakeCp'
+
+name = 'HEALPix'
+version = '3.82'
+
+homepage = 'https://healpix.sourceforge.net/'
+description = """Hierarchical Equal Area isoLatitude Pixelation of a sphere."""
+software_license = "LicenseGPLv2"
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+toolchainopts = {'pic': True}
+
+source_urls = [SOURCEFORGE_SOURCE]
+sources = ['Healpix_3.82_2022Jul28.tar.gz']
+checksums = ['47629f057a2daf06fca3305db1c6950edb9e61bbe2d7ed4d98ff05809da2a127']
+
+builddependencies = [
+    ('pkg-config', '0.29.2'),
+    ('binutils', '2.38'),
+]
+
+dependencies = [('CFITSIO', '4.2.0')]
+
+with_configure = True
+
+configure_cmd_prefix = "FITSDIR=$EBROOTCFITSIO/lib FITSINC=$EBROOTCFITSIO/include"
+# remove the default libsharp compile option (SHARP_COPT) `-ffast-math` and change all `-O3` optimisations to `-O2`
+configure_cmd_prefix += " SHARP_COPT='-O2 -march=native' F_OPT='-O2'"
+
+configure_cmd = " ./configure -L --auto=profile,sharp,c,cxx,f90"
+
+build_cmd_targets = "all"
+
+files_to_copy = ['bin', 'lib', 'data', 'include', 'doc']
+
+# extra paths originally exported in confdir/*_Linux/
+modextravars = {
+    'HEALPIX': '%(installdir)s',
+    'HEXE': '%(installdir)s/bin'
+}
+
+runtest = 'test'
+
+sanity_check_paths = {
+    'files': [
+        'lib/%s' % local_lib for local_lib in [
+            'libchealpix.a',
+            'libhealpix.a',
+            'libhealpix_cxx.a',
+            'libsharp.a'
+        ]
+    ],
+    'dirs': [
+        'bin',
+        'data',
+        'lib'
+    ]
+}
+
+moduleclass = 'astro'

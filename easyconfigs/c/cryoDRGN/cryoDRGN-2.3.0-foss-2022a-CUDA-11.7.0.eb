@@ -1,0 +1,83 @@
+easyblock = 'PythonBundle'
+
+name = 'cryoDRGN'
+version = '2.3.0'
+versionsuffix = '-CUDA-11.7.0'
+
+homepage = 'https://cb.csail.mit.edu/cb/cryodrgn/'
+description = """cryoDRGN: Deep Reconstructing Generative Networks for cryo-EM heterogeneous
+ reconstruction.
+ CryoDRGN is a neural network based algorithm for heterogeneous cryo-EM reconstruction. In
+ particular, the method models a continuous distribution over 3D structures by using a neural
+ network based representation for the volume.
+"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('IPython', '8.5.0'),
+    ('JupyterLab', '3.5.0'),
+    ('PyTorch', '1.12.1', versionsuffix),
+    ('numba', '0.56.4'),
+    ('plotly.py', '5.12.0'),
+    ('scikit-learn', '1.1.2'),
+    ('matplotlib', '3.5.2'),
+    ('tqdm', '4.64.0'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('healpy', '1.16.2', {
+    }),
+    ('colorlover', '0.3.0', {
+    }),
+    ('cufflinks', '0.17.3', {
+    }),
+    ('pynndescent', '0.5.10', {
+    }),
+    # N.B. Seaborn <0.12 is required due to API change, hence not using module
+    ('seaborn', '0.11.2', {
+    }),
+    ('umap-learn', '0.5.3', {
+        'modulename': 'umap',
+        'checksums': ['dbd57cb181c2b66d238acb5635697526bf24c798082daed0cf9b87f6a3a6c0c7'],
+    }),
+    ('%(namelower)s', version, {
+        # git metadata is required by setup.py, so obtain source tarball via 'git clone'
+        'sources': [{
+            'filename': SOURCE_TAR_GZ,
+            'git_config': {
+                'url': 'https://github.com/zhonge',
+                'repo_name': '%(name)s',
+                'tag': '%(version)s',
+                'keep_git_dir': True,
+            },
+        }],
+        'postinstallcmds': [
+            'cp utils/* analysis_scripts/* %(installdir)s/bin',
+            'chmod +x %(installdir)s/bin/*.py',
+        ],
+    }),
+]
+
+fix_python_shebang_for = ['bin/*.py']
+
+local_scripts = [
+    'analyze_convergence.py', 'fsc', 'kmeans', 'plotfsc', 'plot_loss',
+    'plot_z1', 'plot_z2', 'plot_z_pca', 'run_umap', 'tsne'
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s.py' % x for x in local_scripts],
+    'dirs': []
+}
+
+sanity_check_commands = ['%(namelower)s --help']
+sanity_check_commands += ['%s.py -h' % x for x in local_scripts]
+
+sanity_pip_check = True
+
+moduleclass = 'chem'

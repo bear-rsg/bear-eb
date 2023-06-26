@@ -1,0 +1,35 @@
+easyblock = "PythonBundle"
+
+name = 'healpy'
+version = '1.16.2'
+
+homepage = 'https://github.com/healpy/healpy'
+description = """healpy is a Python package to handle pixelated data on the sphere. It is based on the Hierarchical
+ Equal Area isoLatitude Pixelization (HEALPix) scheme."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'pic': True}
+
+builddependencies = [
+    ('pkg-config', '0.29.2'),
+    ('binutils', '2.38'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('astropy', '5.1.1'),
+    ('CFITSIO', '4.2.0'),
+    ('HEALPix', '3.82'),  # ver from upsteram PR (with suggested fixes)
+    ('matplotlib', '3.5.2'),
+    ('SciPy-bundle', '2022.05'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    (name, version, {
+    }),
+]
+
+moduleclass = 'astro'
