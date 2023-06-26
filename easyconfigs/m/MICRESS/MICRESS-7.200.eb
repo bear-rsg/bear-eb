@@ -16,7 +16,10 @@ checksums = ['eaf31b140cc1c1ea6d200937fadecf9195266e3b4f61f340a6691001396a648a']
 
 extract_sources = False
 
-install_cmd = "./%(name)s-%(version)s-linux-installer.run --mode unattended --prefix %(installdir)s"
+install_cmd = "./%(name)s-%(version)s-linux-installer.run "
+install_cmd += "--mode unattended "
+install_cmd += "--prefix %(installdir)s "
+install_cmd += "--installDesktopShortcuts 0"
 
 sanity_check_paths = {
     'files': ['Bin/MICpad.exe', 'Bin/MICRESS_par_noTQ.exe'],
