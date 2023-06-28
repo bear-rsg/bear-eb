@@ -1,0 +1,43 @@
+easyblock = "PythonBundle"
+
+name = 'RootPainter'
+version = '0.2.27.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/healpy/healpy'
+description = """RootPainter is a GUI-based software tool for the rapid training of deep neural networks for use in
+ biological image analysis. RootPainter uses a client-server architecture, allowing users with a typical laptop to
+ utilise a GPU on a more computationally powerful server."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'pic': True}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('CUDA', '11.7.0', '', SYSTEM),
+    ('SciPy-bundle', '2022.05'),
+    ('scikit-image', '0.19.3'),
+    ('Pillow', '9.1.1'),
+    ('PyTorch', '2.0.1', versionsuffix),
+    ('torchvision', '0.15.2', versionsuffix),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('imagecodecs', '2023.3.16', {
+        'source_tmpl': '%(name)s-%(version)s-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['dc874c3975f17fc6150b5609e877fa13cb7d90ce70e5d04faab765368164888e'],
+    }),
+    ('root_painter_trainer', version, {
+        'patches': ['python-deps.patch'],
+        'checksums': [
+            {'root_painter_trainer-0.2.27.0.tar.gz':
+             '5edc4a2445be296e25010dd2c2f6abb60b5092046fd8efa34fc0c117c1b62ea6'},
+            {'python-deps.patch': '73953b2317b6db8b0a60435a078c89e33c02878a32219a9393940fa1cc0ea7ba'},
+        ],
+    }),
+]
+
+moduleclass = 'bio'
