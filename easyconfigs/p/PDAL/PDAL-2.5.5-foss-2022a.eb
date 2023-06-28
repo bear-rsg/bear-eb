@@ -62,9 +62,10 @@ postinstallcmds = [
     "mv %(builddir)s/%(name)s-%(version)s/test/data %(installdir)s/share/test",
 ]
 
-local_libs = ['base', 'plugin_kernel_fauxplugin', 'plugin_reader_e57', 'plugin_reader_hdf', 'plugin_reader_i3s',
-            'plugin_reader_icebridge', 'plugin_reader_openscenegraph','plugin_reader_slpk','plugin_writer_e57',
-            'util']
+local_libs = [
+    'base', 'plugin_kernel_fauxplugin', 'plugin_reader_e57', 'plugin_reader_hdf', 'plugin_reader_i3s',
+    'plugin_reader_icebridge', 'plugin_reader_openscenegraph', 'plugin_reader_slpk', 'plugin_writer_e57', 'util'
+]
 
 sanity_check_paths = {
     'files': ['bin/pdal'] + ['lib/libpdalcpp.so'] + ['lib/libpdal_%s.%s' % (x, SHLIB_EXT) for x in local_libs],
