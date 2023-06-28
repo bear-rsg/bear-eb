@@ -1,0 +1,46 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pdal-python'
+version = '3.2.3'
+
+homepage = "https://pdal.io/"
+description = """PDAL Python support allows you to process data with PDAL into Numpy arrays. It provides
+ a PDAL extension module to control Python interaction with PDAL. Additionally, you can use it to fetch
+ schema and metadata from PDAL operations."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+builddependencies = [
+    ('CMake', '3.23.1'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('PDAL', '2.5.5'),
+    ('Pybind11', '2.9.2'),
+    ('SciPy-bundle', '2022.05'),
+    ('scikit-build', '0.15.0'),
+    ('h5py', '3.7.0'),
+    ('VTK', '9.2.2'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('appdirs', '1.4.4', {
+    }),
+    ('pipdate', '0.5.6', {
+    }),
+    ('meshio', '5.3.4', {
+    }),
+    (name, version, {
+    }),
+]
+
+moduleclass = 'data'

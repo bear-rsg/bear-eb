@@ -1,0 +1,83 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeNinja'
+
+name = 'PDAL'
+version = '2.5.5'
+
+homepage = 'https://pdal.io/'
+description = """PDAL is Point Data Abstraction Library. It is a C/C++ open source library and applications
+ for translating and processing point cloud data. It is not limited to LiDAR data, although the focus and
+ impetus for many of the tools in the library have their origins in LiDAR."""
+citing = """To cite PDAL in publications use: PDAL Contributors, 2022. PDAL Point Data Abstraction Library.
+ https://doi.org/10.5281/zenodo.2616780"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://github.com/%(name)s/%(name)s/archive/']
+sources = ['%(version)s.tar.gz']
+checksums = ['6bf4f34bc0bf1bce52b8daecb03a7f45d218c0374bfa00783c787b9e54d56d72']
+
+builddependencies = [
+    ('CMake', '3.23.1'),
+    ('Ninja', '1.10.2'),
+]
+
+dependencies = [
+    ('GDAL', '3.5.0'),
+    ('libgeotiff', '1.7.1'),
+    ('PostgreSQL', '14.4'),
+    ('zlib', '1.2.12'),
+    ('OpenSceneGraph', '3.6.5'),  # plugin support
+    ('Xerces-C++', '3.2.3'),  # plugin support
+]
+
+# issue with the fp calc in the advanced 'stats' tests, so lets remove it.
+preconfigopts = ["sed -i '/pdal_filters_stats_test/d' %(builddir)s/%(name)s-%(version)s/test/unit/CMakeLists.txt &&"]
+
+# PDAL includes support for a number of plugins. Most require additional linked deps.
+configopts = ' '.join([
+    '-DCMAKE_BUILD_TYPE=Release',
+    '-DBUILD_PLUGIN_E57=ON',
+    '-DBUILD_PLUGIN_HDF=ON',
+    '-DBUILD_PLUGIN_I3S=ON',
+    '-DBUILD_PLUGIN_BUILD_I3S_TESTS=OFF',
+    '-DBUILD_PLUGIN_ICEBRIDGE=ON',
+    '-DBUILD_PLUGIN_MBIO=OFF',
+    '-DBUILD_PLUGIN_OPENSCENEGRAPH=ON',
+    '-DBUILD_PLUGIN_PGPOINTCLOUD=OFF',
+    '-DWITH_COMPLETION=ON',
+    '-DWITH_LZMA=ON',
+    '-DWITH_ZSTD=ON',
+    '-DWITH_ZLIB=ON',
+    '-DWITH_TESTS=ON',
+])
+
+pretestopts = "cd %(builddir)s/easybuild_obj && "
+test_cmd = 'ctest'
+runtest = ''
+
+postinstallcmds = [
+    # the test data files are useful; lets retain them
+    "mkdir -p %(installdir)s/share/test",
+    "mv %(builddir)s/%(name)s-%(version)s/test/data %(installdir)s/share/test",
+]
+
+local_libs = ['base', 'plugin_kernel_fauxplugin', 'plugin_reader_e57', 'plugin_reader_hdf', 'plugin_reader_i3s',
+            'plugin_reader_icebridge', 'plugin_reader_openscenegraph','plugin_reader_slpk','plugin_writer_e57',
+            'util']
+
+sanity_check_paths = {
+    'files': ['bin/pdal'] + ['lib/libpdalcpp.so'] + ['lib/libpdal_%s.%s' % (x, SHLIB_EXT) for x in local_libs],
+    'dirs': ['bin', 'etc/bash_completion.d', 'include/pdal', 'lib']
+}
+
+sanity_check_commands = [
+    "pdal --version",
+    "pdal-config --version",
+    "pdal info %(installdir)s/share/test/data/las/interesting.las  > /dev/null 2>&1",
+]
+
+# create for easy access to test data
+modextravars = {'PDAL_TEST_DATA': '%(installdir)s/share/test/data'}
+
+moduleclass = 'data'
