@@ -29,6 +29,7 @@ sanity_pip_check = True
 
 exts_list = [
     (name, version, {
+        'checksums': ['b7b9433152ff297f88fc5cc1277402a3346ff833e0fb7e026330dfac454de480'],
     }),
 ]
 
