@@ -13,16 +13,20 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 builddependencies = [
     ('CMake', '3.23.1'),
+    ('Ninja', '1.10.2'),
+    #('scikit-build', '0.15.0'),
 ]
 
 dependencies = [
     ('Python', '3.10.4'),
-    ('PDAL', '2.5.5'),
-    ('Pybind11', '2.9.2'),
     ('SciPy-bundle', '2022.05'),
     ('scikit-build', '0.15.0'),
+    ('PDAL', '2.5.5'),
+    ('pybind11', '2.9.2'),
     ('h5py', '3.7.0'),
     ('VTK', '9.2.2'),
+    ('CMake', '3.23.1'),
+    ('Ninja', '1.10.2'),
 ]
 
 sanity_pip_check = True
@@ -32,15 +36,39 @@ exts_default_options = {
     'source_urls': [PYPI_SOURCE],
 }
 
+#local_pdal_preinstallopts = "mkdir %(builddir)s/%(name)s/python-3.2.3/build && "
+#local_pdal_preinstallopts += "cd %(builddir)s/%(name)s/python-3.2.3/build && "
+#local_pdal_preinstallopts += "cmake -G Ninja .."
+
 exts_list = [
     ('appdirs', '1.4.4', {
+        'checksums': ['7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41'],
     }),
     ('pipdate', '0.5.6', {
+        'checksums': ['1b6b7ec2c5468fb7036ec9d6b2ced7a8a538db55aaca03f30199216d3bbd264b'],
     }),
     ('meshio', '5.3.4', {
+        'checksums': ['e240692d7ff279c12b13c6e5d7b403629a86ad2b44e9230958b3f00c1ec369f0'],
     }),
-    (name, version, {
+    ('pdal', version, {
+        'patches': ['pdal-python-%(version)s.patch'],
+        'preinstallopts': "mkdir %(builddir)s/%(name)s/python-3.2.3/build && cd %(builddir)s/%(name)s/python-3.2.3/build && cmake -G Ninja .. && cd %(builddir)s/%(name)s/python-3.2.3 && ",
+        'source_urls': ['https://github.com/PDAL/python/archive/refs/tags/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': 'pdal-python-%(version)s.tar.gz'}],
+        'checksums': [
+            {'pdal-python-3.2.3.tar.gz': '763676f4262fcc73002dfdb826381eb174c81076a4b31f06f43e3f4efbfa4814'},
+            {'pdal-python-3.2.3.patch': '1b051b0dbe5b6b9f81523943300385213262af5a6f235faa901967fa89bcae02'},
+        ],
     }),
 ]
+
+sanity_check_paths = {
+    'files': ['lib/python%(pyshortver)s/site-packages/appdirs.py'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["python -c import pdal"]
+
+sanity_pip_check = True
 
 moduleclass = 'data'
