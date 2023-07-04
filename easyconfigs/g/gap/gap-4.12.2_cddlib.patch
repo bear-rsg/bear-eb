@@ -1,0 +1,15 @@
+--- bin/BuildPackages.sh.orig	2023-07-04 10:29:29.612512000 +0100
++++ bin/BuildPackages.sh	2023-07-04 11:40:09.993228568 +0100
+@@ -200,7 +200,11 @@
+ GAPInput
+ )
+       local CONFIG_ARGS_FLAG_NAME="PACKAGE_CONFIG_ARGS_${PKG_NAME}"
+-      echo_run ./configure --with-gaproot="$GAPROOT" $CONFIGFLAGS ${!CONFIG_ARGS_FLAG_NAME}
++      if [[ "$PKG_NAME" == "CddInterface" ]]; then
++        echo_run ./configure --with-gaproot="$GAPROOT" --with-cddlib=$EBROOTCDDLIB $CONFIGFLAGS ${!CONFIG_ARGS_FLAG_NAME}
++      else
++        echo_run ./configure --with-gaproot="$GAPROOT" $CONFIGFLAGS ${!CONFIG_ARGS_FLAG_NAME}
++      fi
+       echo_run "$MAKE" clean
+     else
+       echo_run ./configure "$GAPROOT"
