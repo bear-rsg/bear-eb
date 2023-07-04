@@ -12,13 +12,16 @@ toolchainopts = {'pic': True}
 
 source_urls = ['https://www.gap-system.org/pub/gap/gap-%(version_major_minor)s/tar.gz/']
 sources = [SOURCE_TAR_GZ]
-checksums = ['672308745eb78a222494ee8dd6786edd5bc331456fcc6456ac064bdb28d587a8']
+patches = ['gap-4.12.2_cddlib.patch']
+checksums = [
+    {'gap-4.12.2.tar.gz': '672308745eb78a222494ee8dd6786edd5bc331456fcc6456ac064bdb28d587a8'},
+    {'gap-4.12.2_cddlib.patch': '21d74f7fd9798d7668b5416711032e4ce413c227a2263cd79beaf1b87a79dc0e'},
+]
 
 unpack_options = '--strip-components=1'
 
 builddependencies = [
     ('Autotools', '20220317'),
-    ('Perl', '5.34.1'),  # needed to install NormalizInterface
 ]
 
 dependencies = [
@@ -32,6 +35,7 @@ dependencies = [
     ('ncurses', '6.3'),  # needed by Browse
     ('Singular', '4.3.2'),  # needed by singular
     ('ZeroMQ', '4.3.4'),  # needed by ZeroMQInterface
+    ('polymake', '4.8'),  # polymake has Perl dep
 ]
 
 # It doesn't have a working make install and hardcodes the build path
