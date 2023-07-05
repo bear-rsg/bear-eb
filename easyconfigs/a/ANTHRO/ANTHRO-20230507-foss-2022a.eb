@@ -2,7 +2,7 @@
 easyblock = "ConfigureMake"
 
 name = 'ANTHRO'
-version = '20230507' #  ANTHRO download date
+version = '20230507'  # ANTHRO download date
 
 homepage = 'https://www.wrf-model.org'
 description = """The Weather Research and Forecasting (WRF) Model is a next-generation mesoscale
