@@ -1,0 +1,40 @@
+# This easyconfig was created by the  BEAR Software team at the University of Birmingham
+easyblock = "ConfigureMake"
+
+name = 'ANTHRO'
+version = '20230507' # ANTHRO download date
+
+homepage = 'https://www.wrf-model.org'
+description = """The Weather Research and Forecasting (WRF) Model is a next-generation mesoscale
+ numerical weather prediction system designed to serve both operational forecasting and atmospheric
+ research needs."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+sources = ['%(name)s.tar']
+checksums = ['5d82ba976b35859ba501ade34509d1a13bd6fb983427e9dd0d0ca3407e8580b8']
+
+dependencies = [
+    ('netCDF', '4.9.0'),
+    ('netCDF-Fortran', '4.6.0'),
+    ('HDF5', '1.12.2'),
+    ('WRF', '4.4', '-dmpar-chem'),
+]
+
+skipsteps = ['configure', 'build']
+
+preinstallopts = "export NETCDF_DIR=$EBROOTNETCDFMINFORTRAN && "
+preinstallopts += "export FC=gfortran && "
+preinstallopts += "sed -i 's|-ffree-line-length-none|-ffree-line-length-none -fallow-argument-mismatch|g' Makefile && "
+
+install_cmd = "%(builddir)s/ANTHRO/src/make_anthro"
+
+postinstallcmds = [
+    "mkdir %(installdir)s/bin",
+    "mv anthro_emis %(installdir)s/bin",
+    "mkdir %(installdir)s/lib",
+    "mv *.f90 %(installdir)s/lib",
+    "ln -s %(installdir)s/lib %(installdir)s/lib64",
+]
+
+moduleclass = 'geo'
