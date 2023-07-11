@@ -1,0 +1,76 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pdal-python'
+version = '3.2.3'
+
+homepage = "https://pdal.io/"
+description = """PDAL Python support allows you to process data with PDAL into Numpy arrays. It provides
+ a PDAL extension module to control Python interaction with PDAL. Additionally, you can use it to fetch
+ schema and metadata from PDAL operations."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+builddependencies = [
+    ('CMake', '3.23.1'),
+    ('Ninja', '1.10.2'),
+    ('scikit-build', '0.15.0'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('pybind11', '2.9.2'),
+    ('PDAL', '2.5.5'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('mdurl', '0.1.2', {
+        'checksums': ['bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba'],
+    }),
+    ('markdown-it-py', '2.2.0', {
+        'modulename': 'markdown_it',
+        'checksums': ['7c9a5e412688bc771c67432cbfebcdd686c93ce6484913dccf06cb5a0bea35a1'],
+    }),
+    ('Pygments', '2.14.0', {
+        'checksums': ['b3ed06a9e8ac9a9aae5a6f5dbe78a8a58655d17b43b93c078f094ddc476ae297'],
+    }),
+    ('rich', '13.4.2', {
+        'checksums': ['d653d6bccede5844304c605d5aac802c7cf9621efd700b46c7ec2b51ea914898'],
+    }),
+    ('appdirs', '1.4.4', {
+        'checksums': ['7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41'],
+    }),
+    ('pipdate', '0.5.6', {
+        'checksums': ['1b6b7ec2c5468fb7036ec9d6b2ced7a8a538db55aaca03f30199216d3bbd264b'],
+    }),
+    ('meshio', '5.3.4', {
+        'checksums': ['e240692d7ff279c12b13c6e5d7b403629a86ad2b44e9230958b3f00c1ec369f0'],
+    }),
+    ('pdal', version, {
+        'patches': ['pdal-python-3.2.3-numpy-fix.patch'],
+        'source_urls': ['https://github.com/PDAL/python/archive/refs/tags/'],
+        'sources': [{'download_filename': '%(version)s.tar.gz', 'filename': 'pdal-python-%(version)s.tar.gz'}],
+        'checksums': [
+            {'pdal-python-3.2.3.tar.gz': '763676f4262fcc73002dfdb826381eb174c81076a4b31f06f43e3f4efbfa4814'},
+            {'pdal-python-3.2.3-numpy-fix.patch': 'd7fafeca5a659b0b363d7d1910716e874f3628bd1a6b5d9c7a9555e795d7246f'},
+        ],
+    }),
+]
+sanity_check_paths = {
+    'files': ['lib/python%(pyshortver)s/site-packages/pdal/libpdalpython.cpython-310-x86_64-linux-gnu.so'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ['python -c "import pdal"']
+
+sanity_pip_check = True
+
+moduleclass = 'data'
