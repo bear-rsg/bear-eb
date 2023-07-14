@@ -10,7 +10,6 @@ description = """The GEOS–Chem model is a global 3-D model of atmospheric comp
  Assimilation Office. GEOS-Chem High Performance (GCHP) is GEOS-Chem’s multi-node variant."""
 
 toolchain = {'name': 'foss', 'version': '2022a'}
-#toolchainopts = {'usempi': True, 'pic': True}
 toolchainopts = {'usempi': True}
 
 source_urls = ['https://github.com/geoschem/%(name)s/archive']
@@ -57,7 +56,7 @@ preconfigopts = "mkdir %(builddir)s/%(name)s-%(version)s/build && cd %(builddir)
 
 configopts = ' '.join([
     # set $RUNDIR
-    #'-DCMAKE_PREFIX_PATH="%(builddir)s/GCHP-14.1.1"',
+    # '-DCMAKE_PREFIX_PATH="%(builddir)s/GCHP-14.1.1"',
     '-DRUNDIR="%(installdir)s"',
     '-DCMAKE_BUILD_TYPE="Release"',
     # enable OpenMP parallelisation
@@ -67,9 +66,8 @@ configopts = ' '.join([
 ])
 
 
-# prebuildopts = 'export NETCDF_DIR="$EBROOTNETCDFMINFORTRAN" && FC=gfortran && cd %(builddir)s/%(name)s-%(version)s/build/src &&',
-prebuildopts =  'cd %(builddir)s/%(name)s-%(version)s/build/src && ',
-
+# prebuildopts = 'export NETCDF_DIR="$EBROOTNETCDFMINFORTRAN" && cd %(builddir)s/%(name)s-%(version)s/build/src &&',
+prebuildopts = 'cd %(builddir)s/%(name)s-%(version)s/build/src && ',
 # install_cmd = ""
 
 postinstallcmds = ['']
