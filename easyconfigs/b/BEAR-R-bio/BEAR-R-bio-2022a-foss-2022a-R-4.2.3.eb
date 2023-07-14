@@ -1,0 +1,18 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'BEAR-R-bio'
+version = '2022a'
+versionsuffix = '-R-%(rver)s'
+
+homepage = ""
+description = """This module provides access to several R bio libraries."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('R', '4.2.3'),
+    ('R-bundle-Bioconductor', '3.16', versionsuffix),
+]
+
+moduleclass = 'bio'
