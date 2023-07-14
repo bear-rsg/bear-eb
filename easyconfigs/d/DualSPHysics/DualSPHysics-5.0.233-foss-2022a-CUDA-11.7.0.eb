@@ -35,7 +35,7 @@ _replacement_string = ''
 for i in range(len(cuda_compute_capabilities)):
     _c = cuda_compute_capabilities[i].replace('.', '')
     _replacement_string += (r'GENCODE:=\$\(GENCODE\) \-gencode=arch=compute_%s,code=\\"sm_%s,compute_%s\\"\n'
-	                          % (_c, _c, _c))
+                               % (_c, _c, _c))
 
 _replacement_cmd = "sed -i 's/^GENCODE.*/%s/' Makefile" % _replacement_string
 
