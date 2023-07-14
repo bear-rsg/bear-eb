@@ -37,16 +37,16 @@ postinstallcmds = ['chmod 755 %(installdir)s/bin/*']
 
 files_to_copy = [
     (['bin/linux/*_linux64'], 'bin'),
-	(['src/lib/linux_gcc/lib*'], 'lib'),
-	'LICENSE', 'README.md', 'doc', 'examples',
+    (['src/lib/linux_gcc/lib*'], 'lib'),
+    'LICENSE', 'README.md', 'doc', 'examples',
 ]
 
 sanity_check_paths = {
     'files': [
-	    ['bin/%%(name)s5.0%s' % x for x in ['_linux64', '_NNewtonian_linux64']],
-		['lib/%s' % x for x in ['libChronoEngine.%s' % SHLIB_EXT, 'libdsphchrono.%s' % SHLIB_EXT]]
-	],
-	'dirs': ['examples']
+        ['bin/%%(name)s5.0%s' % x for x in ['_linux64', '_NNewtonian_linux64']],
+        ['lib/%s' % x for x in ['libChronoEngine.%s' % SHLIB_EXT, 'libdsphchrono.%s' % SHLIB_EXT]]
+    ],
+    'dirs': ['examples']
 }
 
 moduleclass = 'phys'
