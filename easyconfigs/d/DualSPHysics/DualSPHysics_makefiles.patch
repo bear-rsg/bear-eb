@@ -1,6 +1,6 @@
 diff -Nru DualSPHysics-5.0.233.orig/src/source/Makefile DualSPHysics-5.0.233/src/source/Makefile
 --- DualSPHysics-5.0.233.orig/src/source/Makefile	2023-07-13 23:36:10.404303000 +0100
-+++ DualSPHysics-5.0.233/src/source/Makefile	2023-07-14 10:13:15.298651000 +0100
++++ DualSPHysics-5.0.233/src/source/Makefile	2023-07-14 17:36:25.191453000 +0100
 @@ -4,7 +4,7 @@
  USE_GCC5=YES
  USE_DEBUG=NO
@@ -10,7 +10,7 @@ diff -Nru DualSPHysics-5.0.233.orig/src/source/Makefile DualSPHysics-5.0.233/src
  COMPILE_VTKLIB=YES
  COMPILE_NUMEXLIB=YES
  COMPILE_CHRONO=YES
-@@ -55,53 +55,12 @@
+@@ -55,53 +55,11 @@
    CCFLAGS:=$(CCFLAGS) -DDISABLE_MOORDYN
  endif
  
@@ -62,7 +62,6 @@ diff -Nru DualSPHysics-5.0.233.orig/src/source/Makefile DualSPHysics-5.0.233/src
 -  GENCODE:=$(GENCODE) -gencode=arch=compute_61,code=\"sm_61,compute_61\"
 -  GENCODE:=$(GENCODE) -gencode=arch=compute_70,code=\"sm_70,compute_70\"
 -endif
-+GENCODE:=$(GENCODE) -gencode=arch=compute_60,code=\"sm_60,compute_60\"
 +GENCODE:=$(GENCODE) -gencode=arch=compute_80,code=\"sm_80,compute_80\"
  
  
@@ -81,7 +80,7 @@ diff -Nru DualSPHysics-5.0.233.orig/src/source/Makefile_cpu DualSPHysics-5.0.233
  COMPILE_CHRONO=YES
 diff -Nru DualSPHysics-5.0.233.orig/src_mphase/DSPH_v5.0_NNewtonian/source/Makefile DualSPHysics-5.0.233/src_mphase/DSPH_v5.0_NNewtonian/source/Makefile
 --- DualSPHysics-5.0.233.orig/src_mphase/DSPH_v5.0_NNewtonian/source/Makefile	2023-07-13 23:36:11.729366000 +0100
-+++ DualSPHysics-5.0.233/src_mphase/DSPH_v5.0_NNewtonian/source/Makefile	2023-07-14 10:14:54.340197000 +0100
++++ DualSPHysics-5.0.233/src_mphase/DSPH_v5.0_NNewtonian/source/Makefile	2023-07-14 17:36:46.233911536 +0100
 @@ -1,10 +1,10 @@
  #DualSPHysics NNewtonian GPU/CPU v5.0.164 21-11-2020
  
@@ -104,7 +103,7 @@ diff -Nru DualSPHysics-5.0.233.orig/src_mphase/DSPH_v5.0_NNewtonian/source/Makef
  
  # -std=c++0x ---> Used to avoid errors for calls to enums
  ifeq ($(USE_DEBUG), YES)
-@@ -55,53 +55,12 @@
+@@ -55,53 +55,11 @@
    CCFLAGS:=$(CCFLAGS) -DDISABLE_MOORDYN
  endif
  
@@ -156,7 +155,6 @@ diff -Nru DualSPHysics-5.0.233.orig/src_mphase/DSPH_v5.0_NNewtonian/source/Makef
 -  GENCODE:=$(GENCODE) -gencode=arch=compute_61,code=\"sm_61,compute_61\"
 -  GENCODE:=$(GENCODE) -gencode=arch=compute_70,code=\"sm_70,compute_70\"
 -endif
-+GENCODE:=$(GENCODE) -gencode=arch=compute_60,code=\"sm_60,compute_60\"
 +GENCODE:=$(GENCODE) -gencode=arch=compute_80,code=\"sm_80,compute_80\"
  
  

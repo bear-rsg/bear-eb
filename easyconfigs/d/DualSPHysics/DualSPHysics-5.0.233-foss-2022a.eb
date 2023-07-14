@@ -19,7 +19,7 @@ sources = ['v%(version)s.tar.gz']
 patches = ['%(name)s_makefiles.patch']
 checksums = [
     {'v5.0.233.tar.gz': '660a67dc8deed7a38f63e6f462071cbb980e268296f12a5c182aad85b4c0e9e9'},
-    {'DualSPHysics_makefiles.patch': 'cf43b9387ede178463467c9cb2b21fdfcc9f40955cd1c45895f4dc8e57947b10'},
+    {'DualSPHysics_makefiles.patch': '2418ef17fa0c47e41be523e81588cc92401ac5554f48fbf900e567438c721e79'},
 ]
 
 dependencies = [

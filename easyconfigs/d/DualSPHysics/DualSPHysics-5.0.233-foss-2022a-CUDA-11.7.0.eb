@@ -20,7 +20,7 @@ sources = ['v%(version)s.tar.gz']
 patches = ['%(name)s_makefiles.patch']
 checksums = [
     {'v5.0.233.tar.gz': '660a67dc8deed7a38f63e6f462071cbb980e268296f12a5c182aad85b4c0e9e9'},
-    {'DualSPHysics_makefiles.patch': 'cf43b9387ede178463467c9cb2b21fdfcc9f40955cd1c45895f4dc8e57947b10'},
+    {'DualSPHysics_makefiles.patch': '2418ef17fa0c47e41be523e81588cc92401ac5554f48fbf900e567438c721e79'},
 ]
 
 dependencies = [
@@ -28,10 +28,26 @@ dependencies = [
     ('CUDA', '11.7.0', '', True),
 ]
 
-# parallelise first make command as well
+cuda_compute_capabilities = ['6.0', '8.0']
+# replace CUDA compute capabilities in Makefiles
+_replacement_string = ''
+
+for i in range(len(cuda_compute_capabilities)):
+    _c = cuda_compute_capabilities[i].replace('.', '')
+    _replacement_string += (r'GENCODE:=\$\(GENCODE\) \-gencode=arch=compute_%s,code=\\"sm_%s,compute_%s\\"\n'
+	                        % (_c, _c, _c))
+
+_replacement_cmd = "sed -i 's/^GENCODE.*/%s/' Makefile" % _replacement_string
+
 _ntasks = _os.getenv('SLURM_NTASKS')
-build_cmd = 'cd src/source && make -j %s && ' % _ntasks
-build_cmd += 'cd ../../src_mphase/DSPH_v5.0_NNewtonian/source && make'
+
+build_cmd = 'cd src/source && '
+build_cmd += '%s && ' % _replacement_cmd
+# parallelise first make command as well
+build_cmd += 'make -j %s && ' % _ntasks
+build_cmd += 'cd ../../src_mphase/DSPH_v5.0_NNewtonian/source &&'
+build_cmd += '%s && ' % _replacement_cmd
+build_cmd += 'make'
 
 postinstallcmds = ['chmod 755 %(installdir)s/bin/*']
 
