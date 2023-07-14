@@ -1,0 +1,82 @@
+# This easyconfig was created by the  BEAR Software team at the University of Birmingham
+easyblock = "CMakeMake"
+
+name = 'GCHP'
+version = '14.1.1'
+
+homepage = 'https://geoschem.github.io/'
+description = """The GEOS–Chem model is a global 3-D model of atmospheric composition driven by assimilated
+ meteorological observations from the Goddard Earth Observing System (GEOS) of the NASA Global Modeling and
+ Assimilation Office. GEOS-Chem High Performance (GCHP) is GEOS-Chem’s multi-node variant."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+#toolchainopts = {'usempi': True, 'pic': True}
+toolchainopts = {'usempi': True}
+
+source_urls = ['https://github.com/geoschem/%(name)s/archive']
+sources = [{
+    'filename': '14.1.1.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/geoschem/',
+        'repo_name': 'GCHP',
+        'tag': '14.1.1',
+        'clone_into': 'GCHP-14.1.1',
+        'recursive': True,
+    },
+}]
+checksums = ['1a79e9859eb4374415506be70e8877bcf10466d6128e5a5d6b0a50c434b80121']
+
+builddependencies = [
+    ('CMake', '3.23.1'),
+    ('git', '2.36.0', '-nodocs'),
+    ('M4', '1.4.19'),
+]
+
+dependencies = [
+    ('netCDF', '4.9.0'),
+    ('netCDF-Fortran', '4.6.0'),
+    ('HDF5', '1.12.2'),
+    ('ESMF', '8.3.0'),
+    ('libfabric', '1.15.1'),
+    ('zlib', '1.2.12'),
+    ('libiconv', '1.17'),
+    ('libxml2', '2.9.13'),
+    ('XZ', '5.2.5'),
+    ('pkgconf', '1.8.0'),
+    ('Perl', '5.34.1'),
+    ('Python', '3.10.4'),
+    ('M4', '1.4.19'),
+]
+
+#  Compiling notes
+#  https://gchp.readthedocs.io/en/stable/user-guide/compiling.html
+#  https://github.com/geoschem/GCHP
+#  https://spack.readthedocs.io/en/latest/package_list.html#gchp
+
+preconfigopts = "mkdir %(builddir)s/%(name)s-%(version)s/build && cd %(builddir)s/%(name)s-%(version)s/build && "
+
+configopts = ' '.join([
+    # set $RUNDIR
+    #'-DCMAKE_PREFIX_PATH="%(builddir)s/GCHP-14.1.1"',
+    '-DRUNDIR="%(installdir)s"',
+    '-DCMAKE_BUILD_TYPE="Release"',
+    # enable OpenMP parallelisation
+    '-DOMP="ON"',
+    # enable RRTMG radiative transfer model
+    '-DRRTMG="ON"',
+])
+
+
+# prebuildopts = 'export NETCDF_DIR="$EBROOTNETCDFMINFORTRAN" && FC=gfortran && cd %(builddir)s/%(name)s-%(version)s/build/src &&',
+prebuildopts =  'cd %(builddir)s/%(name)s-%(version)s/build/src && ',
+
+# install_cmd = ""
+
+postinstallcmds = ['']
+
+sanity_check_paths = {
+    'files': [''],
+    'dirs': [''],
+}
+
+moduleclass = 'geo'
