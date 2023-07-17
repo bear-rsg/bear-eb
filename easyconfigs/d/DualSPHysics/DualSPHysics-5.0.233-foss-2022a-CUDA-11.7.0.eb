@@ -40,7 +40,7 @@ _replacement_cmd = "sed -i 's/^GENCODE.*/%s/' Makefile" % _replacement_string
 build_cmd = 'cd src/source && '
 build_cmd += '%s && ' % _replacement_cmd
 build_cmd += 'make -j %(parallel)s && '
-build_cmd += 'cd ../../src_mphase/DSPH_v5.0_NNewtonian/source &&'
+build_cmd += 'cd ../../src_mphase/DSPH_v5.0_NNewtonian/source && '
 build_cmd += '%s && ' % _replacement_cmd
 build_cmd += 'make'
 
