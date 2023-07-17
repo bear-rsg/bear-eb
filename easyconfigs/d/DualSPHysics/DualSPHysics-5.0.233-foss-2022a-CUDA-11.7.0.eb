@@ -1,0 +1,63 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'MakeCp'
+
+name = 'DualSPHysics'
+version = '5.0.233'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = "https://dual.sphysics.org"
+description = """DualSPHysics is based on the Smoothed Particle Hydrodynamics model named SPHysics (www.sphysics.org).
+ The code is developed (GNU Lesser General Public License) to study free-surface flow phenomena where Eulerian methods
+ can be difficult to apply. DualSPHysics is a set of C++, CUDA and Java codes designed to deal with real-life
+ engineering problems."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://github.com/DualSPHysics/DualSPHysics/archive']
+sources = ['v%(version)s.tar.gz']
+patches = ['%(name)s-%(version)s_makefiles.patch']
+checksums = [
+    {'v5.0.233.tar.gz': '660a67dc8deed7a38f63e6f462071cbb980e268296f12a5c182aad85b4c0e9e9'},
+    {'DualSPHysics-5.0.233_makefiles.patch': '2418ef17fa0c47e41be523e81588cc92401ac5554f48fbf900e567438c721e79'},
+]
+
+dependencies = [
+    ('Java', '11', '', True),
+    ('CUDA', '11.7.0', '', True),
+]
+
+cuda_compute_capabilities = ['6.0', '8.0']
+# replace CUDA compute capabilities in Makefiles
+_replacement_string = ''
+
+for i in range(len(cuda_compute_capabilities)):
+    _c = cuda_compute_capabilities[i].replace('.', '')
+    _replacement_string += (r'GENCODE:=\$\(GENCODE\) \-gencode=arch=compute_%s,code=\\"sm_%s,compute_%s\\"\n'
+                            % (_c, _c, _c))
+
+_replacement_cmd = "sed -i 's/^GENCODE.*/%s/' Makefile" % _replacement_string
+
+build_cmd = 'cd src/source && '
+build_cmd += '%s && ' % _replacement_cmd
+build_cmd += 'make -j %(parallel)s && '
+build_cmd += 'cd ../../src_mphase/DSPH_v5.0_NNewtonian/source && '
+build_cmd += '%s && ' % _replacement_cmd
+build_cmd += 'make'
+
+postinstallcmds = ['chmod 755 %(installdir)s/bin/*']
+
+files_to_copy = [
+    (['bin/linux/*_linux64'], 'bin'),
+    (['src/lib/linux_gcc/lib*'], 'lib'),
+    'LICENSE', 'README.md', 'doc', 'examples',
+]
+
+sanity_check_paths = {
+    'files': [
+        ['bin/%%(name)s5.0%s' % x for x in ['_linux64', '_NNewtonian_linux64']],
+        ['lib/%s' % x for x in ['libChronoEngine.%s' % SHLIB_EXT, 'libdsphchrono.%s' % SHLIB_EXT]]
+    ],
+    'dirs': ['examples']
+}
+
+moduleclass = 'phys'
