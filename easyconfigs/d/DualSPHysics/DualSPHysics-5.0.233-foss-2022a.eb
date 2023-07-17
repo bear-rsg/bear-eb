@@ -14,10 +14,10 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 source_urls = ['https://github.com/DualSPHysics/DualSPHysics/archive']
 sources = ['v%(version)s.tar.gz']
-patches = ['%(name)s_%(version)s_makefiles.patch']
+patches = ['%(name)s-%(version)s_makefiles.patch']
 checksums = [
     {'v5.0.233.tar.gz': '660a67dc8deed7a38f63e6f462071cbb980e268296f12a5c182aad85b4c0e9e9'},
-    {'DualSPHysics_5.0.233_makefiles.patch': '2418ef17fa0c47e41be523e81588cc92401ac5554f48fbf900e567438c721e79'},
+    {'DualSPHysics-5.0.233_makefiles.patch': '2418ef17fa0c47e41be523e81588cc92401ac5554f48fbf900e567438c721e79'},
 ]
 
 dependencies = [
