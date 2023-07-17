@@ -1,0 +1,48 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pyvis'
+version = '0.2.1'
+
+homepage = "https://github.com/WestHealth/pyvis"
+description = """Python package for creating and visualizing interactive network graphs."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('networkx', '2.6.3'),
+    ('IPython', '7.26.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('jsonpickle', '2.1.0', {
+        'checksums': ['84684cfc5338a534173c8dd69809e40f2865d0be1f8a2b7af8465e5b968dcfa9'],
+    }),
+    (name, version, {
+        'checksums': ['29b94d0a10a01ac790d262318680369baa9e5eb8524c355758f1c3799f0c3965'],
+    }),
+]
+
+# Sanity check creates Quick Start example from https://github.com/WestHealth/pyvis
+sanity_check_commands = [
+    "touch ${BB_CPU}_basic.py",
+    "echo from pyvis.network import Network >> ${BB_CPU}_basic.py",
+    "echo 'g = Network()' >> ${BB_CPU}_basic.py",
+    "echo 'g.add_node(0)' >> ${BB_CPU}_basic.py",
+    "echo 'g.add_node(1)' >> ${BB_CPU}_basic.py",
+    "echo 'g.add_edge(0, 1)' >> ${BB_CPU}_basic.py",
+    "echo 'g.show(\"${BB_CPU}_basic.html\")' >> ${BB_CPU}_basic.py",
+    "python ${BB_CPU}_basic.py",
+    "rm ${BB_CPU}_basic.py"
+]
+
+moduleclass = 'vis'
