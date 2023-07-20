@@ -1,0 +1,75 @@
+diff -aur source.old/projects.settings source/projects.settings
+--- source.old/projects.settings	2023-07-19 11:34:49.383831278 +0100
++++ source/projects.settings	2023-07-19 11:35:37.563008003 +0100
+@@ -57,7 +57,6 @@
+ 		"cppdb",  # Must come before sqlite3 for static build
+ 		"sqlite3",
+ 		"cifparse",
+-		"libxml2",
+ 		"libzmq",
+ 		"rdkit",
+ 	]
+diff -aur source.old/tools/build/basic.settings source/tools/build/basic.settings
+--- source.old/tools/build/basic.settings	2023-07-19 11:34:50.050833752 +0100
++++ source/tools/build/basic.settings	2023-07-19 11:38:32.773642111 +0100
+@@ -153,7 +153,6 @@
+                     "isystem external/",
+                     "isystem external/include/",
+                     "isystem external/dbio/",
+-                    "isystem external/libxml2/include",
+                     "isystem external/rdkit",
+                 ],
+                 "cxx" : [
+@@ -164,7 +163,6 @@
+                     "isystem external/",
+                     "isystem external/include/",
+                     "isystem external/dbio/",
+-                    "isystem external/libxml2/include",
+                     "isystem external/rdkit",
+ 
+                     #"fno-omit-frame-pointer", # -- useful for profiling on linux using RotateRight's Zoom profiler
+@@ -1373,7 +1371,6 @@
+                     "isystem external/",
+                     "isystem external/include/",
+                     "isystem external/dbio/",
+-                    "isystem external/libxml2/include",
+                     "isystem external/rdkit",
+                 ],
+                 "cxx" : [
+@@ -1383,7 +1380,6 @@
+                     "isystem external/",
+                     "isystem external/include/",
+                     "isystem external/dbio/",
+-                    "isystem external/libxml2/include",
+                     "isystem external/rdkit",
+                 ],
+                 "warn" : [
+@@ -2002,7 +1998,6 @@
+                     "isystem external/",
+                     "isystem external/include/",
+                     "isystem external/dbio/",
+-                    "isystem external/libxml2/include",
+                     "isystem external/rdkit",
+                 ],
+                 "cxx" : [
+@@ -2012,7 +2007,6 @@
+                     "isystem external/",
+                     "isystem external/include/",
+                     "isystem external/dbio/",
+-                    "isystem external/libxml2/include",
+                     "isystem external/rdkit",
+                 ],
+                 "compile" : [
+diff -aur source.old/tools/build/site.settings source/tools/build/site.settings
+--- source.old/tools/build/site.settings	2023-07-19 11:34:50.050833752 +0100
++++ source/tools/build/site.settings	2023-07-19 11:40:28.218067174 +0100
+@@ -28,6 +28,9 @@
+             "include_path" : os.environ["INCLUDE"].split(":") if "INCLUDE" in os.environ else [],
+         },
+         "appends" : {
++           "flags" : {
++              "link" : ["lxml2"],
++                                    },
+         },
+         "overrides" : {
+ ## Uncomment the following line if your compiler need additional environment variables to function (e.g. license key locations)
