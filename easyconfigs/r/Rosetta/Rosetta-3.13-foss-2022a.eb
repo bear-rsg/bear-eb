@@ -1,0 +1,32 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+name = 'Rosetta'
+version = '3.13'
+
+homepage = 'https://www.rosettacommons.org'
+description = """Rosetta is the premier software suite for modeling macromolecular structures. As a flexible,
+multi-purpose application, it includes tools for structure prediction, design, and remodeling of proteins and
+nucleic acids."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'usempi': True}
+
+sources = ['%(namelower)s_src_%(version)s_bundle.tgz']
+patches = [
+    ('Rosetta_compiler_fix.patch'),
+    ('Rosetta-3.13_remove-libxml2.patch'),
+]
+checksums = [
+    {'rosetta_src_3.13_bundle.tgz': 'ccf9f74d21a4c3886ebbe7f19fbc9549090f521ec458b2b912f4dc1696557d82'},
+    {'Rosetta_compiler_fix.patch': 'cb83a51b38f9e58c7fa28f7d520ba6331f0b881fe89c39c18abaad69ee9084e5'},
+    {'Rosetta-3.13_remove-libxml2.patch': '23187814f7cec90e1d68f627ef57f0217d7fcf04103de099117629185335b717'},
+]
+
+builddependencies = [
+    ('SCons', '4.4.0', '', True),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+]
+
+moduleclass = 'bio'

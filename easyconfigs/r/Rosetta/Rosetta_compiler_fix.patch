@@ -1,0 +1,10 @@
+--- source/src/protocols/features/FeaturesReporter.fwd.hh.old	2021-04-20 21:48:42.000000000 +0100
++++ source/src/protocols/features/FeaturesReporter.fwd.hh	2023-07-14 09:08:22.990484927 +0100
+@@ -16,6 +16,7 @@
+ 
+ // Utility headers
+ #include <utility/pointer/owning_ptr.hh>
++#include <cstdint>
+ 
+ namespace protocols {
+ namespace features {
