@@ -1,0 +1,38 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'BEAR-Python-MSc-Bioinformatics'
+version = '2022b'
+
+homepage = ""
+description = """This module provides access to several Python Data Science libraries."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    # ('BioServices', '1.10.1'),
+    ('matplotlib', '3.7.0'),
+    # ('mlxtend', '0.19.0'),
+    ('scikit-learn', '1.2.1'),
+    ('SciPy-bundle', '2023.02'),
+    ('Seaborn', '0.12.2'),
+    # ('TensorFlow', '2.7.1'),
+    # ('graphviz', '0.20.1'),
+    # ('gprofiler-official', '1.0.0'),
+    # ('intermine', '1.13.0'),
+    # ('pyhpo', '3.1.2'),
+    # ('scikit-plot', '0.3.7'),
+    # ('wittgenstein', '0.3.2'),
+    ('statsmodels', '0.14.0'),
+    ('plotly.py', '5.13.1'),
+    # ('sequenza-utils', '3.0.0', '-MSc'),
+    ('networkx', '3.0'),
+    # ('NLTK', '3.7'),
+    # ('OpenCV', '4.5.5', '-contrib'),
+    # ('MetaboLabPy', '0.8.4'),
+    # ('scikit-image', '0.19.1'),
+    # ('mvlearn', '0.5.0'),
+]
+
+moduleclass = 'tools'
