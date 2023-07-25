@@ -1,7 +1,4 @@
-# Note that the proper stable releases are located under "delft3d/tags/delft3d4" rather than
-# in "delft3d/branches/releases" in the SVN repository at https://svn.oss.deltares.nl/repos/.
-# This is documented here https://oss.deltares.nl/web/delft3d/source-code#Download%20source%20code.
-# Compute Canada, Sergiy Khan
+# Compute Canada, Sergiy Khan (modified by James Carpenter, BEAR Software team, University of Birmingham)
 
 easyblock = 'ConfigureMake'
 name = 'delft3d'
@@ -29,6 +26,7 @@ download_instructions = """Note that the proper stable releases are located unde
 """
 
 sources = ['%(name)s-%(version)s.tar.gz']
+checksums = ['d07e0321007b4ad64ff52a40c1a0c3c7a60a44f64b33073d1a15647481c4bcd4']
 
 builddependencies = [
     ('Autotools', '20210726'),
