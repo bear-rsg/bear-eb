@@ -41,22 +41,14 @@ dependencies = [
     ('libiconv', '1.17'),
     ('libxml2', '2.9.13'),
     ('XZ', '5.2.5'),
-    ('pkgconf', '1.8.0'),
     ('Perl', '5.34.1'),
     ('Python', '3.10.4'),
-    ('M4', '1.4.19'),
 ]
-
-#  Compiling notes
-#  https://gchp.readthedocs.io/en/stable/user-guide/compiling.html
-#  https://github.com/geoschem/GCHP
-#  https://spack.readthedocs.io/en/latest/package_list.html#gchp
 
 preconfigopts = "mkdir %(builddir)s/%(name)s-%(version)s/build && cd %(builddir)s/%(name)s-%(version)s/build && "
 
 configopts = ' '.join([
     # set $RUNDIR
-    # '-DCMAKE_PREFIX_PATH="%(builddir)s/GCHP-14.1.1"',
     '-DRUNDIR="%(installdir)s"',
     '-DCMAKE_BUILD_TYPE="Release"',
     # enable OpenMP parallelisation
@@ -65,9 +57,8 @@ configopts = ' '.join([
     '-DRRTMG="ON"',
 ])
 
+# prebuildopts = 'export NETCDF_DIR="$EBROOTNETCDFMINFORTRAN" && ',
 
-# prebuildopts = 'export NETCDF_DIR="$EBROOTNETCDFMINFORTRAN" && cd %(builddir)s/%(name)s-%(version)s/build/src &&',
-prebuildopts = 'cd %(builddir)s/%(name)s-%(version)s/build/src && ',
 # install_cmd = ""
 
 postinstallcmds = ['']
