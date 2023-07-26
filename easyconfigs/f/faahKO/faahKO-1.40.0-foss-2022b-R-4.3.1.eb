@@ -1,0 +1,49 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'faahKO'
+version = '1.40.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://bioconductor.org/packages/release/data/experiment/html/faahKO.html"
+description = """Positive ionization mode data in NetCDF file format. Centroided subset from 200-600 m/z and 2500-4500
+ seconds. Data originally reported in "Assignment of Endogenous Substrates to Enzymes by Global Metabolite Profiling"
+ Biochemistry; 2004; 43(45). Also includes detected peaks in an xcmsSet."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+    ('R-bundle-Bioconductor', '3.17', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.17/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.17/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'checksums': ['61f22cfe8ec5200ca04ca648c7a1b145a01ed57d7958a55ce7a85efd2e904db8'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['faahKO/R/faahKO'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
