@@ -30,24 +30,23 @@ checksums = ['d07e0321007b4ad64ff52a40c1a0c3c7a60a44f64b33073d1a15647481c4bcd4']
 
 builddependencies = [
     ('Autotools', '20210726'),
-    ('pkg-config', '0.29.2'),
+    ('pkgconf', '1.8.0'),
 ]
 
 dependencies = [
     ('netCDF-Fortran', '4.5.3'),
 ]
 
-configure_cmd_prefix = 'cd src && ./autogen.sh && '
+start_dir = "src"
+configure_cmd_prefix = './autogen.sh && '
 
 configopts = '--with-netcdf --with-mpi'
 
 prebuildopts = ' && '.join([
-    'cp ./src/third_party_open/swan/src/* ./src/third_party_open/swan/swan_mpi',
-    'cp ./src/third_party_open/swan/src/* ./src/third_party_open/swan/swan_omp',
-    'cd src &&',
+    'cp ./third_party_open/swan/src/* ./third_party_open/swan/swan_mpi',
+    'cp ./third_party_open/swan/src/* ./third_party_open/swan/swan_omp',
+    ' ',  # prebuildopts needs to end with &&
 ])
-
-preinstallopts = 'cd src &&'
 
 # parallel build fails:
 parallel = 1
