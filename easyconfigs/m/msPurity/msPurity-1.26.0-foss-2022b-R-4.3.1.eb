@@ -1,0 +1,51 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'msPurity'
+version = '1.26.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://www.bioconductor.org/packages/release/bioc/html/msPurity.html"
+description = """msPurity R package was developed to: 1) Assess the spectral quality of fragmentation spectra by
+ evaluating the "precursor ion purity". 2) Process fragmentation spectra. 3) Perform spectral matching. """
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+    ('R-bundle-Bioconductor', '3.17', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.17/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.17/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'checksums': ['1dd8a0c05788b986d57b9ba5025681736231acdefdf1ed2e96b437018a885b27'],
+    }),
+    ('msPurityData', '1.28.0', {
+        'checksums': ['459865e0f13626a1410ee0f1e3fd255e99eab507e7396ebfeac846f710081965'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['msPurity/R/msPurity'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

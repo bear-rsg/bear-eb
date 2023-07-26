@@ -1,0 +1,60 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'monocle'
+version = '2.28.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://bioconductor.org/packages/release/bioc/html/monocle.html"
+description = """The monocle package provides a toolkit for analyzing single cell gene expression experiments.
+This vignette provides an overview of a single cell RNA-Seq analysis workflow with Monocle"""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+    ('R-bundle-Bioconductor', '3.17', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.17/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.17/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    ('DDRTree', '0.1.5', {
+        'checksums': ['d351ec029461b43c0dcc7c30d9f378753b31ba16c6dbf667869df279b874459b'],
+    }),
+    ('HSMMSingleCell', '1.20.0', {
+        'checksums': ['ce9bcd691a3c90a68c83a75dfe6f14b663ce304ec59bf647f07aaaae7da1f5a9'],
+    }),
+    ('leidenbase', '0.1.25', {
+        'checksums': ['9eaeb33597fb2926b0ec1723dec44a17e1a08919eac873fa48a6cd697036d5d3'],
+    }),
+    ('biocViews', '1.68.1', {
+        'checksums': ['88b02df7e8bb1ad2287dc4169c08e84ef8ca201ca0cf559f1a94d8d43acf3f13'],
+    }),
+    (name, version, {
+        'checksums': ['125717ef4c979848c29c6ee3b244c6ccf00da52c151110c58b13128d86e9f116'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['monocle/R/monocle'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
