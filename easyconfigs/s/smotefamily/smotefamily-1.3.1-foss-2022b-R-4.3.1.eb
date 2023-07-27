@@ -1,0 +1,49 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'smotefamily'
+version = '1.3.1'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/web/packages/smotefamily/index.html"
+description = """A collection of various oversampling techniques developed from SMOTE is provided. SMOTE is a
+ oversampling technique which synthesizes a new minority instance between a pair of one minority instance and one of
+ its K nearest neighbor. (see <https://www.jair.org/media/953/live-953-2037-jair.pdf> for more information) Other
+ techniques adopt this concept with other criteria in order to generate balanced dataset for class imbalance
+ problem."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    ('dbscan', '1.1-11', {
+        'checksums': ['f0498e67e612629340a2758fbe747c4d9d4ca648f002230a03499cb73735e62f'],
+    }),
+    (name, version, {
+        'checksums': ['978d99afaf1bfe51d1752f652298a5e2e1fde2f667e10f8373dee2158ebe5e18'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['smotefamily/R/smotefamily'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

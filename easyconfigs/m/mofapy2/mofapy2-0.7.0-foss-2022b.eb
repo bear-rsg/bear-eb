@@ -1,0 +1,35 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'mofapy2'
+version = '0.7.0'
+
+homepage = "https://biofam.github.io/MOFA2/"
+description = """MOFA is a factor analysis model that provides a general framework for the integration of multi-omic
+ data sets in an unsupervised fashion."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('scikit-learn', '1.2.1'),
+    ('h5py', '3.8.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('natsort', '8.4.0', {
+        'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
+    }),
+    ('anndata', '0.8.0', {
+        'checksums': ['94d2cc6f76c0317c0ac28564e3092b313b7ad19c737d66701961f3e620b9066e'],
+    }),
+    (name, version, {
+        'checksums': ['b89a5fc7ab68ca2a27332ca51b0882d98c2352977ca106079c5edbc82709ae95'],
+    }),
+]
+
+moduleclass = 'bio'
