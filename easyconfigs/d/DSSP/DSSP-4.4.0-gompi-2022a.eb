@@ -20,7 +20,7 @@ builddependencies = [
 ]
 
 dependencies = [
-	('libcifpp', '5.1.0'),
+    ('libcifpp', '5.1.0'),
     ('libmcfp', '1.2.4'),
 ]
 
