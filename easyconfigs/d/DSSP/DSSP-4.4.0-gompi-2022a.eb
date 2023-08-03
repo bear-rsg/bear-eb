@@ -1,0 +1,34 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+
+name = 'DSSP'
+version = '4.4.0'
+
+homepage = "https://github.com/PDB-REDO/dssp"
+description = """DSSP is a database of secondary structure assignments (and much more) for all protein entries in the
+ Protein Data Bank (PDB). DSSP is also the program that calculates DSSP entries from PDB entries."""
+
+toolchain = {'name': 'gompi', 'version': '2022a'}
+toolchainopts = {'cstd': 'c++17'}
+
+source_urls = ['https://github.com/PDB-REDO/dssp/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['43494840d774e690dd4b7cfe0f4c1398426abf9499cc00770c882b1e7ec8cdd4']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+]
+
+dependencies = [
+	('libcifpp', '5.1.0'),
+    ('libmcfp', '1.2.4'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/mkdssp', 'lib/libdssp.a', 'include/dssp.hpp'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['mkdssp -h']
+
+moduleclass = 'bio'

@@ -1,0 +1,32 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+
+name = 'mrc'
+version = '1.3.9'
+
+homepage = "https://github.com/mhekkel/mrc"
+description = """Maartens Resource Compiler"""
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+source_urls = ['https://github.com/mhekkel/mrc/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['aed0e2c866f70909eb07f64b4ea49591a291525a278b2c23f1f153a1558cfe0f']
+
+builddependencies = [
+    ('binutils', '2.38'),
+    ('CMake', '3.24.3'),
+]
+
+dependencies = [
+    ('libmcfp', '1.2.4'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/mrc'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['mrc -h']
+
+moduleclass = 'lib'
