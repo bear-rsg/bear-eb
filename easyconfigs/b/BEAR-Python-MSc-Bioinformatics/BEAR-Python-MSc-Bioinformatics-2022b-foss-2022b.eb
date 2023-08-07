@@ -13,7 +13,7 @@ dependencies = [
     ('Python', '3.10.8'),
     # ('BioServices', '1.10.1'),
     ('matplotlib', '3.7.0'),
-    # ('mlxtend', '0.19.0'),
+    ('mlxtend', '0.22.0'),
     ('scikit-learn', '1.2.1'),
     ('SciPy-bundle', '2023.02'),
     ('Seaborn', '0.12.2'),
@@ -31,7 +31,7 @@ dependencies = [
     # ('NLTK', '3.7'),
     ('OpenCV', '4.8.0', '-contrib'),
     # ('MetaboLabPy', '0.8.4'),
-    # ('scikit-image', '0.19.1'),
+    ('scikit-image', '0.21.0'),
     # ('mvlearn', '0.5.0'),
 ]
 
