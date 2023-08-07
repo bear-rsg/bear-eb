@@ -1,0 +1,27 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'intermine'
+version = '1.13.0'
+
+homepage = "http://www.intermine.org/"
+description = """A Python API to access bioinformatics data warehouses powered by the InterMine platform."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+builddependencies = [('binutils', '2.39')]
+
+dependencies = [
+    ('Python', '3.10.8'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'checksums': ['7a9e570ec220a97e7583e5cd4bc8ed65bc53d9d80699b1c725f189aa6efa13a3'],
+    }),
+]
+
+moduleclass = 'tools'

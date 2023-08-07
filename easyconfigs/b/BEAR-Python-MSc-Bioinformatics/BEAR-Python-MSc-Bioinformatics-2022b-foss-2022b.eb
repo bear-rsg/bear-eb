@@ -20,7 +20,7 @@ dependencies = [
     # ('TensorFlow', '2.7.1'),  # TODO
     # ('graphviz', '0.20.1'),  # TODO: Graphviz
     # ('gprofiler-official', '1.0.0'),
-    # ('intermine', '1.13.0'),
+    ('intermine', '1.13.0'),
     ('pyhpo', '3.2.2'),
     ('scikit-plot', '0.3.7'),
     # ('wittgenstein', '0.3.2'),
