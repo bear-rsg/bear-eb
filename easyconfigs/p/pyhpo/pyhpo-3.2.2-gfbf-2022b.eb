@@ -1,0 +1,43 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pyhpo'
+version = '3.2.2'
+
+homepage = "https://github.com/anergictcell/pyhpo"
+description = """A Python library to work with, analyze, filter and inspect the Human Phenotype Ontology"""
+
+toolchain = {'name': 'gfbf', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('backports.cached-property', '1.0.1', {
+        'checksums': ['1a5ef1e750f8bc7d0204c807aae8e0f450c655be0cf4b30407a35fd4bb27186c'],
+    }),
+    ('annotated_types', '0.5.0', {
+        'checksums': ['47cdc3490d9ac1506ce92c7aaa76c579dc3509ff11e098fc867e5130ab7be802'],
+    }),
+    ('pydantic_core', '2.4.0', {
+        'source_tmpl': '%(name)s-%(version)s-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['63797499a219d8e81eb4e0c42222d0a4c8ec896f5c76751d4258af95de41fdf1'],
+    }),
+    ('typing_extensions', '4.6.1', {
+        'checksums': ['558bc0c4145f01e6405f4a5fdbd82050bd221b119f4bf72a961a1cfd471349d6'],
+    }),
+    ('pydantic', '2.1.1', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['43bdbf359d6304c57afda15c2b95797295b702948082d4c23851ce752f21da70'],
+    }),
+    (name, version, {
+        'checksums': ['5fe568bb1e283a6b2945f1c5b86555adc9f6cd5e1c4487cb4c5a11be35ab0387'],
+    }),
+]
+
+moduleclass = 'tools'
