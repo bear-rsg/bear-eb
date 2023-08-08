@@ -1,0 +1,62 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'sequenza'
+version = '3.0.0'
+
+homepage = "https://cran.r-project.org/package=sequenza"
+description = """Tools to analyze genomic sequencing data from paired normal-tumor samples, including cellularity and
+ ploidy estimation; mutation and copy number (allele-specific and total copy number) detection, quantification and
+ visualization."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+    ('R-bundle-Bioconductor', '3.17', '-R-4.3.1'),
+    ('Pandoc', '2.13', '', True),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.15/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('squash', '1.0.9', {
+        'checksums': ['ff381c85071e3407574e3db28d789657f64e7d3f9d74ac123539de22ab8ac6f4'],
+    }),
+    ('iotools', '0.3-2', {
+        'checksums': ['27f4587f0fb46ccbf9120af45a5843ad6b967da44e47e860e93dd4af27f8001f'],
+    }),
+    ('seqminer', '8.4', {
+        'checksums': ['e8856b5896df4bc5ddc09d9f7855699e8a1f9579835805e1f1f9c196380c7dd5'],
+    }),
+    ('copynumber', '1.36.0', {
+        'checksums': ['0d56f34dff7919c4ba3a1e87cc11d98987a91837d344bd2ac5a8271273c228bf'],
+    }),
+    (name, version, {
+        'checksums': ['038cd9f65aaab83471e9bdcf7b93aa29507055c77d486f9275c7b1c61435818e'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['sequenza/R/sequenza'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

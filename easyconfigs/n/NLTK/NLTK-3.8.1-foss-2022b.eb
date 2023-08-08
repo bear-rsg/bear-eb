@@ -36,7 +36,7 @@ exts_list = [
         'checksums': ['caa6261d6955466756f986b7fcfbd4fd50622963e3bdb5cc180c129c62b3a76d'],
     }),
     (name, version, {
-        'postinstallcmds': ['mkdir -p %(installdir)s/nltk_data && NLTK_DATA=%(installdir)s/nltk_data python -m nltk.downloader all'],
+        'postinstallcmds': local_nltk_data_install,
         'source_tmpl': '%(namelower)s-%(version)s.zip',
         'use_pip_extras': 'corenlp,machine_learning,plot,tgrep',
         'checksums': ['1834da3d0682cba4f2cede2f9aad6b0fafb6461ba451db0efb6f9c39798d64d3'],
