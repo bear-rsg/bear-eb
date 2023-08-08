@@ -18,7 +18,7 @@ dependencies = [
     ('SciPy-bundle', '2023.02'),
     ('Seaborn', '0.12.2'),
     # ('TensorFlow', '2.7.1'),  # TODO
-    # ('graphviz', '0.20.1'),  # TODO: Graphviz
+    ('graphviz', '0.20.1'),
     ('gprofiler-official', '1.0.0'),
     ('intermine', '1.13.0'),
     ('pyhpo', '3.2.2'),
