@@ -19,7 +19,7 @@ dependencies = [
     ('Seaborn', '0.12.2'),
     # ('TensorFlow', '2.7.1'),  # TODO
     # ('graphviz', '0.20.1'),  # TODO: Graphviz
-    # ('gprofiler-official', '1.0.0'),
+    ('gprofiler-official', '1.0.0'),
     ('intermine', '1.13.0'),
     ('pyhpo', '3.2.2'),
     ('scikit-plot', '0.3.7'),
@@ -30,7 +30,7 @@ dependencies = [
     ('networkx', '3.0'),
     ('NLTK', '3.8.1'),
     ('OpenCV', '4.8.0', '-contrib'),
-    # ('MetaboLabPy', '0.8.4'),
+    # ('MetaboLabPy', '0.8.4'),  # active development, so do when requested
     ('scikit-image', '0.21.0'),
     ('mvlearn', '0.5.0'),
 ]
