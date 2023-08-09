@@ -32,7 +32,6 @@ exts_default_options = {
     'source_tmpl': '%(name)s_%(version)s.tar.gz',
 }
 
-
 # Order is important!
 exts_list = [
     ('squash', '1.0.9', {
