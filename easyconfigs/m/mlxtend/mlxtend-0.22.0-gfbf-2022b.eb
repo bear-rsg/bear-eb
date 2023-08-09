@@ -1,0 +1,28 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'mlxtend'
+version = '0.22.0'
+
+homepage = "https://rasbt.github.io/mlxtend/"
+description = """Mlxtend (machine learning extensions) is a Python library of useful tools for the day-to-day data
+ science tasks."""
+
+toolchain = {'name': 'gfbf', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('matplotlib', '3.7.0'),
+    ('scikit-learn', '1.2.1'),
+    ('SciPy-bundle', '2023.02'),
+]
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['bab0a9b28b5ffc5254fb73dc68f12fdab44215bc6b097ea3cc78d6bb7f10c47a']
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+moduleclass = 'data'

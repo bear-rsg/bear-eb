@@ -1,0 +1,53 @@
+easyblock = 'PythonBundle'
+
+name = 'NLTK'
+version = '3.8.1'
+
+homepage = 'https://www.nltk.org/'
+description = "NLTK is a leading platform for building Python programs to work with human language data."
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('scikit-learn', '1.2.1'),
+    ('matplotlib', '3.7.0'),
+    ('tqdm', '4.64.1'),
+]
+
+local_nltk_data_install = []
+# To install the NLTK data sets (7.4 GB)
+local_nltk_data = '%(installdir)s/nltk_data'
+local_nltk_data_install = [
+    "mkdir -p %s && NLTK_DATA=%s python -m nltk.downloader all" % (local_nltk_data, local_nltk_data)
+]
+modextravars = {'NLTK_DATA': local_nltk_data}
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('regex', '2023.6.3', {
+        'checksums': ['72d1a25bf36d2050ceb35b517afe13864865268dfb45910e2e17a84be6cbfeb0'],
+    }),
+    ('python-crfsuite', '0.9.9', {
+        'modulename': 'pycrfsuite',
+        'checksums': ['caa6261d6955466756f986b7fcfbd4fd50622963e3bdb5cc180c129c62b3a76d'],
+    }),
+    (name, version, {
+        'postinstallcmds': local_nltk_data_install,
+        'source_tmpl': '%(namelower)s-%(version)s.zip',
+        'use_pip_extras': 'corenlp,machine_learning,plot,tgrep',
+        'checksums': ['1834da3d0682cba4f2cede2f9aad6b0fafb6461ba451db0efb6f9c39798d64d3'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/%(namelower)s'],
+}
+
+sanity_check_commands = [('%(namelower)s', '--version')]
+
+moduleclass = 'devel'

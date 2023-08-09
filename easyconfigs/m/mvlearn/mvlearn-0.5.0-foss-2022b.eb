@@ -1,0 +1,46 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'mvlearn'
+version = '0.5.0'
+
+homepage = "https://mvlearn.github.io/"
+description = """mvlearn is a Python module for machine learning on multiview data (sometimes referred to as
+ multi-modal, multi-table, or multi-block data)."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('Seaborn', '0.12.2'),
+    ('scikit-learn', '1.2.1'),
+    ('matplotlib', '3.7.0'),  # trialing newer matplotlib than in requirements
+]
+
+sanity_pip_check = True
+use_pip = True
+
+# requirements files are missing in packaged source code - manually check requirements are met
+# see https://github.com/mvlearn/mvlearn/tree/main/requirements
+_fix_mvl = "mkdir requirements && touch requirements/base.txt requirements/multiviewica.txt requirements/torch.txt && "
+
+exts_list = [
+    ('fastsrm', '0.0.4', {
+        'checksums': ['a3b53d9eaea5d313fab49f8043bf144d2c74daabeb1d3de254a9949bbeb8ff09'],
+    }),
+    ('python-picard', '0.7', {
+        'modulename': 'picard',
+        'checksums': ['8061a1f0c4660c805b7617f2f0bd0284c6e6e84ac3ec782081c67b27cfd185a7'],
+    }),
+    ('multiviewica', '0.0.1', {
+        'checksums': ['36c96009b1a785108883f8d2dbc5a06baa1cbb5afdfd641eeefed271ee5b1985'],
+    }),
+    (name, version, {
+        'preinstallopts': _fix_mvl,
+        'use_pip_extras': 'multiviewica',
+        'checksums': ['5e1a53318dec2c5f41e627080af657364e497aa7a3cdaaaacef879fc3d427ba5'],
+    }),
+]
+
+moduleclass = 'data'
