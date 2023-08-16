@@ -1,0 +1,29 @@
+--- cmake/FindESMF.cmake.orig	2023-07-26 14:48:32.350785242 +0100
++++ cmake/FindESMF.cmake	2023-07-26 14:52:27.517436428 +0100
+@@ -135,7 +135,10 @@
+ find_package(MPI REQUIRED)
+ execute_process (COMMAND ${CMAKE_CXX_COMPILER} --print-file-name=libstdc++.so OUTPUT_VARIABLE stdcxx OUTPUT_STRIP_TRAILING_WHITESPACE)
+ execute_process (COMMAND ${CMAKE_CXX_COMPILER} --print-file-name=libgcc.a OUTPUT_VARIABLE libgcc OUTPUT_STRIP_TRAILING_WHITESPACE)
+-set(ESMF_LIBRARIES ${ESMF_LIBRARY} ${NETCDF_LIBRARIES} ${MPI_Fortran_LIBRARIES} ${MPI_CXX_LIBRARIES} rt ${stdcxx} ${libgcc})
++
++# if 14.1.1 -- https://github.com/geoschem/GCHP/pull/309/ & https://github.com/geoschem/GCHP/issues/305
++#set(ESMF_LIBRARIES ${ESMF_LIBRARY} ${NETCDF_LIBRARIES} ${MPI_Fortran_LIBRARIES} ${MPI_CXX_LIBRARIES} rt ${stdcxx} ${libgcc})
++set(ESMF_LIBRARIES ${ESMF_LIBRARY} ${NETCDF_LIBRARIES} ${MPI_Fortran_LIBRARIES} ${MPI_CXX_LIBRARIES} rt dl ${stdcxx} ${libgcc})
+ set(ESMF_INCLUDE_DIRS ${ESMF_HEADERS_DIR} ${ESMF_MOD_DIR})
+ 
+ # Check if ESMF is built with OpenMP. If so, link OpenMP
+@@ -167,9 +170,11 @@
+ 	)
+ 	target_link_libraries(esmf 
+ 		INTERFACE 
+-			${NETCDF_LIBRARIES} 
+-			${MPI_Fortran_LIBRARIES} ${MPI_CXX_LIBRARIES} 
+-			rt ${stdcxx} ${libgcc}
++		# if 14.1.1 -- https://github.com/geoschem/GCHP/pull/309/ & https://github.com/geoschem/GCHP/issues/305
++		#	${NETCDF_LIBRARIES} 
++		#	${MPI_Fortran_LIBRARIES} ${MPI_CXX_LIBRARIES} 
++		#	rt ${stdcxx} ${libgcc}
++			${ESMF_LIBRARIES}
+ 	)
+ 	target_include_directories(esmf INTERFACE ${ESMF_INCLUDE_DIRS})
+ 	add_library(ESMF ALIAS esmf)

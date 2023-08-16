@@ -23,7 +23,15 @@ sources = [{
         'recursive': True,
     },
 }]
-checksums = ['1a79e9859eb4374415506be70e8877bcf10466d6128e5a5d6b0a50c434b80121']
+patches = [
+    'gchp-cmakelists-fflags-syntax.patch',
+    'gchp-FindESMF-use-consistent-libs.patch',
+]
+checksums = [
+    {'14.1.1.tar.gz': '1a79e9859eb4374415506be70e8877bcf10466d6128e5a5d6b0a50c434b80121'},
+    {'gchp-cmakelists-fflags-syntax.patch': '46d6842c52fc62013884da22d862863ff1052218d7d7ab1ce85c85ccecb3a56d'},
+    {'gchp-FindESMF-use-consistent-libs.patch': '8b61fb880cf947cb5f3d3588992dfb2a9334ffa41c2ba5fb100392d884f73dd9'},
+]
 
 builddependencies = [
     ('CMake', '3.23.1'),
@@ -45,27 +53,24 @@ dependencies = [
     ('Python', '3.10.4'),
 ]
 
-preconfigopts = "mkdir %(builddir)s/%(name)s-%(version)s/build && cd %(builddir)s/%(name)s-%(version)s/build && "
-
 configopts = ' '.join([
-    # set $RUNDIR
-    '-DRUNDIR="%(installdir)s"',
-    '-DCMAKE_BUILD_TYPE="Release"',
+    "-DCMAKE_BUILD_TYPE=Release",
     # enable OpenMP parallelisation
-    '-DOMP="ON"',
+    "-DOMP=ON",
     # enable RRTMG radiative transfer model
-    '-DRRTMG="ON"',
+    "-DRRTMG=ON",
 ])
 
-# prebuildopts = 'export NETCDF_DIR="$EBROOTNETCDFMINFORTRAN" && ',
+skipsteps = ['install']
 
-# install_cmd = ""
-
-postinstallcmds = ['']
+postinstallcmds = [
+    'mkdir -p %(installdir)s/bin',
+    'cp %(builddir)s/easybuild_obj/bin/gchp %(installdir)s/bin',
+]
 
 sanity_check_paths = {
-    'files': [''],
-    'dirs': [''],
+    'files': ['bin/gchp'],
+    'dirs': ['bin'],
 }
 
 moduleclass = 'geo'
