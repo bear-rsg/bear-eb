@@ -1,0 +1,27 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Conda'
+
+name = 'windspharm'
+version = '1.7.0'
+
+homepage = "https://github.com/ajdawson/windspharm"
+description = """A Python library for spherical harmonic computations on vector winds."""
+
+toolchain = SYSTEM
+
+dependencies = [
+    ('Miniconda3', '22.11.1-1'),
+]
+
+channels = ['conda-forge']
+
+requirements = '%(name)s=%(version)s'
+
+sanity_check_paths = {
+   'files': [],
+   'dirs': ["bin"],
+}
+
+sanity_check_commands = ["python -c 'from windspharm.standard import VectorWind'"]
+
+moduleclass = 'geo'
