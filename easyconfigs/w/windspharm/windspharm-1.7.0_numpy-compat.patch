@@ -1,0 +1,80 @@
+From 50592fff92d61b4f11d06ae9e8389c22588f27f8 Mon Sep 17 00:00:00 2001
+From: Andrew Williams <56925856+AndrewWilliams3142@users.noreply.github.com>
+Date: Wed, 17 Feb 2021 11:15:02 +0000
+Subject: [PATCH 1/2] Update xarray.py
+
+---
+ windspharm/xarray.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/windspharm/xarray.py b/windspharm/xarray.py
+index c6ed5bf..b8cb69e 100644
+--- a/windspharm/xarray.py
++++ b/windspharm/xarray.py
+@@ -63,7 +63,7 @@ def __init__(self, u, v, rsphere=6.3712e6, legfunc='stored'):
+         Initialize a `VectorWind` instance with zonal and meridional
+         components of the vector wind::
+ 
+-            from windspharm.xray import VectorWind
++            from windspharm.xarray import VectorWind
+             w = VectorWind(u, v)
+ 
+         """
+
+From df8713f8cf58264dac916e3a965be3957a66542d Mon Sep 17 00:00:00 2001
+From: Jon Seddon <jon.seddon@metoffice.gov.uk>
+Date: Tue, 10 Jan 2023 10:27:37 +0000
+Subject: [PATCH 2/2] Fix for Numpy 1.24
+
+---
+ windspharm/_common.py                   | 2 +-
+ windspharm/tests/test_error_handling.py | 4 ++--
+ windspharm/tools.py                     | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/windspharm/_common.py b/windspharm/_common.py
+index 94fcb7a..c5c365e 100644
+--- a/windspharm/_common.py
++++ b/windspharm/_common.py
+@@ -116,5 +116,5 @@ def inspect_gridtype(latitudes):
+ 
+ 
+ def to3d(array):
+-    new_shape = array.shape[:2] + (np.prod(array.shape[2:], dtype=np.int),)
++    new_shape = array.shape[:2] + (np.prod(array.shape[2:], dtype=np.int_),)
+     return array.reshape(new_shape)
+diff --git a/windspharm/tests/test_error_handling.py b/windspharm/tests/test_error_handling.py
+index 087a688..01950bd 100644
+--- a/windspharm/tests/test_error_handling.py
++++ b/windspharm/tests/test_error_handling.py
+@@ -52,7 +52,7 @@ class TestStandardErrorHandlers(ErrorHandlersTest):
+     def test_masked_values(self):
+         # masked values in inputs should raise an error
+         solution = reference_solutions(self.interface, self.gridtype)
+-        mask = np.empty(solution['uwnd'].shape, dtype=np.bool)
++        mask = np.empty(solution['uwnd'].shape, dtype=np.bool_)
+         mask[:] = False
+         mask[1, 1] = True
+         u = ma.array(solution['uwnd'], mask=mask, fill_value=1.e20)
+@@ -115,7 +115,7 @@ def test_gradient_masked_values(self):
+         solution = reference_solutions(self.interface, self.gridtype)
+         vw = solvers[self.interface](solution['uwnd'], solution['vwnd'],
+                                      gridtype=self.gridtype)
+-        mask = np.empty(solution['uwnd'].shape, dtype=np.bool)
++        mask = np.empty(solution['uwnd'].shape, dtype=np.bool_)
+         mask[:] = False
+         mask[1, 1] = True
+         chi = ma.array(solution['chi'], mask=mask, fill_value=1.e20)
+diff --git a/windspharm/tools.py b/windspharm/tools.py
+index b460d30..1fa6e49 100644
+--- a/windspharm/tools.py
++++ b/windspharm/tools.py
+@@ -43,7 +43,7 @@ def __order_dims(d, inorder):
+ 
+ 
+ def __reshape(d):
+-    out = d.reshape(d.shape[:2] + (np.prod(d.shape[2:], dtype=np.int),))
++    out = d.reshape(d.shape[:2] + (np.prod(d.shape[2:], dtype=np.int_),))
+     return out, d.shape
+ 
+ 
