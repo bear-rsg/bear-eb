@@ -1,0 +1,38 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'windspharm'
+version = '1.7.0'
+
+homepage = "https://github.com/ajdawson/windspharm"
+description = """A Python library for spherical harmonic computations on vector winds."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('xarray', '2022.9.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('pyspharm', '1.0.9', {
+        'preinstallopts': 'echo "[config_fc]" > setup.cfg && echo "f77flags=-fallow-argument-mismatch" >> setup.cfg &&',
+        'checksums': ['a9236f92848a3951234b36e2de24a12d75449f307613397655884c8161a38c1f'],
+        'modulename': 'spharm',
+    }),
+    (name, version, {
+        'patches': ['windspharm-1.7.0_numpy-compat.patch'],  # bring in update for newer numpy
+        'checksums': [
+            {'windspharm-1.7.0.tar.gz': '3cb56a2c95e7c8948b4d1d418ccc52ff67222858e7204101459541ad0ed1a86f'},
+            {'windspharm-1.7.0_numpy-compat.patch': '6a5c55708c7236eed09e233c4faea789b096cea84957d783eeb36e0d9b7a6638'},
+        ],
+    }),
+]
+
+sanity_check_commands = ["python -c 'from windspharm.standard import VectorWind'"]
+
+moduleclass = 'geo'
