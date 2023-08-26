@@ -1,0 +1,49 @@
+easyblock = 'CMakeMake'
+
+name = 'occt'
+version = '7.7.0'
+
+homepage = 'https://www.opencascade.com/'
+description = """Open CASCADE Technology (OCCT) is an object-oriented C++
+class library designed for rapid production of sophisticated domain-specific
+CAD/CAM/CAE applications."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+toolchainopts = {'usempi': True}
+
+source_urls = ['https://files.salome-platform.org/Salome/other']
+sources = ['opencascade-%(version)s.tgz']
+patches = ['%(name)s-%(version)s_fix-includes.patch']
+checksums = [
+    {'opencascade-7.7.0.tgz': '075ca1dddd9646fcf331a809904925055747a951a6afd07a463369b9b441b445'},
+    {'occt-7.7.0_fix-includes.patch': 'c4fda61a6e5ff2c092744a45ffe7f4b11fb9dee507cc8fa713c6378a1bcf5f40'},
+]
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('Doxygen', '1.9.5'),
+]
+
+dependencies = [
+    ('Mesa', '22.2.4'),
+    ('freetype', '2.12.1'),
+    ('Tcl', '8.6.12'),
+    ('Tk', '8.6.12'),
+    ('FreeImage', '3.18.0'),
+    ('tbb', '2021.10.0'),
+]
+
+configopts = "-DUSE_FREEIMAGE=ON -D3RDPARTY_FREEIMAGE_DIR=$EBROOTFREEIMAGE "
+configopts += "-DUSE_TBB=ON -D3RDPARTY_TBB_DIR=$EBROOTTBB "
+configopts += "-D3RDPARTY_TCL_DIR=$EBROOTTCL "
+configopts += "-D3RDPARTY_TK_DIR=$EBROOTTK "
+configopts += "-D3RDPARTY_FREETYPE_DIR=$EBROOTFREETYPE "
+
+sanity_check_paths = {
+    'files': ['bin/DRAWEXE', 'bin/env.sh'],
+    'dirs': ['lib/cmake/opencascade'],
+}
+
+sanity_check_commands = ['DRAWEXE -h']
+
+moduleclass = 'cae'
