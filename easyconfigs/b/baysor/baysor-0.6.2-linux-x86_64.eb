@@ -1,0 +1,35 @@
+easyblock = 'Tarball'
+
+name = 'baysor'
+version = '0.6.2'
+versionsuffix = '-x86_x64-linux'
+
+homepage = 'https://github.com/kharchenkolab/Baysor'
+description = """Baysor is a tool for performing cell segmentation on imaging-based spatial transcriptomics data.
+ It optimizes segmentation considering the likelihood of transcriptional composition, size and shape of the cell.
+ The approach can take into account nuclear or cytoplasm staining, however, can also perform segmentation based on
+ the detected molecules alone."""
+citing = """Petukhov V, Xu RJ, Soldatov RA, Cadinu P, Khodosevich K, Moffitt JR & Kharchenko PV.
+ Cell segmentation in imaging-based spatial transcriptomics. Nat Biotechnol (2021).
+ https://doi.org/10.1038/s41587-021-01044-w """
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/kharchenkolab/Baysor/releases/download/v%(version)s/']
+sources = ['%(name)s%(versionsuffix)s-v%(version)s_build.zip']
+checksums = ['5b88527920bfa2fdb0a5914589fb5cbcc309c9784d82dedc28ab8f393942d2a5']
+
+postinstallcmds = [
+    "mv %(installdir)s/bin %(installdir)s/orig-bin",
+    "mv %(installdir)s/orig-bin/baysor/* %(installdir)s",
+    "rm -r %(installdir)s/orig-bin",
+]
+
+sanity_check_paths = {
+    'files': ['bin/baysor', 'bin/julia'],
+    'dirs': ['bin', 'lib', 'share']
+}
+
+sanity_check_commands = ['baysor run --help']
+
+moduleclass = 'data'
