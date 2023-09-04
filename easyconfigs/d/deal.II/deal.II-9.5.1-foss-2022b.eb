@@ -27,6 +27,8 @@ dependencies = [
     ('TXR', '291'),
 ]
 
+# remove the bundled directory to avoid it polluting the install
+preconfigopts = 'rm -rf ../dealii-*/bundled/ &&'
 configopts = '-DDEAL_II_WITH_MPI=ON '
 configopts += '-DDEAL_II_HAVE_USABLE_FLAGS_RELEASE=ON '
 configopts += '-DDEAL_II_WITH_METIS=ON -DMETIS_DIR=$EBROOTMETIS '
