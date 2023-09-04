@@ -1,0 +1,44 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pept'
+version = '0.5.1'
+
+homepage = "https://pept.readthedocs.io/en/latest/"
+description = """A Python library that integrates all the tools necessary to perform research using Positron Emission
+ Particle Tracking (PEPT). The library includes algorithms for the location, identification and tracking of particles,
+ in addition to tools for visualisation and analysis, and utilities allowing the realistic simulation of PEPT data."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('cma', '3.3.0'),
+    ('matplotlib', '3.7.0'),
+    ('scikit-learn', '1.2.1'),
+    ('tqdm', '4.64.1'),
+    ('plotly.py', '5.13.1'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('natsort', '8.4.0', {
+        'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
+    }),
+    ('hdbscan', '0.8.33', {
+        'checksums': ['57fabc5f0e45f48d2407b35c731192abc896376411fe7e4bb836ffa03d38f90d'],
+    }),
+    ('konigcell', '0.2.1', {
+        'checksums': ['46a51629ef503f06276314ca9ceba385439b28f2d655cd9abeb34a74c19d5aca'],
+    }),
+    (name, version, {
+        # relax joblib requirements, as we have a newer hdbscan
+        'preinstallopts': 'sed -i "s/joblib>=0.14.1,<1.2/joblib>=0.14.1/" requirements.txt &&',
+        'checksums': ['899dd14da2bc678da12b34bdc26aea0fd4c8631e573db5bfdf0698a9614ce580'],
+    }),
+]
+
+moduleclass = 'bio'
