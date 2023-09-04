@@ -1,0 +1,10 @@
+--- src/ViewerTest/ViewerTest_CmdParser.cxx.orig	2023-08-26 13:08:17.431918000 +0100
++++ src/ViewerTest/ViewerTest_CmdParser.cxx	2023-08-26 13:08:30.452434306 +0100
+@@ -21,6 +21,7 @@
+ 
+ #include <algorithm>
+ #include <iostream>
++#include <limits>
+ 
+ namespace
+ {
