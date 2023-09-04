@@ -1,0 +1,40 @@
+easyblock = 'ConfigureMake'
+
+name = 'p4est'
+version = '2.3.6'
+
+homepage = 'https://www.p4est.org'
+description = """p4est is a C library to manage a collection (a forest) of multiple
+connected adaptive quadtrees or octrees in parallel."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+toolchainopts = {'openmp': True, 'usempi': True}
+
+source_urls = ['https://p4est.github.io/release/']
+sources = ['%(name)s-%(version)s.tar.gz']
+checksums = ['4b35d9cc374e3b05cd29c552070940124f04af8f8e5e01ff046e39833de5e153']
+
+builddependencies = [
+    ('Autotools', '20220317'),
+    ('libtool', '2.4.7'),
+    ('pkgconf', '1.9.3'),
+]
+
+dependencies = [
+    ('zlib', '1.2.12'),
+    ('METIS', '5.1.0')
+]
+
+# do not enable openmp (--enable-openmp) - allow software using p4est to handle threads
+configopts = '--enable-mpi --with-metis '
+configopts += '--with-blas="$LIBBLAS" --with-lapack="$LIBLAPACK" '
+
+runtest = 'check VERBOSE=1'
+
+sanity_check_paths = {
+    'files': ['bin/p4est_simple', 'bin/p4est_step1', 'bin/p4est_step2', 'bin/p4est_step3', 'bin/p4est_step4',
+              'lib/libp4est.%s' % SHLIB_EXT],
+    'dirs': [],
+}
+
+moduleclass = 'math'
