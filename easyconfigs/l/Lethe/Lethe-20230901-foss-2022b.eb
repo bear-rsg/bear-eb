@@ -1,0 +1,35 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+
+name = 'Lethe'
+version = '20230901'
+_hash = 'd146d4e'
+
+homepage = 'https://lethe-cfd.github.io/lethe/index.html'
+description = """Lethe is open-source computational fluid dynamics (CFD) software which uses high-order continuous
+ Galerkin formulations to solve the incompressible Navier–Stokes equations (among others)."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+toolchainopts = {'pic': True, 'usempi': True}
+
+source_urls = ['https://github.com/lethe-cfd/lethe/archive']
+sources = ['%s.tar.gz' % _hash]
+checksums = ['4fac6520dbf8343c3d6c9872580376c3ee3b46a788e981fc84bbf48a2a395f88']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('numdiff', '5.9.0'),
+]
+
+dependencies = [
+    ('deal.II', '9.5.1'),
+    ('Perl', '5.36.0'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/cfd_dem_coupling', 'bin/gls_navier_stokes', 'bin/nitsche_navier_stokes', 'bin/rpt_l2_projection_3d',
+              'lib/liblethe-dem.a', 'lib/liblethe-solvers.a'],
+    'dirs': [],
+}
+
+moduleclass = 'cae'
