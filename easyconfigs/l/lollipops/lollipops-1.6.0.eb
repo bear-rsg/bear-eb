@@ -1,0 +1,32 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'GoPackage'
+name = 'lollipops'
+version = '1.6.0'
+
+homepage = "https://github.com/joiningdata/lollipops"
+description = """A simple 'lollipop' mutation diagram generator that tries to make things simple and easy by automating
+ as much as possible. It uses the UniProt REST API and/or Pfam API to automate translation of Gene Symbols and lookup
+ domain/motif features for display. If variant changes are provided, it will also annotate them to the diagram using
+ the "lollipops" markers that give the tool it's name."""
+citing = """Jay JJ, Brouwer C (2016) Lollipops in the Clinic: Information Dense Mutation Plots for Precision Medicine.
+ PLoS ONE 11(8): e0160519. doi: 10.1371/journal.pone.0160519."""
+
+toolchain = SYSTEM
+source_urls = ['https://github.com/joiningdata/lollipops/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['ac0dc39db6c5bc6e4374cc0ea6326a5315c7c63a21f17bbebdd8502be379a5e4']
+
+builddependencies = [
+    ('Go', '1.17.6'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/lollipops'],
+    'dirs': ['bin'],
+}
+
+sanity_check_commands = [
+    "lollipops -help",
+]
+
+moduleclass = 'bio'
