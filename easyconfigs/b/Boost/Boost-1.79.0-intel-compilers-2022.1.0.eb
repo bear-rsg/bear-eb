@@ -1,0 +1,35 @@
+name = 'Boost'
+version = '1.79.0'
+
+homepage = 'https://www.boost.org/'
+description = """Boost provides free peer-reviewed portable C++ source libraries."""
+
+toolchain = {'name': 'intel-compilers', 'version': '2022.1.0'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://boostorg.jfrog.io/artifactory/main/release/%(version)s/source/']
+sources = ['%%(namelower)s_%s.tar.gz' % '_'.join(version.split('.'))]
+
+dependencies = [
+    ('bzip2', '1.0.8'),
+    ('zlib', '1.2.12'),
+    ('XZ', '5.2.5'),
+    ('zstd', '1.5.2'),
+    ('ICU', '71.1'),
+]
+
+
+### CHECK WHAT THE FOLLOWING PRECONFIG DID IN 1.77.0!!!!
+
+# preconfigopts = "sed -i 's/-static//g' tools/build/src/engine/build.sh && "
+# fix test_toolset function so it works correctly for intel-linux toolset;
+# see also https://github.com/boostorg/build/issues/647
+preconfigopts = "sed -i 's/{TOOLSET}/{B2_TOOLSET}/g' tools/build/src/engine/build.sh && "
+
+configopts = '--without-libraries=python,mpi'
+
+# disable MPI, build Boost libraries with tagged layout
+boost_mpi = False
+tagged_layout = True
+
+moduleclass = 'devel'
