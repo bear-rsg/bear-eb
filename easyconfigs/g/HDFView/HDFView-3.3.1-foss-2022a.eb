@@ -1,0 +1,30 @@
+easyblock = 'Binary'
+
+name = 'HDFView'
+version = '3.3.1'
+
+homepage = 'https://support.hdfgroup.org/products/java/hdfview/'
+description = "HDFView is a visual tool for browsing and editing HDF4 and HDF5 files."
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://support.hdfgroup.org/ftp/HDF5/releases/HDF-JAVA/%(namelower)s-%(version)s/src']
+sources = ['%(namelower)s-%(version)s.tar.gz']
+checksums = ['59c19871e30e07c802c9c2525b829d029cb68080604e713f7743f11990a552a8']
+
+builddependencies = [
+    ('ant', '1.10.11', '-Java-%(javaver)s', True),
+]
+
+dependencies = [
+    ('Java', '11.0.16'),
+    ('HDF', '4.2.15'),
+    ('HDF5', '1.13.1'),
+]
+
+sanity_check_paths = {
+    'files': ['hdfview.sh'],
+    'dirs': ['jre', 'lib', 'share'],
+}
+
+moduleclass = 'vis'
