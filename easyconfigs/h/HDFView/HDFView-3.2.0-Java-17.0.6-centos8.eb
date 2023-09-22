@@ -18,17 +18,17 @@ dependencies = [
     ('Java', '17.0.6'),
 ]
 
-install_cmd = "tar xfvz *.tar.gz && "
-install_cmd += "rpm2cpio %(namelower)s-%(version)s-1.x86_64.rpm | cpio -idmv && "
-install_cmd += "cp -r bin lib %(installdir)s"
-install_cmd += 'sed -i.bk "s@export JAVABIN=.*@export JAVABIN=$EBROOTJAVA/jre/bin@g" %(installdir)s/lib/app/hdfview.sh && '
-install_cmd += 'sed -i.bk "s@export INSTALLDIR=.*@export INSTALLDIR=%(installdir)s@g" %(installdir)s/lib/app/hdfview.sh'
-#1install_cmd += "./HDFView-2.14.0-Linux.sh --prefix . --skip-license && "
-#install_cmd += "cp -a HDFView/%(version)s.0/* %(installdir)s/ && "
+local_hdfview_launch = '%(installdir)s/bin/hdfview.sh'
 
+install_cmd = 'tar xfvz *.tar.gz && '
+install_cmd += 'rpm2cpio %(namelower)s-%(version)s-1.x86_64.rpm | cpio -idmv && '
+install_cmd += 'cd opt/%(namelower)s && cp -r bin lib %(installdir)s && '
+install_cmd += 'mv %(installdir)s/lib/app/hdfview.sh %(installdir)s/bin && '
+install_cmd += 'sed -i "s@export JAVABIN=.*@export JAVABIN=$EBROOTJAVA/bin@g" %s && ' % local_hdfview_launch
+install_cmd += 'sed -i "s@export INSTALLDIR=.*@export INSTALLDIR=%%(installdir)s@g" %s' % local_hdfview_launch
 
 sanity_check_paths = {
-    'files': ['bin/HDFView', 'lib/app/hdfview.sh'],
+    'files': ['bin/HDFView', 'bin/hdfview.sh'],
     'dirs': ['bin', 'lib'],
 }
 
