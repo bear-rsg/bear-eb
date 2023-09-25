@@ -15,7 +15,7 @@ sources = ['%%(name)s-%%(version)s-%s_64.tar.gz' % local_label]
 checksums = ['205396d3699e2b7fdfeb37034ef8ee296068122b23283184b5d71b508ecbf1e1']
 
 dependencies = [
-    ('Java', '17.0.6'),
+    ('Java', '17'),
 ]
 
 local_hdfview_launch = '%(installdir)s/bin/hdfview.sh'
