@@ -39,7 +39,6 @@ exts_list = [
         'checksums': ['4b7fdec88e36711120d096d485fc4d5035e4e5ffbd907cf3a6ce2af43058b970'],
     }),
     (name, version, {
-        'source_tmpl': '%(name)s-%(version)s.tar.gz',
         'checksums': ['7530eb7665d478b7d7da8cae3cdfca8ccb829b29eba1d1bf885fcbff3b23c64b'],
     }),
 ]
