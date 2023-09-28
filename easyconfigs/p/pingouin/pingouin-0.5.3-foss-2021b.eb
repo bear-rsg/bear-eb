@@ -1,0 +1,47 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+# Updated for pingouin 0.5.3 - 09/2023
+easyblock = 'PythonBundle'
+
+name = 'pingouin'
+version = '0.5.3'
+
+homepage = "https://pingouin-stats.org/"
+description = """Pingouin is an open-source statistical package written in Python 3 and based mostly on Pandas and
+ NumPy."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('matplotlib', '3.4.3'),
+    ('Seaborn', '0.11.2'),
+    ('statsmodels', '0.13.1'),
+    ('scikit-learn', '1.0.1'),
+    ('xarray', '0.20.1'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('littleutils', '0.2.2', {
+        'checksums': ['e6cae3a4203e530d51c9667ed310ffe3b1948f2876e3d69605b3de4b7d96916f'],
+    }),
+    ('pandas_flavor', '0.6.0', {
+        'checksums': ['9fb8735102dcb65dae7ee5cda12b393ca134a909ebcfc0262c5cdc1d79ba007f'],
+    }),
+    ('outdated', '0.2.2', {
+        'checksums': ['4b7fdec88e36711120d096d485fc4d5035e4e5ffbd907cf3a6ce2af43058b970'],
+    }),
+    (name, version, {
+        'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'checksums': ['7530eb7665d478b7d7da8cae3cdfca8ccb829b29eba1d1bf885fcbff3b23c64b'],
+    }),
+]
+
+moduleclass = 'math'
