@@ -28,20 +28,35 @@ dependencies = [
     ('netCDF', '4.9.0'),
     ('netCDF-Fortran', '4.6.0'),
     ('PETSc', '3.17.4'),
-    ('PROJ', '9.0.0'),
+    ('PROJ', '6.3.1'),
     ('METIS', '5.1.0'),
+    ('GDAL', '3.5.0', '-PROJ-6.3.1'),
 ]
 
-start_dir = "src"
+separate_build_dir = False
 
-configopts = '-DCONFIGURATION_TYPE=all'
+# start_dir = "./src"
+
+srcdir = './src/cmake'
+
+preconfigopts = "mkdir ./build &&"
+configopts = '-B ./build -DCONFIGURATION_TYPE=all'
 build_type = "Release"
 
-# runtest = 'tests'
+build_cmd = "cd ./build && make"
+
+# use cmake here :::
+# test_cmd = "cd ./build && make"
+runtest = 'tests'
+
+install_cmd = "cd ./build && make install"
+postinstallcmds = [
+    'cp -R %(builddir)s/*/build/install/* "%(installdir)s"',
+]
 
 sanity_check_paths = {
-    'files': [],
-    'dirs': [],
+    'files': ['lib/libdflowfm.so', 'bin/dflowfm'],
+    'dirs': ['share/delft3d/subFiles'],
 }
 
 moduleclass = 'geo'
