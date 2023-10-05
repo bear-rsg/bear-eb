@@ -1,0 +1,72 @@
+# EasyBuild easyconfig
+#
+# John Dey jfdey@fredhutch.org
+# Fred Hutchenson Cancer Research Center
+#
+# Updated: Pavel Grochal (INUITS)
+
+easyblock = 'Tarball'
+
+name = 'prokka'
+version = '1.14.5'
+
+homepage = 'https://www.vicbioinformatics.com/software.prokka.shtml'
+description = "Prokka is a software tool for the rapid annotation of prokaryotic genomes."
+
+toolchain = {'name': 'gompi', 'version': '2021b'}
+
+source_urls = ['https://github.com/tseemann/prokka/archive/']
+sources = [
+    {
+        'filename': 'v%(version)s.zip',
+        'extract_cmd': "unzip -qq %s",
+    },
+    {
+        'source_urls': ['ftp://ftp.ncbi.nih.gov/toolbox/ncbi_tools/converters/by_program/tbl2asn/'],
+        'download_filename': 'linux64.tbl2asn.gz',
+        'filename': '20211031-linux64.tbl2asn.gz',
+        'extract_cmd': "gunzip -c %s > %(name)s-%(version)s/tbl2asn",
+    }
+]
+checksums = [
+    '0c13dd5621c352633565f5831c4e85ce2e1e400c2f17ba50800282ae121803ff',  # v1.14.5.zip
+    'b7edf378c971e6d7c48bf4d391d43a6d79f0e26dfa57156b4f87456af83e1fee',  # 20211031-linux64.tbl2asn.gz
+]
+
+dependencies = [
+    ('BioPerl', '1.7.8'),
+    ('BLAST+', '2.12.0'),
+    ('Java', '11', '', SYSTEM),
+    ('Bio-SearchIO-hmmer', '1.7.3'),
+    ('parallel', '20210722'),
+    ('libidn', '1.38'),
+]
+
+local_bin_files = ['prokka', 'prokka-cdd_to_hmm', 'prokka-genpept_to_fasta_db', 'prokka-tigrfams_to_hmm',
+                   'prokka-biocyc_to_fasta_db', 'prokka-clusters_to_hmm', 'prokka-hamap_to_hmm',
+                   'prokka-uniprot_to_fasta_db', 'prokka-build_kingdom_dbs', 'prokka-genbank_to_fasta_db',
+                   'prokka-make_tarball']
+
+postinstallcmds = [
+    "%(installdir)s/bin/prokka --setupdb",
+    # tbl2asn expects libidn.so.11 and the (different) version provided by the libidn seems fine
+    "mkdir %(installdir)s/lib && cd %(installdir)s/lib && ln -s $EBROOTLIBIDN/lib/libidn.so libidn.so.11",
+    # replace tbl2asn with a newer version
+    "chmod +x %(installdir)s/tbl2asn && mv %(installdir)s/tbl2asn %(installdir)s/binaries/linux/tbl2asn",
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in local_bin_files] + ['binaries/linux/aragorn', 'db/cm/Bacteria', 'doc/ToDoList.txt'],
+    'dirs': ['bin', 'binaries', 'db',  'db/cm', 'db/genus', 'db/hmm', 'db/kingdom', 'doc'],
+}
+
+sanity_check_commands = [
+    "prokka --version",
+    "prokka --listdb",
+    # check that tbl2asn works, via a prokka test
+    "cd %(builddir)s/%(name)s-%(version)s/test && prokka plasmid.fna",
+]
+
+modloadmsg = "prokka scripts are located in $EBROOTPROKKA/bin; databases are located in $EBROOTPROKKA/db\n"
+
+moduleclass = 'bio'
