@@ -357,7 +357,6 @@ class EB_CP2K(EasyBlock):
         # determine which opt flags to use
         if self.cfg['typeopt']:
             optflags = 'OPT'
-            regflags = 'OPT2'
         else:
             optflags = 'NOOPT'
 
