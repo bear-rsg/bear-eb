@@ -53,7 +53,6 @@ from easybuild.tools.filetools import change_dir, copy_dir, copy_file, mkdir, wr
 from easybuild.tools.config import build_option
 from easybuild.tools.modules import get_software_root, get_software_version
 from easybuild.tools.run import run_cmd
-from easybuild.tools.systemtools import get_avail_core_count
 
 
 class EB_CP2K(EasyBlock):
@@ -361,7 +360,6 @@ class EB_CP2K(EasyBlock):
             regflags = 'OPT2'
         else:
             optflags = 'NOOPT'
-            regflags = 'NOOPT'
 
         # make sure a MPI-2 able MPI lib is used
         mpi2 = False
@@ -387,9 +385,7 @@ class EB_CP2K(EasyBlock):
         if not mpi2:
             raise EasyBuildError("CP2K needs MPI-2, no known MPI-2 supporting library loaded?")
 
-        cppflags = os.getenv('CPPFLAGS')
         ldflags = os.getenv('LDFLAGS')
-        cflags = os.getenv('CFLAGS')
         fflags = os.getenv('FFLAGS')
         fflags_lowopt = re.sub('-O[0-9]', '-O1', fflags)
         options = {
@@ -680,7 +676,6 @@ class EB_CP2K(EasyBlock):
             'FFTW3LIB': os.getenv('FFT_LIB_DIR', ''),  # Intel
         })
 
-        libfft = os.getenv('LIBFFT_MT', '')
         options['LIBS'] += ' -lfftw3_omp -lfftw3'
         options['LDFLAGS'] += ' -L%s ' % os.getenv('FFT_LIB_DIR', '')
         options['INCS'] += ' -I%s ' % os.getenv('FFT_INC_DIR', '')
@@ -761,15 +756,7 @@ class EB_CP2K(EasyBlock):
             # change to root of build dir
             change_dir(self.builddir)
 
-            # use regression test reference output if available
-            # try and find an unpacked directory that starts with 'LAST-'
-            regtest_refdir = None
-            for d in os.listdir(self.builddir):
-                if d.startswith("LAST-"):
-                    regtest_refdir = d
-                    break
-
-            regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest.py')
+            regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest.py', '--maxtasks=2')
             regtest_cmd = ['python', regtest_script, self.typearch, self.cfg['type']]
 
             # run regression test
