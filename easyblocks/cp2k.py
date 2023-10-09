@@ -755,8 +755,8 @@ class EB_CP2K(EasyBlock):
             # change to root of build dir
             change_dir(self.builddir)
 
-            regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest.py', '--maxtasks=2')
-            regtest_cmd = ['python', regtest_script, self.typearch, self.cfg['type']]
+            regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest.py')
+            regtest_cmd = ['python', regtest_script, '--maxtasks=2', self.typearch, self.cfg['type']]
 
             # run regression test
             (regtest_output, ec) = run_cmd(' '.join(regtest_cmd), log_all=True, simple=False, log_output=True)
