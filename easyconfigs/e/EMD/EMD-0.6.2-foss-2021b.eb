@@ -1,0 +1,50 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'EMD'
+version = '0.6.2'
+
+homepage = "https://gitlab.com/emd-dev/emd"
+description = """A python package for Empirical Mode Decomposition and related spectral analyses."""
+citing = """Andrew J. Quinn, Vitor Lopes-dos-Santos, David Dupret, Anna Christina Nobre & Mark W. Woolrich (2021)
+ EMD: Empirical Mode Decomposition and Hilbert-Huang Spectral Analyses in Python
+ Journal of Open Source Software 10.21105/joss.02977
+"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('SciPy-bundle', '2021.10'),
+    ('matplotlib', '3.4.3'),
+    ('PyYAML', '5.4.1'),
+    ('numba', '0.54.1'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('array-api-compat', '1.4', {
+        'source_tmpl': 'array_api_compat-%(version)s.tar.gz',
+        'checksums': ['d49f00eb66b436cf3a6026d6f43c115d3e058a3a9936536b0bac33dd470e8b4d'],
+    }),
+    ('dcor', '0.6', {
+        'checksums': ['f5d39776101db4787348e6be6cd9369341efeb40b070509a30d5c57185558431'],
+    }),
+    ('sparse', '0.14.0', {
+        'checksums': ['5f5827a37f6cd6f6730a541f994c95c60a3ae2329e01f4ba21ced5339aea0098'],
+    }),
+    (name, version, {
+        'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'checksums': ['38682f72adf7c406b7fc87316659fd159450b1dd946d48666deb893ef92c1fdc'],
+    }),
+]
+
+sanity_check_commands = ['python -c "import emd; print(emd.support.get_installed_version())"']
+
+moduleclass = 'phys'
