@@ -757,7 +757,7 @@ class EB_CP2K(EasyBlock):
 
             regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest.py')
             # defaults in do_regtest.py OMP=2 and MPI=2. maxtasks must be greater than/equal OMP x MPI
-            regtest_cmd = ['python', regtest_script, '--maxtasks=4', self.typearch, self.cfg['type']]
+            regtest_cmd = ['python', regtest_script, '--maxtasks=4', '--smoketest', self.typearch, self.cfg['type']]
 
             # run regression test
             (regtest_output, ec) = run_cmd(' '.join(regtest_cmd), log_all=True, simple=False, log_output=True)
