@@ -99,6 +99,7 @@ class EB_CP2K(EasyBlock):
                             "all found at given prefix"), CUSTOM],
             'modincprefix': ['', "Intel MKL prefix for modinc include dir", CUSTOM],
             'runtest': [True, "Build and run CP2K tests", CUSTOM],
+            'extratestopts': ['', "Extra options for the regression testing", CUSTOM],
             'omp_num_threads': [None, "Value to set $OMP_NUM_THREADS to during testing", CUSTOM],
             'plumed': [None, "Enable PLUMED support", CUSTOM],
             'type': ['popt', "Type of build ('popt' or 'psmp')", CUSTOM],
@@ -757,7 +758,8 @@ class EB_CP2K(EasyBlock):
 
             regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest.py')
             # defaults in do_regtest.py OMP=2 and MPI=2. maxtasks must be greater than/equal OMP x MPI
-            regtest_cmd = ['python', regtest_script, '--maxtasks=4', '--smoketest', self.typearch, self.cfg['type']]
+            regtest_cmd = ['python', regtest_script, '--maxtasks=4', '--smoketest', self.cfg['extratestopts'],
+                           self.typearch, self.cfg['type']]
 
             # run regression test
             (regtest_output, ec) = run_cmd(' '.join(regtest_cmd), log_all=True, simple=False, log_output=True)

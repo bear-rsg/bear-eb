@@ -29,8 +29,4 @@ builddependencies = [
 
 type = 'psmp'
 
-# regression test reports handful of failures,
-# we're assuming those are OK to ignore...
-ignore_regtest_fails = True
-
 moduleclass = 'chem'
