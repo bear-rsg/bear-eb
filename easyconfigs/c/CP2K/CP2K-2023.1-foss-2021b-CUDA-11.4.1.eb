@@ -36,6 +36,6 @@ builddependencies = [
 
 type = 'psmp'
 
-extratestopts = "--skipdir='regtest-rs-dhft'"
+extratestopts = "--skipdir='QS/regtest-rs-dhft'"
 
 moduleclass = 'chem'
