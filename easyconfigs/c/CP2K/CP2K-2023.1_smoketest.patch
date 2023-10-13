@@ -1,0 +1,37 @@
+Add the smoketest (1 per directory) option from later versions of this script
+--- tools/regtesting/do_regtest.py.orig	2023-10-12 11:04:09.359103000 +0100
++++ tools/regtesting/do_regtest.py	2023-10-12 11:08:39.009646531 +0100
+@@ -49,6 +49,8 @@
+     parser.add_argument("--timeout", type=int, default=400)
+     parser.add_argument("--maxerrors", type=int, default=50)
+     parser.add_argument("--mpiexec", default="mpiexec")
++    help = "Runs only the first test of each directory."
++    parser.add_argument("--smoketest", dest="smoketest", action="store_true", help=help)
+     parser.add_argument("--keepalive", dest="keepalive", action="store_true")
+     parser.add_argument("--debug", action="store_true")
+     parser.add_argument("--restrictdir", action="append")
+@@ -79,6 +81,7 @@
+     print(f"Timeout [s]:    {cfg.timeout}")
+     print(f"Work base dir:  {cfg.work_base_dir}")
+     print(f"MPI exec:       {cfg.mpiexec}")
++    print(f"Smoke test:     {cfg.smoketest}")
+     print(f"Keepalive:      {cfg.keepalive}")
+     print(f"Debug:          {cfg.debug}")
+     print(f"ARCH:           {cfg.arch}")
+@@ -120,6 +123,8 @@
+             if not line:
+                 continue
+             batch.regtests.append(Regtest(line, test_types, batch.workdir))
++            if cfg.smoketest:
++                break  # run only one test per directory
+         batches.append(batch)
+ 
+     # Create async tasks.
+@@ -206,6 +211,7 @@
+         self.workers = Semaphore(self.num_workers)
+         self.cp2k_root = Path(__file__).resolve().parent.parent.parent
+         self.mpiexec = args.mpiexec.split()
++        self.smoketest = args.smoketest
+         self.keepalive = args.keepalive
+         self.arch = args.arch
+         self.version = args.version

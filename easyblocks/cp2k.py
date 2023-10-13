@@ -53,7 +53,6 @@ from easybuild.tools.filetools import change_dir, copy_dir, copy_file, mkdir, wr
 from easybuild.tools.config import build_option
 from easybuild.tools.modules import get_software_root, get_software_version
 from easybuild.tools.run import run_cmd
-from easybuild.tools.systemtools import get_avail_core_count
 
 
 class EB_CP2K(EasyBlock):
@@ -100,6 +99,7 @@ class EB_CP2K(EasyBlock):
                             "all found at given prefix"), CUSTOM],
             'modincprefix': ['', "Intel MKL prefix for modinc include dir", CUSTOM],
             'runtest': [True, "Build and run CP2K tests", CUSTOM],
+            'extratestopts': ['', "Extra options for the regression testing", CUSTOM],
             'omp_num_threads': [None, "Value to set $OMP_NUM_THREADS to during testing", CUSTOM],
             'plumed': [None, "Enable PLUMED support", CUSTOM],
             'type': ['popt', "Type of build ('popt' or 'psmp')", CUSTOM],
@@ -155,6 +155,7 @@ class EB_CP2K(EasyBlock):
         if libxsmm:
             self.cfg.update('extradflags', '-D__LIBXSMM')
             self.libsmm = '-lxsmm -lxsmmf'
+            self.libsmm_path = libxsmm
             self.log.debug('Using libxsmm %s' % libxsmm)
         elif libsmm:
             libsmms = glob.glob(os.path.join(libsmm, 'lib', 'libsmm_*nn.a'))
@@ -162,6 +163,7 @@ class EB_CP2K(EasyBlock):
             moredflags = ' ' + ' '.join(dfs)
             self.cfg.update('extradflags', moredflags)
             self.libsmm = ' '.join(libsmms)
+            self.libsmm_path = libsmm
             self.log.debug('Using libsmm %s (extradflags %s)' % (self.libsmm, moredflags))
 
         # obtain list of modinc's to use
@@ -220,12 +222,12 @@ class EB_CP2K(EasyBlock):
         if elpa:
             options['LIBS'] += ' -lelpa'
             elpa_inc_dir = os.path.join(elpa, 'include', 'elpa-%s' % get_software_version('ELPA'), 'modules')
-            options['FCFLAGSOPT'] += ' -I%s ' % elpa_inc_dir
+            options['INCS'] += ' -I%s ' % elpa_inc_dir
             if LooseVersion(self.version) >= LooseVersion('6.1'):
                 elpa_ver = ''.join(get_software_version('ELPA').split('.')[:2])
                 options['DFLAGS'] += ' -D__ELPA=%s' % elpa_ver
                 elpa_inc_dir = os.path.join(elpa, 'include', 'elpa-%s' % get_software_version('ELPA'), 'elpa')
-                options['FCFLAGSOPT'] += ' -I%s ' % elpa_inc_dir
+                options['INCS'] += ' -I%s ' % elpa_inc_dir
             else:
                 options['DFLAGS'] += ' -D__ELPA3'
 
@@ -272,20 +274,16 @@ class EB_CP2K(EasyBlock):
             else:
                 options['GPUVER'] = gpuver
 
-            # failed: undefined reference to 'libsmm_acc_is_thread_safe', so no "-D__DBCSR_ACC -DOFFLOAD_TARGET=cuda"
-            # failed undefined reference to 'pw_gpu_sf'
-            options['DFLAGS'] += ' -D__OFFLOAD_CUDA -DOFFLOAD_CC=nvcc -D__NO_OFFLOAD_PW'
+            options['DFLAGS'] += ' -D__OFFLOAD_CUDA -D__DBCSR_ACC'
             options['LIBS'] += ' -lcudart -lnvrtc -lcuda -lcublas -lcufft -lrt'
-            options['NVCC'] = 'nvcc'
-            options['NVFLAGS'] = ' '.join([
-                options['DFLAGS'],
-                '-O3',
-                '--std=c++11',
-                '-arch sm_%s' % cuda_cc.replace('.', ''),
-                # control host compilers + options
-                "-ccbin='%s'" % os.getenv('CXX'),
-                "-Xcompiler='%s'" % os.getenv('CXXFLAGS'),
-            ])
+            options['OFFLOAD_CC'] = 'nvcc'
+            options['OFFLOAD_FLAGS'] = "-O3 -g -w --std=c++11 $(DFLAGS) -Xcompiler='-fopenmp -Wall -Wextra -Werror'"
+            options['OFFLOAD_TARGET'] = 'cuda'
+            options['CXX'] = 'mpicxx'
+            options['CXXFLAGS'] = '-O3 -fopenmp -g -w --std=c++14 -fPIC $(DFLAGS) $(INCS)'
+
+            # reset typearch
+            self.typearch = "Linux-x86-64-%s-cuda" % self.toolchain.name
 
         # avoid group nesting
         options['LIBS'] = options['LIBS'].replace('-Wl,--start-group', '').replace('-Wl,--end-group', '')
@@ -354,16 +352,14 @@ class EB_CP2K(EasyBlock):
         # openmp introduces 2 major differences
         # -automatic is default: -noautomatic -auto-scalar
         # some mem-bandwidth optimisation
-        if self.cfg['type'] == 'psmp':
+        if self.cfg['type'] == 'psmp' or LooseVersion(self.version) > LooseVersion('v2023'):
             self.openmp = self.toolchain.get_flag('openmp')
 
         # determine which opt flags to use
         if self.cfg['typeopt']:
             optflags = 'OPT'
-            regflags = 'OPT2'
         else:
             optflags = 'NOOPT'
-            regflags = 'NOOPT'
 
         # make sure a MPI-2 able MPI lib is used
         mpi2 = False
@@ -389,33 +385,31 @@ class EB_CP2K(EasyBlock):
         if not mpi2:
             raise EasyBuildError("CP2K needs MPI-2, no known MPI-2 supporting library loaded?")
 
-        cppflags = os.getenv('CPPFLAGS')
         ldflags = os.getenv('LDFLAGS')
-        cflags = os.getenv('CFLAGS')
         fflags = os.getenv('FFLAGS')
         fflags_lowopt = re.sub('-O[0-9]', '-O1', fflags)
         options = {
             'CC': os.getenv('MPICC'),
-            'CPP': '',
+            'AR': 'ar -r',
             'FC': '%s %s' % (os.getenv('MPIF90'), self.openmp),
             'LD': '%s %s' % (os.getenv('MPIF90'), self.openmp),
-            'AR': 'ar -r',
-            'CPPFLAGS': '',
 
             'FPIC': self.fpic,
+            'DFLAGS': ' -D__parallel -D__BLACS -D__SCALAPACK -D__FFTSG %s' % self.cfg['extradflags'],
+            'INCS': '',
+            'CFLAGS': '-O3 -fopenmp -ftree-vectorize -march=native -fno-math-errno -fopenmp -std=c11 $(FPIC) $(DEBUG) '
+                      '$(INCS) $(DFLAGS) %s ' % self.cfg['extracflags'],
             'DEBUG': self.debug,
 
-            'FCFLAGS': '$(FCFLAGS%s)' % optflags,
-            'FCFLAGS2': '$(FCFLAGS%s)' % regflags,
-
-            'CFLAGS': ' %s %s %s $(FPIC) $(DEBUG) %s ' % (cflags, cppflags, ldflags, self.cfg['extracflags']),
-            'DFLAGS': ' -D__parallel -D__BLACS -D__SCALAPACK -D__FFTSG %s' % self.cfg['extradflags'],
-
-            'LIBS': os.getenv('LIBS', ''),
+            'FREE': '',
+            'FCFLAGS': '$(FCFLAGS%s) $(INCS)' % optflags,
 
             'FCFLAGSNOOPT': '$(DFLAGS) $(CFLAGS) -O0  $(FREE) $(FPIC) $(DEBUG)',
             'FCFLAGSOPT': '%s $(FREE) $(SAFE) $(FPIC) $(DEBUG)' % fflags,
             'FCFLAGSOPT2': '%s $(FREE) $(SAFE) $(FPIC) $(DEBUG)' % fflags_lowopt,
+
+            'LDFLAGS': '$(FCFLAGS) %s ' % ldflags,
+            'LIBS': os.getenv('LIBS', ''),
         }
 
         libint = get_software_root('LibInt')
@@ -462,7 +456,7 @@ class EB_CP2K(EasyBlock):
             options['LIBS'] += ' %s -lstdc++ %s' % (libint_libs, libint_wrapper)
 
             # add Libint include dir to $FCFLAGS
-            options['FCFLAGS'] += ' -I' + os.path.join(libint, 'include')
+            options['INCS'] += ' -I' + os.path.join(libint, 'include')
 
         else:
             # throw a warning, since CP2K without Libint doesn't make much sense
@@ -488,6 +482,9 @@ class EB_CP2K(EasyBlock):
                 options['LIBS'] += ' -L%s/lib -lxcf90 -lxc' % libxc
             else:
                 options['LIBS'] += ' -L%s/lib -lxc' % libxc
+
+            options['INCS'] += ' -I%s/include ' % libxc
+
             self.log.info("Using Libxc-%s" % cur_libxc_version)
         else:
             self.log.info("libxc module not loaded, so building without libxc support")
@@ -589,16 +586,12 @@ class EB_CP2K(EasyBlock):
 
         options.update({
             # need this to prevent "Unterminated character constant beginning" errors
-            'FREE': '-ffree-form -ffree-line-length-none',
-
-            'LDFLAGS': '$(FCFLAGS)',
-            'OBJECTS_ARCHITECTURE': 'machine_gfortran.o',
+            'FREE': '-ffree-form -ffree-line-length-none  -std=f2008',
         })
+        options['FCFLAGSOPT'] = '-O3 -ftree-vectorize -march=native -fno-math-errno -fopenmp -fPIC $(FREE) ' \
+                                '$(DFLAGS) -fmax-stack-var-size=32768'
 
         options['DFLAGS'] += ' -D__GFORTRAN'
-
-        options['FCFLAGSOPT'] += ' $(DFLAGS) $(CFLAGS) -fmax-stack-var-size=32768'
-        options['FCFLAGSOPT2'] += ' $(DFLAGS) $(CFLAGS)'
 
         gcc_version = get_software_version('GCCcore') or get_software_version('GCC')
         if LooseVersion(gcc_version) >= LooseVersion('10.0') and LooseVersion(self.version) <= LooseVersion('7.1'):
@@ -625,12 +618,16 @@ class EB_CP2K(EasyBlock):
         blas = os.getenv('LIBBLAS', '')
         blas = blas.replace('gfortran64', 'gfortran64%s' % openmp_suffix)
         options['LIBS'] += ' %s %s %s' % (self.libsmm, os.getenv('LIBSCALAPACK', ''), blas)
+        options['LDFLAGS'] += ' -L%s/lib ' % self.libsmm_path
+        options['INCS'] += ' -I%s/include ' % self.libsmm_path
 
         return options
 
     def configure_BLAS_lib(self, options):
         """Configure for BLAS library."""
         options['LIBS'] += ' %s %s' % (self.libsmm, os.getenv('LIBBLAS', ''))
+        options['LDFLAGS'] += ' -L%s/lib ' % self.libsmm_path
+        options['INCS'] += ' -I%s/include ' % self.libsmm_path
         return options
 
     def configure_MKL(self, options):
@@ -666,6 +663,8 @@ class EB_CP2K(EasyBlock):
             options['INTEL_INCF'] = '$(INTEL_INC)/fftw'
             options['LIBS'] = '%s %s' % (os.getenv('LIBFFT', ''), options['LIBS'])
 
+        options['LDFLAGS'] += ' %s ' % self.libsmm
+
         return options
 
     def configure_FFTW3(self, options):
@@ -677,13 +676,10 @@ class EB_CP2K(EasyBlock):
             'FFTW3LIB': os.getenv('FFT_LIB_DIR', ''),  # Intel
         })
 
+        options['LIBS'] += ' -lfftw3_omp -lfftw3'
+        options['LDFLAGS'] += ' -L%s ' % os.getenv('FFT_LIB_DIR', '')
+        options['INCS'] += ' -I%s ' % os.getenv('FFT_INC_DIR', '')
         options['DFLAGS'] += ' -D__FFTW3'
-        if self.cfg['type'] == 'psmp':
-            libfft = os.getenv('LIBFFT_MT', '')
-        else:
-            libfft = os.getenv('LIBFFT', '')
-        options['LIBS'] += ' -L%s %s' % (os.getenv('FFT_LIB_DIR', '.'), libfft)
-
         return options
 
     def configure_LAPACK(self, options):
@@ -760,76 +756,13 @@ class EB_CP2K(EasyBlock):
             # change to root of build dir
             change_dir(self.builddir)
 
-            # use regression test reference output if available
-            # try and find an unpacked directory that starts with 'LAST-'
-            regtest_refdir = None
-            for d in os.listdir(self.builddir):
-                if d.startswith("LAST-"):
-                    regtest_refdir = d
-                    break
-
-            # location of do_regtest script
-            cfg_fn = 'cp2k_regtest.cfg'
-
-            regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest')
-            regtest_cmd = [regtest_script, '-nobuild', '-config', cfg_fn]
-            if LooseVersion(self.version) < LooseVersion('7.1'):
-                # -nosvn option was removed in CP2K 7.1
-                regtest_cmd.insert(1, '-nosvn')
-
-            # older version of CP2K
-            if not os.path.exists(regtest_script):
-                regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'do_regtest')
-                regtest_cmd = [regtest_script, '-nocvs', '-quick', '-nocompile', '-config', cfg_fn]
-
-            regtest_cmd = ' '.join(regtest_cmd)
-
-            # patch do_regtest so that reference output is used
-            if regtest_refdir:
-                self.log.info("Using reference output available in %s" % regtest_refdir)
-                try:
-                    for line in fileinput.input(regtest_script, inplace=1, backup='.orig.refout'):
-                        line = re.sub(r"^(dir_last\s*=\${dir_base})/.*$", r"\1/%s" % regtest_refdir, line)
-                        sys.stdout.write(line)
-                except IOError as err:
-                    raise EasyBuildError("Failed to modify '%s': %s", regtest_script, err)
-
-            else:
-                self.log.info("No reference output found for regression test, just continuing without it...")
-
-            # prefer using 4 cores, since some tests require/prefer square (n^2) numbers or powers of 2 (2^n)
-            test_core_cnt = min(self.cfg['parallel'], 4)
-            if get_avail_core_count() < test_core_cnt:
-                raise EasyBuildError("Cannot run MPI tests as not enough cores (< %s) are available", test_core_cnt)
-            else:
-                self.log.info("Using %s cores for the MPI tests" % test_core_cnt)
-
-            # configure regression test
-            cfg_txt = '\n'.join([
-                'FORT_C_NAME="%(f90)s"',
-                'dir_base=%(base)s',
-                'cp2k_version=%(cp2k_version)s',
-                'dir_triplet=%(triplet)s',
-                'export ARCH=${dir_triplet}',
-                'cp2k_dir=%(cp2k_dir)s',
-                'leakcheck="YES"',
-                'maxtasks=%(maxtasks)s',
-                'cp2k_run_prefix="%(mpicmd_prefix)s"',
-            ]) % {
-                'f90': os.getenv('F90'),
-                'base': os.path.dirname(os.path.normpath(self.cfg['start_dir'])),
-                'cp2k_version': self.cfg['type'],
-                'triplet': self.typearch,
-                'cp2k_dir': os.path.basename(os.path.normpath(self.cfg['start_dir'])),
-                'maxtasks': self.cfg['maxtasks'],
-                'mpicmd_prefix': self.toolchain.mpi_cmd_for('', test_core_cnt),
-            }
-
-            write_file(cfg_fn, cfg_txt)
-            self.log.debug("Contents of %s: %s" % (cfg_fn, cfg_txt))
+            regtest_script = os.path.join(self.cfg['start_dir'], 'tools', 'regtesting', 'do_regtest.py')
+            # defaults in do_regtest.py OMP=2 and MPI=2. maxtasks must be greater than/equal OMP x MPI
+            regtest_cmd = ['python', regtest_script, '--maxtasks=4', '--smoketest', self.cfg['extratestopts'],
+                           self.typearch, self.cfg['type']]
 
             # run regression test
-            (regtest_output, ec) = run_cmd(regtest_cmd, log_all=True, simple=False, log_output=True)
+            (regtest_output, ec) = run_cmd(' '.join(regtest_cmd), log_all=True, simple=False, log_output=True)
 
             if ec == 0:
                 self.log.info("Regression test output:\n%s" % regtest_output)

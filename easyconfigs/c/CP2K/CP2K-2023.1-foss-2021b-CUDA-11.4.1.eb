@@ -13,7 +13,11 @@ toolchainopts = {'pic': True, 'openmp': True}
 
 source_urls = ['https://github.com/cp2k/cp2k/releases/download/v%(version)s/']
 sources = [SOURCELOWER_TAR_BZ2]
-checksums = ['dff343b4a80c3a79363b805429bdb3320d3e1db48e0ff7d20a3dfd1c946a51ce']
+patches = ['%(name)s-%(version)s_smoketest.patch']
+checksums = [
+    {'cp2k-2023.1.tar.bz2': 'dff343b4a80c3a79363b805429bdb3320d3e1db48e0ff7d20a3dfd1c946a51ce'},
+    {'CP2K-2023.1_smoketest.patch': 'c22389db52bb6901bb397c1b8d6349175e0f215eec48bad24b0feff7b2c9992d'},
+]
 
 dependencies = [
     ('Libint', '2.6.0', '-lmax-6-cp2k'),
@@ -32,8 +36,6 @@ builddependencies = [
 
 type = 'psmp'
 
-# regression test reports handful of failures,
-# we're assuming those are OK to ignore...
-ignore_regtest_fails = True
+extratestopts = "--skipdir='QS/regtest-rs-dhft'"
 
 moduleclass = 'chem'
