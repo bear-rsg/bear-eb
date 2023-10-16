@@ -1,0 +1,46 @@
+easyblock = 'MakeCp'
+
+name = 'VASP'
+version = '6.4.2'
+
+homepage = 'https://www.vasp.at'
+description = """The Vienna Ab initio Simulation Package (VASP) is a computer program for atomic scale
+materials modelling, e.g. electronic structure calculations and quantum-mechanical molecular dynamics,
+from first principles."""
+
+toolchain = {'name': 'intel', 'version': '2022a'}
+
+download_instructions = """Vasp is proprietary software, see http://www.vasp.at/index.php/faqs
+ on how to get access to the code."""
+
+sources = ['%(namelower)s.%(version)s.tgz']
+checksums = ['b704637f7384673f91adfbc803edc5cc7fe736d9623453461f7cdc29b123410e']
+
+# No OpenMP
+prebuildopts = 'cp arch/makefile.include.intel ./makefile.include && '
+
+# Makefile uses LIBS as a list of folders
+prebuildopts += 'unset LIBS && '
+
+local_targets = ['std', 'gam', 'ncl']
+
+buildopts = '%s ' % ' '.join(local_targets)
+buildopts += 'DEPS=1 '  # required for VASP parallel builds
+buildopts += 'MKLROOT="${MKLROOT}" '
+
+local_test_skip = "bulk_InP_SOC_G0W0_sym bulk_InP_SOC_G0W0_sym_RPR bulk_SiO2_LOPTICS bulk_SiO2_LOPTICS_RPR "
+local_test_skip += "bulk_SiO2_LPEAD bulk_SiO2_LPEAD_RPR SiC8_GW0R Tl_x Tl_x_RPR Tl_y Tl_y_RPR Tl_z Tl_z_RPR"
+
+pretestopts = 'export VASP_TESTSUITE_SKIP_TESTS="%s" && ' % local_test_skip
+runtest = 'test'
+
+files_to_copy = [(['bin/vasp_' + x for x in local_targets], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/vasp_' + x for x in local_targets],
+    'dirs': []
+}
+
+moduleclass = 'phys'
+
+local_bham_group = "p-vasp6"
