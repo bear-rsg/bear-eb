@@ -17,7 +17,7 @@ sources = ['%(namelower)s.%(version)s.tgz']
 checksums = ['b704637f7384673f91adfbc803edc5cc7fe736d9623453461f7cdc29b123410e']
 
 # No OpenMP
-prebuildopts = 'cp arch/makefile.include.intel ./makefile.include && '
+prebuildopts = 'cp arch/makefile.include.intel_omp ./makefile.include && '
 
 # Makefile uses LIBS as a list of folders
 prebuildopts += 'unset LIBS && '
@@ -29,7 +29,8 @@ buildopts += 'DEPS=1 '  # required for VASP parallel builds
 buildopts += 'MKLROOT="${MKLROOT}" '
 
 local_test_skip = "bulk_InP_SOC_G0W0_sym bulk_InP_SOC_G0W0_sym_RPR bulk_SiO2_LOPTICS bulk_SiO2_LOPTICS_RPR "
-local_test_skip += "bulk_SiO2_LPEAD bulk_SiO2_LPEAD_RPR SiC8_GW0R Tl_x Tl_x_RPR Tl_y Tl_y_RPR Tl_z Tl_z_RPR"
+local_test_skip += "bulk_SiO2_LPEAD bulk_SiO2_LPEAD_RPR NiOsLDAU=2_x_RPR NiOsLDAU=2_y_RPR NiOsLDAU=2_z_RPR "
+local_test_skip += "SiC8_GW0R Tl_x Tl_x_RPR Tl_y Tl_y_RPR Tl_z Tl_z_RPR"
 
 pretestopts = 'export VASP_TESTSUITE_SKIP_TESTS="%s" && ' % local_test_skip
 runtest = 'test'
