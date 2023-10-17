@@ -43,16 +43,6 @@ buildopts += 'WANNIER90_ROOT="${EBROOTWANNIER90}" '
 buildopts += 'SCALAPACK_ROOT="${EBROOTSCALAPACK}" '
 buildopts += 'OPENBLAS_ROOT="${EBROOTFLEXIBLAS}" '  # override the existing OpenBLAS make variables with FlexiBLAS
 
-# These values should be scaled depending on the resources available during the easybuild process
-local_test_mpiprocs = 4
-local_test_numthreads = 2
-
-pretestopts = 'export MPIRUN="mpirun -np %s -x OMP_NUM_THREADS=%s -x OMP_STACKSIZE=512m" && ' % (local_test_mpiprocs,
-                                                                                                 local_test_numthreads)
-pretestopts += 'export VASP_TESTSUITE_EXE_STD="${MPIRUN} %(builddir)s/vasp.%(version)s/bin/vasp_std" && '
-pretestopts += 'export VASP_TESTSUITE_EXE_NCL="${MPIRUN} %(builddir)s/vasp.%(version)s/bin/vasp_ncl" && '
-pretestopts += 'export VASP_TESTSUITE_EXE_GAM="${MPIRUN} %(builddir)s/vasp.%(version)s/bin/vasp_gam" && '
-
 runtest = 'test'
 
 files_to_copy = [(['bin/vasp_' + x for x in local_targets], 'bin')]
