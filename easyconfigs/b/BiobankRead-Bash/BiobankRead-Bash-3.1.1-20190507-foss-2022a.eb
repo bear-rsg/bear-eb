@@ -56,6 +56,6 @@ sanity_check_paths = {
 sanity_check_commands = ["extract_SR.py -h"]
 
 modloadmsg = """\n\nINFO: the extract_* scripts are available as executable files and can be called without
- invoking python.\n\n  e.g. to read the extract_SR help, you can run: extract_SR -h\n\n"""
+ invoking python.\n\n  e.g. you can run: extract_SR -h  to read the associated help\n\n"""
 
 moduleclass = 'bio'
