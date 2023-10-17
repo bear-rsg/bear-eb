@@ -1,0 +1,61 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'BiobankRead-Bash'
+# no releases and pypi package is older ; use latest commit date
+local_commit = 'f4bcca94f66163e805e315d6d3470e94854c64e0'
+local_commit_date = '20190507'
+version = '3.1.1-%s' % local_commit_date
+
+homepage = "https://github.com/saphir746/BiobankRead-Bash"
+description = """BiobankRead-Bash is a package that pulls out data from UKBiobank files and
+ turns it into readily usable data-frames for any specified variables, with the option of filtering
+ based on user-specified conditions. It provides faster and easier pre-processing tools in Python
+ of UKBiobank clinical and phenotypical data, which is otherwise known for its intricate complexity."""
+citing = """To use this package in published work, please cite us using the following DOI:
+ https://doi.org/10.5281/zenodo.802265"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('BeautifulSoup', '4.10.0'),
+    ('Seaborn', '0.12.1'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+local_BiobankRead_preinstallopts = "sed -i 's/package_dir/# package_dir/' setup.py && "
+local_BiobankRead_preinstallopts += "sed -i 's/bs4/BeautifulSoup4/' setup.py && "
+local_BiobankRead_postinstall = [
+    "mv %%(builddir)s/BiobankReadBash/%%(name)s-%s/search_var.py %%(installdir)s/bin" % (local_commit),
+    "rm -r %(installdir)s/lib/python%(pyshortver)s/site-packages/BiobankRead2/data",
+    "sed -i '1 i#!/usr/bin/env python' %(installdir)s/bin/*.py",
+    "cd %(installdir)s/bin && \
+    for f in $(ls --ignore=__pycache__); do ln -s $f $(basename $f .py); done"
+]
+
+exts_list = [
+    (name, version, {
+        'modulename': 'BiobankRead2',
+        'preinstallopts': local_BiobankRead_preinstallopts,
+        'source_urls': ['https://github.com/saphir746/BiobankRead-Bash/archive/'],
+        'sources': [{'download_filename': 'f4bcca9.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['71477aec488894f820d9e08a146f2d70fc58c54ae712073ec13903b6c90d4548'],
+        'postinstallcmds': local_BiobankRead_postinstall
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/extract_%s.py' % f for f in ['death', 'HES', 'SR', 'variables']] + ['bin/search_var.py'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["extract_SR.py -h"]
+
+modloadmsg = """\n\nINFO: the extract_* scripts are available as executable files and can be called without
+ invoking python.\n\n  e.g. you can run: extract_SR -h  to read the associated help\n\n"""
+
+moduleclass = 'bio'
