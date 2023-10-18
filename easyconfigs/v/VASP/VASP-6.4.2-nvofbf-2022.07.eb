@@ -2,33 +2,22 @@ easyblock = 'MakeCp'
 
 name = 'VASP'
 version = '6.4.2'
-versionsuffix = '-Wannier90'
 
 homepage = 'https://www.vasp.at'
 description = """The Vienna Ab initio Simulation Package (VASP) is a computer program for atomic scale
 materials modelling, e.g. electronic structure calculations and quantum-mechanical molecular dynamics,
 from first principles."""
 
-toolchain = {'name': 'foss', 'version': '2022a'}
+toolchain = {'name': 'nvofbf', 'version': '2022.07'}
 toolchainopts = {'openmp': True}
 
 download_instructions = """Vasp is proprietary software, see http://www.vasp.at/index.php/faqs
  on how to get access to the code."""
 
 sources = ['%(namelower)s.%(version)s.tgz']
-patches = ['enableHDF5-Wannier90.patch']
-checksums = [
-    {'vasp.6.4.2.tgz': 'b704637f7384673f91adfbc803edc5cc7fe736d9623453461f7cdc29b123410e'},
-    {'enableHDF5-Wannier90.patch': 'b589e9b22b2e20bdcd6e41c997f557e6c63d4ebf97230293200fcd9645412847'},
-]
+checksums = ['b704637f7384673f91adfbc803edc5cc7fe736d9623453461f7cdc29b123410e']
 
-dependencies = [
-    ('HDF5', '1.13.1'),
-    ('Wannier90', '3.1.0', '-serial'),
-]
-
-prebuildopts = 'cp arch/makefile.include.gnu_omp ./makefile.include && '
-prebuildopts += 'sed -i "s/-lopenblas/-lflexiblas/" makefile.include && '
+prebuildopts = 'cp arch/makefile.include.nvhpc_omp_acc ./makefile.include && '
 
 # Makefile uses LIBS as a list of folders
 prebuildopts += 'unset LIBS && '
@@ -37,11 +26,7 @@ local_targets = ['std', 'gam', 'ncl']
 
 buildopts = '%s ' % ' '.join(local_targets)
 buildopts += 'DEPS=1 '  # required for VASP parallel builds
-buildopts += 'HDF5_ROOT="${EBROOTHDF5}" '
 buildopts += 'FFTW_ROOT="${EBROOTFFTW}" '
-buildopts += 'WANNIER90_ROOT="${EBROOTWANNIER90}" '
-buildopts += 'SCALAPACK_ROOT="${EBROOTSCALAPACK}" '
-buildopts += 'OPENBLAS_ROOT="${EBROOTFLEXIBLAS}" '  # override the existing OpenBLAS make variables with FlexiBLAS
 
 runtest = 'test'
 
