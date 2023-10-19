@@ -14,7 +14,7 @@ sources = ['v%(version)s.tar.gz']
 patches = ['%(name)s-%(version)s_null-address.patch']
 checksums = [
     {'v2021.10.0.tar.gz': '487023a955e5a3cc6d3a0d5f89179f9b6c0ae7222613a7185b0227ba0c83700b'},
-    {'tbb-2021.10.0_null-address.patch': '9deb243eb9d9d86f37f5e1e919cf8ff440c8b9be9c00ec14fddc437e433f0d1c'},
+    {'tbb-2021.10.0_null-address.patch': '0939505c31c0e9a0eb1a0cb0d978c4c115b98553af016bc7562cffa5746f23ec'},
 ]
 
 builddependencies = [
