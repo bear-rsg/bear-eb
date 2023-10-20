@@ -1,0 +1,53 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'epiAneufinder'
+version = '1.0.1'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://github.com/colomemaria/epiAneufinder'
+description = """epiAneufinder is an algorithm used for calling Copy Number Variations (CNVs) from single-cell ATAC
+ (scATAC) data."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+    ('R-bundle-Bioconductor', '3.15', versionsuffix),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/release/bioc/src/contrib/',  # current version of packages
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.15/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+exts_list = [
+    ('plyranges', '1.20.0', {
+        'checksums': ['db9a454884ae5bcbaa21025602d387efe557ed1a589f28cb36e1ddceaed568e3'],
+    }),
+    (name, version, {
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/colomemaria/epiAneufinder/archive'],
+        'checksums': ['06674472cda2ddd15d4a2cf9be25618e8d38cc82993212bc012cb3d21dece706'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
