@@ -11,27 +11,28 @@ toolchain = {'name': 'foss', 'version': '2022b'}
 
 source_urls = ['https://github.com/MikeAxtell/ShortStack/archive']
 sources = ['v%(version)s.tar.gz']
+checksums = ['049db4495f1e9c8d5fc9d23e3d6974205096135609812ab9f68e71bdd53f24a6']
 
 dependencies = [
     ('Python', '3.10.8'),
     ('SAMtools', '1.17'),
     ('Bowtie', '1.3.1'),
-    ('ViennaRNA', '?'),  # need to version-bump
+    ('ViennaRNA', '2.6.4'),
     ('tqdm', '4.64.1'),
     ('SciPy-bundle', '2023.02'),
     ('Biopython', '1.81'),
-    ('strucVis', '?'),  # need to create https://github.com/MikeAxtell/strucVis
-    ('ShortTracks', '?'),  # need to create https://github.com/MikeAxtell/ShortTracks
+    ('strucVis', '0.7'),
+    ('ShortTracks', '1.1'),
     ('BEDTools', '2.30.0'),
     ('cutadapt', '4.4'),
 ]
 
-cmds_map = [('.*', 'chmod +x ./ShortStack')]
+cmds_map = [('.*', 'chmod +x ./%(name)s')]
 
-files_to_copy = [(['ShortStack'], 'bin')]
+files_to_copy = [(['%(name)s'], 'bin')]
 
 sanity_check_paths = {
-    'files': ['bin/ShortStack'],
+    'files': ['bin/%(name)s'],
     'dirs': [],
 }
 
