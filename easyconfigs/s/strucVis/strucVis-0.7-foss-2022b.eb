@@ -11,6 +11,7 @@ toolchain = {'name': 'foss', 'version': '2022b'}
 
 source_urls = ['https://github.com/MikeAxtell/strucVis/archive']
 sources = ['v%(version)s.tar.gz']
+checksums = ['b8b7a918301135040ee9803379c1cc75430cca3a3ba72f86a3694c062a2cc89c']
 
 dependencies = [
     ('Perl', '5.36.0'),
