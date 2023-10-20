@@ -1,0 +1,30 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CmdCp'
+
+name = 'strucVis'
+version = '0.7'
+
+homepage = 'https://github.com/MikeAxtell/strucVis'
+description = """Alignment of small RNA-seq data and annotation of small RNA-producing genes."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+source_urls = ['https://github.com/MikeAxtell/strucVis/archive']
+sources = ['v%(version)s.tar.gz']
+
+dependencies = [
+    ('Perl', '5.36.0'),
+    ('SAMtools', '1.17'),
+    ('ViennaRNA', '2.6.4'),  # required for RNAfold
+]
+
+cmds_map = [('.*', 'chmod +x ./%(name)s')]
+
+files_to_copy = [(['%(names)s'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
