@@ -1,0 +1,59 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'fauxcurrence'
+version = '1.2.0'
+# this release is not tagged, so lets use the git hash.
+_hash = 'f429a43'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://github.com/ogosborne/fauxcurrence'
+description = """fauxcurrence generates sets of randomised occurrences (long & lat coordinates) for one or more species with a spatial structure
+ (within- and between-species distances) matching that of an observed set of coordinates. These can be used to define null expectations
+ to test hypotheses in ecology and biogeography."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    ('distRcpp', '0.9.3', {
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/btskinner/distRcpp/archive'],
+        'checksums': ['e2bda0e0cf77838d132c2f453b0b4f2b3c07da392e74a9fc97cc3c0ba9e9df15'],
+    }),
+    ('txtplot', '1.0-4', {
+        'checksums': ['44b1aa39978b996de1b86eea6f57406af4529d6e65882f5190e07844688d5903'],
+    }),
+    ('geosphere', '1.5-18', {
+        'checksums': ['99ff6ff050cc8c2d565b6bb1488607fc7950a6d448930f8d9642eccefbc6dac0'],
+    }),
+    (name, version, {
+        'source_tmpl': 'f429a43.tar.gz',
+        'source_urls': ['https://github.com/ogosborne/fauxcurrence/archive'],
+        'checksums': ['ff311ea1e46d4208a91672896c693ddafa09a66064eec90837de4363ea924b99'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['fauxcurrence/R/fauxcurrence'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
