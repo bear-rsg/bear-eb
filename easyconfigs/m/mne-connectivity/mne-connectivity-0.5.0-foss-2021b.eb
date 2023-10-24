@@ -1,0 +1,47 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'mne-connectivity'
+version = '0.5.0'
+
+homepage = "https://mne.tools/mne-connectivity/"
+description = """MNE-Connectivity is an open-source Python package for connectivity and related measures
+ of MEG, EEG, or iEEG data built on top of the MNE-Python API. It includes modules for data input/output,
+ visualization, common connectivity analysis, and post-hoc statistics and processing."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('Python', '3.9.6'),
+    ('MNE-Python', '1.1.1'),
+    ('SciPy-bundle', '2021.10'), # pulled in MNE-Python
+    ('xarray', '0.20.1'),
+    ('matplotlib', '3.4.3'), # pulled in MNE-Python - docs
+    ('scikit-learn', '1.0.1'), # pulled in MNE-Python - extras
+    ('tqdm', '4.62.3'), # pulled in MNE-Python - extras
+    ('netcdf4-python', '1.5.7'),
+    ('h5netcdf', '1.1.0'), # upstream
+]
+
+# extras
+#qtpy
+#PySide6!=6.3.0,!=6.4.0,!=6.4.0.1
+#sip
+#pyvista>=0.30
+#pyvistaqt>=0.4
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    (name, version, {
+        'modulename': 'mne_connectivity',
+        'checksums': ['7cbdaf0d4ac59fab4fc193f52125995b2f930701f153cf9dcb740d414667c6e8'],
+    }),
+]
+
+moduleclass = 'data'
