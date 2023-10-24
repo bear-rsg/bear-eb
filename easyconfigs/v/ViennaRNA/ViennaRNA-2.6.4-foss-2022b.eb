@@ -31,6 +31,8 @@ dependencies = [
     ('X11', '20221110'),
 ]
 
+preconfigopts = r"sed -e 's/-llapack/\$LIBLAPACK/g' -i ./src/RNAxplorer/configure && "
+
 configopts = "--with-cluster --with-kinwalker --with-python3"
 # Uncomment this if you compile on pre SSE4.1 CPU
 # configopts += "--enable-sse "
