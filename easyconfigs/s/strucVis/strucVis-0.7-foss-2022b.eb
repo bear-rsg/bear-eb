@@ -21,11 +21,13 @@ dependencies = [
 
 cmds_map = [('.*', 'chmod +x ./%(name)s')]
 
-files_to_copy = [(['%(names)s'], 'bin')]
+files_to_copy = [(['%(name)s'], 'bin')]
 
 sanity_check_paths = {
     'files': ['bin/%(name)s'],
     'dirs': [],
 }
+
+sanity_check_commands = ["strucVis -v"]
 
 moduleclass = 'bio'
