@@ -22,6 +22,7 @@ dependencies = [
     ('netcdf4-python', '1.5.7'),
     ('h5netcdf', '1.1.0'),  # upstream
     ('QtPy', '2.2.1'),
+    ('PyQt5', '5.15.4'),  # for extras
 ]
 
 sanity_pip_check = True
@@ -32,9 +33,6 @@ exts_default_options = {
 }
 
 exts_list = [
-    ('sip', '6.7.12', {
-        'checksums': ['08e66f742592eb818ac8fda4173e2ed64c9f2d40b70bee11db1c499127d98450'],
-    }),
     ('pyvistaqt', '0.11.0', {
         'checksums': ['8784e8ced4faacfe010524b20dd5675f81f25f1b1d6fb6442ba70437cbb6b1ef'],
     }),
