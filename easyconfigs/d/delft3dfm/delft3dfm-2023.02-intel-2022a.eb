@@ -46,8 +46,13 @@ build_type = "Release"
 build_cmd = "cd ./build && make"
 
 # use cmake here :::
-# test_cmd = "cd ./build && make"
-runtest = 'tests'
+# pretestopts = "cd %(builddir)s/easybuild_obj && "
+test_cmd = 'cd ./src/cmake && cmake -B ./build -DCONFIGURATION_TYPE=tests'
+runtest = ''
+
+# # test_cmd = "cd ./build && make"
+# test_cmd = "cmake -B ./build -DCONFIGURATION_TYPE=tests && make"
+# runtest = 'tests'
 
 install_cmd = "cd ./build && make install"
 postinstallcmds = [
