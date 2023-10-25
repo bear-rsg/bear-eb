@@ -1,0 +1,41 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CmdCp'
+
+name = 'ShortTracks'
+version = '1.1'
+
+homepage = 'https://github.com/MikeAxtell/ShortTracks'
+description = """Alignment of small RNA-seq data and annotation of small RNA-producing genes."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+source_urls = [
+    'https://github.com/MikeAxtell/ShortTracks/archive',
+    'http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64.v385',
+]
+sources = [
+    'v%(version)s.tar.gz',
+    {'filename': 'wigToBigWig', 'extract_cmd': 'cp %s %(builddir)s/%(name)s-%(version)s'},
+]
+checksums = [
+    {'v1.1.tar.gz': '3cdc1f74c417f88d53c5d097f19dc341a6038b13190b7966f1e6be8624f66f0e'},
+    {'wigToBigWig': '9d722062a76e54b1f702d84351da60e654c0b096c24932c2102ca36eac4b02a1'},
+]
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SAMtools', '1.17'),
+]
+
+cmds_map = [('.*', 'chmod +x ./%(name)s ./wigToBigWig')]
+
+files_to_copy = [(['%(name)s', 'wigToBigWig'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s', 'bin/wigToBigWig'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["ShortTracks --version"]
+
+moduleclass = 'bio'
