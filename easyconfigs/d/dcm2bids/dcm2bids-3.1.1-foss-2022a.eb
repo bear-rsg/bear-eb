@@ -1,0 +1,32 @@
+easyblock = 'PythonBundle'
+
+name = 'dcm2bids'
+version = '3.1.1'
+
+homepage = 'https://unfmontreal.github.io/Dcm2Bids'
+description = """dcm2bids reorganises NIfTI files using dcm2niix into the Brain Imaging Data Structure (BIDS)."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    (name, version, {
+        'preinstallopts': "sed -i 's|packaging>=23.1|packaging|g' setup.py &&",
+        'checksums': ['c9ee032d8b488e632820d050fd5fbad8c9d062a7722b1d43fdef74d535b02d05'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['%(namelower)s --help']
+
+moduleclass = 'bio'
