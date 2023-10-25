@@ -18,7 +18,7 @@ sources = [SOURCE_TAR_GZ]
 builddependencies = [
     ('Autotools', '20220317'),
     ('flex', '2.6.4'),
-    ('pkg-config', '0.29.2'),
+    ('pkgconf', '1.9.3'),
     ('Bison', '3.8.2'),
     ('SWIG', '4.1.1'),
 ]
