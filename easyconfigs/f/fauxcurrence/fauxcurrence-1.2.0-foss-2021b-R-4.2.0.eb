@@ -8,9 +8,10 @@ _hash = 'f429a43'
 versionsuffix = '-R-%(rver)s'
 
 homepage = 'https://github.com/ogosborne/fauxcurrence'
-description = """fauxcurrence generates sets of randomised occurrences (long & lat coordinates) for one or more species with a spatial structure
- (within- and between-species distances) matching that of an observed set of coordinates. These can be used to define null expectations
- to test hypotheses in ecology and biogeography."""
+description = """fauxcurrence generates sets of randomised occurrences (long & lat coordinates) for
+ one or more species with a spatial structure (within- and between-species distances) matching that
+ of an observed set of coordinates. These can be used to define null expectations to test hypotheses
+ in ecology and biogeography."""
 
 toolchain = {'name': 'foss', 'version': '2021b'}
 
