@@ -1,0 +1,49 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'ads'
+version = '1.5-9'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://forge.ird.fr/amap/ads"
+description = """Perform first- and second-order multi-scale analyses derived from Ripley K-function (Ripley B. D.
+ (1977) <doi:10.1111/j.2517-6161.1977.tb01615.x>), for univariate, multivariate and marked mapped data in rectangular,
+ circular or irregular shaped sampling windows, with tests of statistical significance based on Monte Carlo simulations.
+"""
+citing = """Pélissier R, Goreaud F (2015). “ads Package for R: A Fast Unbiased Implementation of the $K$-function Family
+ for Studying Spatial Point Patterns in Irregular-Shaped Sampling Windows.” Journal of Statistical Software, 63(6),
+ 1–18. http://dx.doi.org/10.18637/jss.v063.i06."""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+dependencies = [
+    ('R', '4.2.0'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'checksums': ['642cf7dc645abcfa2aa2c83b07448fd83828ec56dc25db3356033520b67337fe'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['ads/R/ads'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
