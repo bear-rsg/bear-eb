@@ -6,10 +6,11 @@ version = '3.1.1'
 homepage = 'https://unfmontreal.github.io/Dcm2Bids'
 description = """dcm2bids reorganises NIfTI files using dcm2niix into the Brain Imaging Data Structure (BIDS)."""
 
-toolchain = {'name': 'foss', 'version': '2022a'}
+toolchain = {'name': 'foss', 'version': '2022b'}
 
 dependencies = [
-    ('Python', '3.10.4'),
+    ('Python', '3.10.8'),
+    ('dcm2niix', '1.0.20230411'),
 ]
 
 sanity_pip_check = True
