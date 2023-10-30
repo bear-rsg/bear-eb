@@ -2,8 +2,8 @@
 easyblock = 'CMakeMake'
 
 name = 'Lethe'
-version = '20231027'
-_hash = 'bea681f'
+version = '20230901'
+_hash = 'd146d4e'
 
 homepage = 'https://lethe-cfd.github.io/lethe/index.html'
 description = """Lethe is open-source computational fluid dynamics (CFD) software which uses high-order continuous
@@ -14,7 +14,7 @@ toolchainopts = {'pic': True, 'usempi': True}
 
 source_urls = ['https://github.com/lethe-cfd/lethe/archive']
 sources = ['%s.tar.gz' % _hash]
-checksums = ['0b5471dbbacbcf061691f237164264fa851e8a4b175b53aa6facc9015adbffe2']
+checksums = ['4fac6520dbf8343c3d6c9872580376c3ee3b46a788e981fc84bbf48a2a395f88']
 
 builddependencies = [
     ('CMake', '3.24.3'),
@@ -22,7 +22,7 @@ builddependencies = [
 ]
 
 dependencies = [
-    ('deal.II', '9.5.1', '-muparser'),
+    ('deal.II', '9.5.1'),
     ('Perl', '5.36.0'),
 ]
 
