@@ -35,7 +35,7 @@ dependencies = [
     ('SQLite', '3.39.4'),
     ('matplotlib', '3.7.0'),
     ('Pillow', '9.4.0'),
-    ('Boost.Python', '1.81.0'), # Need
+    ('Boost.Python', '1.81.0'),  # Need
     ('cairo', '1.17.4'),
 ]
 
