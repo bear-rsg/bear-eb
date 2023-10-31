@@ -1,0 +1,143 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'kinbot'
+version = '2.2.1'
+
+homepage = "https://github.com/zadorlab/KinBot"
+description = """Automated reaction pathway search for gas-phase molecules"""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+builddependencies = [
+    ('binutils', '2.39'),
+] 
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),  # for numpy and scipy
+    ('matplotlib', '3.7.0'),
+    ('networkx', '3.0'),
+    ('pyvis', '0.3.1'),
+    ('tqdm', '4.64.1'),
+    ('Pillow', '9.4.0'),
+    ('Rust', '1.65.0'),
+    ('OpenBabel', '3.1.1'),
+    ('RDKit', '2023.03.3'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('multisplitby', '0.0.1', {
+        'checksums': ['e40489fa174fd7afd28a895477e6eefc64d6cfd863cca6900530e436a40e356f'],
+    }),
+    ('requests', '2.31.0', {
+        'checksums': ['942c5a758f98d790eaed1a29cb6eefc7ffb0d1cf7af05c3d2791656dbd6ad1e1'],
+    }),
+    ('requests-file', '1.5.1', {
+        'checksums': ['07d74208d3389d01c38ab89ef403af0cfec63957d53a0081d8eca738d0247d8e'],
+    }),
+    ('bel_resources', '0.0.3', {
+        'checksums': ['ec2d6390f89c0a98d67868bf02f7538709df0ba5b5ba6ddeb105512da07e82b5'],
+    }),
+    ('certifi', '2023.7.22', {
+        'checksums': ['539cc1d13202e33ca466e88b2807e29f4c13049d6d87031a3c110744495cb082'],
+    }),
+    ('charset-normalizer', '3.3.1', {
+        'checksums': ['d9137a876020661972ca6eec0766d81aef8a5627df628b664b234b73396e727e'],
+    }),
+    ('contourpy', '1.0.7', {
+        'checksums': ['d8165a088d31798b59e91117d1f5fc3df8168d8b48c4acc10fc0df0d0bdbcc5e'],
+    }),
+    ('curies', '0.5.3', {
+        'checksums': ['6684166d0c320821c9bab392c978a482f66801921f91151a1aac3716e761e704'],
+    }),
+    ('cycler', '0.12.1', {
+        'checksums': ['88bb128f02ba341da8ef447245a9e138fae777f6a23943da4540077d3601eb1c'],
+    }),
+    ('fonttools', '4.43.1', {
+        'modulename': 'fontTools',
+        'checksums': ['17dbc2eeafb38d5d0e865dcce16e313c58265a6d2d20081c435f84dc5a9d8212'],
+    }),
+    ('idna', '3.4', {
+        'checksums': ['814f528e8dead7d329833b91c5faa87d60bf71824cd12a7530b5526063d02cb4'],
+    }),
+    ('cppy', '1.2.1', {
+        'checksums': ['83b43bf17b1085ac15c5debdb42154f138b928234b21447358981f69d0d6fe1b'],
+    }),
+    ('kiwisolver', '1.4.5', {
+        'checksums': ['e57e563a57fb22a142da34f38acc2fc1a5c864bc29ca1517a88abc963e60d6ec'],
+    }),
+    ('more_click', '0.1.2', {
+        'checksums': ['085da66d5a9b823c5d912a888dca1fa0c8b3a14ed1b21ea9c8a1b814857a3981'],
+    }),
+    ('typing_extensions', '4.6.0', {
+        'checksums': ['ff6b238610c747e44c268aa4bb23c8c735d665a63726df3f9431ce707f2aa768'],
+    }),
+    ('annotated_types', '0.5.0', {
+        'checksums': ['47cdc3490d9ac1506ce92c7aaa76c579dc3509ff11e098fc867e5130ab7be802'],
+    }),
+    ('maturin', '1.2.0', {
+        'checksums': ['bf5986127e7dd3f6e5403dc737f260e1c425c5b7b017a492abe85f38955c6beb'],
+    }),
+    ('pyparsing', '3.1.1', {
+        'checksums': ['ede28a1a32462f5a9705e07aea48001a08f7cf81a021585011deba701581a0db'],
+    }),
+    ('python-dateutil', '2.8.2', {
+        'modulename': 'dateutil',
+        'checksums': ['0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86'],
+    }),
+    ('PyTrie', '0.4.0', {
+        'modulename': 'pytrie',
+        'checksums': ['8f4488f402d3465993fb6b6efa09866849ed8cda7903b50647b7d0342b805379'],
+    }),
+    ('pydantic', '1.10.13', {
+        'checksums': ['32c8b48dcd3b2ac4e78b0ba4af3a2c2eb6048cb75202f0ea7b34feb740efc340'],
+    }),
+    ('pystow', '0.4.9', {
+        'checksums': ['53c4ca1573f97b8b3eb14d18cec98caeffec04c29927e937388d48a34e9e2be9'],
+    }),
+    ('bioregistry', '0.9.50', {
+        'checksums': ['c16ce1e77c59d74b1c0247d183549b937828ff00489b1fae362c1694e241c71b'],
+    }),
+    ('click-plugins', '1.1.1', {
+        'modulename': 'click_plugins',
+        'checksums': ['46ab999744a9d831159c3411bb0c79346d94a444df9a3a3742e9ed63645f264b'],
+    }),
+    ('six', '1.16.0', {
+        'checksums': ['1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926'],
+    }),
+    ('sortedcontainers', '2.4.0', {
+        'checksums': ['25caa5a06cc30b6b83d11423433f65d1f9d76c4c6a0c90e3379eaa43b9bfdb88'],
+    }),
+    ('urllib3', '1.26.18', {
+        'checksums': ['f8ecc1bba5667413457c529ab955bf8c67b45db799d159066261719e328580a0'],
+    }),
+    ('humanize', '4.8.0', {
+        'checksums': ['9783373bf1eec713a770ecaa7c2d7a7902c98398009dfa3d8a2df91eec9311e8'],
+    }),
+    ('rmsd', '1.5.1', {
+        'checksums': ['c0342821432aac10e98089877875a2cd8bbf624163971076d93686a40f10d127'],
+    }),
+    ('ase', '3.22.1', {
+        'checksums': ['004df6b0ea04b1114c790fadfe45d4125eb0e53125c66a93425af853d82ab432'],
+    }),
+    (name, version, {
+        'checksums': ['22e79cef6bac2c5e94b6054dfd858210fbf0d55bb887aca50e45ac0b2409d23f'],
+    }),
+]
+
+# Sanity check example from https://hackmd.io/@jzador/kinbot_workshop_2023
+
+modloadmsg = """
+To use this module with Guassian you have to load the 2022a toolchain:
+module load bear-apps/2022a; module load Gaussian/16.C.02-AVX2
+"""
+
+moduleclass = 'chem'
