@@ -11,7 +11,7 @@ toolchain = {'name': 'foss', 'version': '2022b'}
 
 builddependencies = [
     ('binutils', '2.39'),
-] 
+]
 
 dependencies = [
     ('Python', '3.10.8'),
