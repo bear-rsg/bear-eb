@@ -1,0 +1,170 @@
+diff -aur src.old/Allele.cpp src/Allele.cpp
+--- src.old/Allele.cpp	2023-11-02 11:22:34.796332342 +0000
++++ src/Allele.cpp	2023-11-02 11:24:32.703959281 +0000
+@@ -1,5 +1,5 @@
+ #include "Allele.h"
+-#include "multichoose.h"
++#include "multichoose/multichoose.h"
+ #include "TryCatch.h"
+ 
+ 
+diff -aur src.old/AlleleParser.cpp src/AlleleParser.cpp
+--- src.old/AlleleParser.cpp	2023-11-02 11:22:34.796332342 +0000
++++ src/AlleleParser.cpp	2023-11-02 11:25:12.378171715 +0000
+@@ -1,9 +1,9 @@
+ #include "AlleleParser.h"
+-#include "multichoose.h" // includes generic functions, so it must be included here
++#include "multichoose/multichoose.h" // includes generic functions, so it must be included here
+                          // otherwise we will get a linker error
+                          // see: http://stackoverflow.com/questions/36039/templates-spread-across-multiple-files
+                          // http://www.cplusplus.com/doc/tutorial/templates/ "Templates and Multi-file projects"
+-#include "multipermute.h"
++#include "multichoose/multipermute.h"
+ #include "Logging.h"
+ 
+ using namespace std;
+diff -aur src.old/AlleleParser.h src/AlleleParser.h
+--- src.old/AlleleParser.h	2023-11-02 11:22:34.796332342 +0000
++++ src/AlleleParser.h	2023-11-02 11:25:38.524311709 +0000
+@@ -13,7 +13,7 @@
+ #include <assert.h>
+ #include <ctype.h>
+ #include <cmath>
+-#include "split.h"
++#include "fastahack/split.h"
+ #include <list> // XXX workaround for a missing include in vcflib's join.h
+ #include "join.h"
+ 
+diff -aur src.old/BedReader.cpp src/BedReader.cpp
+--- src.old/BedReader.cpp	2023-11-02 11:22:34.796332342 +0000
++++ src/BedReader.cpp	2023-11-02 11:26:21.545542054 +0000
+@@ -7,11 +7,11 @@
+ #include <iterator>
+ #include <algorithm>
+ #include <cmath>
+-#include "split.h"
++#include "fastahack/split.h"
+ #include "Utility.h"
+ #include "BedReader.h"
+ #include "Logging.h"
+-#include "../intervaltree/IntervalTree.h"
++#include "intervaltree/IntervalTree.h"
+ 
+ using namespace std;
+ 
+diff -aur src.old/BedReader.h src/BedReader.h
+--- src.old/BedReader.h	2023-11-02 11:22:34.796332342 +0000
++++ src/BedReader.h	2023-11-02 11:38:46.992500997 +0000
+@@ -9,8 +9,8 @@
+ #include <map>
+ #include <iterator>
+ #include <algorithm>
+-#include "../intervaltree/IntervalTree.h"
+-#include "split.h"
++#include "intervaltree/IntervalTree.h"
++#include "fastahack/split.h"
+ 
+ using namespace std;
+ 
+diff -aur src.old/Bias.h src/Bias.h
+--- src.old/Bias.h	2023-11-02 11:22:34.796332342 +0000
++++ src/Bias.h	2023-11-02 11:39:09.840622964 +0000
+@@ -7,7 +7,7 @@
+ #include <string>
+ #include <vector>
+ #include <cstdlib>
+-#include "split.h"
++#include "fastahack/split.h"
+ 
+ using namespace std;
+ 
+diff -aur src.old/CNV.h src/CNV.h
+--- src.old/CNV.h	2023-11-02 11:22:34.796332342 +0000
++++ src/CNV.h	2023-11-02 11:39:32.400743396 +0000
+@@ -10,7 +10,7 @@
+ #include <stdlib.h>
+ #include <algorithm>
+ #include <tuple>
+-#include "split.h"
++#include "fastahack/split.h"
+ 
+ using namespace std;
+ 
+diff -aur src.old/Contamination.h src/Contamination.h
+--- src.old/Contamination.h	2023-11-02 11:22:34.796332342 +0000
++++ src/Contamination.h	2023-11-02 11:39:58.004880079 +0000
+@@ -8,7 +8,7 @@
+ #include <vector>
+ #include <cstdlib>
+ #include <cmath>
+-#include "split.h"
++#include "fastahack/split.h"
+ 
+ using namespace std;
+ 
+diff -aur src.old/DataLikelihood.cpp src/DataLikelihood.cpp
+--- src.old/DataLikelihood.cpp	2023-11-02 11:22:34.796332342 +0000
++++ src/DataLikelihood.cpp	2023-11-02 11:40:49.070152682 +0000
+@@ -1,6 +1,6 @@
+ #include "DataLikelihood.h"
+-#include "multichoose.h"
+-#include "multipermute.h"
++#include "multichoose/multichoose.h"
++#include "multichoose/multipermute.h"
+ #include "Logging.h"
+ 
+ long double
+diff -aur src.old/FBFasta.h src/FBFasta.h
+--- src.old/FBFasta.h	2023-11-02 11:22:34.796332342 +0000
++++ src/FBFasta.h	2023-11-02 11:42:06.352565235 +0000
+@@ -16,10 +16,10 @@
+ #include <stdint.h>
+ #include <stdio.h>
+ #include <algorithm>
+-#include "LargeFileSupport.h"
++#include "fastahack/LargeFileSupport.h"
+ #include "Utility.h"
+ #include <sys/stat.h>
+-#include "split.h"
++#include "fastahack/split.h"
+ #include <stdlib.h>
+ #include <ctype.h>
+ #include <unistd.h>
+diff -aur src.old/freebayes.cpp src/freebayes.cpp
+--- src.old/freebayes.cpp	2023-11-02 11:22:34.797332347 +0000
++++ src/freebayes.cpp	2023-11-02 11:48:20.423563787 +0000
+@@ -30,8 +30,8 @@
+ #include "Utility.h"
+ #include "SegfaultHandler.h"
+ 
+-#include "multichoose.h"
+-#include "multipermute.h"
++#include "multichoose/multichoose.h"
++#include "multichoose/multipermute.h"
+ 
+ #include "Genotype.h"
+ #include "DataLikelihood.h"
+diff -aur src.old/Genotype.cpp src/Genotype.cpp
+--- src.old/Genotype.cpp	2023-11-02 11:22:34.796332342 +0000
++++ src/Genotype.cpp	2023-11-02 11:48:46.936705835 +0000
+@@ -1,6 +1,6 @@
+ #include "Genotype.h"
+-#include "multichoose.h"
+-#include "multipermute.h"
++#include "multichoose/multichoose.h"
++#include "multichoose/multipermute.h"
+ 
+ 
+ vector<Allele*> Genotype::uniqueAlleles(void) {
+diff -aur src.old/Parameters.h src/Parameters.h
+--- src.old/Parameters.h	2023-11-02 11:22:34.796332342 +0000
++++ src/Parameters.h	2023-11-02 11:49:13.701849229 +0000
+@@ -9,7 +9,7 @@
+ #include <map>
+ #include <getopt.h>
+ #include <stdlib.h>
+-#include "split.h"
++#include "fastahack/split.h"
+ #include "version_git.h"
+ #include "Utility.h"
+ 
