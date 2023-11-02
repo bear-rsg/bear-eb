@@ -59,7 +59,8 @@ preconfigopts += " -e 's|multichoose.h|multichoose/multichoose.h|g' -e 's|fileve
 preconfigopts += " -e 's|tabix.hpp|tabixpp/tabix.hpp|g' -e 's|Fasta.h|fastahack/Fasta.h|g'"
 preconfigopts += r" -e 's|disorder.h|smithwaterman/disorder.h|g' {} \; && "
 
-configopts = "-DZIG=OFF -DWFA_GITMODULE=OFF -DWFA_INCLUDE_DIRS=$EBROOTWFA2/include/wfa2lib -DPYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python"
+configopts = "-DZIG=OFF -DWFA_GITMODULE=OFF -DWFA_INCLUDE_DIRS=$EBROOTWFA2/include/wfa2lib "
+configopts += "-DPYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python"
 
 postinstallcmds = ["cp -r %(builddir)s/%(name)s-%(version)s/scripts %(installdir)s"]
 
@@ -70,7 +71,6 @@ modextrapaths = {
 
 sanity_check_paths = {
     'files': ['bin/vcffilter', 'bin/vcfcombine', 'lib/libvcflib.a'],
-#    'files': ['bin/vcffilter', 'bin/vcfcombine', 'lib/libvcflib.%s' % SHLIB_EXT],
     'dirs': ['scripts', 'include', 'lib'],
 }
 
