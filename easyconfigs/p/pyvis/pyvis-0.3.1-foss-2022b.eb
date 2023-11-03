@@ -1,0 +1,37 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pyvis'
+version = '0.3.1'
+
+homepage = "https://github.com/WestHealth/pyvis"
+description = """Python package for creating and visualizing interactive network graphs."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('networkx', '3.0'),
+    ('IPython', '8.14.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('jsonpickle', '3.0.0', {
+        'checksums': ['504586e5c0fd52fd76a56f86c36f8c4d29778bdef92dc06d38ca6e2e9fc4f090'],
+    }),
+    (name, version, {
+        'checksums': ['aa817caac54afc9a4df38ada6f46636b842a8bd57197bb6aca5084699da04307'],
+    }),
+]
+
+# Sanity check example from https://github.com/WestHealth/pyvis used to test install
+
+moduleclass = 'vis'
