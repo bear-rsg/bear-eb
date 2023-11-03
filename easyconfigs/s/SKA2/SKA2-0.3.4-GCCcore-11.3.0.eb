@@ -1,0 +1,32 @@
+easyblock = 'Binary'
+
+name = 'SKA2'
+version = '0.3.4'
+
+homepage = 'https://docs.rs/ska/latest/ska/'
+description = """Split k-mer analysis (version 2) uses exact matching of split k-mer sequences to align closely
+ related sequences, typically small haploid genomes such as bacteria and viruses."""
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+source_urls = ['https://github.com/bacpop/ska.rust/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['65a60e74ac061ab15d8c982cfd446e0b39d01deca353f52d978d811a412e9834']
+
+builddependencies = [
+    ('binutils', '2.38'),
+    ('Rust', '1.73.0'),
+]
+
+extract_sources = True
+
+install_cmd = "cargo install --root %(installdir)s --path ."
+
+sanity_check_paths = {
+    'files': ['bin/ska'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["ska --help"]
+
+moduleclass = 'bio'
