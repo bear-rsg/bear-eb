@@ -1,0 +1,11 @@
+--- CMakeLists.txt.old	2023-10-31 16:09:33.460642630 +0000
++++ CMakeLists.txt	2023-10-31 16:10:22.907896266 +0000
+@@ -426,6 +426,8 @@
+   sw
+   fsom
+   filevercmp
++  ${LDFLAGS}
++  ${LIBS}
+ )
+ 
+ if (ZIG)
