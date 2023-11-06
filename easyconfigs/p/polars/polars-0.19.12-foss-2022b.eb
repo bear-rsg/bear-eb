@@ -1,0 +1,55 @@
+easyblock = 'PythonBundle'
+
+name = 'polars'
+version = '0.19.12'
+
+homepage = 'https://pola.rs/'
+description = """Lightning-fast DataFrame library for Rust and Python."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+toolchainopts = {'pic': True}
+
+builddependencies = [
+    ('Rust', '1.73.0'),  # Needs newer Rust to compile one of the parts of polars
+]
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('Arrow', '11.0.0'),
+    ('SciPy-bundle', '2023.02'),
+    ('matplotlib', '3.7.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('maturin', '1.1.0', {  # as we have a newer Rust, we cannot use the maturin easyconfig here
+        'checksums': ['4650aeaa8debd004b55aae7afb75248cbd4d61cd7da2dcf4ead8b22b58cecae0'],
+    }),
+    ('connectorx', '0.3.2', {
+        'source_tmpl': 'connectorx-%(version)s-cp310-cp310-manylinux_2_28_x86_64.whl',
+        'checksums': ['3f6431a30304271f9137bd7854d2850231041f95164c6b749d9ede4c0d92d10c'],
+    }),
+    ('xlsx2csv', '0.8.1', {
+        'checksums': ['7ecd6d2bc2426f2e432f4fdac12211e1976d3cbb65f9033e1eda65edda2045e3'],
+    }),
+    ('XlsxWriter', '3.1.9', {
+        'checksums': ['de810bf328c6a4550f4ffd6b0b34972aeb7ffcf40f3d285a0413734f9b63a929'],
+    }),
+    ('deltalake', '0.12.0', {
+        # wheel supports Python 3.10
+        'source_tmpl': 'deltalake-0.9.0-1-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['5d3d8b20b2e3e98edb4a8ab4d6f05f22259b0c355186e557008ece981a39fd01'],
+    }),
+    (name, version, {
+        'checksums': ['55b16602bcbf91b5ce888d1a588b47fcd9a35221b1a08c5a27cfe6d7cbd81be2'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'lib'
