@@ -33,7 +33,8 @@ prebuildopts += 'sed -i "s/-qopt-report=5/-qopt-report=0/" GraphBLAS/CMakeLists.
 # The default way to do a parallel make won't work with the Makefiles for
 # SuiteSparse, JOBS has to be set to the desired parallelism
 parallel = 1
-prebuildopts += "export JOBS=%(parallel)s && "
+# Adjust the JOBS value to match the available resources
+prebuildopts += "export JOBS=8 && "
 
 
 moduleclass = 'numlib'
