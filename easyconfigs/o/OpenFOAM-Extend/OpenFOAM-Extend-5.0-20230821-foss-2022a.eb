@@ -44,7 +44,6 @@ dependencies = [
     ('Mesquite', '2.3.0'),
     ('ParMGridGen', '1.0'),
     ('Python', '3.10.4'),
-    # Libccmio v2.6.1, zoltan v3.5
 ]
 
 builddependencies = [
