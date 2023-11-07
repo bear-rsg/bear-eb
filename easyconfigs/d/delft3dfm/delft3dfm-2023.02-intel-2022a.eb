@@ -1,0 +1,59 @@
+easyblock = 'CMakeMake'
+
+name = 'delft3dfm'
+version = '2023.02'
+
+homepage = 'https://svn.oss.deltares.nl'
+description = """Delft3D is a powerful modelling suite focusing primarily on coastal, estuarine, river, rural and urban
+ environments Delft3D FM Suite can simulate storm surges, hurricanes, tsunamis, detailed flows and water levels,
+ waves, sediment transport and morphology, water quality and ecology, and is capable of handling the interactions
+ between these processes."""
+
+toolchain = {'name': 'intel', 'version': '2022a'}
+toolchainopts = {'usempi': True}
+
+download_instructions = """Download a zip-file, as instructed on https://oss.deltares.nl/web/delft3dfm/get-started
+Note that a MyDeltares account is required. Once this is obtained, go to
+https://download.deltares.nl/open-source-software to request an email with a download link.
+"""
+
+sources = ['%(name)s-%(version)s.zip']
+
+builddependencies = [
+    ('CMake', '3.23.1'),
+    ('pkgconf', '1.8.0'),
+]
+
+dependencies = [
+    ('netCDF', '4.9.0'),
+    ('netCDF-Fortran', '4.6.0'),
+    ('PETSc', '3.17.4'),
+    ('PROJ', '6.3.1'),
+    ('METIS', '5.1.0'),
+    ('GDAL', '3.5.0', '-PROJ-6.3.1'),
+]
+
+separate_build_dir = False
+
+srcdir = './src/cmake'
+
+preconfigopts = "mkdir ./build &&"
+configopts = '-B ./build -DCONFIGURATION_TYPE=all'
+build_type = "Release"
+
+build_cmd = "cd ./build && make"
+
+test_cmd = 'cd ./src/cmake && cmake -B ./build -DCONFIGURATION_TYPE=tests'
+runtest = ''
+
+install_cmd = "cd ./build && make install"
+postinstallcmds = [
+    'cp -R %(builddir)s/*/build/install/* "%(installdir)s"',
+]
+
+sanity_check_paths = {
+    'files': ['lib/libdflowfm.so', 'bin/dflowfm'],
+    'dirs': ['share/delft3d/subFiles'],
+}
+
+moduleclass = 'geo'
