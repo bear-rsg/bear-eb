@@ -18,10 +18,6 @@ dependencies = [
     ('ICU', '71.1'),
 ]
 
-
-### CHECK WHAT THE FOLLOWING PRECONFIG DID IN 1.77.0!!!!
-
-# preconfigopts = "sed -i 's/-static//g' tools/build/src/engine/build.sh && "
 # fix test_toolset function so it works correctly for intel-linux toolset;
 # see also https://github.com/boostorg/build/issues/647
 preconfigopts = "sed -i 's/{TOOLSET}/{B2_TOOLSET}/g' tools/build/src/engine/build.sh && "
