@@ -1,0 +1,148 @@
+easyblock = 'PythonBundle'
+
+name = 'PyTorch-Lightning'
+version = '2.1.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://pytorchlightning.ai'
+description = "PyTorch Lightning is the lightweight PyTorch wrapper for ML researchers."
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('CUDA', '11.7.0', '', SYSTEM),
+    ('Python', '3.10.4'),
+    # dependencies from requirements/app/app.txt
+    ('aiohttp', '3.8.3'),
+    ('BeautifulSoup', '4.10.0'),
+    ('deepdiff', '5.8.1'),
+    # dependencies from requirements/pytorch/base.txt
+    ('PyTorch', '2.0.1', versionsuffix),
+    ('tqdm', '4.64.0'),
+]
+
+use_pip = True
+
+# dependencies from requirements/app/app.txt and requirements/pytorch/base.txt
+exts_list = [
+    ('commonmark', '0.9.1', {
+        'checksums': ['452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60'],
+    }),
+    ('rich', '12.5.1', {
+        'checksums': ['63a5c5ce3673d3d5fbbf23cd87e11ab84b6b451436f1b7f19ec54b6bc36ed7ca'],
+    }),
+    ('pydantic', '1.10.8', {
+        'checksums': ['1410275520dfa70effadf4c21811d755e7ef9bb1f1d077a21958153a92c8d9ca'],
+    }),
+    ('PyJWT', '2.7.0', {
+        'modulename': 'jwt',
+        'checksums': ['bd6ca4a3c4285c1a2d4349e5a035fdf8fb94e04ccd0fcbe6ba289dae9cc3e074'],
+    }),
+    ('starlette', '0.27.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['918416370e846586541235ccd38a474c08b80443ed31c578a418e2209b3eef91'],
+    }),
+    ('fastapi', '0.98.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['f4165fb1fe3610c52cb1b8282c1480de9c34bc270f56a965aa93a884c350d605'],
+    }),
+    ('sniffio', '1.3.0', {
+        'checksums': ['e60305c5e5d314f5389259b7f22aaa33d8f7dee49763119234af3755c55b9101'],
+    }),
+    ('exceptiongroup', '1.1.1', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['232c37c63e4f682982c8b6459f33a8981039e5fb8756b2074364e5055c498c9e'],
+    }),
+    ('anyio', '3.7.0', {
+        'checksums': ['275d9973793619a5374e1c89a4f4ad3f4b0a5510a2b5b939444bee8f4c4d37ce'],
+    }),
+    ('websocket-client', '1.4.2', {
+        'modulename': 'websocket',
+        'checksums': ['d6e8f90ca8e2dd4e8027c4561adeb9456b54044312dba655e7cae652ceb9ae59'],
+    }),
+    ('lightning_cloud', '0.5.50', {
+        'checksums': ['3ea52b17d34865f4190faa7ccc832c65d547d5a238250f854a02bd330fcc2750'],
+    }),
+    ('itsdangerous', '2.1.2', {
+        'checksums': ['5dbbc68b317e5e42f327f9021763545dc3fc3bfe22e6deb96aaf1fc38874156a'],
+    }),
+    ('starsessions', '1.3.0', {
+        'checksums': ['8d3b509d4e6d235655f7dd495fcf0afc1bd86da84de3a8d434e6f82137ebcde8'],
+    }),
+    ('fsspec', '2023.6.0', {
+        'checksums': ['d0b2f935446169753e7a5c5c55681c54ea91996cc67be93c39a154fb3a2742af'],
+    }),
+    ('croniter', '1.3.15', {
+        'checksums': ['924a38fda88f675ec6835667e1d32ac37ff0d65509c2152729d16ff205e32a65'],
+    }),
+    ('traitlets', '5.8.1', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['a1ca5df6414f8b5760f7c5f256e326ee21b581742114545b462b35ffe3f04861'],
+    }),
+    ('arrow', '1.2.3', {
+        'checksums': ['3934b30ca1b9f292376d9db15b19446088d12ec58629bc3f0da28fd55fb633a1'],
+    }),
+    ('lightning-utilities', '0.8.0', {
+        'checksums': ['8e5d95c7c57f026cdfed7c154303e88c93a7a5e868c9944cb02cf71f1db29720'],
+    }),
+    ('blessed', '1.20.0', {
+        'checksums': ['2cdd67f8746e048f00df47a2880f4d6acbcdb399031b604e34ba8f71d5787680'],
+    }),
+    ('python-editor', '1.0.4', {
+        'modulename': 'editor',
+        'checksums': ['51fda6bcc5ddbbb7063b2af7509e43bd84bfc32a4ff71349ec7847713882327b'],
+    }),
+    ('readchar', '4.0.5', {
+        'checksums': ['08a456c2d7c1888cde3f4688b542621b676eb38cd6cfed7eb6cb2e2905ddc826'],
+    }),
+    ('inquirer', '3.1.2', {
+        'checksums': ['d5b4dafe5cbb9edf5991b77bd08053b683e13b600bf9174c0bda5a35b3e88ec5'],
+    }),
+    ('wrapt', '1.14.1', {
+        'checksums': ['380a85cf89e0e69b7cfbe2ea9f765f004ff419f34194018a6827ac0e3edfed4d'],
+    }),
+    ('jmespath', '1.0.1', {
+        'checksums': ['90261b206d6defd58fdd5e85f478bf633a2901798906be2ad389150c5c60edbe'],
+    }),
+    ('botocore', '1.29.76', {
+        'checksums': ['c2f67b6b3f8acf2968eafca06526f07b9fb0d27bac4c68a635d51abb675134a7'],
+    }),
+    ('boto3', '1.26.76', {
+        'checksums': ['30c7d967ed1c6b5a05643e42cae9d4d36c3f1cb6782637ddc7007a104cfd9027'],
+    }),
+    ('aioitertools', '0.11.0', {
+        'checksums': ['42c68b8dd3a69c2bf7f2233bf7df4bb58b557bca5252ac02ed5187bbc67d6831'],
+    }),
+    ('aiobotocore', '2.5.0', {
+        'checksums': ['6a5b397cddd4f81026aa91a14c7dd2650727425740a5af8ba75127ff663faf67'],
+    }),
+    ('s3fs', '2023.6.0', {
+        'checksums': ['63fd8ddf05eb722de784b7b503196107f2a518061298cf005a8a4715b4d49117'],
+    }),
+    ('s3transfer', '0.6.0', {
+        'checksums': ['2ed07d3866f523cc561bf4a00fc5535827981b117dd7876f036b0c1aca42c947'],
+    }),
+    ('torchmetrics', '0.11.4', {
+        'checksums': ['1fe45a14b44dd65d90199017dd5a4b5a128d56a8a311da7916c402c18c671494'],
+    }),
+    ('python_multipart', '0.0.6', {
+        'modulename': 'multipart',
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['ee698bab5ef148b0a760751c261902cd096e57e10558e11aca17646b74ee1c18'],
+    }),
+    ('h11', '0.14.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['e3fe4ac4b851c468cc8363d500db52c2ead036020723024a109d37346efaa761'],
+    }),
+    ('uvicorn', '0.22.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['e9434d3bbf05f310e762147f769c9f21235ee118ba2d2bf1155a7196448bd996'],
+    }),
+    ('pytorch-lightning', version, {
+        'checksums': ['bf9e26b293e1ccda5f8e146fe58716eecfd77e9639ef3ec2210b0dcba51c4593'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'lib'
