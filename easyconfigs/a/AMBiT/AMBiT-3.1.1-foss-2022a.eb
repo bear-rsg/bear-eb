@@ -1,0 +1,38 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'SCons'
+
+name = 'AMBiT'
+version = '3.1.1'
+versionsuffix = ''
+
+homepage = "https://github.com/drjuls/AMBiT/"
+description = """AMBiT is a high-precision atomic structure software package based on the Configuration Interaction
+ + Many-Body Perturbation Theory (CI+MBPT) method"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'usempi': True, 'openmp': True}
+
+source_urls = ['https://github.com/drjuls/AMBiT/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['1e9020e7bbdca66d93eda02d836a792f74242174a2569690d27cf423900e5ec7']
+
+builddependencies = [
+    ('SCons', '4.4.0'),  # (GCCcore)
+    ('Eigen', '3.4.0'),  # (GCCcore)
+    ('pkg-config', '0.29.2'),  # (GCCcore)
+    ('googletest', '1.11.0'),
+]
+
+dependencies = [
+    ('sparsehash', '2.0.4'),
+    ('Boost', '1.79.0'),
+    ('GSL', '2.7'),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [],
+}
+
+moduleclass = 'phys'
+
