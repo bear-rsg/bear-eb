@@ -1,0 +1,27 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'multiprocess'
+version = '0.70.14'
+
+homepage = "https://multiprocess.readthedocs.io/"
+description = """multiprocess is a fork of multiprocessing. multiprocess extends multiprocessing to provide enhanced
+ serialization, using dill. multiprocess leverages multiprocessing to support the spawning of processes using the API
+ of the Python standard library’s threading module"""
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('dill', '0.3.6'),
+]
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['3eddafc12f2260d27ae03fe6069b12570ab4764ab59a75e81624fac453fbf46a']
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+moduleclass = 'tools'
