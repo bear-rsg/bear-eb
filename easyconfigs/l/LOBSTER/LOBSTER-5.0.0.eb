@@ -1,0 +1,30 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Tarball'
+
+name = 'LOBSTER'
+version = '5.0.0'
+
+homepage = "http://www.cohp.de/"
+description = """LOBSTER allows you to calculate projected COHP and COOP curves, and also reliable atom-projected DOS,
+ directly based on plane-wave DFT output as given by the VASP or ABINIT or Quantum ESPRESSO packages"""
+
+toolchain = SYSTEM
+
+# Requires sign up and acceptance of license angreement to access binaries
+# See info at http://schmeling.ac.rwth-aachen.de/cohp/index.php?menuID=6
+
+sources = ['%(namelower)s-%(version)s.tar.gz']
+checksums = ['56e17a7415e22c89b44ca8d848aa7d7fe206d67dedeb5ec2acab9288c60a9055']
+
+postinstallcmds = [
+    "mkdir %(installdir)s/bin",
+    "mv %(installdir)s/lobster-5.0.0 %(installdir)s/bin/lobster",
+    "find %(installdir)s -mindepth 1 -maxdepth 1 -type d ! -name 'bin' -exec rm -rf {} \\;",
+]
+
+sanity_check_paths = {
+    'files': ['bin/lobster'],
+    'dirs': ['bin'],
+}
+
+moduleclass = 'phys'
