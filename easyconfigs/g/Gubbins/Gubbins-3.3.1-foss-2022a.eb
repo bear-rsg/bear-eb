@@ -37,6 +37,8 @@ dependencies = [
     ('RAxML', '8.2.12', '-avx2'),
     ('RAxML-NG', '1.1.0'),
     ('SKA2', '0.3.4'),
+    ('dill', '0.3.6'),
+    ('multiprocess', '0.70.14'),
 ]
 
 preconfigopts = "autoreconf -i && "
