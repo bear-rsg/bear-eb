@@ -1,5 +1,5 @@
 --- config_template.ini.orig	2023-11-15 10:15:58.168280794 +0000
-+++ config_template.ini	2023-11-15 15:11:55.870740565 +0000
++++ config_template.ini	2023-11-15 15:59:37.055235884 +0000
 @@ -11,12 +11,12 @@
  
  [HPC options]
@@ -15,7 +15,16 @@
  Use MKL = no
  MKL flags = 
  
-@@ -35,7 +35,7 @@
+@@ -25,7 +25,7 @@
+ Angular data =
+ 
+ [Dependency paths]
+-Lib path = 
++Lib path =
+ Include path = 
+ Eigen path =
+ Sparsehash path = 
+@@ -35,7 +35,8 @@
  [Dependencies]
  ; These libraries will be linked with -l<lib> flags by the linker
  Libs = gsl, 
@@ -24,4 +33,6 @@
 +       scalapack, 
 +       flexiblas, 
         boost_system, 
-        boost_filesystem
+-       boost_filesystem
++       boost_filesystem,
++       mpi

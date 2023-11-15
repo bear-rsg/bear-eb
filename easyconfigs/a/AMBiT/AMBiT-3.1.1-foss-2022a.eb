@@ -16,7 +16,7 @@ sources = ['v%(version)s.tar.gz']
 patches = ['AMBiT-3.1.1-config-ini.patch']
 checksums = [
     {'v3.1.1.tar.gz': '1e9020e7bbdca66d93eda02d836a792f74242174a2569690d27cf423900e5ec7'},
-    {'AMBiT-3.1.1-config-ini.patch': 'ab013f106c26d7d682ebfa4505ccbe4811f83c52fd5912b4f2d3f8af3c586cab'},
+    {'AMBiT-3.1.1-config-ini.patch': 'fd9c2664664943688554e53f03670e907170827892585883eb124c8c4e7b122e'},
 ]
 
 builddependencies = [
@@ -37,7 +37,7 @@ runtest = 'test'
 skipsteps = ['install']
 
 prefix_arg = None
-buildopts = " && mkdir -p %(installdir)s/bin && cp -a ./ambit %(installdir)s/bin/ambit"
+buildopts = " && mkdir -p %(installdir)s/bin && cp ./ambit %(installdir)s/bin/ambit"
 
 sanity_check_paths = {
     'files': ['bin/ambit'],
