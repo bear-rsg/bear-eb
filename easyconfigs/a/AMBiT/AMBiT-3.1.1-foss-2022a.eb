@@ -3,7 +3,6 @@ easyblock = 'SCons'
 
 name = 'AMBiT'
 version = '3.1.1'
-versionsuffix = ''
 
 homepage = "https://github.com/drjuls/AMBiT/"
 description = """AMBiT is a high-precision atomic structure software package based on the Configuration Interaction
@@ -14,12 +13,16 @@ toolchainopts = {'usempi': True, 'openmp': True}
 
 source_urls = ['https://github.com/drjuls/AMBiT/archive']
 sources = ['v%(version)s.tar.gz']
-checksums = ['1e9020e7bbdca66d93eda02d836a792f74242174a2569690d27cf423900e5ec7']
+patches = ['AMBiT-3.1.1-config-ini.patch']
+checksums = [
+    {'v3.1.1.tar.gz': '1e9020e7bbdca66d93eda02d836a792f74242174a2569690d27cf423900e5ec7'},
+    {'AMBiT-3.1.1-config-ini.patch': 'ab013f106c26d7d682ebfa4505ccbe4811f83c52fd5912b4f2d3f8af3c586cab'},
+]
 
 builddependencies = [
-    ('SCons', '4.4.0'),  # (GCCcore)
-    ('Eigen', '3.4.0'),  # (GCCcore)
-    ('pkg-config', '0.29.2'),  # (GCCcore)
+    ('SCons', '4.4.0'),
+    ('Eigen', '3.4.0'),
+    ('pkg-config', '0.29.2'),
     ('googletest', '1.11.0'),
 ]
 
@@ -29,10 +32,16 @@ dependencies = [
     ('GSL', '2.7'),
 ]
 
+runtest = 'test'
+
+skipsteps = ['install']
+
+prefix_arg = None
+buildopts = " && mkdir -p %(installdir)s/bin && cp -a ./ambit %(installdir)s/bin/ambit"
+
 sanity_check_paths = {
-    'files': [],
+    'files': ['bin/ambit'],
     'dirs': [],
 }
 
 moduleclass = 'phys'
-
