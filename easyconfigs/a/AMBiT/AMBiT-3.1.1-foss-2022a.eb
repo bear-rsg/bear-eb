@@ -1,0 +1,47 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'SCons'
+
+name = 'AMBiT'
+version = '3.1.1'
+
+homepage = "https://github.com/drjuls/AMBiT/"
+description = """AMBiT is a high-precision atomic structure software package based on the Configuration Interaction
+ + Many-Body Perturbation Theory (CI+MBPT) method"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'usempi': True, 'openmp': True}
+
+source_urls = ['https://github.com/drjuls/AMBiT/archive']
+sources = ['v%(version)s.tar.gz']
+patches = ['AMBiT-3.1.1-config-ini.patch']
+checksums = [
+    {'v3.1.1.tar.gz': '1e9020e7bbdca66d93eda02d836a792f74242174a2569690d27cf423900e5ec7'},
+    {'AMBiT-3.1.1-config-ini.patch': 'fd9c2664664943688554e53f03670e907170827892585883eb124c8c4e7b122e'},
+]
+
+builddependencies = [
+    ('SCons', '4.4.0'),
+    ('Eigen', '3.4.0'),
+    ('pkg-config', '0.29.2'),
+    ('googletest', '1.11.0'),
+]
+
+dependencies = [
+    ('sparsehash', '2.0.4'),
+    ('Boost', '1.79.0'),
+    ('GSL', '2.7'),
+]
+
+runtest = 'test'
+
+skipsteps = ['install']
+
+prefix_arg = None
+buildopts = " && mkdir -p %(installdir)s/bin && cp ./ambit %(installdir)s/bin/ambit"
+
+sanity_check_paths = {
+    'files': ['bin/ambit'],
+    'dirs': [],
+}
+
+moduleclass = 'phys'
