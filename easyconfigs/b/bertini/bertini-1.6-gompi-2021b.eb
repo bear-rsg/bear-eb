@@ -1,0 +1,40 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+
+easyblock = 'ConfigureMake'
+
+name = 'bertini'
+version = '1.6'
+
+homepage = "https://bertini.nd.edu"
+description = """Bertini is a general-purpose solver, written in C, that was created
+ for research about polynomial continuation. It solves for the numerical solution of
+ systems of polynomial equations using homotopy continuation."""
+
+toolchain = {'name': 'gompi', 'version': '2021b'}
+
+source_urls = ['https://bertini.nd.edu/']
+sources = ['BertiniSource_v%(version)s.tar.gz']
+checksums = ['0bc4c5f0b057366500fc62b37526af116cadb7dcc190ca454e0ebe00a8998998']
+
+builddependencies = [
+    ('Autotools', '20210726'),
+    ('Bison', '3.7.6'),
+    ('flex', '2.6.4'),
+]
+
+dependencies = [
+    ('GMP', '6.2.1'),
+    ('MPFR', '4.1.0'),
+]
+
+local_bins = ['bertini', 'bertini-parallel', 'bertini-serial']
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in local_bins] +
+             ['lib/libbertini-parallel.%s' % SHLIB_EXT, 'lib/libbertini-serial.%s' % SHLIB_EXT],
+    'dirs': ['include'],
+}
+
+sanity_check_commands = ["bertini --help"]
+
+moduleclass = 'math'
