@@ -1,0 +1,50 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+
+name = 'Meep'
+version = '1.28.0'
+
+homepage = 'https://meep.readthedocs.io'
+description = """Meep is a free and open-source software package for electromagnetics simulation via
+ the finite-difference time-domain (FDTD) method spanning a broad range of applications."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+toolchainopts = {'usempi': True, 'opt': True, 'optarch': True, 'unroll': True, 'pic': True}
+
+source_urls = ['https://github.com/NanoComp/%(namelower)s/releases/download/v%(version)s']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['1b9d603c94a55e5fb8370862060a302b267fb342b0fdaf12da8e11b36a122aa5']
+
+builddependencies = [
+    ('pkg-config', '0.29.2'),
+    ('SWIG', '4.1.1'),
+]
+
+# autograd no longer required
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('matplotlib', '3.7.0'),
+    ('HDF5', '1.14.0'),
+    ('Guile', '3.0.9'),
+    ('libctl', '4.5.1'),  # 4.5.1 still newest version
+    ('Harminv', '1.4.2'),
+    ('GSL', '2.7'),
+    ('MPB', '1.11.1'),  # 1.11.1 still newest version
+    ('libGDSII', '0.21'),  # 0.21 still newest version
+]
+
+configopts = '--with-pic --with-mpi --with-blas="$LIBBLAS" --with-lapack="$LIBLAPACK" --without-gcc-arch '
+configopts += '--with-libctl=${EBROOTLIBCTL}/share/libctl '
+configopts += '--enable-shared GUILE_CONFIG="$EBROOTGUILE/bin/guile -e main -s $EBROOTGUILE/bin/guile-config"'
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s', 'lib/libmeep.so'],
+    'dirs': ['include', 'lib/python%(pyshortver)s/site-packages/%(namelower)s'],
+}
+
+sanity_check_commands = ["python -c 'import %(namelower)s'"]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+moduleclass = 'phys'
