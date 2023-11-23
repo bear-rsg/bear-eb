@@ -25,6 +25,7 @@ dependencies = [
     ('Python', '3.10.8'),
     ('SciPy-bundle', '2023.02'),
     ('matplotlib', '3.7.0'),
+    ('autograd', '1.6.3'),  # Meep no longer requires autograd but users might
     ('HDF5', '1.14.0'),
     ('Guile', '3.0.9'),
     ('libctl', '4.5.1'),  # 4.5.1 still newest version
