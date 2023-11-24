@@ -1,6 +1,6 @@
 easyblock = 'PythonPackage'
 
-name = 'Levenshtein'
+name = 'python-Levenshtein'
 version = '0.22.0'
 
 homepage = 'https://pypi.org/project/python-Levenshtein/'
@@ -15,8 +15,6 @@ checksums = [
     {'python-Levenshtein-0.22.0-add_python_exec.patch':
      'd5d9e9e303122ebb3bd27eae0e463c0d06ff4411d7e2b2ef321b28723e360465'},
 ]
-
-# osdependencies = [('python-devel', 'python-dev')]
 
 builddependencies = [
     ('CMake', '3.23.1'),
