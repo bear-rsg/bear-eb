@@ -1,6 +1,6 @@
 easyblock = 'PythonPackage'
 
-name = 'python-Levenshtein'
+name = 'Levenshtein'
 version = '0.22.0'
 
 homepage = 'https://pypi.org/project/python-Levenshtein/'
@@ -9,11 +9,10 @@ description = 'Python extension for computing string edit distances and similari
 toolchain = {'name': 'foss', 'version': '2022a'}
 
 sources = [SOURCE_TAR_GZ]
-patches = ['python-Levenshtein-0.22.0-add_python_exec.patch']
+patches = ['Levenshtein-0.22.0-add_python_exec.patch']
 checksums = [
     {'Levenshtein-0.22.0.tar.gz': '86d285d770551cb648d4fcfe5243449a479e694e56b65272dc6cbda879012051'},
-    {'python-Levenshtein-0.22.0-add_python_exec.patch':
-     'd5d9e9e303122ebb3bd27eae0e463c0d06ff4411d7e2b2ef321b28723e360465'},
+    {'Levenshtein-0.22.0-add_python_exec.patch': 'd5d9e9e303122ebb3bd27eae0e463c0d06ff4411d7e2b2ef321b28723e360465'},
 ]
 
 builddependencies = [
