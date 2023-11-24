@@ -1,3 +1,4 @@
+#
 easyblock = 'PythonBundle'
 
 name = 'scenicplus'
@@ -49,6 +50,7 @@ dependencies = [
     ('pySCENIC', '0.12.1'),
     ('gensim', '4.3.2'),
     ('python-igraph', '0.10.3'),
+    ('Levenshtein', '0.22.0'),
     ('pyfasta', '0.5.2'),
     ('BioServices', '1.11.2'),
     ('openpyxl', '3.0.10'),
@@ -71,7 +73,7 @@ local_scrublet_preinstallopts += "sed -i '/scikit-image/d' src/scrublet.egg-info
 local_pycistopic_preinstallopts = "sed -i '/typing/d' requirements.txt && "
 local_pycistopic_preinstallopts += "sed -i '/python-igraph/d' requirements.txt && "
 local_pycistopic_preinstallopts += "sed -i '/bs4/d' requirements.txt && "
-local_pycistopic_preinstallopts += "sed -i '/python-Levenshtein/d' requirements.txt && "
+local_pycistopic_preinstallopts += 'sed -i "s|python-Levenshtein|Levenshtein|" requirements.txt && '
 
 local_tmtoolkit_preinstallkit = 'sed -i "s|numpy>=1.23.0|numpy>=1.22.3|" setup.py && '
 local_tmtoolkit_preinstallkit += 'sed -i "s|wheel>=0.40,<1.0|wheel>=0.37.1,<1.0|" setup.py && '
