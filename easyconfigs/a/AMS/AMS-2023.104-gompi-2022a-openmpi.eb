@@ -1,0 +1,44 @@
+easyblock = 'Tarball'
+
+name = 'AMS'
+version = '2023.104'
+versionsuffix = '-openmpi'
+
+homepage = 'https://www.scm.com/amsterdam-modeling-suite/'
+description = """
+The Amsterdam Modeling Suite (AMS) provides a comprehensive set of modules for
+computational chemistry and materials science, from quantum mechanics to fluid
+thermodynamics.
+"""
+
+toolchain = {'name': 'gompi', 'version': '2022a'}
+
+sources = ['ams%(version)s.pc64_linux.openmpi.bin.tgz']
+checksums = ['311f1e455fdd1a5a1e8d67ff286161b3fc45501e3fa2ce20eb099eb3c130d138']
+
+dependencies = [('libGLU', '9.0.2')]
+
+keepsymlinks = True
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['atomicdata', 'bin', 'examples'],
+}
+
+modextrapaths = {
+    'AMSHOME': '',
+    'AMSBIN': 'bin',
+    'AMSRESOURCES': 'atomicdata',
+}
+
+modextravars = {
+    # use OpenMPI module instead of bundled version
+    'SCM_USE_LOCAL_OMPI': '1',
+}
+
+modloadmsg = """These environment variables need to be defined before using AMS:
+  * $SCMLICENSE: path to AMS license file
+  * $SCM_TMPDIR: path to user scratch directory
+"""
+
+moduleclass = 'chem'
