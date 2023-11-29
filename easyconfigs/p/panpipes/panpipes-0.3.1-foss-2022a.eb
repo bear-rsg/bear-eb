@@ -1,0 +1,119 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'panpipes'
+version = '0.3.1'
+
+homepage = "https://github.com/DendrouLab/panpipes"
+description = """Multi-modal single cell analysis pipelines"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('Pillow', '9.1.1'),
+    ('matplotlib', '3.5.2'),
+    ('Pysam', '0.19.1'),
+    ('PyYAML', '6.0'),
+    ('openpyxl', '3.0.10'),
+    ('Seaborn', '0.12.1'),
+    ('scikit-learn', '1.1.2'),
+    ('h5py', '3.7.0'),
+    ('IPython', '8.5.0'),
+    ('libleidenalg', '0.11.1'),
+    ('tqdm', '4.64.0'),
+    ('tbb', '2021.5.0'),
+    ('numba', '0.56.4'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('array_api_compat', '1.4', {
+        'checksums': ['d49f00eb66b436cf3a6026d6f43c115d3e058a3a9936536b0bac33dd470e8b4d'],
+    }),
+    ('natsort', '8.4.0', {
+        'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
+    }),
+    ('anndata', '0.10.1', {
+        'checksums': ['9432c4831c94646113797cb1cfdae193f8a7a7db41d182cfa503cc8d0ab9f0ce'],
+    }),
+    ('apsw', '3.41.0.0', {
+        'checksums': ['de87866d192c9b5836b83ad822b24d8b5899a32e5cc363e342a86d88107c8771'],
+    }),
+    ('annoy', '1.17.3', {
+        'checksums': ['9cbfebefe0a5f843eba29c6be4c84d601f4f41ad4ded0486f1b88c3b07739c15'],
+    }),
+    ('pynndescent', '0.5.10', {
+        'checksums': ['5d5dc683c03ef55fe3ddf693859720ca18f85c6e6e5bb0b4f14870278d5288ad'],
+    }),
+    ('umap-learn', '0.5.4', {
+        'checksums': ['8cb2fa20b2493f9adbff3bfa3b3e3787f6d67d1547e688ea2bdc272b37d89e18'],
+    }),
+    ('bbknn', '1.6.0', {
+        'checksums': ['1c01a9d6df2fc52a527de8a403617897a4b672724863299a7026f2132f1b041b'],
+    }),
+    ('cgatcore', '0.6.15', {
+        'checksums': ['a8a4e5867ae327307cbd49118d52add5ec7429d9ac1ac70f5189eff997f40360'],
+    }),
+    ('drmaa', '0.7.9', {
+        'checksums': ['12540cd98afc40d5c0b2f38d7b0e46468d1c45192a2f401f41fc2eda9c9f5542'],
+    }),
+    ('gevent', '23.9.1', {
+        'checksums': ['72c002235390d46f94938a96920d8856d4ffd9ddf62a303a0d7c118894097e34'],
+    }),
+    ('harmonypy', '0.0.9', {
+        'checksums': ['85bfdd4e6ec6e0fa8816a276639358d3598a40d60ba9f7a5d9dada8706be8c4d'],
+    }),
+    ('leidenalg', '0.10.1', {
+        'checksums': ['457ad96982a80bd5c657189f42dfeb77eebcd3b744a110e5a2c1618d2eb80b47'],
+    }),
+    ('louvain', '0.8.1', {
+        'checksums': ['b4df2cb8e46d5df7d1579cbcf9430b76d32dc88f58b854e566e11f9c10ac28f5'],
+    }),
+    ('mofapy2', '0.7.0', {
+        'checksums': ['b89a5fc7ab68ca2a27332ca51b0882d98c2352977ca106079c5edbc82709ae95'],
+    }),
+    ('autopep8', '2.0.4', {
+        'modulename': False,
+        'checksums': ['2913064abd97b3419d1cc83ea71f042cb821f87e45b9c88cad5ad3c4ea87fe0c'],
+    }),
+    ('ruffus', '2.8.4', {
+        'checksums': ['6cd3d96e459a1aedcc10341f14fddedfdc13664551757fcd429a241de63826aa'],
+    }),
+    ('scanorama', '1.7.3', {
+        'checksums': ['e1d1cdd6855b3a302f6e9e3160442a9998113e5118ac48c71bf8a21760a657b7'],
+    }),
+    ('scanpy', '1.9.0', {
+        'checksums': ['397fafdf9a813e8893fbb52af31a4c7a300a70a348cf6bdfc9efc4647b238910'],
+    }),
+    ('scikit-misc', '0.1.4', {
+        'modulename': 'skmisc',
+        'checksums': ['f7746a0347811063e1ecf9121df94835785003953c38b5ba84f63fc508c22911'],
+    }),
+    ('scirpy', '0.13.1', {
+        'checksums': ['7d938e765acc767596f4a0f0ade29930ba21465e6afcbdc1207505949458c796'],
+    }),
+    ('scrublet', '0.2.3', {
+        'checksums': ['2185f63070290267f82a36e5b4cae8c321f10415d2d0c9f7e5e97b1126bf653a'],
+    }),
+    ('scvi_tools', '1.0.3', {
+        'modulename': 'scvi',
+        'checksums': ['2cda6a82c6bf5d01f2913e47b6397491791c23c7f98c25098dd4d291c843e8f0'],
+    }),
+    ('SQLAlchemy', '2.0.20', {
+        'modulename': 'sqlalchemy',
+        'checksums': ['ca8a5ff2aa7f3ade6c498aaafce25b1eaeabe4e42b73e25519183e4566a16fc6'],
+    }),
+    (name, version, {
+        'checksums': ['1d50f37cdea525b082cdace71b200cbaa14cac0aabbcb02c737304ffc71a983f'],
+    }),
+]
+
+moduleclass = 'bio'
