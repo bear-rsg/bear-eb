@@ -1,0 +1,34 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pyCycle'
+version = '4.2.1'
+
+homepage = "https://openmdao.org/"
+description = """A thermodynamic cycle modeling library, designed primarily to model
+ jet engine performance. It is built on top of the OpenMDAO framework and the design
+ is heavily inspired by NASA's NPSS software."""
+citing = """E. S. Hendricks and J. S. Gray, “Pycycle: a tool for efficient optimization of
+ gas turbine engine cycles,” Aerospace, vol. 6, iss. 87, 2019."""
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('OpenMDAO', '3.29.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('om-pycycle', version, {
+        'modulename': 'pycycle',
+        'source_tmpl': '%(name)s-%(version)s.tar.gz',
+        'checksums': ['d7f7e7554d7b64e2d12a015315b43b490365e593932edf475aad46a999f4f4e3'],
+    }),
+]
+
+moduleclass = 'phys'
