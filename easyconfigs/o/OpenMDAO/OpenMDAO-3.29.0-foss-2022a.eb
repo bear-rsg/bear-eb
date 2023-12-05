@@ -41,4 +41,8 @@ exts_list = [
     }),
 ]
 
+sanity_check_commands = [
+    "python -c 'import openmdao.api as om'",
+]
+
 moduleclass = 'phys'

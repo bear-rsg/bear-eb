@@ -13,6 +13,7 @@ citing = """E. S. Hendricks and J. S. Gray, “Pycycle: a tool for efficient opt
 toolchain = {'name': 'foss', 'version': '2022a'}
 
 dependencies = [
+    ('Python', '3.10.4'),
     ('OpenMDAO', '3.29.0'),
 ]
 
@@ -29,6 +30,16 @@ exts_list = [
         'source_tmpl': '%(name)s-%(version)s.tar.gz',
         'checksums': ['d7f7e7554d7b64e2d12a015315b43b490365e593932edf475aad46a999f4f4e3'],
     }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "python -c 'import openmdao.api as om' ",
+    "python -c 'import pycycle.api as pyc' ",
 ]
 
 moduleclass = 'phys'
