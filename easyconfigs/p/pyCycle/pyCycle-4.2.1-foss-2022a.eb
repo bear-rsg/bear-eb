@@ -1,8 +1,9 @@
 # This easyconfig was created by the BEAR Software team at the University of Birmingham.
-easyblock = 'PythonBundle'
+easyblock = "PythonPackage"
 
 name = 'pyCycle'
 version = '4.2.1'
+local_commit = '2883a41'
 
 homepage = "https://openmdao.org/"
 description = """A thermodynamic cycle modeling library, designed primarily to model
@@ -12,25 +13,19 @@ citing = """E. S. Hendricks and J. S. Gray, “Pycycle: a tool for efficient opt
  gas turbine engine cycles,” Aerospace, vol. 6, iss. 87, 2019."""
 toolchain = {'name': 'foss', 'version': '2022a'}
 
+source_urls = ['https://github.com/OpenMDAO/pyCycle/archive/']
+sources = ['%s.tar.gz' % local_commit]
+checksums = ['be8a1d531702edb3b93e36180170b0285e4aacec1db5b650872d5533da343ce6']
+
 dependencies = [
     ('Python', '3.10.4'),
     ('OpenMDAO', '3.29.0'),
 ]
 
+download_dep_fail = True
 sanity_pip_check = True
 use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
-exts_list = [
-    ('om-pycycle', version, {
-        'modulename': 'pycycle',
-        'source_tmpl': '%(name)s-%(version)s.tar.gz',
-        'checksums': ['d7f7e7554d7b64e2d12a015315b43b490365e593932edf475aad46a999f4f4e3'],
-    }),
-]
+options = {'modulename': 'pycycle'}
 
 sanity_check_paths = {
     'files': [],
