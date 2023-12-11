@@ -1,0 +1,28 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'pyperlin'
+version = '1.1.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = "https://github.com/duchesneaumathieu/pyperlin"
+description = """GPU accelerated Perlin Noise in python"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('CUDA', '11.7.0', '', SYSTEM),
+    ('Python', '3.10.4'),
+    ('PyTorch', '1.12.1', versionsuffix),
+    ('matplotlib', '3.5.2'),
+]
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['d361335d49e180cf333f637c4e55885e8b917497bdd5d5a661993329b9dd1742']
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+moduleclass = 'perf'
