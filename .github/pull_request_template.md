@@ -5,7 +5,3 @@ For INC______ - `EBFILENAME`
 Default:
 * [ ] EL8-icelake
 * [ ] EL8-cascadelake
-* [ ] EL8-haswell
-
-Delete this if not requested:
-* [ ] Ubuntu20 VM
