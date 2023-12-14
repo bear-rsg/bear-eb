@@ -1,0 +1,47 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+
+name = 'RTG-Tools'
+version = '3.12.1'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = "https://github.com/RealTimeGenomics/rtg-tools"
+description = """RTG Tools is a subset of RTG Core that includes several useful utilities for dealing with VCF files
+ and sequence data. Probably the most interesting is the vcfeval command which performs sophisticated comparison of
+ VCF files."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/RealTimeGenomics/rtg-tools/archive']
+sources = ['%(version)s.tar.gz']
+
+builddependencies = [('ant', '1.10.14', versionsuffix)]
+
+dependencies = [('Java', '11')]
+
+sanity_check_paths = {
+    'files': ['rtg', 'rtg.bat', 'RTG.jar', 'LICENSE.txt', 'README.txt'],
+    'dirs': ['scripts', 'RTGOperationsManual', 'third-party'],
+}
+
+skipsteps = ['configure', 'build']
+
+preinstallopts = 'ant runalltests && '
+preinstallopts += 'ant zip-nojre &&'
+
+install_cmd = 'unzip dist/rtg-tools-%(version)s-unknown-nojre.zip && '
+install_cmd += 'mv rtg-tools-%(version)s-unknown/* %(installdir)s'
+
+postinstallcmds = [
+	# answer "no" to question about collecting usage information;
+	# only asked first time program is run;
+	# answering the question leads to a config file being generated
+	# pass "--help" option to avoid exit code 1
+	'echo n | %(installdir)s/rtg --help',
+]
+
+sanity_check_commands = ['rtg --help']
+
+modextrapaths = {'PATH': ''}
+
+moduleclass = 'bio'
