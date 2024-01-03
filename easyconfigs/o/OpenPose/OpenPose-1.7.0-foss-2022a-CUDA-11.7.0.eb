@@ -1,4 +1,4 @@
-#
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
 easyblock = 'CMakeMake'
 
 name = 'OpenPose'
@@ -6,7 +6,8 @@ version = '1.7.0'
 versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/CMU-Perceptual-Computing-Lab/openpose'
-description = """OpenPose: Real-time multi-person keypoint detection library for body, face, hands, and foot estimation."""
+description = """OpenPose: Real-time multi-person keypoint detection library for body, face, hands, 
+and foot estimation."""
 
 
 sources = [{
@@ -18,8 +19,11 @@ sources = [{
         'recursive': True,
     }
 }]
-
-checksums = [None]
+patches = ['OpenPose-1.7.0_fix.patch']
+checksums = [
+    None,  # OpenPose-1.7.0
+    '767798464f66d19273c699a4b8a3769e19ee3cd537cda392bcf15881fa704a29',  # OpenPose-1.7.0_fix.patch
+]
 
 toolchain = {'name': 'foss', 'version': '2022a'}
 
@@ -37,8 +41,6 @@ dependencies = [
     ('OpenCV', '4.6.0', '-CUDA-%(cudaver)s-contrib'),
     ('glog', '0.6.0'),
     ('Boost', '1.79.0'),
-#    ('OpenBLAS', '0.3.20'),
-#    ('ScaLAPACK', '2.2.0', '-fb'),
     ('FlexiBLAS', '3.2.0'),
     ('protobuf-python', '3.19.4'),
     ('gflags', '2.2.2'),
@@ -47,18 +49,10 @@ dependencies = [
     ('snappy', '1.1.9'),
     ('scikit-image', '0.19.3'),
     ('googletest', '1.11.0'),
-] 
+]
 
-#
-preconfigopts = "sed -i 's|set(BLAS \"Atlas\"|set(BLAS \"Open\"|' ../openpose/3rdparty/caffe/cmake/Dependencies.cmake && "
-preconfigopts += 'sed -i "/\/opt\/OpenBLAS\/include/a \ \ $EBROOTFLEXIBLAS\/include\/flexiblas" ../openpose/3rdparty/caffe/cmake/Modules/FindOpenBLAS.cmake && '
-preconfigopts += 'sed -i "/\/opt\/OpenBLAS\/include/a \ \ $EBROOTFLEXIBLAS/include" ../openpose/3rdparty/caffe/cmake/Modules/FindOpenBLAS.cmake && '
-preconfigopts += 'sed -i "/\/opt\/OpenBLAS\/lib/a \ \ \ \ \ \ \ \ $EBROOTFLEXIBLAS/lib" ../openpose/3rdparty/caffe/cmake/Modules/FindOpenBLAS.cmake && '
-preconfigopts += "sed -i 's|std=c++11|std=c++17|' ../openpose/3rdparty/caffe/CMakeLists.txt && "
-preconfigopts += "sed -i 's|std=c++11|std=c++17|' ../openpose/CMakeLists.txt && "
-preconfigopts += "sed -i 's|caffe3rdparty/lib|caffe3rdparty/lib64|' ../openpose/CMakeLists.txt && "
-preconfigopts += "sed -i 's|(kProtoReadBytesLimit, 536870912)|(kProtoReadBytesLimit)|' ../openpose/3rdparty/caffe/src/caffe/util/io.cpp && "
-configopts = "-DDOWNLOAD_BODY_25_MODEL=OFF -DDOWNLOAD_BODY_COCO_MODEL=OFF -DDOWNLOAD_FACE_MODEL=OFF -DDOWNLOAD_HAND_MODEL=OFF -DUSE_CUDNN=OFF"
+configopts = "-DDOWNLOAD_BODY_25_MODEL=OFF -DDOWNLOAD_BODY_COCO_MODEL=OFF -DDOWNLOAD_FACE_MODEL=OFF "
+configopts += "-DDOWNLOAD_HAND_MODEL=OFF -DUSE_CUDNN=OFF"
 preinstallopts = "mkdir %(builddir)s/easybuild_obj/caffe/lib && "
 preinstallopts += "cp -r %(builddir)s/easybuild_obj/caffe/lib64/* %(builddir)s/easybuild_obj/caffe/lib/ && "
 
