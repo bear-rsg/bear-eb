@@ -1,0 +1,25 @@
+# This Easyconfig modified from the Pandocs upstream easyconfig by the
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+
+easyblock = 'Tarball'
+
+name = 'quarto-cli'
+version = '1.4.533'
+_archs = {'x86_64': 'amd64', 'aarch64': 'arm64'}
+
+homepage = 'https://quarto.org'
+description = "Open-source scientific and technical publishing system built on Pandoc."
+
+toolchain = SYSTEM
+source_urls = ['https://github.com/quarto-dev/quarto-cli/releases/download/v%(version)s']
+sources = ['quarto-%%(version)s-linux-%s.tar.gz' % _archs[ARCH]]
+checksums = ['3a8c10af15348355c1e5596ccecc36be210b2bbbf89f62266f5e19e261ba89a1']
+
+sanity_check_paths = {
+    'files': ['bin/quarto'],
+    'dirs': ['share'],
+}
+
+sanity_check_commands = ['quarto --help']
+
+moduleclass = 'tools'
