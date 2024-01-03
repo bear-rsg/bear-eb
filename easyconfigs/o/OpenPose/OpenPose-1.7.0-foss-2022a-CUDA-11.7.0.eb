@@ -6,7 +6,7 @@ version = '1.7.0'
 versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/CMU-Perceptual-Computing-Lab/openpose'
-description = """OpenPose: Real-time multi-person keypoint detection library for body, face, hands, 
+description = """OpenPose: Real-time multi-person keypoint detection library for body, face, hands,
 and foot estimation."""
 
 
