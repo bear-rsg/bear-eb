@@ -1,0 +1,31 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'MAnorm2_utils'
+version = '1.0.0'
+_hash = 'ea4fAA4'  # Latest hash as no softare package release
+
+homepage = 'https://github.com/tushiqi/MAnorm2_utils'
+description = """To pre-process a set of ChIP-seq samples and coordinate with MAnorm2 for differential analysis"""
+
+toolchain = {'name': 'foss', 'version': '2021b'}
+
+github_account = 'tushiqi'
+source_urls = [GITHUB_SOURCE]
+sources = [{'download_filename': '%s.tar.gz' % _hash, 'filename': SOURCELOWER_TAR_GZ}]
+checksums = ['5b60991cefaca57f120837bc014b53e3040c0c2e838d16073a83339b3e01965a']
+
+dependencies = [
+    ('Python', '3.9.6'),
+]
+
+preconfigopts = 'rm -r MAnorm2_utils.egg-info dist build'
+
+download_dep_fail = True
+use_pip = True
+
+sanity_pip_check = True
+
+options = {'modulename': '%(name)s'}
+
+moduleclass = 'bio'
