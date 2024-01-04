@@ -3,7 +3,7 @@ easyblock = 'PythonPackage'
 
 name = 'MAnorm2_utils'
 version = '1.0.0'
-_hash = 'ea4fAA4'  # Latest hash as no softare package release 
+_hash = 'ea4fAA4'  # Latest hash as no softare package release
 
 homepage = 'https://github.com/tushiqi/MAnorm2_utils'
 description = """To pre-process a set of ChIP-seq samples and coordinate with MAnorm2 for differential analysis"""
