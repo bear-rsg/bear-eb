@@ -52,7 +52,7 @@ dependencies = [
 ]
 
 configopts = "-DDOWNLOAD_BODY_25_MODEL=OFF -DDOWNLOAD_BODY_COCO_MODEL=OFF -DDOWNLOAD_FACE_MODEL=OFF "
-configopts += "-DDOWNLOAD_HAND_MODEL=OFF -DUSE_CUDNN=OFF"
+configopts += "-DDOWNLOAD_HAND_MODEL=OFF -DUSE_CUDNN=OFF -DBUILD_PYTHON=ON"
 preinstallopts = "mkdir %(builddir)s/easybuild_obj/caffe/lib && "
 preinstallopts += "cp -r %(builddir)s/easybuild_obj/caffe/lib64/* %(builddir)s/easybuild_obj/caffe/lib/ && "
 
