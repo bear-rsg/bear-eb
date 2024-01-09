@@ -1,0 +1,27 @@
+easyblock = 'PackedBinary'
+
+name = 'Groovy'
+version = '4.0.17'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://groovy-lang.org'
+description = """Groovy is a powerful, optionally typed and dynamic language, with static-typing and static
+compilation capabilities, for the Java platform aimed at improving developer productivity thanks to a concise,
+familiar and easy to learn syntax."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/']
+sources = ['apache-groovy-sdk-%(version)s.zip']
+checksums = ['d5ae8d088b038c82941bbce822c0ad00b577df069a5b82bde8a9be94683a71da']
+
+dependencies = [('Java', '17')]
+
+sanity_check_paths = {
+    'files': ['bin/groovy', 'bin/grape'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["groovy --help"]
+
+moduleclass = 'devel'
