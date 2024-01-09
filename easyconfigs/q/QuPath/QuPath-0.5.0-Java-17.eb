@@ -26,7 +26,7 @@ local_path_dirs = ['lib/app', 'lib/runtime', 'lib/runtime/lib/']
 
 modextrapaths = {'PATH': local_path_dirs}
 
-postinstallcmds = [ 'chmod +x %(installdir)s/bin/QuPath']
+postinstallcmds = ['chmod +x %(installdir)s/bin/QuPath']
 
 citing = """\n
 Bankhead, P. et al.\n
