@@ -54,8 +54,9 @@ dependencies = [
 configopts = "-DDOWNLOAD_BODY_25_MODEL=OFF -DDOWNLOAD_BODY_COCO_MODEL=OFF -DDOWNLOAD_FACE_MODEL=OFF "
 configopts += "-DDOWNLOAD_HAND_MODEL=OFF -DUSE_CUDNN=OFF -DBUILD_PYTHON=ON -DPYTHON3_EXACT_VESRION=%(pyshortver)s "
 configopts += "-DPYTHON_LIBRARY=$EBROOTPYTHON/lib/libpython3.10.so "
+configopts += "-DPYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python "
 configopts += "-DOpenCV_INCLUDE_DIRS=$EBROOTOPENCV/include -DOpenCV_LIBS_DIR=$EBROOTOPENCV/lib "
-configopts += "-DBUILD_EXAMPLES=ON"
+configopts += "-DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=ON"
 preinstallopts = "mkdir %(builddir)s/easybuild_obj/caffe/lib && "
 preinstallopts += "cp -r %(builddir)s/easybuild_obj/caffe/lib64/* %(builddir)s/easybuild_obj/caffe/lib/ && "
 
