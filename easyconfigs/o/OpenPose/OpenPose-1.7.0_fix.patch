@@ -1,0 +1,140 @@
+diff -aur openpose.old/3rdparty/caffe/cmake/Dependencies.cmake openpose/3rdparty/caffe/cmake/Dependencies.cmake
+--- openpose.old/3rdparty/caffe/cmake/Dependencies.cmake	2023-12-08 09:27:18.000000000 +0000
++++ openpose/3rdparty/caffe/cmake/Dependencies.cmake	2024-01-03 11:06:41.948019887 +0000
+@@ -114,7 +114,7 @@
+ 
+ # ---[ BLAS
+ if(NOT APPLE)
+-  set(BLAS "Atlas" CACHE STRING "Selected BLAS library")
++  set(BLAS "Open" CACHE STRING "Selected BLAS library")
+   set_property(CACHE BLAS PROPERTY STRINGS "Atlas;Open;MKL")
+ 
+   if(BLAS STREQUAL "Atlas" OR BLAS STREQUAL "atlas")
+diff -aur openpose.old/3rdparty/caffe/cmake/Modules/FindOpenBLAS.cmake openpose/3rdparty/caffe/cmake/Modules/FindOpenBLAS.cmake
+--- openpose.old/3rdparty/caffe/cmake/Modules/FindOpenBLAS.cmake	2023-12-08 09:27:18.000000000 +0000
++++ openpose/3rdparty/caffe/cmake/Modules/FindOpenBLAS.cmake	2024-01-03 11:06:41.955019976 +0000
+@@ -2,26 +2,29 @@
+ 
+ SET(Open_BLAS_INCLUDE_SEARCH_PATHS
+   /usr/include
+-  /usr/include/openblas
+-  /usr/include/openblas-base
++  /usr/include/flexiblas
++  /usr/include/flexiblas-base
+   /usr/local/include
+-  /usr/local/include/openblas
+-  /usr/local/include/openblas-base
++  /usr/local/include/flexiblas
++  /usr/local/include/flexiblas-base
+   /opt/OpenBLAS/include
++  $EBROOTFLEXIBLAS/include
++  $EBROOTFLEXIBLAS/include/flexiblas
+   $ENV{OpenBLAS_HOME}
+   $ENV{OpenBLAS_HOME}/include
+ )
+ 
+ SET(Open_BLAS_LIB_SEARCH_PATHS
+         /lib/
+-        /lib/openblas-base
++        /lib/flexiblas-base
+         /lib64/
+         /usr/lib
+-        /usr/lib/openblas-base
++        /usr/lib/flexiblas-base
+         /usr/lib64
+         /usr/local/lib
+         /usr/local/lib64
+         /opt/OpenBLAS/lib
++        $EBROOTFLEXIBLAS/lib
+         $ENV{OpenBLAS}cd
+         $ENV{OpenBLAS}/lib
+         $ENV{OpenBLAS_HOME}
+@@ -29,7 +32,7 @@
+  )
+ 
+ FIND_PATH(OpenBLAS_INCLUDE_DIR NAMES cblas.h PATHS ${Open_BLAS_INCLUDE_SEARCH_PATHS})
+-FIND_LIBRARY(OpenBLAS_LIB NAMES openblas PATHS ${Open_BLAS_LIB_SEARCH_PATHS})
++FIND_LIBRARY(OpenBLAS_LIB NAMES flexiblas PATHS ${Open_BLAS_LIB_SEARCH_PATHS})
+ 
+ SET(OpenBLAS_FOUND ON)
+ 
+diff -aur openpose.old/3rdparty/caffe/CMakeLists.txt openpose/3rdparty/caffe/CMakeLists.txt
+--- openpose.old/3rdparty/caffe/CMakeLists.txt	2023-12-08 09:27:18.000000000 +0000
++++ openpose/3rdparty/caffe/CMakeLists.txt	2024-01-03 11:06:40.780005117 +0000
+@@ -50,7 +50,7 @@
+ 
+ # ---[ Flags
+ if(UNIX OR APPLE)
+-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -Wall -std=c++11")
++  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -Wall -std=c++17")
+ endif()
+ 
+ caffe_set_caffe_link()
+diff -aur openpose.old/3rdparty/caffe/src/caffe/util/io.cpp openpose/3rdparty/caffe/src/caffe/util/io.cpp
+--- openpose.old/3rdparty/caffe/src/caffe/util/io.cpp	2023-12-08 09:27:19.000000000 +0000
++++ openpose/3rdparty/caffe/src/caffe/util/io.cpp	2024-01-03 11:06:40.948007241 +0000
+@@ -54,7 +54,7 @@
+   CHECK_NE(fd, -1) << "File not found: " << filename;
+   ZeroCopyInputStream* raw_input = new FileInputStream(fd);
+   CodedInputStream* coded_input = new CodedInputStream(raw_input);
+-  coded_input->SetTotalBytesLimit(kProtoReadBytesLimit, 536870912);
++  coded_input->SetTotalBytesLimit(kProtoReadBytesLimit);
+ 
+   bool success = proto->ParseFromCodedStream(coded_input);
+ 
+diff -aur openpose.old/CMakeLists.txt openpose/CMakeLists.txt
+--- openpose.old/CMakeLists.txt	2023-12-08 09:27:14.000000000 +0000
++++ openpose/CMakeLists.txt	2024-01-03 11:06:42.060021304 +0000
+@@ -99,11 +99,11 @@
+   set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /LTCG:incremental /OPT:REF /OPT:ICF")
+ elseif (UNIX)
+   # Turn on C++11
+-  add_definitions(-std=c++11)
++  add_definitions(-std=c++17)
+   set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+ elseif (APPLE)
+   # Turn on C++11
+-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
++  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+   set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+ endif (WIN32)
+ 
+@@ -575,10 +575,10 @@
+   set(OPENCV_VS_VERSION "15")
+   find_library(OpenCV_LIBS_RELEASE opencv_world420 HINTS ${FIND_LIB_PREFIX}/opencv/x64/vc${OPENCV_VS_VERSION}/lib)
+   find_library(OpenCV_LIBS_DEBUG opencv_world420d HINTS ${FIND_LIB_PREFIX}/opencv/x64/vc${OPENCV_VS_VERSION}/lib)
+-  find_library(GFLAGS_LIBRARY_RELEASE gflags HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib)
+-  find_library(GFLAGS_LIBRARY_DEBUG gflagsd HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib)
+-  find_library(GLOG_LIBRARY_RELEASE glog HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib)
+-  find_library(GLOG_LIBRARY_DEBUG glogd HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib)
++  find_library(GFLAGS_LIBRARY_RELEASE gflags HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib64)
++  find_library(GFLAGS_LIBRARY_DEBUG gflagsd HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib64)
++  find_library(GLOG_LIBRARY_RELEASE glog HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib64)
++  find_library(GLOG_LIBRARY_DEBUG glogd HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib64)
+ 
+   # If OpenPose builds it
+   if (BUILD_CAFFE)
+@@ -612,10 +612,10 @@
+     endif (${GPU_MODE} MATCHES "CPU_ONLY")
+   endif (${GPU_MODE} MATCHES "OPENCL")
+   # Boost DepCopy over required DLL
+-  find_library(BOOST_SYSTEM_LIB_RELEASE boost_system-vc142-mt-x64-1_74 HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib)
+-  find_library(BOOST_SYSTEM_LIB_DEBUG boost_system-vc142-mt-gd-x64-1_74 HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib)
+-  find_library(BOOST_FILESYSTEM_LIB_RELEASE boost_filesystem-vc142-mt-x64-1_74 HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib)
+-  find_library(BOOST_FILESYSTEM_LIB_DEBUG boost_filesystem-vc142-mt-gd-x64-1_74 HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib)
++  find_library(BOOST_SYSTEM_LIB_RELEASE boost_system-vc142-mt-x64-1_74 HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib64)
++  find_library(BOOST_SYSTEM_LIB_DEBUG boost_system-vc142-mt-gd-x64-1_74 HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib64)
++  find_library(BOOST_FILESYSTEM_LIB_RELEASE boost_filesystem-vc142-mt-x64-1_74 HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib64)
++  find_library(BOOST_FILESYSTEM_LIB_DEBUG boost_filesystem-vc142-mt-gd-x64-1_74 HINTS ${FIND_LIB_PREFIX}/caffe3rdparty/lib64)
+   # message(STATUS "\${BOOST_SYSTEM_LIB_RELEASE} = ${BOOST_SYSTEM_LIB_RELEASE}")
+   # message(STATUS "\${BOOST_SYSTEM_LIB_DEBUG} = ${BOOST_SYSTEM_LIB_DEBUG}")
+   # message(STATUS "\${BOOST_FILESYSTEM_LIB_RELEASE} = ${BOOST_FILESYSTEM_LIB_RELEASE}")
+@@ -677,7 +677,7 @@
+     endif ()
+     file(COPY ${CAFFE_DLL} DESTINATION ${BIN_FOLDER})
+     # Caffe 3rd-party DLLs
+-    file(GLOB CAFFE_3RD_PARTY_DLL "${CMAKE_SOURCE_DIR}/3rdparty/windows/caffe3rdparty/lib/*.dll")
++    file(GLOB CAFFE_3RD_PARTY_DLL "${CMAKE_SOURCE_DIR}/3rdparty/windows/caffe3rdparty/lib64/*.dll")
+     file(COPY ${CAFFE_3RD_PARTY_DLL} DESTINATION ${BIN_FOLDER})
+     # OpenCV DLLs
+     file(GLOB OPENCV_DLL "${CMAKE_SOURCE_DIR}/3rdparty/windows/opencv/x64/vc${OPENCV_VS_VERSION}/bin/*.dll")

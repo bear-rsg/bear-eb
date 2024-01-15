@@ -1,0 +1,76 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+
+name = 'OpenPose'
+version = '1.7.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/CMU-Perceptual-Computing-Lab/openpose'
+description = """OpenPose: Real-time multi-person keypoint detection library for body, face, hands,
+and foot estimation."""
+
+
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/CMU-Perceptual-Computing-Lab',
+        'repo_name': '%(namelower)s',
+        'tag': 'v%(version)s',
+        'recursive': True,
+    }
+}]
+patches = ['OpenPose-1.7.0_fix.patch']
+checksums = [
+    {'OpenPose-1.7.0.tar.gz': '16e3be336b10026b03648a7755d57fecb77a498e323dc2bcf86b5784e84dd969'},
+    {'OpenPose-1.7.0_fix.patch': '88e38ec7fa9ba0be3e8f7e87d98b6e1a48186f17ef30ab8c56c71a2630df557d'},
+]
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+builddependencies = [
+    ('binutils', '2.38'),
+    ('CMake', '3.24.3'),
+]
+
+dependencies = [
+    ('CUDA', '11.7.0', '', SYSTEM),
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('protobuf', '3.19.4'),
+    ('cuDNN', '8.4.1.50', versionsuffix, SYSTEM),
+    ('OpenCV', '4.6.0', '-CUDA-%(cudaver)s-contrib'),
+    ('glog', '0.6.0'),
+    ('Boost', '1.79.0'),
+    ('FlexiBLAS', '3.2.0'),
+    ('protobuf-python', '3.19.4'),
+    ('gflags', '2.2.2'),
+    ('HDF5', '1.12.2'),
+    ('LMDB', '0.9.29'),
+    ('snappy', '1.1.9'),
+    ('scikit-image', '0.19.3'),
+    ('googletest', '1.11.0'),
+]
+
+configopts = "-DDOWNLOAD_BODY_25_MODEL=OFF -DDOWNLOAD_BODY_COCO_MODEL=OFF -DDOWNLOAD_FACE_MODEL=OFF "
+configopts += "-DDOWNLOAD_HAND_MODEL=OFF -DUSE_CUDNN=OFF -DBUILD_PYTHON=ON -DPYTHON3_EXACT_VESRION=%(pyshortver)s "
+configopts += "-DPYTHON_LIBRARY=$EBROOTPYTHON/lib/libpython3.10.so "
+configopts += "-DPYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python "
+configopts += "-DOpenCV_INCLUDE_DIRS=$EBROOTOPENCV/include -DOpenCV_LIBS_DIR=$EBROOTOPENCV/lib "
+configopts += "-DBUILD_EXAMPLES=ON -DBUILD_SHARED_LIBS=ON"
+preinstallopts = "mkdir %(builddir)s/easybuild_obj/caffe/lib && "
+preinstallopts += "cp -r %(builddir)s/easybuild_obj/caffe/lib64/* %(builddir)s/easybuild_obj/caffe/lib/ && "
+
+postinstallcmds = [
+    "ln -s $BB_APPS_DATA/OpenPose/OpenPose_models %(installdir)s/models",
+    "cp -r %(builddir)s/easybuild_obj/examples %(installdir)s",
+    "PYTHONPATH=%(installdir)s/python:PYTHONPATH",
+]
+
+# Note address in getModels.sh does not work have extracted data and placed in BASK_APPS_DATA
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['examples'],
+}
+
+moduleclass = 'lib'
