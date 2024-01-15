@@ -27,8 +27,8 @@ diff -aur openpose.old/3rdparty/caffe/cmake/Modules/FindOpenBLAS.cmake openpose/
 +  /usr/local/include/flexiblas
 +  /usr/local/include/flexiblas-base
    /opt/OpenBLAS/include
-+  /rds/projects/b/branfosj-bear-apps/devel/2022a/yearwoog-22a/EL8-ice/software/FlexiBLAS/3.2.0-GCC-11.3.0/include
-+  /rds/projects/b/branfosj-bear-apps/devel/2022a/yearwoog-22a/EL8-ice/software/FlexiBLAS/3.2.0-GCC-11.3.0/include/flexiblas
++  $EBROOTFLEXIBLAS/include
++  $EBROOTFLEXIBLAS/include/flexiblas
    $ENV{OpenBLAS_HOME}
    $ENV{OpenBLAS_HOME}/include
  )
@@ -45,7 +45,7 @@ diff -aur openpose.old/3rdparty/caffe/cmake/Modules/FindOpenBLAS.cmake openpose/
          /usr/local/lib
          /usr/local/lib64
          /opt/OpenBLAS/lib
-+        /rds/projects/b/branfosj-bear-apps/devel/2022a/yearwoog-22a/EL8-ice/software/FlexiBLAS/3.2.0-GCC-11.3.0/lib
++        $EBROOTFLEXIBLAS/lib
          $ENV{OpenBLAS}cd
          $ENV{OpenBLAS}/lib
          $ENV{OpenBLAS_HOME}

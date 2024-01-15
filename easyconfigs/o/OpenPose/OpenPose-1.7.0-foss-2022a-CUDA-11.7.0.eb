@@ -21,8 +21,8 @@ sources = [{
 }]
 patches = ['OpenPose-1.7.0_fix.patch']
 checksums = [
-    None,  # OpenPose-1.7.0
-    '767798464f66d19273c699a4b8a3769e19ee3cd537cda392bcf15881fa704a29',  # OpenPose-1.7.0_fix.patch
+    {'OpenPose-1.7.0.tar.gz': '16e3be336b10026b03648a7755d57fecb77a498e323dc2bcf86b5784e84dd969'},
+    {'OpenPose-1.7.0_fix.patch': '88e38ec7fa9ba0be3e8f7e87d98b6e1a48186f17ef30ab8c56c71a2630df557d'},
 ]
 
 toolchain = {'name': 'foss', 'version': '2022a'}
