@@ -1,5 +1,6 @@
 name = 'ORCA'
 version = '5.0.4'
+versionsuffix = '-xtb-6.5.1'
 
 homepage = 'https://orcaforum.kofo.mpg.de'
 description = """
@@ -25,7 +26,7 @@ checksums = [
     {'otool_xtb': 'e1a1b228e8871b8076d030cebf543db4376e50ebc5890546b2f00fdf2c747628'},
 ]
 
-dependencies = ('xtb', '6.5.1', ),
+dependencies = ('xtb', '6.5.1'),
 
 postinstallcmds = [
     'cp otool_xtb %(installdir)s/bin',
