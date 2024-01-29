@@ -1,0 +1,37 @@
+easyblock = 'CMakeMake'
+
+name = 'SuperCollider'
+version = '3.13.0'
+
+homepage = 'https://supercollider.github.io'
+description = """A platform for audio synthesis and algorithmic composition,
+ used by musicians, artists and researchers working with sound."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+# source_urls = ['https://github.com/supercollider/supercollider/archive/']
+# sources = ['Version-v%(version)s.tar.gz']
+
+sources = [{
+    'filename': 'Version-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/supercollider',
+        'repo_name': 'supercollider',
+        'tag': 'Version-%(version)s',
+        'recursive': True,
+    },
+}]
+
+builddependencies = [('CMake', '3.24.3')]
+
+dependencies = [
+    ('alsa-lib', '1.2.10'),
+    ('libsndfile', '1.2.0'),
+]
+
+configopts = '-DNO_X11=ON -DNO_AVAHI=ON '
+configopts += 'SC_QT=OFF'
+
+sanity_check_paths = {}
+
+# moduleclass = 'data'
