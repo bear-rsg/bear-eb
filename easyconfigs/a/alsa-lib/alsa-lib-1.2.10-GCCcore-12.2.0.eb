@@ -11,6 +11,7 @@ toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
 
 source_urls = ['ftp://ftp.alsa-project.org/pub/lib/']
 sources = [SOURCE_TAR_BZ2]
+checksums = ['c86a45a846331b1b0aa6e6be100be2a7aef92efd405cf6bac7eef8174baa920e']
 
 dependencies = [('binutils', '2.39')]
 
