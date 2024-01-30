@@ -1,0 +1,45 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+
+easyblock = 'CMakeMake'
+
+name = 'SuperCollider'
+version = '3.13.0'
+
+homepage = 'https://supercollider.github.io'
+description = """A platform for audio synthesis and algorithmic composition,
+ used by musicians, artists and researchers working with sound."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+sources = [{
+    'filename': 'Version-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/supercollider',
+        'repo_name': 'supercollider',
+        'tag': 'Version-%(version)s',
+        'recursive': True,
+    },
+}]
+checksums = ['ff5857ae8e0478027e76caabc2072edcb3304ed43d48b9833d00890d1be09a77']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('pkgconf', '1.9.3'),
+]
+
+dependencies = [
+    ('alsa-lib', '1.2.10'),
+    ('libsndfile', '1.2.0'),
+    ('JACK', '1.9.22'),
+    ('libreadline', '8.2'),
+]
+
+configopts = '-DNO_X11=ON -DNO_AVAHI=ON '  # disable X11 plugin functionality and mdns
+configopts += '-DSC_QT=OFF -DSC_EL=NO'  # disable building QT GUI and Emacs interface
+
+sanity_check_paths = {
+    'files': ['bin/sclang', 'lib/SuperCollider/plugins/BinaryOpUGens.%s' % SHLIB_EXT],
+    'dirs': ['include/%(name)s', 'lib/%(name)s'],
+}
+
+moduleclass = 'tools'

@@ -1,0 +1,27 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+
+easyblock = 'Waf'
+
+name = 'JACK'
+version = '1.9.22'
+
+homepage = 'https://gkeyll.readthedocs.io'
+description = """JACK Audio Connection Kit (or JACK) is a professional sound server API and pair of daemon
+ implementations to provide real-time, low-latency connections for both audio and MIDI data between applications."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+source_urls = ['https://github.com/jackaudio/jack2/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['1e42b9fc4ad7db7befd414d45ab2f8a159c0b30fcd6eee452be662298766a849']
+
+builddependencies = [
+    ('Python', '3.10.8')
+]
+
+sanity_check_paths = {
+    'files': ['bin/jackd', 'lib/libjack.%s' % SHLIB_EXT],
+    'dirs': ['include/jack', 'lib/jack'],
+}
+
+moduleclass = 'tools'
