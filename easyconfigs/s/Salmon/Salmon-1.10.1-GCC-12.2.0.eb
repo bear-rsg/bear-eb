@@ -18,6 +18,8 @@ easyblock = 'CMakeMake'
 name = 'Salmon'
 version = '1.10.1'
 
+# we will use 1.10.1 as it fixes https://github.com/COMBINE-lab/salmon/issues/835
+
 homepage = 'https://github.com/COMBINE-lab/salmon'
 description = """Salmon is a wicked-fast program to produce a highly-accurate,
  transcript-level quantification estimates from RNA-seq data."""
