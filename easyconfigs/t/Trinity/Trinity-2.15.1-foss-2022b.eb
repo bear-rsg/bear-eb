@@ -42,17 +42,17 @@ dependencies = [
     ('Python', '3.10.8'),
     ('SciPy-bundle', '2023.02'),
     ('BLAST+', '2.14.0'),
-    ('BLAT', '3.7'),  # bumped version for 2022b
+    ('BLAT', '3.7'),  # new, updated easyconfig for 2022b
     ('Bowtie', '1.3.1'),
     ('Bowtie2', '2.5.1'),
     ('GMAP-GSNAP', '2023-04-20'),
-    ('HISAT2', '2.2.1'),  # bumped version for 2022b
+    ('HISAT2', '2.2.1'),  # new, updated easyconfig for 2022b
     ('HTSlib', '1.17'),
-    ('Jellyfish', '2.3.1'),  # bumped version for 2022b
-    ('kallisto', '0.48.0'),  # bumped version for 2022b - 0.50.0  available but needs more rework
+    ('Jellyfish', '2.3.1'),  # new, updated easyconfig for 2022b
+    ('kallisto', '0.48.0'),  # new, updated easyconfig for 2022b; 0.50.0 available but needs more rework
     ('ncurses', '6.3'),
-    ('RSEM', '1.3.3'),  # bumped version for 2022b
-    ('Salmon', '1.10.1'),  # bumped version for 2022b
+    ('RSEM', '1.3.3'),  # new, updated easyconfig for 2022b
+    ('Salmon', '1.10.1'),  # new, updated easyconfig for 2022b
     ('SAMtools', '1.17'),
     ('STAR', '2.7.11a'),
     ('zlib', '1.2.12'),
