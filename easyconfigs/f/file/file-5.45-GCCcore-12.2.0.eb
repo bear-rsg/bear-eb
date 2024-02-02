@@ -1,0 +1,28 @@
+easyblock = 'ConfigureMake'
+
+name = 'file'
+version = '5.45'
+
+homepage = 'https://www.darwinsys.com/file/'
+description = """The file command is 'a file type guesser', that is, a command-line tool
+ that tells you in words what kind of data a file contains."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+source_urls = ['ftp://ftp.astron.com/pub/file/']
+sources = [SOURCE_TAR_GZ]
+checksums = ['fc97f51029bb0e2c9f4e3bffefdaf678f0e039ee872b9de5c002a6d09c784d82']
+
+builddependencies = [
+    ('Autotools', '20220317'),
+    ('binutils', '2.39'),
+]
+
+preconfigopts = "autoreconf -f -i && "
+
+sanity_check_paths = {
+    'files': ['bin/file', 'include/magic.h', 'lib/libmagic.%s' % SHLIB_EXT],
+    'dirs': ['share']
+}
+
+moduleclass = 'system'
