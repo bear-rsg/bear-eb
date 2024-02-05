@@ -1,0 +1,48 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'MakeCp'
+
+name = 'preCICE-CalculiX'
+version = '2.20'
+
+homepage = "https://precice.org/adapter-calculix-overview.html"
+description = """preCICE-adapter for the CSM code CalculiX"""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+source_urls = [
+    'https://github.com/precice/calculix-adapter/archive/refs/tags/',
+    'http://www.dhondt.de/',
+]
+sources = [
+    {'download_filename': 'v%(version)s.0.tar.gz', 'filename': 'calculix-adapter-%(version)s.0.tar.gz'},
+    'ccx_%(version)s.src.tar.bz2',
+]
+patches = ['%(name)s-%(version)s_makefile.patch']
+checksums = [
+    {'calculix-adapter-2.20.0.tar.gz': '5cf494ba37e5fc540aaab9ee7106bc3395f7bafab0b9a4e9231c5c46620d8615'},
+    {'ccx_2.20.src.tar.bz2': '63bf6ea09e7edcae93e0145b1bb0579ea7ae82e046f6075a27c8145b72761bcf'},
+    {'preCICE-CalculiX-2.20_makefile.patch': '38ad5bd701d9dab3c2ae213696ab542d092ab6564a7e957745c4704789596b54'},
+]
+
+builddependencies = [
+    ('pkgconf', '1.9.3'),
+]
+
+dependencies = [
+    ('arpack-ng', '3.8.0'),
+    ('SPOOLES', '2.2'),
+    ('preCICE', '2.5.0'),
+    ('yaml-cpp', '0.7.0'),
+]
+
+prebuildopts = "sed -i 's|ebbuilddirgrep|%(builddir)s|' Makefile &&"
+files_to_copy = [(['bin/ccx_preCICE'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/ccx_preCICE'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['ccx_preCICE -h']
+
+moduleclass = 'tools'
