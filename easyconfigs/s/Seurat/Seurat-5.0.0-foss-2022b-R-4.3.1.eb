@@ -25,16 +25,6 @@ exts_default_options = {
 }
 
 exts_list = [
-    ('BPCells', '0.1.0', {
-        'source_tmpl': ['%(name)s_%(version)s.tar.gz'],
-        'source_urls': ['https://bnprks.r-universe.dev/src/contrib/'],
-        'checksums': ['089ed20836f4ca9c36d446a3bd7f20a7bc5c4267ed0a8de85bc9e937aeed16cf'],
-    }),
-    ('presto', '1.0.0', {
-        'source_tmpl': ['%(name)s_%(version)s.tar.gz'],
-        'source_urls': ['https://satijalab.r-universe.dev/src/contrib/'],
-        'checksums': ['9b68d9e4122dac396c08b37a29c9a4ed325eb04489fd91b8d1daf0874a0ddab0'],
-    }),
     ('Matrix', '1.6-1.1', {
         'checksums': ['331eb1f1fe9441d4224d8551072443596001b50e8c15618f59cb938b46ee8cc2'],
     }),
@@ -85,14 +75,23 @@ exts_list = [
     ('SoupX', '1.6.1', {
         'checksums': ['2539371ed9e47f5e3c8d86ed6aef155adbe2372a873e225f3b51f1f867f47320'],
     }),
+    ('BPCells', '0.1.0', {
+        'source_tmpl': ['%(name)s_%(version)s.tar.gz'],
+        'source_urls': ['https://bnprks.r-universe.dev/src/contrib/'],
+        'checksums': ['089ed20836f4ca9c36d446a3bd7f20a7bc5c4267ed0a8de85bc9e937aeed16cf'],
+    }),
+    ('presto', '1.0.0', {
+        'source_tmpl': ['%(name)s_%(version)s.tar.gz'],
+        'source_urls': ['https://satijalab.r-universe.dev/src/contrib/'],
+        'checksums': ['9b68d9e4122dac396c08b37a29c9a4ed325eb04489fd91b8d1daf0874a0ddab0'],
+    }),
     ('SeuratData', '0.2.1', {
         'sources': {'filename': '%(name)s_%(version)s.tar.gz',
-        'git_config': {
-            'url': 'https://github.com/satijalab/',
-            'repo_name':
-            'seurat-data',
-            'tag': 'v%(version)s'
-        }},
+            'git_config': {
+                'url': 'https://github.com/satijalab/',
+                'repo_name': 'seurat-data',
+                'tag': 'v%(version)s'
+            }},
         'checksums': ['581217c0e4db4b08c531aad6ba5a6156ef0b0b0db317892809b4242d9874453c'],
     }),
     ('cli', '3.6.2', {
@@ -120,30 +119,30 @@ exts_list = [
         'sources': {
         'filename': '%(name)s_%(version)s.tar.gz',
         'git_config': {
-            'url': 'https://github.com/mojaveazure/',
-            'repo_name': 'seurat-disk', 
-            'commit': '877d4e1'
-        }},
+                'url': 'https://github.com/mojaveazure/',
+                'repo_name': 'seurat-disk', 
+                'commit': '877d4e1'
+            }},
         'checksums': ['d44419b23d43b808036bbd50c71769cb32dd1a39f02facd7dea4ef6d0c2922bc'],
     }),
     ('Azimuth', '0.5.0', {
         'sources': {
         'filename': '%(name)s_%(version)s.tar.gz',
         'git_config': {
-            'url': 'https://github.com/satijalab/',
-            'repo_name': 'azimuth',
-            'tag': 'v%(version)s'
-        }},
+                'url': 'https://github.com/satijalab/',
+                'repo_name': 'azimuth',
+                'tag': 'v%(version)s'
+            }},
         'checksums': ['d8e56e2b631c74bcfb04f5e2933f7e02a61450c98cb836b95b10607a59c103fb'],
     }),
     ('SeuratWrappers', '20210721', {
         'sources': {
         'filename': '%(name)s_%(version)s.tar.gz',
         'git_config': {
-            'url': 'https://github.com/satijalab/',
-            'repo_name': 'seurat-wrappers',
-            'commit': 'd9594f6'
-        }},
+                'url': 'https://github.com/satijalab/',
+                'repo_name': 'seurat-wrappers',
+                'commit': 'd9594f6'
+            }},
         'checksums': ['b7a3bb5ecce45961f9a50f1f86eecca4539be12c1853e1803bca371bd5b76c61'],
     }),
 ]
