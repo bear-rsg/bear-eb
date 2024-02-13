@@ -86,7 +86,8 @@ exts_list = [
         'checksums': ['9b68d9e4122dac396c08b37a29c9a4ed325eb04489fd91b8d1daf0874a0ddab0'],
     }),
     ('SeuratData', '0.2.1', {
-        'sources': {'filename': '%(name)s_%(version)s.tar.gz',
+        'sources': {
+            'filename': '%(name)s_%(version)s.tar.gz',
             'git_config': {
                 'url': 'https://github.com/satijalab/',
                 'repo_name': 'seurat-data',
@@ -117,18 +118,18 @@ exts_list = [
     }),
     ('SeuratDisk', '0.0.0.9015', {
         'sources': {
-        'filename': '%(name)s_%(version)s.tar.gz',
-        'git_config': {
+            'filename': '%(name)s_%(version)s.tar.gz',
+            'git_config': {
                 'url': 'https://github.com/mojaveazure/',
-                'repo_name': 'seurat-disk', 
+                'repo_name': 'seurat-disk',
                 'commit': '877d4e1'
             }},
         'checksums': ['d44419b23d43b808036bbd50c71769cb32dd1a39f02facd7dea4ef6d0c2922bc'],
     }),
     ('Azimuth', '0.5.0', {
         'sources': {
-        'filename': '%(name)s_%(version)s.tar.gz',
-        'git_config': {
+            'filename': '%(name)s_%(version)s.tar.gz',
+            'git_config': {
                 'url': 'https://github.com/satijalab/',
                 'repo_name': 'azimuth',
                 'tag': 'v%(version)s'
@@ -137,8 +138,8 @@ exts_list = [
     }),
     ('SeuratWrappers', '20210721', {
         'sources': {
-        'filename': '%(name)s_%(version)s.tar.gz',
-        'git_config': {
+            'filename': '%(name)s_%(version)s.tar.gz',
+            'git_config': {
                 'url': 'https://github.com/satijalab/',
                 'repo_name': 'seurat-wrappers',
                 'commit': 'd9594f6'
