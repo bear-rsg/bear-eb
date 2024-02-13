@@ -1,0 +1,51 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'steinbock'
+version = '0.16.1'
+
+homepage = "https://github.com/BodenmillerGroup/steinbock"
+description = """A toolkit for processing multiplexed tissue images"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('scikit-image', '0.19.3'),
+    ('napari', '0.4.17'),
+    ('h5py', '3.7.0'),
+    ('OpenCV', '4.6.0', '-contrib'),
+    ('Cellpose', '2.2'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('anndata', '0.8.0', {
+        'checksums': ['94d2cc6f76c0317c0ac28564e3092b313b7ad19c737d66701961f3e620b9066e'],
+    }),
+    ('click-log', '0.4.0', {
+        'checksums': ['3970f8570ac54491237bcdb3d8ab5e3eef6c057df29f8c3d1151a51a9c23b975'],
+    }),
+    ('fcswrite', '0.6.2', {
+        'checksums': ['58a75e84e3f79775dc3d96a8df5805d9b0225bc5d843892f61a633a3ad9303d8'],
+    }),
+    ('xtiff', '0.7.8', {
+        'checksums': ['5a13b13baaaa05b48fbedbf587dd3c9ac953cd6d5c4d375afc08a8f7d8ceaada'],
+    }),
+    (name, version, {
+        'patches': ['%(name)s-%(version)s_deps.patch'],
+        'checksums': [
+            {'steinbock-0.16.1.tar.gz': '0c1802a319255914fea00bf3c6bfde79f27ec536637e179d5f582525bfee56fe'},
+            {'steinbock-0.16.1_deps.patch': '679fd8adc671568fd0a184fc780287eb8200c1dfa31cd4151c4e44684e44f39e'},
+        ],
+    }),
+]
+
+moduleclass = 'bio'
