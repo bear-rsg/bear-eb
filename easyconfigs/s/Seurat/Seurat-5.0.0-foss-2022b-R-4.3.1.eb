@@ -1,0 +1,134 @@
+easyblock = 'Bundle'
+
+name = 'Seurat'
+version = '5.0.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://satijalab.org/seurat'
+description = "Seurat is an R package designed for QC, analysis, and exploration of single cell RNA-seq data."
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+    ('R-bundle-Bioconductor', '3.17', versionsuffix),
+]
+
+exts_defaultclass = 'RPackage'
+exts_default_options = {
+    'sources': ['%(name)s_%(version)s.tar.gz'],
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+}
+
+exts_list = [
+    ('BPCells', '0.1.0', {
+        'source_tmpl': ['%(name)s_%(version)s.tar.gz'],
+        'source_urls': ['https://bnprks.r-universe.dev/src/contrib/'],
+        'checksums': ['089ed20836f4ca9c36d446a3bd7f20a7bc5c4267ed0a8de85bc9e937aeed16cf'],
+    }),
+    ('presto', '1.0.0', {
+        'source_tmpl': ['%(name)s_%(version)s.tar.gz'],
+        'source_urls': ['https://satijalab.r-universe.dev/src/contrib/'],
+        'checksums': ['9b68d9e4122dac396c08b37a29c9a4ed325eb04489fd91b8d1daf0874a0ddab0'],
+    }),
+    ('Matrix', '1.6-1.1', {
+        'checksums': ['331eb1f1fe9441d4224d8551072443596001b50e8c15618f59cb938b46ee8cc2'],
+    }),
+    ('sp', '1.5-1', {
+        'checksums': ['69b9eab481d389bbb736d2adcf50c180aca248c3ffc4ebda8ffe2accc5f229df'],
+    }),
+    ('SeuratObject', version, {
+        'checksums': ['2dd95f3b2698ca598c582381ef94683977e2a3402eceffff3fea60aed9289972'],
+    }),
+    ('sctransform', '0.4.1', {
+        'checksums': ['5f6be7f8be543e4c32c8007207b603a750881459370b7bb5afd63e8c8fabf171'],
+    }),
+    ('uwot', '0.1.16', {
+        'checksums': ['5f63a0d9edddb08435477af52724cb588c787c8d543c68c9358ed7b1ec3e8e48'],
+    }),
+    ('spatstat.utils', '3.0-1', {
+        'checksums': ['cba1c7806564fd9145ca15edf77233d6ba5609f0989f7812221f5fc1ece0b91a'],
+    }),
+    ('spatstat.data', '3.0-0', {
+        'checksums': ['cff9058a88489020a4a05b9576cd452f37fa9b42084873c474d06931f5187057'],
+    }),
+    ('spatstat.geom', '3.0-3', {
+        'checksums': ['6e5b56c60e774a0cdcaa5a8ffde071225f233832446a341588bd8a7840913c84'],
+    }),
+    ('spatstat.random', '3.0-1', {
+        'checksums': ['938c845c063b8781bf894c0a67537e7b2a7c425a4beba4a95ec9d2c37b43e5b6'],
+    }),
+    ('spatstat.sparse', '3.0-0', {
+        'checksums': ['99be0a3c7592760fdf1668dc0811f75ed91c400390d1ecc3d5e643255f501ad2'],
+    }),
+    ('spatstat.explore', '3.0-5', {
+        'checksums': ['9f438a12fac3f3e1d0bd550b1393c1e5732be694517b0878db09da557d6dc862'],
+    }),
+    ('scattermore', '1.2', {
+        'checksums': ['5534a87b0bdd1375f0fbffc1a5c980ad64e33a108435a67469b8324b580602d1'],
+    }),
+    (name, version, {
+        'checksums': ['bb8c91610f58753aa57f38bf2ef1c97c9c85fbfe89c1c47a33805f3eb5eb78c3'],
+    }),
+    ('glmGamPoi', '1.14.2', {
+        'source_tmpl': ['%(name)s_%(version)s.tar.gz'],
+        'source_urls': ['https://bioconductor.org/packages/release/bioc/src/contrib/'],
+        'checksums': ['4d58996cae7afe4f2431361ac571623ea0455a350c841a9c9eba680d4cb98beb'],
+    }),
+    ('Signac', '1.11.0', {
+        'checksums': ['0daac539a4ca6d7f4c779fc06e77ffed4faca3e0689d3fb47d960edb4032f1c5'],
+    }),
+    ('SoupX', '1.6.1', {
+        'checksums': ['2539371ed9e47f5e3c8d86ed6aef155adbe2372a873e225f3b51f1f867f47320'],
+    }),
+    ('SeuratData', '0.2.1', {
+        'sources': {'filename': '%(name)s_%(version)s.tar.gz', 'git_config': {'url': 'https://github.com/satijalab/', 'repo_name': 'seurat-data', 'tag': 'v%(version)s'}},
+        'checksums': ['581217c0e4db4b08c531aad6ba5a6156ef0b0b0db317892809b4242d9874453c'],
+    }),
+    ('cli', '3.6.2', {
+        'checksums': ['4c0749e3711b2b6ae90fd992784303bc8d98039599cac1deb397239a7018e151'],
+    }),
+    ('crayon', '1.5.2', {
+        'checksums': ['70a9a505b5b3c0ee6682ad8b965e28b7e24d9f942160d0a2bad18eec22b45a7a'],
+    }),
+    ('hdf5r', '1.3.9', {
+        'checksums': ['ef8e3f833131518afd027f40c4902bac3636f9c331e8c4ade2c439b79cba63ab'],
+    }),
+    ('R6', '2.5.1', {
+        'checksums': ['8d92bd29c2ed7bf15f2778618ffe4a95556193d21d8431a7f75e7e5fc102bf48'],
+    }),
+    ('rlang', '1.1.3', {
+        'checksums': ['24a3424b5dc2c4bd3e5f7c0b54fbe1355028e329181b2d41f4464c8ade28bf0a'],
+    }),
+    ('stringi', '1.8.3', {
+        'checksums': ['1602be8edd1dd8ac5a836f4077cbc9d6a312ca4b2c594a0486370e8c1e314925'],
+    }),
+    ('withr', '3.0.0', {
+        'checksums': ['8c78eede6d0e648c23d38a6695f642aed2819ef708239d00b36cbc15eabbe0e7'],
+    }),
+    ('SeuratDisk', '0.0.0.9015', {
+        'sources': {'filename': '%(name)s_%(version)s.tar.gz', 'git_config': {'url': 'https://github.com/mojaveazure/', 'repo_name': 'seurat-disk', 'commit': '877d4e1'}},
+        'checksums': ['d44419b23d43b808036bbd50c71769cb32dd1a39f02facd7dea4ef6d0c2922bc'],
+    }),
+    ('Azimuth', '0.5.0', {
+        'sources': {'filename': '%(name)s_%(version)s.tar.gz', 'git_config': {'url': 'https://github.com/satijalab/', 'repo_name': 'azimuth', 'tag': 'v%(version)s'}},
+        'checksums': ['d8e56e2b631c74bcfb04f5e2933f7e02a61450c98cb836b95b10607a59c103fb'],
+    }),
+    ('SeuratWrappers', '20210721', {
+        'sources': {'filename': '%(name)s_%(version)s.tar.gz', 'git_config': {'url': 'https://github.com/satijalab/', 'repo_name': 'seurat-wrappers', 'commit': 'd9594f6'}},
+        'checksums': ['b7a3bb5ecce45961f9a50f1f86eecca4539be12c1853e1803bca371bd5b76c61'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+moduleclass = 'bio'
