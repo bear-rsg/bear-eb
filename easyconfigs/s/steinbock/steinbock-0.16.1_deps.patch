@@ -1,0 +1,10 @@
+--- setup.cfg.old	2024-02-09 11:54:56.530899008 +0000
++++ setup.cfg	2024-02-09 11:55:04.212938124 +0000
+@@ -28,7 +28,6 @@
+ 	imageio
+ 	networkx
+ 	numpy
+-	opencv-python-headless
+ 	pandas
+ 	scikit-image
+ 	scipy
