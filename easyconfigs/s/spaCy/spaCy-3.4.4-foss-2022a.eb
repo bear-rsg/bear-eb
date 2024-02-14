@@ -13,6 +13,7 @@ use_pip = True
 dependencies = [
     ('Python', '3.10.4'),
     ('SciPy-bundle', '2022.05'),
+    ('tqdm', '4.64.0'),
 ]
 
 exts_list = [
@@ -61,9 +62,6 @@ exts_list = [
     ('smart-open', '6.3.0', {
         'source_tmpl': 'smart_open-%(version)s.tar.gz',
         'checksums': ['d5238825fe9a9340645fac3d75b287c08fbb99fb2b422477de781c9f5f09e019'],
-    }),
-    ('tqdm', '4.64.1', {
-        'checksums': ['5f4f682a004951c1b450bc753c710e9280c5746ce6ffedee253ddbcbf54cf1e4'],
     }),
     ('pydantic', '1.10.2', {
         'checksums': ['91b8e218852ef6007c2b98cd861601c6a09f1aa32bbbb74fab5b1c33d4a1e410'],
