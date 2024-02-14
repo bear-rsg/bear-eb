@@ -71,9 +71,6 @@ exts_list = [
     ('langcodes', '3.3.0', {
         'checksums': ['794d07d5a28781231ac335a1561b8442f8648ca07cd518310aeb45d6f0807ef6'],
     }),
-    ('en_core_web_trf', '3.4.1', {
-        'source_urls': ['https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.4.1'],
-    }),
     ('en_core_web_sm', '3.4.1', {
         'source_urls': ['https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.4.1'],
     }),
