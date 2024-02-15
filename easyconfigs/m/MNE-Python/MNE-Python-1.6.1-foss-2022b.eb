@@ -14,6 +14,7 @@ toolchain = {'name': 'foss', 'version': '2022b'}
 
 builddependencies = [
     ('meson-python', '0.13.2'),  # needed by dipy
+    ('Cython', '0.29.37'),
 ]
 
 dependencies = [
