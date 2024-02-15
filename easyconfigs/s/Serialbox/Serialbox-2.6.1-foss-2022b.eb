@@ -1,0 +1,62 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+
+name = 'Serialbox'
+version = '2.6.1'
+
+homepage = "https://github.com/GridTools/serialbox"
+description = """Data serialization library and tools for C/C++ and Fortran"""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+github_account = 'GridTools'
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = ['v%(version)s.tar.gz']
+patches = ['%(name)s-%(version)s_fix-numpy-bool.patch']
+checksums = [
+    {'v2.6.1.tar.gz': 'b795ce576e8c4fd137e48e502b07b136079c595c82c660cfa2e284b0ef873342'},
+    {'Serialbox-2.6.1_fix-numpy-bool.patch': 'fc7b0c0de636efb888778504c591b44ab7e33de3552115de68cb372c7a9462d9'},
+]
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+]
+
+dependencies = [
+    ('Boost', '1.81.0'),
+    ('netCDF', '4.9.0'),
+    ('HDF5', '1.14.0'),
+    ('libxml2', '2.10.3'),
+    ('Szip', '2.1.1'),
+    ('bzip2', '1.0.8'),
+    ('OpenSSL', '1.1', '', True),
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+]
+
+# missing include
+preconfigopts = "sed -i '15 i #include <array>' ../%(namelower)s-%(version)s/src/serialbox-c/FortranWrapper.cpp && "
+# make sure the libraries get linked
+preconfigopts += 'export LDFLAGS="$LDFLAGS -lssl -lcrypto -lsz -lbz2 -lhdf5_hl -lhdf5" && '
+configopts = ' '.join([
+    '-DSERIALBOX_ENABLE_FORTRAN=ON',
+    '-DSERIALBOX_USE_OPENSSL=ON',
+    '-DSERIALBOX_USE_NETCDF=ON',
+    '-DSERIALBOX_TESTING=ON',
+])
+
+test_cmd = "cmake --build . --target test"
+
+sanity_check_paths = {
+    'files': ["bin/fortran_producer", "lib/libSerialboxFortran.a", "lib/libSerialboxC.%s" % SHLIB_EXT],
+    'dirs': [],
+}
+
+modextrapaths = {'PYTHONPATH': 'python'}
+
+sanity_check_commands = [
+    "fortran_producer --help",
+    'python -c "import serialbox"',
+]
+
+moduleclass = 'data'

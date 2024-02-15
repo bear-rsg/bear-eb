@@ -1,0 +1,89 @@
+From 37d364a4fa7870446a6eb664d98d0365e8a88c40 Mon Sep 17 00:00:00 2001
+From: David Leutwyler <14977216+leuty@users.noreply.github.com>
+Date: Tue, 18 Oct 2022 16:00:44 +0200
+Subject: [PATCH 1/3] Silence Deprechiation Warning related to np.bool
+
+DeprecationWarning: `np.bool` is a deprecated alias for the builtin `bool`. To silence this warning, use `bool` by itself. Doing this will not modify any behavior and is safe. If you specifically wanted the numpy scalar type, use `np.bool_` here.
+
+ Deprecated in NumPy 1.20; for more details and guidance: https://numpy.org/devdocs/release/1.20.0-notes.html#deprecations
+---
+ src/serialbox-python/serialbox/type.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/serialbox-python/serialbox/type.py b/src/serialbox-python/serialbox/type.py
+index 1580936c..e9b02de0 100644
+--- a/src/serialbox-python/serialbox/type.py
++++ b/src/serialbox-python/serialbox/type.py
+@@ -51,7 +51,7 @@ class TypeID(Enum):
+     ArrayOfString = Array | String
+ 
+ 
+-BooleanTypes = (bool, np.bool,)
++BooleanTypes = (bool, np.bool_,)
+ Int32Types = (int, np.int8, np.int16, np.int32, np.uint8, np.uint16, np.uint32,)
+ Int64Types = (np.int64, np.uint64,)
+ Float32Types = (np.float32,)
+@@ -80,7 +80,7 @@ def typeID2numpy(typeid):
+     """Convert serialbox.TypeID to numpy.dtype
+     """
+     if typeid == TypeID.Boolean:
+-        return np.bool
++        return np.bool_
+     elif typeid == TypeID.Int32:
+         return np.int32
+     elif typeid == TypeID.Int64:
+
+From 62293979b142b72139e3fbb5a8380d965b37b6cb Mon Sep 17 00:00:00 2001
+From: Hannes Vogt <hannes@havogt.de>
+Date: Fri, 6 Jan 2023 13:11:21 +0100
+Subject: [PATCH 2/3] Apply suggestions from code review
+
+---
+ src/serialbox-python/serialbox/type.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/serialbox-python/serialbox/type.py b/src/serialbox-python/serialbox/type.py
+index e9b02de0..87d8c85e 100644
+--- a/src/serialbox-python/serialbox/type.py
++++ b/src/serialbox-python/serialbox/type.py
+@@ -51,7 +51,7 @@ class TypeID(Enum):
+     ArrayOfString = Array | String
+ 
+ 
+-BooleanTypes = (bool, np.bool_,)
++BooleanTypes = (bool,)
+ Int32Types = (int, np.int8, np.int16, np.int32, np.uint8, np.uint16, np.uint32,)
+ Int64Types = (np.int64, np.uint64,)
+ Float32Types = (np.float32,)
+@@ -80,7 +80,7 @@ def typeID2numpy(typeid):
+     """Convert serialbox.TypeID to numpy.dtype
+     """
+     if typeid == TypeID.Boolean:
+-        return np.bool_
++        return bool
+     elif typeid == TypeID.Int32:
+         return np.int32
+     elif typeid == TypeID.Int64:
+
+From c839ca6751a9e9dc35d7aacf8367afe82d8c5931 Mon Sep 17 00:00:00 2001
+From: Hannes Vogt <hannes@havogt.de>
+Date: Mon, 9 Jan 2023 12:48:22 +0000
+Subject: [PATCH 3/3] fix test
+
+---
+ test/serialbox-python/serialbox/test_serializer.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/test/serialbox-python/serialbox/test_serializer.py b/test/serialbox-python/serialbox/test_serializer.py
+index 6e6146d9..651703a2 100644
+--- a/test/serialbox-python/serialbox/test_serializer.py
++++ b/test/serialbox-python/serialbox/test_serializer.py
+@@ -344,7 +344,7 @@ def test_write_and_read_explict(self):
+         #
+         # Setup fields
+         #
+-        field_bool = np.ndarray(dtype=np.bool, shape=[N, N, N])
++        field_bool = np.ndarray(dtype=bool, shape=[N, N, N])
+         field_int32 = np.ndarray(dtype=np.int32, shape=[N, N, N])
+         field_int64 = np.ndarray(dtype=np.int64, shape=[N, N, N])
+         field_float32 = np.ndarray(dtype=np.float32, shape=[N, N, N])
