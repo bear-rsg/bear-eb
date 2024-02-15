@@ -30,12 +30,21 @@ builddependencies = [
     ('zlib', '1.2.12'),
 ]
 
+dependencies = [
+    ('zlib', '1.2.12'),
+]
+
 separate_build_dir = True
 
-files_to_copy = [(['sshash'], 'bin')]
+files_to_copy = [
+    (['sshash', 'test_alphabet'], 'bin'),
+    (['libsshash_static.a'], 'lib'),
+]
+
+postinstallcmds = ["cd %(installdir)s && ln -s lib lib64"]
 
 sanity_check_paths = {
-    'files': ['bin/sshash'],
+    'files': ['bin/sshash', 'lib/libsshash_static.a'],
     'dirs': [],
 }
 
