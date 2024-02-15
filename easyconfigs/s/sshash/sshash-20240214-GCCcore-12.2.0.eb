@@ -1,0 +1,42 @@
+easyblock = 'CMakeMakeCp'
+
+name = 'sshash'
+version = '20240214'
+# _local_commit = '3a8b865'
+_local_commit = 'fd771a070da753aa4b47c41f186a7dad4c70e18b'
+
+homepage = 'https://github.com/jermp/sshash'
+description = """This is a compressed dictionary data structure for k-mers (strings of length k
+ over the DNA alphabet {A,C,G,T}), based on Sparse and Skew Hashing."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/jermp',
+        'repo_name': 'sshash',
+        'commit': _local_commit,
+        'recursive': True,
+    }
+}]
+
+checksums = [None]
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('binutils', '2.39'),
+    ('git', '2.38.1', '-nodocs'),
+    ('zlib', '1.2.12'),
+]
+
+separate_build_dir = True
+
+files_to_copy = [(['sshash'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/sshash'],
+    'dirs': [],
+}
+
+moduleclass = 'lib'
