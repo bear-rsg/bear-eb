@@ -31,7 +31,11 @@ prebuildopts += 'STACK_ROOT=%(builddir)s'
 
 files_to_copy = [
     'data', 'examples', 'LICENSE',
-    (['.stack-work/dist/x86_64-linux-tinfo6/Cabal-*/build/tamarin-prover/tamarin-prover'], 'bin'),
+    '.stack-work/install/x86_64-linux-tinfo6-libc6-pre232/*/*/bin',
+    '.stack-work/install/x86_64-linux-tinfo6-libc6-pre232/*/*/doc',
+    '.stack-work/install/x86_64-linux-tinfo6-libc6-pre232/*/*/installed-packages',
+    '.stack-work/install/x86_64-linux-tinfo6-libc6-pre232/*/*/lib',
+    '.stack-work/install/x86_64-linux-tinfo6-libc6-pre232/*/*/pkgdb',
 ]
 
 sanity_check_paths = {
