@@ -1,0 +1,44 @@
+easyblock = 'MakeCp'
+
+name = 'Tamarin_prover'
+version = '1.8.0'
+
+homepage = "https://tamarin-prover.github.io/"
+description = """The Tamarin prover is a security protocol verification tool that supports both falsification and
+ unbounded verification in the symbolic model. Security protocols are specified as multiset rewriting systems and
+ analysed with respect to (temporal) first-order properties and a message theory that models Diffie-Hellman
+ exponentiation and exclusive-or (XOR), combined with a user-defined rewriting theory that has the Finite Variant
+ Property, which includes subterm-convergent theories."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+source_urls = ['https://github.com/tamarin-prover/tamarin-prover/archive/']
+sources = ['%(version)s.tar.gz']
+checksums = ['0c6433c461acfc675dd9437653322b8cfe6cd5fac1a14d034da8430afe1e090f']
+
+builddependencies = [
+    ('binutils', '2.39'),
+    ('Stack', '2.11.1', '-x86_64', True),
+]
+
+dependencies = [
+    ('Maude', '3.1'),
+    ('Graphviz', '8.1.0'),
+]
+
+prebuildopts = "sed -i 's@~/.local/bin@%(builddir)s@' Makefile && "
+prebuildopts += 'STACK_ROOT=%(builddir)s'
+
+files_to_copy = [
+    'data', 'examples', 'LICENSE',
+    (['.stack-work/dist/x86_64-linux-tinfo6/Cabal-*/build/tamarin-prover/tamarin-prover'], 'bin'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/tamarin-prover'],
+    'dirs': ['data', 'examples'],
+}
+
+sanity_check_commands = ["tamarin-prover %s" % x for x in ['--help', 'test']]
+
+moduleclass = 'tools'
