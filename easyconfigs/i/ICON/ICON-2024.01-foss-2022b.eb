@@ -1,0 +1,123 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+
+name = 'ICON'
+version = '2024.01'
+
+homepage = "https://www.icon-model.org/"
+description = """ICON is a flexible, scalable, high-performance modelling framework for weather, climate and
+ environmental prediction that provides actionable information for society and advances our understanding of
+ the Earth's climate system."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+toolchainopts = {'usempi': True}
+
+sources = [{
+    'filename': '%(name)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://gitlab.dkrz.de/icon',
+        'repo_name': 'icon-model',
+        'tag': '%(namelower)s-%(version)s-public',
+        'recursive': True,
+    }
+}]
+checksums = [None]
+
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+]
+
+dependencies = [
+    # RTTOV - ignoring (manual download: https://www.nwpsaf.eu/site/software/rttov/)
+    ('ecCodes', '2.31.0'),
+    ('HDF5', '1.14.0'),
+    ('libfyaml', '0.9'),
+    ('libxml2', '2.10.3'),
+    ('netCDF', '4.9.0'),
+    ('netCDF-Fortran', '4.6.0'),
+    ('Perl', '5.36.0'),
+    ('Python', '3.10.8'),
+    ('bzip2', '1.0.8'),
+    ('Szip', '2.1.1'),
+    ('zlib', '1.2.12'),
+    ('Serialbox', '2.6.1'),
+]
+
+_fcflags = ' '.join([
+    '-I${EBROOTFLEXIBLAS}/include',
+    '-I${EBROOTNETCDFMINFORTRAN}/include',
+    '-I${EBROOTNETCDF}/include',
+    '-I${EBROOTLIBFYAML}/include',
+    '-I${EBROOTLIBXML2}/include',
+    '-I${EBROOTLIBHDF5}/include',
+    '-I${EBROOTLIBZLIB}/include',
+    '-I${EBROOTLIBSZIP}/include',
+    '-I${EBROOTECCODES}/include',
+    '-I${EBROOTSERIALBOX}/include',
+])
+_ldflags = ' '.join([
+    '-L${EBROOTFLEXIBLAS}/lib',
+    '-L${EBROOTNETCDFMINFORTRAN}/lib',
+    '-L${EBROOTNETCDF}/lib',
+    '-L${EBROOTLIBFYAML}/lib',
+    '-L${EBROOTLIBXML2}/lib',
+    '-L${EBROOTLIBHDF5}/lib',
+    '-L${EBROOTLIBZLIB}/lib',
+    '-L${EBROOTLIBSZIP}/lib',
+    '-L${EBROOTECCODES}/lib',
+    '-L${EBROOTSERIALBOX}/lib',
+])
+_libs = ' '.join([
+    '${LIBBLAS}',
+    '-lnetcdff',
+    '-lnetcdf',
+    '-lfyaml',
+    '-lxml2',
+    '-lhdf5_hl_fortran',
+    '-lhdf5_fortran',
+    '-lhdf5',
+    '-lhdf5_hl',
+    '-lbz2',
+    '-lz',
+    '-lsz',
+    '-leccodes',
+    '-leccodes_f90',
+    '-lSerialboxFortran',
+])
+
+# cheat and use Python 2 (from OS) as this fails with Python 3 due to bytes / ascii encoding issues
+preconfigopts = 'export SB2PP="python2 ${EBROOTSERIALBOX}/python/pp_ser/pp_ser.py" &&'
+configopts = ' '.join([
+    'FCFLAGS="%s ${FCFLAGS}"' % _fcflags,
+    'LDFLAGS="%s ${LDFLAGS}"' % _ldflags,
+    'LIBS="%s ${LIBS}"' % _libs,
+    '--enable-acm-license',
+    '--enable-art',
+    '--enable-cdi-pio',
+    '--enable-comin',
+    '--enable-coupling',
+    '--enable-ecrad',
+    '--enable-grib2',  # provided by ecCodes
+    '--enable-rte-rrtmgp',
+    '--enable-serialization',
+    '--enable-waves',
+    '--enable-yaxt',  # using YAXT in external directory
+    # not building dep
+    # '--enable-rttov',
+    # code not in externals directory
+    # '--enable-dace',
+    # '--enable-emvorado',
+    # '--enable-sct',
+])
+
+runtest = 'check'
+
+sanity_check_paths = {
+    'files': ['bin/icon'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["icon --help"]
+
+moduleclass = 'geo'
