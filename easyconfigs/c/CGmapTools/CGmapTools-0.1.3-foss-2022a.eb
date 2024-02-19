@@ -30,7 +30,7 @@ dependencies = [
     ('R', '4.2.3'),
 ]
 
-prebuildopts= """sed -i 's|DIR + "/bin|DIR + "|' cgmaptools &&"""
+prebuildopts = """sed -i 's|DIR + "/bin|DIR + "|' cgmaptools &&"""
 buildopts = 'CC="$CC" CXX="$CXX" CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS"'
 
 local_c_bin_list = ['ATCGbzFetchRegion', 'ATCGbzToATCGmap', 'ATCGmapToATCGbz', 'CGbzFetchRegion',
