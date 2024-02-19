@@ -4,12 +4,12 @@
 easyblock = 'MakeCp'
 
 name = 'CGmapTools'
-version = '0.1.2'
+version = '0.1.3'
 
 homepage = 'https://cgmaptools.github.io/'
 description = "Command-line Toolset for Bisulfite Sequencing Data Analysis"
 
-toolchain = {'name': 'GCC', 'version': '11.3.0'}
+toolchain = {'name': 'foss', 'version': '2022a'}
 
 # https://github.com/guoweilong/cgmaptools
 github_account = 'guoweilong'
@@ -17,28 +17,40 @@ source_urls = [GITHUB_LOWER_SOURCE]
 sources = ['v%(version)s.tar.gz']
 patches = [('%(name)s-%(version)s_add-Makefile.patch', 0)]
 checksums = [
-    {'v0.1.2.tar.gz': 'afcf3d7192e74bda94ec473c46de8406b56470463c3c75fcc3dce56d646c288c'},
-    {'CGmapTools-0.1.2_add-Makefile.patch': '231fabc9a422ee3c514b310b8c8ce8b789b5f178bb8d0d6e105032939b1746fb'},
+    {'v0.1.3.tar.gz': '0d323674f75a8bb16a6d680e629d82880b16bf9f013a8b240b997e46dea7b506'},
+    {'CGmapTools-0.1.3_add-Makefile.patch': '231fabc9a422ee3c514b310b8c8ce8b789b5f178bb8d0d6e105032939b1746fb'},
 ]
 
 dependencies = [
     ('zlib', '1.2.12'),
     ('SAMtools', '0.1.20'),
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('matplotlib', '3.5.2'),
+    ('R', '4.2.3'),
 ]
 
+prebuildopts = """sed -i 's|DIR + "/bin|DIR + "|' cgmaptools &&"""
 buildopts = 'CC="$CC" CXX="$CXX" CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS"'
 
 local_c_bin_list = ['ATCGbzFetchRegion', 'ATCGbzToATCGmap', 'ATCGmapToATCGbz', 'CGbzFetchRegion',
                     'CGbzToCGmap', 'CGmapFromBAM', 'CGmapToCGbz']
 local_cpp_bin_list = ['ATCGmapMerge', 'CGmapSelectByRegion', 'CGmapMethInBed', 'CGmapMethInFragReg']
 
-files_to_copy = ['bin']
+files_to_copy = ['bin', (['cgmaptools', 'src/*.py', 'src/*.pl', 'src/*.R'], 'bin')]
+
+postinstallcmds = [
+    """cd %(installdir)s/bin && for pr in *.py *.pl *.R; do pn=`basename $pr | cut -d"." -f1`; ln -s $pr $pn; done"""
+]
 
 sanity_check_paths = {
     'files': ['bin/%s' % f for f in local_c_bin_list + local_cpp_bin_list],
     'dirs': []
 }
 # cpp bins return exit(1) on help
-sanity_check_commands = ['%s -h' % f for f in local_c_bin_list]
+sanity_check_commands = ['%s -h' % f for f in local_c_bin_list + ['cgmaptools']]
+sanity_check_commands += [
+    "cd %(builddir)s/*/test && sed -i '2i set -ex' test.sh && sed -i 's/chmod/#/' test.sh && bash test.sh"
+]
 
 moduleclass = 'bio'
