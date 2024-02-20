@@ -1,4 +1,4 @@
-easyblock = 'CmdCp'
+easyblock = 'CMakeMake'
 
 name = 'ESSColor'
 version = '1.0'
@@ -8,33 +8,39 @@ homepage = 'https://github.com/medvedevgroup/ESSColor'
 description = """ESS-Color is a bioinformatics tool for constructing compressed representation of sets of k-mer sets
  (i.e. compressed colored dBG)."""
 
-toolchain = {'name': 'GCC', 'version': '12.2.0'}
+toolchain = {'name': 'foss', 'version': '2022b'}
 
 source_urls = ['https://github.com/medvedevgroup/%(name)s/archive']
 sources = ['%s.tar.gz' % local_commit]
-checksums = ['65eaca3b4747fb0b6f12361e75660db906adaa02a851e6eb3f04c8e0dfa1243b']
+checksums = [
+    {'12b210e.tar.gz': '65eaca3b4747fb0b6f12361e75660db906adaa02a851e6eb3f04c8e0dfa1243b'},
+]
 
 builddependencies = [
     ('CMake', '3.24.3'),
-    ('Rust', '1.73.0'),  # for ggcat
     ('snakemake', '7.32.3'),
     ('git', '2.38.1', '-nodocs'),
     ('binutils', '2.39'),
+    ('zlib', '1.2.12'),
 ]
 
 dependencies = [
     ('KMC', '3.2.2'),
+    ('cxxopts', '3.1.1'),
+    ('SDSL', '2.1.1-20240206'),
+    ('CMPH', '2.0.2'),
+    ('sshash', '20240214'),
+    ('zlib', '1.2.12'),
+    ('Rust', '1.73.0'),  # for ggcat dep replacement in ESS-COMPRESS
 ]
 
-cmds_map = [('.*', './compile.sh -o bin')]
-
-files_to_copy = [(['x/y'], 'bin')]
+# prebuildopts = 'cp lib/parse_file.hpp lib/sshash/include/builder/ && '
 
 sanity_check_paths = {
-    'files': [''],
+    'files': [],
     'dirs': [],
 }
 
-sanity_check_commands = [""]
+sanity_check_commands = ['echo "Path of ESS-Color $(which genMatrix;)"']
 
 moduleclass = 'bio'
