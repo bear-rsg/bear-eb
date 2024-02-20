@@ -1,0 +1,30 @@
+--- olb-1.6r0/config.mk	2023-04-05 14:35:17.000000000 +0100
++++ config.mk	2024-02-16 16:46:25.942880127 +0000
+@@ -9,10 +9,13 @@
+ #  - Run `make clean; make` to clean up any previous artifacts and compile the dependencies
+ #  - Switch to example directory, e.g. `examples/laminar/poiseuille2d`
+ #  - Run `make`
+-#  - Start the simulation using `./poiseuille2d`
++#··-·Start·the·simulation·using·`./poiseuille2d`
+ 
+ # Compiler to use for C++ files, change to `mpic++` when using OpenMPI and GCC
+-CXX             := g++
++#CXX             := g++
++CXX             := mpiCC
++#CXX             := mpic++
++#CXX·············:=·icpc·-D__aligned__=ignored
+ # Compiler to use for C files (used for emebedded dependencies)
+ CC              := gcc
+ 
+@@ -34,7 +37,10 @@
+ # Parallelization mode, must be one of: OFF, MPI, OMP, HYBRID
+ # Note that for MPI and HYBRID the compiler also needs to be adapted.
+ # See e.g. `config/cpu_gcc_openmpi.mk`
+-PARALLEL_MODE   := OFF
++#PARALLEL_MODE   := OFF
++PARALLEL_MODE   := MPI
++#PARALLEL_MODE   := OMP
++#PARALLEL_MODE   := HYBRYD
+ 
+ # optional MPI and OpenMP flags
+ MPIFLAGS        :=
