@@ -4,7 +4,10 @@ name = 'OpenLB'
 version = '1.6-0'
 
 homepage = 'http://www.openlb.net'
-description = """The OpenLB project provides a C++ package for the implementation of lattice Boltzmann methods that is general enough to address a vast range of tansport problems, e.g. in computational fluid dynamics."""
+description = """The OpenLB project provides a C++ package
+ for the implementation of lattice Boltzmann methods
+ that is general enough to address a vast range of tansport problems,
+ e.g. in computational fluid dynamics."""
 
 toolchain = {'name': 'foss', 'version': '2022a'}
 toolchainopts = {'usempi': 'true'}
