@@ -1,0 +1,35 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'clinker'
+version = '0.0.28'
+
+homepage = "https://github.com/gamcil/clinker"
+description = """clinker is a pipeline for easily generating publication-quality gene cluster comparison figures."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('Biopython', '1.81'),
+    ('SciPy-bundle', '2023.02'),
+    ('gffutils', '0.12'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('disjoint_set', '0.7.4', {
+        'checksums': ['ae8b04828b2dd5112399a5deebb3fc1b257bf52d95c5e3d0ac2952610a3f7ec5'],
+    }),
+    (name, version, {
+        'checksums': ['2198d5bdbef75d5cb3224449666c3cc79f3d79459ade694e1bcdf1bf62c4a007'],
+    }),
+]
+
+moduleclass = 'bio'
