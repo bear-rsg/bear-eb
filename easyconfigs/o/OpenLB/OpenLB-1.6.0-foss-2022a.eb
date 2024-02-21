@@ -1,0 +1,39 @@
+easyblock = 'MakeCp'
+
+name = 'OpenLB'
+version = '1.6-0'
+
+homepage = 'http://www.openlb.net'
+description = """The OpenLB project provides a C++ package
+ for the implementation of lattice Boltzmann methods
+ that is general enough to address a vast range of tansport problems,
+ e.g. in computational fluid dynamics."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'usempi': 'true'}
+
+source_urls = ['https://zenodo.org/records/7773497/files/']
+sources = ['olb-1.6r0.tgz']
+patches = ['OpenLB-1.6-0_parallel.patch']
+checksums = [
+    {'olb-1.6r0.tgz': '0202656a6df3509a4b2bc133699922e24377e553db216a088f0f378c71fc9563'},
+    {'OpenLB-1.6-0_parallel.patch': '73cf47c8049741ae091465634c8b0c193df5577aa366c44e9701ab1f4a60ee6e'},
+]
+
+dependencies = [('zlib', '1.2.12')]
+
+files_to_copy = ['build', 'doc', 'examples', 'src']
+
+build_cmd = "make && make samples"
+
+sanity_check_paths = {
+    'files': ['examples/laminar/poiseuille2d/poiseuille2d'],
+    'dirs': ['src']
+}
+
+
+sanity_check_commands = [
+    "mpirun -np 1 ./examples/laminar/poiseuille2d/poiseuille2d",
+]
+
+moduleclass = 'base'
