@@ -32,4 +32,6 @@ exts_list = [
     }),
 ]
 
+sanity_check_commands = ['clinker -h']
+
 moduleclass = 'bio'
