@@ -1,0 +1,53 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pyglotaran'
+version = '0.7.2'
+
+homepage = "https://github.com/glotaran/pyglotaran"
+description = """A Python library for Global and Target Analysis of time-resolved spectroscopy data"""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('numba', '0.56.4'),
+    ('netcdf4-python', '1.6.1'),
+    ('pydantic', '1.10.4'),
+    ('xarray', '2022.9.0'),
+    ('openpyxl', '3.0.10'),
+    ('ruamel.yaml', '0.17.21'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('attrs', '22.1.0', {
+        'checksums': ['29adc2665447e5191d0e7c568fde78b21f9672d344281d0c6e1ab085429b22b6'],
+    }),
+    ('asteval', '0.9.22', {
+        'checksums': ['74a0939765fc6b1421e6672ccf74c52edc3c7af7d6a8298b057b0d50ac51aea8'],
+    }),
+    ('defusedxml', '0.7.1', {
+        'checksums': ['1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69'],
+    }),
+    ('odfpy', '1.4.1', {
+        'modulename': 'odf',
+        'checksums': ['db766a6e59c5103212f3cc92ec8dd50a0f3a02790233ed0b52148b70d3c438ec'],
+    }),
+    ('sdtfile', '2023.9.28', {
+        'checksums': ['32c3f7ebeadeee184565bf336c645f107e044d0774bee5e18532716e5d30dd7d'],
+    }),
+    (name, version, {
+        'modulename': 'glotaran',
+        'checksums': ['aa9f9b10a9d554017e444e6522ec87cfa9ace682ee8e8f98a4660c2424c5c0de'],
+    }),
+]
+
+moduleclass = 'bio'
