@@ -17,6 +17,7 @@ dependencies = [
     ('pydantic', '1.10.4'),
     ('xarray', '2022.9.0'),
     ('openpyxl', '3.0.10'),
+    ('ruamel.yaml', '0.17.21'),
 ]
 
 sanity_pip_check = True
@@ -42,13 +43,6 @@ exts_list = [
     }),
     ('sdtfile', '2023.9.28', {
         'checksums': ['32c3f7ebeadeee184565bf336c645f107e044d0774bee5e18532716e5d30dd7d'],
-    }),
-    ('ruamel.yaml.clib', '0.2.8', {
-        'modulename': '_ruamel_yaml',
-        'checksums': ['beb2e0404003de9a4cab9753a8805a8fe9320ee6673136ed7f04255fe60bb512'],
-    }),
-    ('ruamel.yaml', '0.17.30', {
-        'checksums': ['7e47a3d9ccfa2e41d353e6615661308bcbbc2ebad393bdc13b725bac15baf8a9'],
     }),
     (name, version, {
         'modulename': 'glotaran',
