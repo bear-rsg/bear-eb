@@ -41,4 +41,8 @@ sanity_check_commands = [
     "mpirun -np 1 ./examples/laminar/poiseuille2d/poiseuille2d",
 ]
 
+modextravars={
+    'OLB_ROOT': '%(installdir)s',
+}
+
 moduleclass = 'base'
