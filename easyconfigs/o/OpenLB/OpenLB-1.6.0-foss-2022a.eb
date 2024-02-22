@@ -22,9 +22,10 @@ checksums = [
 
 dependencies = [('zlib', '1.2.12')]
 
-files_to_copy = ['build', 'doc', 'examples', 'src']
+files_to_copy = ['build', 'doc', 'examples', 'src', 'external', 'config.mk',
+    'default.mk', 'default.mixed.mk', 'default.single.mk', 'rules.mk', 'codegen']
 
-build_cmd = "make && make samples"
+build_cmd = "make && make samples && make doxygen"
 
 sanity_check_paths = {
     'files': ['examples/laminar/poiseuille2d/poiseuille2d'],
