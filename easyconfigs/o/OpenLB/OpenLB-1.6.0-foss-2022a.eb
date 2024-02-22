@@ -29,7 +29,7 @@ files_to_copy = [
     'default.single.mk', 'rules.mk', 'codegen'
 ]
 
-build_cmd = "make && make samples && make doxygen"
+build_cmd = "make && make samples"
 
 sanity_check_paths = {
     'files': ['examples/laminar/poiseuille2d/poiseuille2d'],
