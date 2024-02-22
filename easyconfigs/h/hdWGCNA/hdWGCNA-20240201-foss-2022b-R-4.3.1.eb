@@ -25,71 +25,11 @@ exts_default_options = {
 }
 
 exts_list = [
-    ('Matrix', '1.6-5', {
-        'checksums': ['726c8d46626e73d1d6e76a74679813c6df96ffdee1aee45d94e7014cb4ceb97d'],
-    }),
-    ('sp', '2.1-3', {
-        'checksums': ['fa939272e534811b34cfca7d1c619448b1e4f90240c092e25bb8764445c68454'],
-    }),
-    ('SeuratObject', '4.1.4', {
-        'checksums': ['74e7649ad9795c962c0b12d039d7bf9b11a8a275a63c3a0fa1205b684e5310ef'],
-    }),
-    ('sctransform', '0.4.0', {
-        'checksums': ['9aef10c196a9578e0d7a8e244c55cf28eb0685947d9df9e2d7790c2b99c6b4b3'],
-    }),
-    ('uwot', '0.1.16', {
-        'checksums': ['5f63a0d9edddb08435477af52724cb588c787c8d543c68c9358ed7b1ec3e8e48'],
-    }),
-    ('spatstat.utils', '3.0-1', {
-        'checksums': ['cba1c7806564fd9145ca15edf77233d6ba5609f0989f7812221f5fc1ece0b91a'],
-    }),
-    ('spatstat.data', '3.0-0', {
-        'checksums': ['cff9058a88489020a4a05b9576cd452f37fa9b42084873c474d06931f5187057'],
-    }),
-    ('spatstat.geom', '3.0-3', {
-        'checksums': ['6e5b56c60e774a0cdcaa5a8ffde071225f233832446a341588bd8a7840913c84'],
-    }),
-    ('spatstat.random', '3.0-1', {
-        'checksums': ['938c845c063b8781bf894c0a67537e7b2a7c425a4beba4a95ec9d2c37b43e5b6'],
-    }),
-    ('spatstat.sparse', '3.0-0', {
-        'checksums': ['99be0a3c7592760fdf1668dc0811f75ed91c400390d1ecc3d5e643255f501ad2'],
-    }),
-    ('spatstat.explore', '3.0-5', {
-        'checksums': ['9f438a12fac3f3e1d0bd550b1393c1e5732be694517b0878db09da557d6dc862'],
-    }),
-    ('scattermore', '1.2', {
-        'checksums': ['5534a87b0bdd1375f0fbffc1a5c980ad64e33a108435a67469b8324b580602d1'],
-    }),
-    ('Seurat', '4.4.0', {
-        'checksums': ['0f17df9597642cfc1db4d8718f0b59ebab9fbed328b1f885f42ee85ea0dcb4dd'],
-    }),
-    ('dynamicTreeCut', '1.63-1', {
-        'checksums': ['831307f64eddd68dcf01bbe2963be99e5cde65a636a13ce9de229777285e4db9'],
-    }),
-    ('fastcluster', '1.2.6', {
-        'checksums': ['852a05458fb0b64497e9cf8f0182b599d1c2b1e9af03ec45f7c0c9280c1f8d19'],
-    }),
-    ('WGCNA', '1.72-5', {
-        'checksums': ['03439143ff235c17f0dbca7dd6362afa8ddb5a72594f5c2df1c6df1caca2e79d'],
-    }),
-    ('cpp11', '0.4.7', {
-        'checksums': ['801d1266824c3972642bce2db2a5fd0528a65ec845c58eb5a886edf082264344'],
-    }),
-    ('igraph', '2.0.2', {
-        'checksums': ['34f9d5b778c2f41a024183cc3613a1716660f7e3ffb74a2af88c14efe94acc4d'],
-    }),
-    ('usethis', '2.2.3', {
-        'checksums': ['8d0c98995c23b5f4b5b95cd453557d2d15faa7399cc01bff304f5b15cb0cdeb3'],
-    }),
-    ('devtools', '2.4.5', {
-        'checksums': ['38160ebd839acdec7ebf0699a085b4ab1ebd5500d3c57a9fa7ae484f1909904b'],
-    }),
     ('tester', '0.1.7', {
         'checksums': ['b9c645119c21c69450f3d366c911ed92ac7c14ef61652fd676a38fb9d420b5f4'],
     }),
-    ('harmony', '1.2.0', {
-        'checksums': ['a63c7d7cbbc5d183e8f919552e9d73044e0a89660856e80861a00eb5d25ac7b5'],
+    ('harmony', '1.0.1', {
+        'checksums': ['73cba7fbffdcada5420bb68340416e0cc51a95fa4d8779e6d14b534bda418d42'],
     }),
     (name, version, {
         'sources': {
