@@ -1,0 +1,53 @@
+easyblock = 'Bundle'
+
+name = 'hdWGCNA'
+version = '20240201'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://github.com/smorabit/hdWGCNA'
+description = "High dimensional weighted gene co-expression network analysis."
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+    ('R-bundle-Bioconductor', '3.17', versionsuffix),
+]
+
+exts_defaultclass = 'RPackage'
+exts_default_options = {
+    'sources': ['%(name)s_%(version)s.tar.gz'],
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',
+        'https://cran.freestatistics.org/src/contrib',
+    ],
+}
+
+exts_list = [
+    ('tester', '0.1.7', {
+        'checksums': ['b9c645119c21c69450f3d366c911ed92ac7c14ef61652fd676a38fb9d420b5f4'],
+    }),
+    ('harmony', '1.0.1', {
+        'checksums': ['73cba7fbffdcada5420bb68340416e0cc51a95fa4d8779e6d14b534bda418d42'],
+    }),
+    (name, version, {
+        'sources': {
+            'filename': '%(name)s_%(version)s.tar.gz',
+            'git_config': {
+                 'url': 'https://github.com/smorabit/',
+                 'repo_name': 'hdWGCNA',
+                 'commit': '9ff9734'
+            }},
+        'checksums': ['cc389cb93b8afaa387cbb51d18f9faa1a89898e296905e32490e2626d2a58eee'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+moduleclass = 'bio'
