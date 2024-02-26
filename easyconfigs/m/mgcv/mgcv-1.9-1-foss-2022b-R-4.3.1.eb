@@ -1,0 +1,43 @@
+easyblock = 'Bundle'
+
+name = 'mgcv'
+version = '1.9-1'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://cran.r-project.org/package=mgcv'
+description = """Generalized additive (mixed) models, some of their extensions and other generalized ridge regression
+ with multiple smoothing parameter estimation by (Restricted) Marginal Likelihood, Generalized Cross Validation and
+ similar, or using iterated nested Laplace approximation for fully Bayesian inference. See Wood (2017)
+ <doi:10.1201/9781315370279> for an overview. Includes a gam() function, a wide variety of smoothers, 'JAGS' support
+ and distributions beyond the exponential family."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_default_options = {
+    'sources': ['%(name)s_%(version)s.tar.gz'],
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',
+        'https://cran.freestatistics.org/src/contrib',
+    ],
+}
+
+exts_list = [
+    (name, version, {
+        'checksums': ['700fbc37bedd3a49505b9bc4949faee156d9cfb4f669d797d06a10a15a5bdb32'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+moduleclass = 'bio'
