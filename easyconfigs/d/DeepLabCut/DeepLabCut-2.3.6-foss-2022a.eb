@@ -73,7 +73,8 @@ exts_list = [
 
 modloadmsg = """
 Please do:
-cp $EBROOTDEEPLABCUT/lib/python3.10/site-packages/deeplabcut/pose_estimation_tensorflow/models/pretrained/pretrained_model_urls.yaml ./
+cp $EBROOTDEEPLABCUT/lib/python3.10/site-packages/deeplabcut/pose_estimation_tensorflow/models/
+pretrained/pretrained_model_urls.yaml ./
 To copy this file into your project directory
 """
 
