@@ -1,0 +1,23 @@
+--- setup.py.old	2024-02-29 14:42:49.357193371 +0000
++++ setup.py	2024-02-29 14:43:12.546184209 +0000
+@@ -40,7 +40,7 @@
+         "scipy>=1.4,<1.11.0",
+         "statsmodels>=0.11",
+         "tables>=3.7.0",
+-        "torch<=1.12",
++        "torch",
+         "tensorpack>=0.11",
+         "tf_slim>=1.1.0",
+         "tqdm",
+
+--- deeplabcut/utils/auxfun_models.py.old	2024-02-29 12:39:21.669565000 +0000
++++ deeplabcut/utils/auxfun_models.py	2024-02-29 12:39:59.369866000 +0000
+@@ -25,7 +25,7 @@
+ 
+ 
+ # This dictionary maps the model types to the file locations where the models exist.
+-MODEL_BASE_PATH = Path("pose_estimation_tensorflow") / "models" / "pretrained"
++MODEL_BASE_PATH = Path.cwd()
+ MODELTYPE_FILEPATH_MAP = {
+     "resnet_50": MODEL_BASE_PATH / "resnet_v1_50.ckpt",
+     "resnet_101": MODEL_BASE_PATH / "resnet_v1_101.ckpt",
