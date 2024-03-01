@@ -1,0 +1,58 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'Battenberg'
+version = '2.2.9'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://github.com/Wedge-lab/battenberg"
+description = """A whole genome sequencing subclonal copy number caller"""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+    ('R-bundle-Bioconductor', '3.17', '-R-%(rver)s'),
+    ('alleleCount', '4.3.0'),
+    ('libxml2', '2.10.3'),
+    ('cURL', '7.86.0'),
+    ('HTSlib', '1.17'),
+    ('IMPUTE2', '2.3.2', "_x86_64_static", SYSTEM),
+    ('ASCAT', '3.1.2', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.15/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.15/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.15/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    ('copynumber', '1.36.0', {
+        'checksums': ['0d56f34dff7919c4ba3a1e87cc11d98987a91837d344bd2ac5a8271273c228bf'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/Wedge-lab/battenberg/archive/'],
+        'sources': ['v%(version)s.tar.gz'],
+        'checksums': ['1cdc6c00b71ad20643b3f2d38a51d0b0e724236702c120ed4e9cc330172e777f'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['Battenberg/R/Battenberg'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
