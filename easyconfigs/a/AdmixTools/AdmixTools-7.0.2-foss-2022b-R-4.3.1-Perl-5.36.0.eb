@@ -20,7 +20,7 @@ checksums = [
 ]
 
 dependencies = [
-    ('GSL', '2.7'),
+    # ('GSL', '2.7'),  # GSL via R install
     ('Perl', '5.36.0'),
     ('R', '4.3.1'),
 ]
