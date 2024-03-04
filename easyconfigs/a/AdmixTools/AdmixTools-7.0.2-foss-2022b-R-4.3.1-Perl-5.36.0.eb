@@ -1,0 +1,55 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+
+name = 'AdmixTools'
+version = '7.0.2'
+versionsuffix = '-R-%(rver)s-Perl-%(perlver)s'
+
+homepage = 'https://github.com/DReichLab/AdmixTools'
+description = """The ADMIXTOOLS package implements 5 methods described in Patterson et al. (2012)
+ Ancient Admixture in Human History. Details of the methods and algorithm can be found in this paper."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+source_urls = ['https://github.com/DReichLab/%(name)s/archive']
+sources = ['v%(version)s.tar.gz']
+patches = ['AdmixTools_makefile.patch']
+checksums = [
+    {'v7.0.2.tar.gz': 'd1dc1963e01017f40e05e28009008e14388a14a3facc75cff46653da585bd91e'},
+    {'AdmixTools_makefile.patch': '2654b741130d53adfc8f8fa4141ee4d2de7ba6eb70b260ddb4067acf6e32db04'},
+]
+
+dependencies = [
+    ('GSL', '2.7'),
+    ('Perl', '5.36.0'),
+    ('R', '4.3.1'),
+]
+
+fix_perl_shebang_for = [
+    'bin/dof4',
+    'bin/dof4a',
+    'bin/getresult',
+    'bin/jackdiff',
+    'bin/mkpretty',
+    'bin/numlines',
+    'bin/wtjack.pl',
+    'bin/xtractcol',
+    'bin/xtractcolv',
+    'convertf/example.perl',
+    'convertf/ind2pheno.perl',
+    'examples/mklog',
+    'examples.qpGraph/runqpgf',
+    'examples.qpGraph/runqpgf2',
+]
+postinstallcmds = ['sed -i s:/groups/reich/pm82/dev:\\$EBROOTADMIXTOOLS: %(installdir)s/bin/wtjack.pl']
+skipsteps = ['configure']
+unpack_options = '--strip-components=1'
+buildininstalldir = True
+start_dir = 'src'
+
+sanity_check_paths = {
+    'files': [('bin/convertf', 'bin/dowtjack', 'bin/gcount', 'bin/qpfstats', 'bin/rolloff', 'bin/simpjack2'), ('bin/dof4', 'bin/dof4a', 'bin/getresult', 'bin/jackdiff', 'bin/mkpretty', 'bin/numlines', 'bin/wtjack.pl', 'bin/xtractcol', 'bin/xtractcolv')],
+    'dirs': ['convertf', 'examples', 'examples.qpGraph', 'perlsrc', 'perlsrc2'],
+}
+
+moduleclass = 'bio'
