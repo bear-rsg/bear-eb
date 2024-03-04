@@ -47,8 +47,14 @@ unpack_options = '--strip-components=1'
 buildininstalldir = True
 start_dir = 'src'
 
+local_executables = [
+    'convertf', 'dowtjack', 'gcount', 'qpfstats', 'rolloff', 'simpjack2',
+    'dof4', 'dof4a', 'getresult', 'jackdiff', 'mkpretty', 'numlines',
+    'wtjack.pl', 'xtractcol', 'xtractcolv'
+]
+
 sanity_check_paths = {
-    'files': [('bin/convertf', 'bin/dowtjack', 'bin/gcount', 'bin/qpfstats', 'bin/rolloff', 'bin/simpjack2'), ('bin/dof4', 'bin/dof4a', 'bin/getresult', 'bin/jackdiff', 'bin/mkpretty', 'bin/numlines', 'bin/wtjack.pl', 'bin/xtractcol', 'bin/xtractcolv')],
+    'files': ['bin/%s' % x for x in local_executables],
     'dirs': ['convertf', 'examples', 'examples.qpGraph', 'perlsrc', 'perlsrc2'],
 }
 
