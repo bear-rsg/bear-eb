@@ -11,15 +11,15 @@ homepage = 'https://qiime2.org/'
 description = """QIIME is an open-source bioinformatics pipeline for performing microbiome analysis
  from raw DNA sequencing data."""
 
-source_urls = ['https://raw.githubusercontent.com/qiime2/distributions/dev/%(version)s/amplicon/released/']
-sources = ['qiime2-amplicon-ubuntu-latest-conda.yml']
-checksums = ['c7a1b3d66862407fa67caf4e83bb8c096fb8c29167426380a2ceed39237359ce']
+source_urls = ['https://data.qiime2.org/distro/amplicon/']
+sources = ['qiime2-amplicon-%(version)s-py38-linux-conda.yml']
+checksums = ['6e9b7071cf6cb31b6fed35ff38936ff7cf7ce266e2765cff90650b5241ccb40e']
 
 toolchain = SYSTEM
 
 builddependencies = [('Miniconda3', '22.11.1-1')]
 
-environment_file = 'qiime2-amplicon-ubuntu-latest-conda.yml'
+environment_file = 'qiime2-amplicon-%(version)s-py38-linux-conda.yml'
 
 sanity_check_commands = ['qiime info']
 
