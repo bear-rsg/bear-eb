@@ -1,0 +1,11 @@
+--- arch/makefile.include.intel_omp.orig	2024-03-08 14:46:40.046892109 +0000
++++ arch/makefile.include.intel_omp	2024-03-08 14:47:11.945207975 +0000
+@@ -75,3 +75,8 @@
+ #CXX_FFTLIB  = icpc -qopenmp -std=c++11 -DFFTLIB_USE_MKL -DFFTLIB_THREADSAFE
+ #INCS_FFTLIB = -I./include -I$(MKLROOT)/include/fftw
+ #LIBS       += fftlib
++
++# DFT-D4
++CPP_OPTIONS += -DDFTD4
++LLIBS       += $(shell pkg-config --libs dftd4)
++INCS        += $(shell pkg-config --cflags dftd4)
