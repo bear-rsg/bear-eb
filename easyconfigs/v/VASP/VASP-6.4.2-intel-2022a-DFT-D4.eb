@@ -16,6 +16,10 @@ download_instructions = """Vasp is proprietary software, see http://www.vasp.at/
 
 sources = ['%(namelower)s.%(version)s.tgz']
 patches = ['VASP-6.4.2_add-DFT-D4.patch']
+checksums = [
+    {'vasp.6.4.2.tgz': 'b704637f7384673f91adfbc803edc5cc7fe736d9623453461f7cdc29b123410e'},
+    {'VASP-6.4.2_add-DFT-D4.patch': '5b9482ba16fde745ec6a30525ace224a78f3125a777bae3e479a6c7070b6f50f'},
+]
 
 builddependencies = [('pkgconf', '1.8.0')]
 dependencies = [('DFT-D4', '3.6.0')]
