@@ -10,27 +10,32 @@ description = """ESS-Color is a bioinformatics tool for constructing compressed 
 
 toolchain = {'name': 'foss', 'version': '2022b'}
 
-source_urls = ['https://github.com/medvedevgroup/%(name)s/archive']
-sources = ['%s.tar.gz' % local_commit]
-checksums = [
-    {'12b210e.tar.gz': '65eaca3b4747fb0b6f12361e75660db906adaa02a851e6eb3f04c8e0dfa1243b'},
-]
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/medvedevgroup',
+        'repo_name': 'ESSColor',
+        'commit': local_commit,
+        'recursive': True,
+    }
+}]
+
+checksums = [None]
 
 builddependencies = [
     ('CMake', '3.24.3'),
-    ('snakemake', '7.32.3'),
     ('git', '2.38.1', '-nodocs'),
     ('binutils', '2.39'),
-    ('zlib', '1.2.12'),
 ]
 
 dependencies = [
-    ('KMC', '3.2.2'),
+    #('KMC', '3.2.2'),
     ('cxxopts', '3.1.1'),
     ('SDSL', '2.1.1-20240206'),
     ('CMPH', '2.0.2'),
     ('sshash', '20240214'),
     ('zlib', '1.2.12'),
+    ('snakemake', '7.32.3'),
     ('Rust', '1.73.0'),  # for ggcat dep replacement in ESS-COMPRESS
 ]
 
