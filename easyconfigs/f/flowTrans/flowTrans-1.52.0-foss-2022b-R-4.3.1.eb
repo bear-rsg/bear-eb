@@ -1,0 +1,61 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'flowTrans'
+version = '1.52.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://bioconductor.org/packages/3.17/bioc/html/flowTrans.html"
+description = """Profile maximum likelihood estimation of parameters for flow cytometry data transformations."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+    ('R-bundle-Bioconductor', '3.17', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.17/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.17/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    ('RProtoBufLib', '2.12.1', {
+        'patches': ['RProtoBufLib-2.8.0_fix-protobuf-build.patch'],
+        'checksums': [
+            {'RProtoBufLib_2.12.1.tar.gz': 'b5c1c2d5ea6284ec33bda7af86fa99554687451287aabbacf91ed325a3ecf624'},
+            {'RProtoBufLib-2.8.0_fix-protobuf-build.patch':
+             '8775d74e2288000c57575f4ef45a875b4a377ac02f89efa947699ea786bedf64'},
+        ],
+    }),
+    ('cytolib', '2.12.1', {
+        'checksums': ['1fcf5c4f45411321fd4fd8b8a0ace9955ab195c8f1a3fdcf037f8b345311db55'],
+    }),
+    ('flowCore', '2.12.2', {
+        'checksums': ['1064a2941dbca4a25ff129ca8d62c9341b545aa070d6221987b2edeac3d57dfc'],
+    }),
+    (name, version, {
+        'checksums': ['64ccd4a230a670818adbf96f0f15102f211c1f81e192d1d1ad949f926c39b1d6'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
