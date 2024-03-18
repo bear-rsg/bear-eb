@@ -1,0 +1,56 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'RUVSeq'
+version = '1.34.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=RUVSeq"
+description = """This package implements the remove unwanted variation (RUV) methods of Risso et al. (2014)
+ for the normalization of RNA-Seq read counts between samples."""
+citing = """Risso D, Ngai J, Speed T, Dudoit S (2014). “Normalization of RNA-seq data using factor analysis
+of control genes or samples.” Nature Biotechnology, 32(9), 896–902. In press,
+http://www.nature.com/nbt/journal/v32/n9/full/nbt.2931.html."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+    ('R-bundle-Bioconductor', '3.17', '-R-%(rver)s'),
+]
+
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.17/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.17/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('EDASeq', '2.34.0', {
+        'checksums': ['305692a36291de14141bff356b06bfb4b1ef5fd2d0bc9bcbcbdce3b20498c43d'],
+    }),
+    (name, version, {
+        'checksums': ['411ab0a2106be8d4c94a76fb6b82fc20986776570eb4fb9a75f3f86b1c56aa4f'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['RUVSeq/R/RUVSeq'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
