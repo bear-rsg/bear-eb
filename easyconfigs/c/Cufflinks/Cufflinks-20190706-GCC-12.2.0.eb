@@ -1,0 +1,52 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+
+name = 'Cufflinks'
+version = '20190706'
+local_commit = 'dc3b0cb'
+
+homepage = 'http://cole-trapnell-lab.github.io/%(namelower)s/'
+description = "Transcript assembly, differential expression, and differential regulation for RNA-Seq"
+
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
+toolchainopts = {'pic': True, 'cstd': 'c++03'}
+
+github_account = 'cole-trapnell-lab'
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+patches = ['Cufflinks-20190706-AM_INIT_AUTOMAKE.patch']
+checksums = [
+    {'Cufflinks-20190706.tar.gz': '444c632083a473fe4fd99ff189cef5bbd95daee0912e8eefe79534bf225fbcb6'},
+    {'Cufflinks-20190706-AM_INIT_AUTOMAKE.patch': '3a9c0d39969d5c32da1b35c2e4753b456507a5a5395f291a6264dfe6e38ce146'},
+]
+
+builddependencies = [
+    ('Eigen', '3.4.0'),
+    ('Autotools', '20220317'),
+    ('SAMtools', '1.17'),
+    ('Subversion', '1.14.3'),
+    # Boost <= 1.75.0 required for C++03 support. See:
+    # https://github.com/easybuilders/easybuild-easyconfigs/pull/15265#issue-1201152246
+    ('Boost', '1.75.0'),
+]
+
+dependencies = [
+    ('zlib', '1.2.12'),
+    ('HTSlib', '1.17'),
+]
+
+preconfigopts = 'autoreconf -i && export LIBS="${LIBS} -lhts" && export CFLAGS="$CFLAGS -fcommon" && '
+configopts = '--with-boost=${EBROOTBOOST} --with-bam=${EBROOTSAMTOOLS}'
+
+buildopts = "BOOST_FILESYSTEM_LIB=$EBROOTBOOST/lib/libboost_filesystem.a "
+buildopts += "BOOST_SERIALIZATION_LIB=$EBROOTBOOST/lib/libboost_serialization.a "
+buildopts += "BOOST_SYSTEM_LIB=$EBROOTBOOST/lib/libboost_system.a "
+buildopts += "BOOST_THREAD_LIB=$EBROOTBOOST/lib/libboost_thread.a "
+
+sanity_check_paths = {
+    'files': ['bin/cufflinks'],
+    'dirs': []
+}
+
+sanity_check_commands = ["cufflinks 2>&1 | grep 'Usage:.* cufflinks'"]
+
+moduleclass = 'bio'
