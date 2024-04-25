@@ -24,10 +24,13 @@ exts_default_options = {
     'source_urls': [PYPI_SOURCE],
 }
 
-local_labrat_prebuildopts = 'mkdir -p %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
-local_labrat_prebuildopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/annot %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
-local_labrat_prebuildopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/misc %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
-local_labrat_prebuildopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/uniqueseqs %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+local_labrat_preinstallopts = 'mkdir -p %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+local_labrat_preinstallopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/annot \
+                                %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+local_labrat_preinstallopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/misc \
+                                %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+local_labrat_preinstallopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/uniqueseqs \
+                               %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
 
 exts_list = [
     ('argcomplete', '2.0.5', {
@@ -44,7 +47,7 @@ exts_list = [
     }),
     (name, version, {
         'modulename': False,
-        'preinstallopts': "mkdir -p %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && mv %(builddir)s/LABRAT/LABRAT-0.3.0/annot %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && mv %(builddir)s/LABRAT/LABRAT-0.3.0/misc %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && mv %(builddir)s/LABRAT/LABRAT-0.3.0/uniqueseqs %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && ",
+        'preinstallopts': local_labrat_preinstallopts,
         'sources': ['https://github.com/TaliaferroLab/%(name)s/archive/refs/tags/v%(version)s.tar.gz'],
         'checksums': ['342ec1623769774c06efa2bec4539cdc076ca987122c2649614702b638b1b37f'],
     }),
