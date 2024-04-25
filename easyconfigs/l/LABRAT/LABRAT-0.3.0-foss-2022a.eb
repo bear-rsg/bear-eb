@@ -15,6 +15,7 @@ dependencies = [
     ('Salmon', '1.9.0'),
     ('Biopython', '1.79'),
     ('statsmodels', '0.13.1'),
+    ('pyfaidx', '0.7.1'),
 ]
 
 sanity_pip_check = True
@@ -38,9 +39,6 @@ exts_list = [
     }),
     ('argh', '0.27.2', {
         'checksums': ['00c9027f6f461bcf24afe599a281bbda5cbd5dee4b6705befbea293a4ca7d221'],
-    }),
-    ('pyfaidx', '0.7.1', {
-        'checksums': ['3977632b7fd29049f8b11035d7e9dea0e2c5da9c235f982b4c3fae06ff1fa23f'],
     }),
     ('gffutils', '0.11.0', {
         'checksums': ['4593bdf8bda2501b8e0c54cd3366fdaba04b211c86f43c0029e65869d15ec769'],
