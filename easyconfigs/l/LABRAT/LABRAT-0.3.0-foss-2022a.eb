@@ -24,13 +24,13 @@ exts_default_options = {
     'source_urls': [PYPI_SOURCE],
 }
 
-local_labrat_preinstallopts = 'mkdir -p %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+local_labrat_preinstallopts = 'mkdir -p %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/site-packages && '
 local_labrat_preinstallopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/annot \
-                                %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+                                %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/site-packages && '
 local_labrat_preinstallopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/misc \
-                                %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+                                %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/site-packages && '
 local_labrat_preinstallopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/uniqueseqs \
-                               %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+                               %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/site-packages && '
 
 exts_list = [
     ('argcomplete', '2.0.5', {
