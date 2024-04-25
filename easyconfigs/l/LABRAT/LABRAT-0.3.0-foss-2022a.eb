@@ -1,0 +1,53 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'LABRAT'
+version = '0.3.0'
+
+homepage = "https://github.com/TaliaferroLab/LABRAT"
+description = """Lightweight Alignment Based Resolution of Alternative Three Prime Ends """
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('SciPy-bundle', '2022.05'),
+    ('Salmon', '1.9.0'),
+    ('Biopython', '1.79'),
+    ('statsmodels', '0.13.1'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+local_labrat_prebuildopts = 'mkdir -p %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+local_labrat_prebuildopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/annot %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+local_labrat_prebuildopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/misc %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+local_labrat_prebuildopts += 'mv %(builddir)s/LABRAT/LABRAT-0.3.0/uniqueseqs %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && '
+
+exts_list = [
+    ('argcomplete', '2.0.5', {
+        'checksums': ['1cfd12928d62e41901783e4dc7d7ca03eccd589840face4c020693b13f754312'],
+    }),
+    ('argh', '0.27.2', {
+        'checksums': ['00c9027f6f461bcf24afe599a281bbda5cbd5dee4b6705befbea293a4ca7d221'],
+    }),
+    ('pyfaidx', '0.7.1', {
+        'checksums': ['3977632b7fd29049f8b11035d7e9dea0e2c5da9c235f982b4c3fae06ff1fa23f'],
+    }),
+    ('gffutils', '0.11.0', {
+        'checksums': ['4593bdf8bda2501b8e0c54cd3366fdaba04b211c86f43c0029e65869d15ec769'],
+    }),
+    (name, version, {
+        'modulename': False,
+        'preinstallopts': "mkdir -p %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && mv %(builddir)s/LABRAT/LABRAT-0.3.0/annot %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && mv %(builddir)s/LABRAT/LABRAT-0.3.0/misc %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && mv %(builddir)s/LABRAT/LABRAT-0.3.0/uniqueseqs %(builddir)s/LABRAT/LABRAT-0.3.0/lib/python3.10/sitepackages && ",
+        'sources': ['https://github.com/TaliaferroLab/%(name)s/archive/refs/tags/v%(version)s.tar.gz'],
+        'checksums': ['342ec1623769774c06efa2bec4539cdc076ca987122c2649614702b638b1b37f'],
+    }),
+]
+
+moduleclass = 'bio'
