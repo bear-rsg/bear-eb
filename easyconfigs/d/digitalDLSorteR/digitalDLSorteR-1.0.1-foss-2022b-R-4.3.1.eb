@@ -6,8 +6,8 @@ version = '1.0.1'
 versionsuffix = '-R-%(rver)s'
 
 homepage = "https://bioconductor.org/packages/release/bioc/html/digitalDLSorteR.html"
-description = """Deconvolution of bulk RNA-Seq data using context-specific deconvolution models based on 
-Deep Neural Networks using scRNA-Seq data as input."""
+description = """Deconvolution of bulk RNA-Seq data using context-specific deconvolution models based on
+ Deep Neural Networks using scRNA-Seq data as input."""
 
 toolchain = {'name': 'foss', 'version': '2022b'}
 
