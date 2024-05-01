@@ -1,0 +1,73 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'digitalDLSorteR'
+version = '1.0.1'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://bioconductor.org/packages/release/bioc/html/digitalDLSorteR.html"
+description = """Deconvolution of bulk RNA-Seq data using context-specific deconvolution models based on 
+Deep Neural Networks using scRNA-Seq data as input."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('R', '4.3.1'),
+    ('R-bundle-Bioconductor', '3.17', '-R-%(rver)s'),
+    ('Python', '3.10.8'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.17/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.17/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.17/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    ('softImpute', '1.4-1', {
+        'checksums': ['ea4c39831dee834204f6d6594aad6b937540ba4f2adf3f37fb4546844c234aec'],
+    }),
+    ('zinbwave', '1.22.0', {
+        'checksums': ['7380b12de83903982bac894ea07fd9c6041635b021eea1045155f1faee5fbdae'],
+    }),
+    ('config', '0.3.2', {
+        'checksums': ['7b5c21c2b86d5ba88d6e888bc614d5633f4fb5c0b50bb498a529c32ccf931065'],
+    }),
+    ('tfruns', '1.5.3', {
+        'checksums': ['be2efd773b59ce8f8df0ebf11eb3376dad335aed6d03dd04d2e48cec085f0c7c'],
+    }),
+    ('tfautograph', '0.3.2', {
+        'checksums': ['42821583679d32fa4abb4304b6831e8c3b4dce9468e1a3b570af7bf95ec0aa3a'],
+    }),
+    ('tensorflow', '2.7.0', {
+        'checksums': ['cf1a307ebb3ac903242325d4411a80cbedcfb11adae3b837310551189644f575'],
+    }),
+    ('keras', '2.7.0', {
+        'checksums': ['c5a3f99df949d42a69fc757b6a2bf58bb7a59a3d3123f30ea7670126954a9f00'],
+    }),
+    ('grr', '0.9.5', {
+        'checksums': ['292606de2983ac5840c90d3e0977441b482c9e73c1674b662f8b4fb8f3632b2b'],
+    }),
+    (name, version, {
+        'checksums': ['6ec79f5550eb4c880528752ff7ea0d7ec2894449212fb592ebb0948bccde8c17'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['digitalDLSorteR/R/digitalDLSorteR'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
