@@ -1,0 +1,114 @@
+easyblock = 'PythonBundle'
+
+name = 'snakemake'
+version = '7.32.4'
+_smkwrapver = 'v3.10.2'
+_smkwrapsha256 = 'a3cdd409bd62236de7750d58996f6bb12f883c804dd1dde2a954abb89019165c'
+
+homepage = 'https://snakemake.readthedocs.io'
+description = """The Snakemake workflow management system is a tool
+ to create reproducible and scalable data analyses."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('IPython', '8.5.0'),
+    ('GitPython', '3.1.27'),
+    ('PyYAML', '6.0'),
+    ('SciPy-bundle', '2022.05'),
+]
+
+source_urls = [
+    'https://raw.githubusercontent.com/snakemake/snakemake/v%(version)s',
+]
+
+use_pip = True
+sanity_pip_check = True
+
+#default_easyblock = 'Tarball'
+
+exts_default_options = {'source_urls': [PYPI_SOURCE]}
+
+exts_list = [
+    ('ConfigArgParse', '1.7', {
+        'checksums': ['e7067471884de5478c58a511e529f0f9bd1c66bfef1dea90935438d6c23306d1'],
+    }),
+    ('datrie', '0.8.2', {
+        'checksums': ['525b08f638d5cf6115df6ccd818e5a01298cd230b2dac91c8ff2e6499d18765d'],
+    }),
+    ('toposort', '1.10', {
+        'checksums': ['bfbb479c53d0a696ea7402601f4e693c97b0367837c8898bc6471adfca37a6bd'],
+    }),
+    ('amply', '0.1.6', {
+        'checksums': ['61421103ccf8e1066717115fe7917610d831d551c68d31a110876a5b6c78aea4'],
+    }),
+    ('smart-open', '6.3.0', {
+        'sources': ['smart_open-%(version)s.tar.gz'],
+        'checksums': ['d5238825fe9a9340645fac3d75b287c08fbb99fb2b422477de781c9f5f09e019'],
+    }),
+    ('connection-pool', '0.0.3', {
+        'sources': ['connection_pool-%(version)s.tar.gz'],
+        'checksums': ['bf429e7aef65921c69b4ed48f3d48d3eac1383b05d2df91884705842d974d0dc'],
+    }),
+    ('stopit', '1.1.2', {
+        'checksums': ['f7f39c583fd92027bd9d06127b259aee7a5b7945c1f1fa56263811e1e766996d'],
+    }),
+    ('reretry', '0.11.8', {
+        'checksums': ['f2791fcebe512ea2f1d153a2874778523a8064860b591cd90afc21a8bed432e3'],
+    }),
+    ('throttler', '1.2.2', {
+        'checksums': ['d54db406d98e1b54d18a9ba2b31ab9f093ac64a0a59d730c1cf7bb1cdfc94a58'],
+    }),
+    ('dpath', '2.1.6', {
+        'checksums': ['f1e07c72e8605c6a9e80b64bc8f42714de08a789c7de417e49c3f87a19692e47'],
+    }),
+    ('plac', '1.3.5', {
+        'checksums': ['38bdd864d0450fb748193aa817b9c458a8f5319fbf97b2261151cfc0a5812090'],
+    }),
+    ('yte', '1.5.1', {
+        'checksums': ['6d0b315b78af83276d78f5f67c107c84238f772a76d74f4fc77905b46f3731f5'],
+    }),
+    ('humanfriendly', '10.0', {
+        'checksums': ['6b0b831ce8f15f7300721aa49829fc4e83921a9a301cc7f606be6686a2288ddc'],
+    }),
+    ('nbformat', '5.9.2', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['1c5172d786a41b82bcfd0c23f9e6b6f072e8fb49c39250219e4acfff1efe89e9'],
+    }),
+    ('fastjsonschema', '2.18.0', {
+        'checksums': ['e820349dd16f806e4bd1467a138dced9def4bc7d6213a34295272a6cac95b5bd'],
+    }),
+    ('wrapt', '1.15.0', {
+        'checksums': ['d06730c6aed78cee4126234cf2d071e01b44b915e725a6cb439a879ec9754a3a'],
+    }),
+    ('PuLP', '2.7.0', {
+        'checksums': ['e73ee6b32d639c9b8cf4b4aded334ba158be5f8313544e056f796ace0a10ae63'],
+    }),
+    (name, version, {
+        'checksums': ['fdc3f15dd7b06fabb7da30d460e0a3b1fba08e4ea91f9c32c47a83705cdc7b6e'],
+    }),
+    ('snakemake-wrapper-utils', '0.6.2', {
+        'sources': ['snakemake_wrapper_utils-%(version)s.tar.gz'],
+        'checksums': ['e14982261ea9d655fcebf6ef056afbda3760aa8fc1776d8ae71b1bf8c8d9bf4a'],
+    }),
+]
+
+postinstallcmds = [
+     'curl -LO https://github.com/snakemake/snakemake-wrappers/archive/refs/tags/{}.tar.gz'.format(_smkwrapver),                                                                                                                                         
+     'echo "{} {}.tar.gz" | sha256sum -c'.format(_smkwrapsha256, _smkwrapver),
+     'tar -xf {}.tar.gz'.format(_smkwrapver)
+]
+
+# if necessary, change this command to match your cluster setup
+local_snakemake_load = 'module load %(name)s/%(version)s-%(toolchain_name)s-%(toolchain_version)s'
+modextravars = {'SNAKEMAKE_LOAD_MODULE': local_snakemake_load}
+
+sanity_check_paths = {
+    'files': ['bin/snakemake'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/snakemake'],
+}
+
+sanity_check_commands = ['snakemake --help']
+
+moduleclass = 'tools'
