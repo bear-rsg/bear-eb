@@ -89,7 +89,7 @@ exts_list = [
 ]
 
 postinstallcmds = [
-     'curl -LO https://github.com/snakemake/snakemake-wrappers/archive/refs/tags/{}.tar.gz'.format(_smkwrapver),                                                                                                                                         
+     'curl -LO https://github.com/snakemake/snakemake-wrappers/archive/refs/tags/{}.tar.gz'.format(_smkwrapver),
      'echo "{} {}.tar.gz" | sha256sum -c'.format(_smkwrapsha256, _smkwrapver),
      'tar -xf {}.tar.gz'.format(_smkwrapver)
 ]

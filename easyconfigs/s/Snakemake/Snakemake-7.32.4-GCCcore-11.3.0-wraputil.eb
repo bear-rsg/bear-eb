@@ -4,7 +4,6 @@ name = 'snakemake'
 version = '7.32.4'
 _smkwrapver = 'v3.10.2'
 _smkwrapsum = 'a3cdd409bd62236de7750d58996f6bb12f883c804dd1dde2a954abb89019165c'
-#versionsuffix = '-intel-2022a'
 
 homepage = 'https://snakemake.readthedocs.io'
 description = """The Snakemake workflow management system is a tool
