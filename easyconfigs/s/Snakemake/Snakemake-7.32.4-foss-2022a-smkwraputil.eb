@@ -19,14 +19,8 @@ dependencies = [
     ('SciPy-bundle', '2022.05'),
 ]
 
-source_urls = [
-    'https://raw.githubusercontent.com/snakemake/snakemake/v%(version)s',
-]
-
 use_pip = True
 sanity_pip_check = True
-
-#default_easyblock = 'Tarball'
 
 exts_default_options = {'source_urls': [PYPI_SOURCE]}
 
