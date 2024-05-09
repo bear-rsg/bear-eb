@@ -34,4 +34,6 @@ sanity_check_paths = {
 # extra check to ensure numpy dependency is available
 sanity_check_commands = ["python -c 'import Bio.MarkovModel'"]
 
+options = {'modulename': 'Bio'}
+
 moduleclass = 'bio'
