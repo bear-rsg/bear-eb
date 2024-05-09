@@ -1,0 +1,37 @@
+easyblock = 'PythonPackage'
+
+name = 'Biopython'
+version = '1.82'
+
+homepage = 'https://github.com/%(name)s/%(name)s'
+description = """The Biopython Project is an international association of developers of freely available Python tools for computational molecular biology.
+"""
+
+toolchain = {'name': 'gfbf', 'version': '2022b'}
+
+source_urls = ['https://biopython.org/DIST']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['a9b10d959ae88a9744a91c6ce3601f4c86e7ec41679bc93c29f679218f6167bb']
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02')
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+# Run only tests that don't require internet connection
+runtest = 'python setup.py test --offline'
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/Bio',
+             'lib/python%(pyshortver)s/site-packages/BioSQL']
+}
+
+# extra check to ensure numpy dependency is available
+sanity_check_commands = ["python -c 'import Bio.MarkovModel'"]
+
+moduleclass = 'bio'
