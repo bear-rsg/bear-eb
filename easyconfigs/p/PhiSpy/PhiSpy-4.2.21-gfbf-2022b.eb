@@ -1,4 +1,4 @@
-easyblock = 'PythonBundle'
+easyblock = 'PythonPackage'
 
 name = 'PhiSpy'
 version = '4.2.21'
@@ -17,26 +17,18 @@ dependencies = [
     ('Biopython', '1.82'),
 ]
 
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['1dc3ec45c15328577557908517254d8e4ba152416f0e6bbad39e965b86730e28']
+
 use_pip = True
 sanity_pip_check = True
-
-exts_list = [
-    # ('biopython', '1.74', {
-    #    'checksums': ['25152c1be2c9205bf80901fc49adf2c2efff49f0dddbcf6e6b2ce31dfa6590c0'],
-    # }),
-    # ('bcbio-gff', '0.6.6', {
-    #    'checksums': ['74c6920c91ca18ed9cb872e9471c0be442dad143d8176345917eb1fefc86bc37'],
-    # }),
-    (name, version, {
-        'checksums': ['1dc3ec45c15328577557908517254d8e4ba152416f0e6bbad39e965b86730e28'],
-        'modulename': 'PhiSpyModules'
-    }),
-]
 
 sanity_check_paths = {
     'files': ['bin/%(namelower)s'],
     'dirs': ['lib/python%(pyshortver)s/site-packages/%(name)s-%(version)s.dist-info'],
 }
+options = {'modulename': 'PhiSpyModules'}
 
 sanity_check_commands = ['PhiSpy.py -h']
 
