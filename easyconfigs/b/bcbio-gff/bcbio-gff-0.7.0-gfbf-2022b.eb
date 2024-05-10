@@ -4,7 +4,8 @@ name = 'bcbio-gff'
 version = '0.7.0'
 
 homepage = 'https://github.com/chapmanb/bcbb/tree/master/gff'
-description = """A python library to read and write Generic Feature Format (GFF). See the wiki documentation for details on usage. The goal is to integrate this code in gffutils and Biopython."""
+description = """A python library to read and write Generic Feature Format (GFF). See the wiki documentation for details
+on usage. The goal is to integrate this code in gffutils and Biopython."""
 
 toolchain = {'name': 'gfbf', 'version': '2022b'}
 
