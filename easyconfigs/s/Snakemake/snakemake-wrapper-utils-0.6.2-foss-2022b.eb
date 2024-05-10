@@ -1,0 +1,33 @@
+easyblock = 'PythonBundle'
+
+name = 'snakemake-wrapper-utils'
+version = '0.6.2'
+
+homepage = 'https://github.com/snakemake/snakemake-wrapper-utils'
+description = """A collection of utility functions and classes for Snakemake wrappers."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('snakemake', '7.32.3'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    (name, version, {
+        'sources': ['snakemake_wrapper_utils-%(version)s.tar.gz'],
+        'checksums': ['e14982261ea9d655fcebf6ef056afbda3760aa8fc1776d8ae71b1bf8c8d9bf4a'],
+    }),
+]
+
+local_files = ['snakemake.py', 'samtools.py', 'bcftools.py', 'java.py']
+
+sanity_check_paths = {
+    'files': ['lib/python%%(pyshortver)s/site-packages/snakemake_wrapper_utils/%s' % x for x in local_files],
+    'dirs': ['lib'],
+}
+
+moduleclass = 'tools'
