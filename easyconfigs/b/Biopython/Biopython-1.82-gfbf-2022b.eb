@@ -4,8 +4,8 @@ name = 'Biopython'
 version = '1.82'
 
 homepage = 'https://github.com/%(name)s/%(name)s'
-description = """The Biopython Project is an international association of developers of freely available Python tools for computational molecular biology.
-"""
+description = """The Biopython Project is an international association of developers of freely available Python tools 
+for computational molecular biology."""
 
 toolchain = {'name': 'gfbf', 'version': '2022b'}
 
