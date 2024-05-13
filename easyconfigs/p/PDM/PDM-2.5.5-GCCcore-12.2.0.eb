@@ -1,0 +1,42 @@
+easyblock = 'PythonBundle'
+
+name = 'PDM'
+version = '2.5.5'
+
+homepage = 'https://pdm-project.org'
+description = "A modern Python package and dependency manager supporting the latest PEP standards."
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+builddependencies = [
+    ('binutils', '2.39'),
+]
+
+dependencies = [
+    ('Python', '3.10.8'),
+]
+
+exts_list = [
+    ('pdm_backend', '2.1.1', {
+        'modulename': 'pdm.backend',
+    }),
+    ('blinker', '1.6.2', {
+    }),
+    ('findpython', '0.3.1', {
+    }),
+    ('installer', '0.7.0', {
+    }),
+    ('pyproject_hooks', '1.0.0', {
+    }),
+    ('python-dotenv', '1.0.1', {
+        'modulename': 'dotenv',
+    }),
+    ('resolvelib', '1.0.1', {
+    }),
+    ('unearth', '0.9.3', {
+    }),
+    ('pdm', version, {
+    }),
+]
+
+moduleclass = 'lib'
