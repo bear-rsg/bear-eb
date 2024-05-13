@@ -1,0 +1,54 @@
+easyblock = 'PythonBundle'
+
+name = 'PDM'
+version = '2.5.5'
+
+homepage = 'https://pdm-project.org'
+description = "A modern Python package and dependency manager supporting the latest PEP standards."
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+builddependencies = [
+    ('binutils', '2.39'),
+]
+
+dependencies = [
+    ('Python', '3.10.8'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('pdm_backend', '2.1.1', {
+        'modulename': 'pdm.backend',
+        'checksums': ['f957d2525044c0a48c83021321801a8ec86a30b100bd90f9e7c18f09fa00216f'],
+    }),
+    ('blinker', '1.6.2', {
+        'checksums': ['4afd3de66ef3a9f8067559fb7a1cbe555c17dcbe15971b05d1b625c3e7abe213'],
+    }),
+    ('findpython', '0.3.1', {
+        'checksums': ['7621f8a9c199a70d219831cddaeb84ca7e83e20b8358172bff47871a18a5eda4'],
+    }),
+    ('installer', '0.7.0', {
+        'checksums': ['a26d3e3116289bb08216e0d0f7d925fcef0b0194eedfa0c944bcaaa106c4b631'],
+    }),
+    ('pyproject_hooks', '1.0.0', {
+        'checksums': ['f271b298b97f5955d53fb12b72c1fb1948c22c1a6b70b315c54cedaca0264ef5'],
+    }),
+    ('python-dotenv', '1.0.1', {
+        'modulename': 'dotenv',
+        'checksums': ['e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca'],
+    }),
+    ('resolvelib', '1.0.1', {
+        'checksums': ['04ce76cbd63fded2078ce224785da6ecd42b9564b1390793f64ddecbe997b309'],
+    }),
+    ('unearth', '0.9.3', {
+        'checksums': ['04073f78c0437e8e3445f45e42e979680184c9f3559a7da9cf29ceb3b9bc6a55'],
+    }),
+    ('pdm', version, {
+        'checksums': ['7386691ded52f7761109396316baf7058d30adc226cbd7bf07a7d6163f21c181'],
+    }),
+]
+
+moduleclass = 'lib'
