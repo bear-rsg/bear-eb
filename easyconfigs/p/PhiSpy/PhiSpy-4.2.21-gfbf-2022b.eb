@@ -7,14 +7,14 @@ homepage = 'https://github.com/linsalrob/PhiSpy'
 description = """PhiSpy identifies prophages in Bacterial (and probably Archaeal) genomes.
 Given an annotated genome it will use several approaches to identify the most likely prophage regions."""
 
-toolchain = {'name': 'gfbf', 'version': '2022b'}
+toolchain = {'name': 'foss', 'version': '2022b'}
 
 dependencies = [
     ('Python', '3.10.8'),
     ('SciPy-bundle', '2023.02'),
     ('scikit-learn', '1.2.1'),
     ('bcbio-gff', '0.7.0'),
-    ('Biopython', '1.82'),
+    ('Biopython', '1.81'),
 ]
 
 source_urls = [PYPI_SOURCE]
