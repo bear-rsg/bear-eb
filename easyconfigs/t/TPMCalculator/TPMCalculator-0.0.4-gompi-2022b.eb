@@ -1,0 +1,39 @@
+easyblock = 'MakeCp'
+
+name = 'TPMCalculator'
+version = '0.0.4'
+
+homepage = 'https://github.com/ncbi/TPMCalculator'
+description = "TPMCalculator quantifies mRNA abundance directly from the alignments by parsing BAM files."
+
+toolchain = {'name': 'gompi', 'version': '2022b'}
+
+github_account = 'ncbi'
+source_urls = [GITHUB_SOURCE]
+sources = ['%(version)s.tar.gz']
+checksums = ['1a4c891b30f51e46752f5ca7b28944a993f94e9983a3a5eced241b45e9e459de']
+
+dependencies = [
+    ('BamTools', '2.5.2')
+]
+
+prebuildopts ='export CPPFLAGS="-I$EBROOTBAMTOOLS/include/bamtools/" && export LDFLAGS="-L$EBROOTBAMTOOLS/lib  -Wl,-rpath,$EBROOTBAMTOOLS/lib" &&'
+#buildopts = 'CPPFLAGS=-I $EBROOTBAMTOOLS/include/bamtools/' + 'LDFLAGS=-L $EBROOTBAMTOOLS/lib  -Wl,-rpath,$EBROOTBAMTOOLS/lib'
+#buildopts = '-I include/bamtools/' + '-L lib  -Wl,-rpath,lib'
+
+#buildopts += 
+
+#extra_options = {
+#    'rpath': ['$EBROOTBAMTOOLS/lib'],
+#    }
+#
+sanity_check_paths = {
+    'files': ['bin/TPMCalculator'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['bin/TPMCalculator -h']
+
+files_to_copy = [(['bin/TPMCalculator'], 'bin')]
+
+moduleclass = 'bio'
