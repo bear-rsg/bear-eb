@@ -6,7 +6,7 @@ version = '0.0.4'
 homepage = 'https://github.com/ncbi/TPMCalculator'
 description = "TPMCalculator quantifies mRNA abundance directly from the alignments by parsing BAM files."
 
-toolchain = {'name': 'gompi', 'version': '2022b'}
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
 
 github_account = 'ncbi'
 source_urls = [GITHUB_SOURCE]
