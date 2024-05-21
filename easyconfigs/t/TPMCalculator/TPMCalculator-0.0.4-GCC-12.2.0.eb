@@ -17,8 +17,8 @@ dependencies = [
     ('BamTools', '2.5.2')
 ]
 
-prebuildopts ='export CPPFLAGS="-I$EBROOTBAMTOOLS/include/bamtools/" &&'
-prebuildopts +='export LDFLAGS="-L$EBROOTBAMTOOLS/lib  -Wl,-rpath,$EBROOTBAMTOOLS/lib" &&'
+prebuildopts = 'export CPPFLAGS="-I$EBROOTBAMTOOLS/include/bamtools/" &&'
+prebuildopts += 'export LDFLAGS="-L$EBROOTBAMTOOLS/lib  -Wl,-rpath,$EBROOTBAMTOOLS/lib" &&'
 
 sanity_check_paths = {
     'files': ['bin/TPMCalculator'],
