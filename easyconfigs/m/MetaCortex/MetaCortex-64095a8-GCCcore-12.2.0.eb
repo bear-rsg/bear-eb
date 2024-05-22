@@ -1,0 +1,33 @@
+easyblock = 'MakeCp'
+
+name = 'MetaCortex'
+version = '64095a8'
+
+homepage = 'https://metacortex.readthedocs.io'
+description = """MetaCortex is an assembler for metagenomic, or environmental sequence data. It is based onnthe
+ consensus version of the Cortex assembler (cortex_con) developed by Mario Caccamo and Zamin Iqbal."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+source_urls = ['https://github.com/SR-Martin/metacortex/archive/']
+sources = ['%(version)s.tar.gz']
+checksums = ['a04360131a66b02449488e2c47cce9adfab04771d2e04ab25125cb2d4c818b83']
+
+builddependencies = [('binutils', '2.39')]
+
+local_kmer_size = 127
+buildopts = "MAXK=%s" % local_kmer_size
+
+files_to_copy = ['bin']
+
+postinstallcmds = ["cd %%(installdir)s/bin && ln -s metacortex_k%s metacortex" % local_kmer_size]
+
+sanity_check_paths = {
+    'files': [
+        'bin/metacortex_k%s' % local_kmer_size,
+        'bin/metacortex'
+    ],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
