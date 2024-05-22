@@ -1,0 +1,49 @@
+# Contribution by
+# DeepThought, Flinders University
+# R.QIAO <rob.qiao@flinders.edu.au>
+
+easyblock = 'PythonBundle'
+
+name = 'MetaPhlAn'
+version = '4.1.0'
+
+homepage = 'https://github.com/biobakery/MetaPhlAn'
+description = """MetaPhlAn is a computational tool for profiling the composition
+ of microbial communities from metagenomic shotgun sequencing data """
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+
+dependencies = [
+#    ('Python', '3.10.8'),
+#    ('SciPy-bundle', '2023.02'),
+#    ('Biopython', '1.81'),
+#    ('Pysam', '0.21.0'),
+    ('DendroPy', '4.5.2'),
+    ('CMSeq', '1.0.4'),#TODO in 22b
+#    ('biom-format', '2.1.15'),
+    ('h5py', '3.8.0'), 
+    ('PhyloPhlAn', '3.0.3'),#TODO in 2022b
+]
+
+use_pip = True
+
+exts_list = [
+    ('hclust2', '1.0.0', {
+        'checksums': ['9667f1d16628940aedd3d1d571b956a6f77795018e3ea4dd83f234419eb0096d'],
+    }),
+    (name, version, {
+        'checksums': ['b6df31352f9230ac0463c571d827e80506b7ee1c428c4eab5f361a7cca95bf51'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['%(namelower)s', 'strainphlan']],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/'],
+}
+
+sanity_check_commands = ["metaphlan -h"]
+
+sanity_pip_check = True
+
+moduleclass = 'bio'
