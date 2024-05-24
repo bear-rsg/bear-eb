@@ -16,7 +16,7 @@ sources = ['%(name)s-%(version)s.tar.gz']
 checksums = ['93038a6dba826e29a66df3ec8ab2b3e3872acac7af9df245e4a5a624584aca5c']
 
 dependencies = [
-    ('Python', '3.10.8', '', ('GCCcore-12.2.0', 'bare')),
+    ('Python', '3.10.8'),
     ('SciPy-bundle', '2023.02'),
     ('Biopython', '1.81'),
     ('bcbio-gff', '0.7.0'),
