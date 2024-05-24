@@ -23,7 +23,7 @@ checksums = ['d8d0082c95d58d7b11a60c1e2214b35c1a23a65675005f1393e7647d76c6a054']
 toolchain = {'name': 'foss', 'version': '2022b'}
 
 dependencies = [
-    ('Python', '3.10.8'),
+    ('Python', '3.10.8', '', ('GCCcore-12.2.0', 'bare')),
     ('SciPy-bundle', '2023.02'),
     ('Biopython', '1.81'),
     ('DendroPy', '4.5.2'),

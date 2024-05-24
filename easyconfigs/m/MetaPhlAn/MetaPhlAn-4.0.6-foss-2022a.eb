@@ -19,11 +19,11 @@ dependencies = [
 #    ('SciPy-bundle', '2023.02'),
 #    ('Biopython', '1.81'),
 #    ('Pysam', '0.21.0'),
-    ('DendroPy', '4.5.2'),
-    ('CMSeq', '1.0.4'),#TODO in 22b
+    ('CMSeq', '1.0.4'),
+    ('h5py', '3.8.0'),
+    ('PhyloPhlAn', '3.0.3'),
+#    ('DendroPy', '4.5.2'),
 #    ('biom-format', '2.1.15'),
-    ('h5py', '3.8.0'), 
-    ('PhyloPhlAn', '3.0.3'),#TODO in 2022b
 ]
 
 use_pip = True
