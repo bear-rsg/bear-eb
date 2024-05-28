@@ -15,6 +15,7 @@ dependencies = [
     ('R', '4.3.1'),
     ('R-bundle-Bioconductor', '3.17', '-R-%(rver)s'),
     ('Python', '3.10.8'),
+    ('TensorFlow', '2.13.0'),
 ]
 
 exts_defaultclass = 'RPackage'
