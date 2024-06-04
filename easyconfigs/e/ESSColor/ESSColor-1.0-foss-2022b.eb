@@ -1,0 +1,51 @@
+easyblock = 'CMakeMake'
+
+name = 'ESSColor'
+version = '1.0'
+local_commit = '12b210e'
+
+homepage = 'https://github.com/medvedevgroup/ESSColor'
+description = """ESS-Color is a bioinformatics tool for constructing compressed representation of sets of k-mer sets
+ (i.e. compressed colored dBG)."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/medvedevgroup',
+        'repo_name': 'ESSColor',
+        'commit': local_commit,
+        'recursive': True,
+    }
+}]
+
+checksums = [None]
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('git', '2.38.1', '-nodocs'),
+    ('binutils', '2.39'),
+]
+
+dependencies = [
+    #('KMC', '3.2.2'),
+    ('cxxopts', '3.1.1'),
+    ('SDSL', '2.1.1-20240206'),
+    ('CMPH', '2.0.2'),
+    ('sshash', '20240214'),
+    ('zlib', '1.2.12'),
+    ('snakemake', '7.32.3'),
+    ('Rust', '1.73.0'),  # for ggcat dep replacement in ESS-COMPRESS
+]
+
+# prebuildopts = 'cp lib/parse_file.hpp lib/sshash/include/builder/ && '
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [],
+}
+
+sanity_check_commands = ['echo "Path of ESS-Color $(which genMatrix;)"']
+
+moduleclass = 'bio'
