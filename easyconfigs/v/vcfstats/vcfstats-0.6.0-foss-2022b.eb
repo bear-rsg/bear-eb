@@ -9,11 +9,14 @@ description = """powerful statistics for VCF files"""
 
 toolchain = {'name': 'foss', 'version': '2022b'}
 
+builddependencies = [
+    ('Rust', '1.75.0'),
+    ('Cython', '3.0.8'),
+]
+
 dependencies = [
     ('Python', '3.10.8'),
     ('SciPy-bundle', '2023.02'),
-    ('Rust', '1.75.0'),
-    ('Cython', '3.0.8'),
     ('HTSlib', '1.17'),
     ('matplotlib', '3.7.0'),
     ('statsmodels', '0.14.0'),
