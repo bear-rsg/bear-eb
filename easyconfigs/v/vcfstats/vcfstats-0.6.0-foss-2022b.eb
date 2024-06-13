@@ -1,0 +1,106 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'vcfstats'
+version = '0.6.0'
+
+homepage = "https://github.com/pwwang/vcfstats/tree/master"
+description = """powerful statistics for VCF files"""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+builddependencies = [
+    ('Rust', '1.75.0'),
+    ('Cython', '3.0.8'),
+]
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('HTSlib', '1.17'),
+    ('matplotlib', '3.7.0'),
+    ('statsmodels', '0.14.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('python_simpleconf', version, {
+        'modulename': 'simpleconf',
+        'checksums': ['06c29e0c08e22a41024028c46cd845bdfe3cbba402730fa65fb007fa89315801'],
+    }),
+    ('argx', '0.2.10', {
+        'checksums': ['72ab5511163870eeb589c007fb11cb2c5cc91b9faa553ed45e7404f6c1e7a238'],
+    }),
+    ('humanfriendly', '10.0', {
+        'checksums': ['6b0b831ce8f15f7300721aa49829fc4e83921a9a301cc7f606be6686a2288ddc'],
+    }),
+    ('coloredlogs', '15.0.1', {
+        'checksums': ['7c991aa71a4577af2f82600d8f8f3a89f936baeaf9b50a9c197da014e5bf16b0'],
+    }),
+    ('cyvcf2', '0.30.14', {
+        'buildcmd': 'CYVCF2_HTSLIB_MODE=EXTERNAL pip install --no-binary cyvcf2 cyvcf2',
+        'checksums': ['cc297ff608ed15335c233f965e078b9ca7def3dcec7399951ba1f03c5acc98f1'],
+    }),
+    ('simplug', '0.3.1', {
+        'checksums': ['41d2ce5bdf135554ed18b82a080258a0375587b648087b53bda257aee0944d94'],
+    }),
+    ('executing', '1.2.0', {
+        'checksums': ['19da64c18d2d851112f09c287f8d3dbbdf725ab0e569077efb6cdcbd3497c107'],
+    }),
+    ('pipda', '0.12.0', {
+        'checksums': ['6f97d8a9941943183c30d942add4694bafb8753eb2d7298353d270e0b5eb534e'],
+    }),
+    ('datar', '0.13.1', {
+        'checksums': ['323f89b36590c76968fcc3752272e0b90a42d26bbed7c949847c1c815b7f5097'],
+    }),
+    ('lark-parser', '0.12.0', {
+        'modulename': 'lark',
+        'checksums': ['15967db1f1214013dca65b1180745047b9be457d73da224fcda3d9dd4e96a138'],
+    }),
+    ('inflection', '0.5.1', {
+        'checksums': ['1a29730d366e996aaacffb2f1f1cb9593dc38e2ddd30c91250c6dde09ea9b417'],
+    }),
+    ('diot', '0.2.3', {
+        'checksums': ['0b8ccbe3813acda67665ea9025d4eea7f73b2df4e2ab16c5c3f1da8b0dbba4cf'],
+    }),
+    ('patsy', '0.5.3', {
+        'checksums': ['bdc18001875e319bc91c812c1eb6a10be4bb13cb81eb763f466179dca3b67277'],
+    }),
+    ('palettable', '3.3.1', {
+        'checksums': ['3ec242270e4ad045c03d037e5b28f477cc2d0acb7fd59269ad6e0d756acc5ea6'],
+    }),
+    ('mizani', '0.9.0', {
+        'checksums': ['37fd4f4c94bf1158cacf6c14478d87b98a4ff511c57b0cfdc34cbe494385f970'],
+    }),
+    ('plotnine', '0.12.0', {
+        'checksums': ['79893fe4fe07ffca70593f0f14355d9e0ed2e01812b817c7f1f1b1bdd65d4670'],
+    }),
+    ('maturin', '1.3.1', {
+        'checksums': ['efa194e99ae5fff185263d8244acacb12ae256ea73aba62c9446f6075ffc7ac1'],
+    }),
+    ('rtoml', '0.8.0', {
+        'checksums': ['6d55fa9df88256c6762f01f18b8bd3f6dc1836600ea8655eb3719a2b8f3df764'],
+    }),
+    ('plotnine_prism', '0.3.0', {
+        'checksums': ['d2bafacc232ed41494d76b690611243afedb81ae24c0b06e9a20a61187a3e860'],
+    }),
+    ('text-unidecode', '1.3', {
+        'modulename': 'text_unidecode',
+        'checksums': ['bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93'],
+    }),
+    ('python-slugify', '8.0.1', {
+        'modulename': 'slugify',
+        'checksums': ['ce0d46ddb668b3be82f4ed5e503dbc33dd815d83e2eb6824211310d3fb172a27'],
+    }),
+    (name, version, {
+        'checksums': ['a6afdaaa6af96e5f159f2f31428c5f9b3563bb55252e4f79b2306aa8e95fe98d'],
+    }),
+]
+
+moduleclass = 'bio'
