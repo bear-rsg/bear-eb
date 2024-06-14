@@ -44,7 +44,7 @@ exts_list = [
         'checksums': ['7c991aa71a4577af2f82600d8f8f3a89f936baeaf9b50a9c197da014e5bf16b0'],
     }),
     ('cyvcf2', '0.30.14', {
-        'buildcmd': 'CYVCF2_HTSLIB_MODE=EXTERNAL pip install --no-binary cyvcf2 cyvcf2',
+        'preinstallopts': 'CYVCF2_HTSLIB_MODE=EXTERNAL ',
         'checksums': ['cc297ff608ed15335c233f965e078b9ca7def3dcec7399951ba1f03c5acc98f1'],
     }),
     ('simplug', '0.3.1', {
