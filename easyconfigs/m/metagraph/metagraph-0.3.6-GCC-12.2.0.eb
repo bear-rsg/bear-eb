@@ -1,0 +1,121 @@
+easyblock = 'CMakeMake'
+
+name = 'metagraph'
+version = '0.3.6'
+#_hash = ''
+
+homepage = 'https://metagraph.ethz.ch/'
+description = """The MetaGraph framework allows for indexing and analysis of very large biological sequence collection,
+producing compressed indexes that can represent several petabases of input data.
+The indexes can be efficiently queried with any query sequence of interest"""
+
+
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
+#toolchainopts = {'optarch': False, 'extra_cxxflags': '-Wno-deprecated-declarations'}
+toolchainopts = {'opt': 'O2', 'openmp': True, 'optarch': False, 'extra_cxxflags': '-Wno-deprecated-declarations -Wno-maybe-uninitialized'}
+#toolchainopts = {'cstd': 'c++17', 'extra_cxxflags': '-Wno-error -Wno-deprecated-declarations -Wno-maybe-uninitialized'}
+#toolchainopts = {'optarch': False, 'extra_cxxflags': '-Wno-deprecated-declarations -Wno-maybe-uninitialized -Wno-ignored-qualifiers -Wno-shift-negative-value'}
+#'-Wno-error=deprecated-declaration'}
+
+github_account = 'ratschlab'
+sources = [
+    {
+        'filename': '%(name)s-v%(version)s.tar.gz',
+        'download_filename': 'v%(version)s-sources-with-submodules.tar.gz',
+#https://github.com/ratschlab/metagraph/releases/download/v0.3.6/v0.3.6-sources-with-submodules.tar.gz
+        # Repo uses git submodules, which are not included in the release tarballs.
+        # Thus, we let EasyBuild download directly from the git repository.
+        'git_config': {
+            'url': 'https://github.com/%(github_account)s/',
+            'repo_name': '%(name)s',
+#            'commit': 'v%(_hash)s',
+            'tag': 'v%(version)s',
+#            'clone_into': '%(name)s',
+            'recursive': True,
+#            'keep_git_dir': True
+        }
+    },
+]
+checksums = [None]
+
+#patches = [('CMakeLists.txt.patch', '%(name)s/%(name)s')]
+patches = [('CMakeLists.txt.patch', '%(name)s/%(name)s')]
+#patches = [('DisableTestsBenchmarks.patch', '%(name)s/%(name)s')]
+#patches = ['CMakeLists.txt.patch']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('pkgconf', '1.9.3'),
+    ('LLVM', '15.0.5'),
+    ('jemalloc', '5.3.0'),
+    ('Boost', '1.81.0'),
+    ('JsonCpp', '1.9.5')
+#    ('bzip2', '1.0.8'),
+#    ('OpenSSL', '1.1', '', SYSTEM)
+]
+
+#dependencies = [('OpenSSL', '1.1', '', SYSTEM), ('HTSlib', '1.17'), ('KMC','3.2.2')]
+#dependencies = [('HTSlib', '1.17'), ('sdsl-lite', '2.1.1'), ('Python', '3.10.8'), ('SWIG', '4.1.1'), ('KMC','3.2.2')]
+dependencies = [('HTSlib', '1.17'), ('sdsl-lite', '2.1.1'), ('Python', '3.10.8'), ('SWIG', '4.1.1')]
+#dependencies = [('HTSlib', '1.17'), ('sdsl-lite', '2.1.1'), ('Python', '3.10.8'), ('SWIG', '4.1.1')]
+#('zlib', '1.2.12'),('Python', '3.10.8')
+
+start_dir = '%(name)s'
+
+#build_type = 'THREADS'
+build_type = 'Debug'
+
+#preconfigopts = 'pushd %(start_dir)s && git submodule sync && git submodule update --init --recursive && popd &&'
+#preconfigopts = 'echo Running PreBuild sdsl-lite && pushd %(start_dir)s/external-libraries/sdsl-lite && ./install.sh %(start_dir)s/external-libraries/sdsl-lite; popd &&'
+configopts = """ -DKMC_MAIN_DIR=$EBROOTKMC \
+    -DBUILD_KMC=ON \
+    -DJSONCPPDIR=$EBROOTJSONCPP \
+    -DJSONCPP_LIBRARY=$EBROOTJSONCPP/lib \
+    -DJSONCPP_INCLUDE_DIR=$EBROOTJSONCPP/include \
+    -DHTSDIR=$EBROOTHTSLIB \
+    -DZLIBDIR=$EBROOTZLIB \
+    -DZLIB_LIBRARY=$EBROOTZLIB/lib \
+    -DZLIB_INCLUDE_DIR=$EBROOTZLIB/include \
+    -DOPENSSL_ROOT_DIR=$EBROOTOPENSSL \
+    -DSDSLLITEDIR=$EBROOTSDSL \
+    -DWITH_MSSE42=ON \
+    -DWITH_AVX=ON \
+    -DBUILD_STATIC=N \
+    -DMODE_TI=Y \
+"""
+#configure_cmd = """cmake \
+#    -DPYTHON_INTERFACE=Y \
+#    -DCMAKE_INSTALL_PREFIX=%(installdir)s \
+#    -DCMAKE_VERBOSE_MAKEFILE=ON \
+#    -DCMAKE_FIND_USE_PACKAGE_REGISTRY=OFF \
+#    -DBOOST_ROOT=${BOOST_ROOT} \
+#    -DBoost_NO_SYSTEM_PATHS=ON \
+#    %(start_dir)s 
+#"""
+#    -DBUILD_KMC=OFF \
+#    -DCMAKE_BUILD_TYPE=Debug
+#build_cmd = 'make %(name)s'
+#buildininstalldir = True
+#configure_cmd_prefix = '-DBUILD_KMC=OFF'
+#prefix_opt = '%(name)s'
+#srcdir = '%(name)s/src'
+
+#prebuildopts = 'echo Running PreBuild sdsl-lite && pushd %(start_dir)s/external-libraries/sdsl-lite && ./install.sh %(start_dir)s/external-libraries/sdsl-lite; popd &&'
+
+#parallel = '$(($(getconf _NPROCESSORS_ONLN) - 1))'
+parallel = 7
+#preinstallopts = 'cd %(name) && pwd && git submodule sync && git submodule update --init --recursive &&'
+#buildopts = ' && mkdir -p %(installdir)s && cp -r %(name)s/* %(installdir)s/'
+#buildopts = ' -L$EBROOTJSONCPP/lib/lia'
+
+separate_build_dir = True
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s_DNA'],
+    'dirs': ['bin']
+}
+
+#sanity_check_commands = [('%(name)s_DNA', '--version')]
+#sanity_check_commands = []
+
+moduleclass = 'bio'
