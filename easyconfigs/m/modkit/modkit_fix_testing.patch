@@ -1,0 +1,11 @@
+--- modkit-0.3.1rc1/tests/common/mod.rs.old	2024-06-19 13:08:09.418964130 +0100
++++ modkit-0.3.1rc1/tests/common/mod.rs	2024-06-19 13:09:24.601401777 +0100
+@@ -27,7 +27,7 @@
+         Err(anyhow!("failed to run {:?}", args.join(" ")))
+     }
+ }
+-
++#[allow(dead_code)]
+ fn run_summary<'a>(
+     bam_fp: &str,
+     interval_size: u32,
