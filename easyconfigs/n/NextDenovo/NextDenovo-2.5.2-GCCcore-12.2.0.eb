@@ -1,0 +1,46 @@
+easyblock = 'MakeCp'
+
+name = 'NextDenovo'
+version = '2.5.2'
+
+homepage = 'https://nextdenovo.readthedocs.io'
+description = """NextDenovo is a string graph-based de novo assembler for long reads (CLR, HiFi and ONT). It uses
+ a "correct-then-assemble" strategy similar to canu (no correction step for PacBio HiFi reads), but requires
+ significantly less computing resources and storages."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+source_urls = ['https://github.com/Nextomics/NextDenovo/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['aa6743e680114fdf20091b70e2b501e2576a5e228c5f8f2e8383ffd4e3895e47']
+
+unpack_options = '--strip-components=1'
+
+dependencies = [
+    ('Paralleltask', '0.2.2'),
+]
+
+buildininstalldir = True
+
+files_to_copy = []
+
+test_cmd = '%(installdir)s/nextDenovo test_data/run.cfg'
+runtest = ''
+
+postinstallcmds = [
+    'rm -r %(installdir)s/test_data/01_rundir',  # tidy test data
+    'rm %(installdir)s/pid*.log.info',  # tidy test data
+    'cd %(installdir)s/bin && ln -sf ../nextDenovo nextDenovo'
+]
+
+local_bins = [
+    'bam_sort', 'minimap2-nd', 'nextDenovo', 'nextgraph', 'ovl_cvt', 'ovl_sort', 'seq_bit', 'seq_dump', 'seq_stat'
+]
+local_libs = ['ckit', 'ctg_cns', 'htslib/libhts', 'nextcorrect', 'ovlseq']
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in local_bins] + ['lib/%s.%s' % (x, SHLIB_EXT) for x in local_libs],
+    'dirs': ['bin', 'lib', 'doc'],
+}
+
+moduleclass = 'tools'
