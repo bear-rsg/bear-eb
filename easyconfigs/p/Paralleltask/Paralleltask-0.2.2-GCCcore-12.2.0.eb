@@ -1,0 +1,25 @@
+easyblock = 'PythonBundle'
+
+name = 'Paralleltask'
+version = '0.2.2'
+
+homepage = 'https://github.com/moold/ParallelTask'
+description = """Paralleltask is a simple and lightweight parallel task engine. It can launch a given number of tasks
+ from a batch of independent tasks, and keep this number of running tasks until all tasks are completed."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+dependencies = [
+    ('Python', '3.10.8')
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    (name, version, {
+        'checksums': ['f00945e2bd5b6aff9cdc48fbd92aa7b48d23bb530d7f6643ac966fea11a7a9d5'],
+    }),
+]
+
+moduleclass = 'tools'
