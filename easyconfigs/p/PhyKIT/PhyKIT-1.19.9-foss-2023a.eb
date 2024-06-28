@@ -1,0 +1,43 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'PhyKIT'
+version = '1.19.9'
+
+homepage = "https://jlsteenwyk.com/software"
+description = """PhyKIT is a UNIX shell toolkit for processing and analyzing phylogenomic data."""
+citing = """If you found PhyKIT useful, please cite PhyKIT: a broadly applicable UNIX shell toolkit
+ for processing and analyzing phylogenomic data. Bioinformatics. doi: 10.1093/bioinformatics/btab096."""
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Biopython', '1.83'),
+    ('SciPy-bundle', '2023.07'),
+    ('scikit-learn', '1.4.2'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+local_preinstallopts = "sed -i 's/>=1.11.3/>=1.11.1/' setup.py && "
+
+exts_list = [
+    ('phykit', version, {
+        'preinstallopts': local_preinstallopts,
+        'checksums': ['d8378135c89a9c957fe3236ce8a2f1ff2846100a4aa207d7cacec8500237e4dd'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/phykit'],
+    'dirs': ['bin', 'lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["phykit -h"]
+
+moduleclass = 'bio'
