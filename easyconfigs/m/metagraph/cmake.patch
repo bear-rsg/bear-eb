@@ -5,7 +5,7 @@
  
  set(JSONCPP_WITH_TESTS FALSE)
 -add_subdirectory(external-libraries/jsoncpp)
-+#add_subdirectory(external-libraries/jsoncpp)
++#add_subdirectory(${JSONCPPDIR}/include)
  
  add_compile_options(
    -Wall -Wextra -Werror

@@ -17,33 +17,27 @@ description = """The Succinct Data Structure Library (SDSL) is a powerful and fl
  are (most of the time) identical."""
 
 toolchain = {'name': 'GCC', 'version': '12.2.0'}
-#toolchainopts = {'pic': False}
 toolchainopts = {
-#    'pic': True,
+    'pic': True,
     'opt': True,
-#    'loose': True,
-#    'vectorize': False,
-#    'defaultprec': False,
     'unroll': True,
-    'extra_cxxflags': '-DNDEBUG',
-#    'openmp': True,
-#    'extra_cxxflags': '-mcx16 -msse4.2 -ffast-math',
-#    'extra_cxxflags': '-mcx16',
-#    'lto': True
-#    'extra_cxxflags': '-Wno-unused-variable -Wno-maybe-uninitialized'
+    'openmp': True,
+    'cstd': 'c++11',
+    'extra_cxxflags': '-msse4.2 -ffast-math',
+    'lto': True
 }
 
 
 sources = [
     {
-        'source_urls': GITHUB_SOURCE,
-        'download_filename': ['%s.tar.gz' % _sdslhash],
+        'source_urls': ['https://github.com/%(github_account)s/%(name)s/archive/'],
+        'download_filename': ('%s.tar.gz' % _sdslhash),
         'filename': SOURCE_TAR_GZ,
     },
     {
         'source_urls': ['https://github.com/simongog/libdivsufsort/archive/'],
-        'download_filename': '%s.tar.gz' % _divsufhash,
-        'filename': 'libdivsufsort-%s.tar.gz' % _divsufver,
+        'download_filename': ('%s.tar.gz' % _divsufhash),
+        'filename': ('libdivsufsort-%s.tar.gz' % _divsufver),
         'extract_cmd': "tar -C %(name)s-*/external/libdivsufsort --strip-components=1 -xf %s"
     },
 ]
@@ -62,6 +56,8 @@ builddependencies = [
     ('CMake', '3.24.3'),
     ('googletest', '1.12.1')
 ]
+
+#configopts = ' -DCMAKE_COMPILER_IS_GNUCXX=1 '
 
 buildopts = 'sdsl'
 runtest = 'int-vector-test'

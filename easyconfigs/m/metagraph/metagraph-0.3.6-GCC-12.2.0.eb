@@ -2,6 +2,7 @@ easyblock = 'CMakeMake'
 
 name = 'metagraph'
 version = '0.3.6'
+_alphabet = 'DNA'
 
 homepage = 'https://metagraph.ethz.ch/'
 description = """The MetaGraph framework allows for indexing and analysis of very large biological sequence collection,
@@ -13,19 +14,10 @@ toolchain = {'name': 'GCC', 'version': '12.2.0'}
 toolchainopts = {
     'openmp': True, 
     'optarch': False,
-#    'loose': True,
-#    'opt': True,
-    'vectorize': False,
+#    'vectorize': False,
     'lto': True,
-    'defaultprec': False, 
     'extra_cxxflags': """-Wno-error=deprecated-declarations \
         -Wno-error=maybe-uninitialized """ }
-#        -fmath-errno """ }
-#         -pthread -mcx16 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2"""}
-#        -Wno-error=sign-compare \
-#        -fno-omit-frame-pointer \
-#        -Wno-error=ignored-qualifiers"""}
-    #-fpermissive -Wno-error=discarded-qualifiers'}
 
 github_account = 'ratschlab'
 sources = [
@@ -41,18 +33,10 @@ sources = [
     },
 ]
 patches = [
-##    ('CMakeLists.txt.patch', '%(name)s/%(name)s'),
-##    ('DisableUnitTests.patch', '%(name)s/%(name)s'),
-##    ('DisableBenchSDLSlink.patch', '%(name)s/%(name)s'),
-#    ('cmakes.patch', '%(name)s/%(name)s'),
-    ('cmake.patch', '%(name)s/%(name)s'),
-#    ('cmaked.patch', '%(name)s/%(name)s')
-#    ('cmakesdsl.patch', '%(name)s/%(name)s')
-##    ('boss_chunk.patch', '%(name)s/%(name)s/src/graph/representation/succinct/')
+    ('cmake.patch', '%(name)s/%(name)s')
 ]
 checksums = [
     {'metagraph-v0.3.6.tar.gz': '1dd31c2a27db2d62487474cf3e106c86720406cbaecbb038d8165e752e0669c9'},
-    {'cmake.patch': '6bb4a8f8207a977a2bacbad9168261472f26591e75ed644807e2c215baf35981'},
 ]
 
 builddependencies = [
@@ -68,51 +52,46 @@ dependencies = [
     ('sdsl-lite', '2.1.1'),
     ('jemalloc', '5.3.0'),
     ('Python', '3.10.8'),
-    ('SWIG', '4.1.1'),
+#    ('SWIG', '4.1.1'),
 #    ('googletest', '1.12.1')
 ]
 
 start_dir = '%(name)s'
 
-#buildininstalldir = True
-
-#build_type = 'Debug'
-
-configopts = """ \
-    -DBUILD_KMC=ON \
-    -DCMAKE_DBG_ALPHABET=DNA \
-    -DJSONCPPDIR=$EBROOTJSONCPP \
-    -DZLIBDIR=$EBROOTZLIB \
-    -DSDSLDIR=$EBROOTSDSL \
-    -DNO_DEATH_TESTS=YES \
-    -DCMAKE_CXX_FLAGS_RELEASE=\"-O2 \
-    -fno-omit-frame-pointer -DNDEBUG \" \
-"""
-#  -fopenmp -pthread -mcx16 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 \" \
-#    -pthread -mcx16 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 \" \
-# -mcx16 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 \ -fno-omit-frame-pointer \" \
-#    -DBENCHMARK_ENABLE_GTEST_TESTS=0 \
-#    -DCMAKE_CXX_FLAGS_RELEASE=\"-fopenmp -O3 -pthread -mcx16 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2 \" \
-#    -D_THREAD_SAFE=0 \
-#    -DNDEBUG \
-#    -D_DNA_GRAPH \
-#
-#-fopenmp -O3 -DNDEBUG  -DVERSION=\"0.3.6\" -D_DNA_GRAPH -DMODE_TI -D_USE_FOLLY -DUSE_JEMALLOC -DASIO_STANDALONE -DUSE_STANDALONE_ASIO -Wall -Wextra -Werror -D_THREAD_SAFE -pthread -Wno-error=dangling-reference -mcx16 -msse4.2 -mavx -mavx2 -mfma -mbmi -mbmi2
-
-#buildopts = '-d'
+configopts = ( 
+#    '-DBUILD_KMC=ON'
+    ' -DCMAKE_DBG_ALPHABET=' + _alphabet
+    + ' -DJSONCPPDIR=$EBROOTJSONCPP'
+    + ' -DZLIBDIR=$EBROOTZLIB'
+#    '-DSDSLDIR=$EBROOTSDSL'
+    + ' -DCMAKE_CXX_FLAGS_RELEASE=\"-O2 -DNDEBUG \" '
+)
+#    -DPYTHON_INTERFACE=Y \
 
 separate_build_dir = True
 
+_localFiles = ['%(name)s_%(alphabet)s'
+    'libfbvector.a',        
+    'libmersenne_twister.a',
+    'libprogress_bar.a',
+    'external-libraries',
+    'test-venv',
+    'KMC',
+    '%(name)s',
+    'libmetagraph-cli.a',     
+    'libmetagraph-core.a'  
+]
+
+files_to_copy = ['%(name)s', (['%s' % x for x in _localFiles])]
+
 sanity_check_paths = {
-    'files': ['bin/%(name)s_DNA'],
+    'files': ['bin/%s_%s' % (name, _alphabet)],
     'dirs': ['bin']
 }
 
-#sanity_check_commands = ['metagraph_DNA']
-#sanity_check_commands = ["python -c 'import metagraph-py'"]
 sanity_check_commands = [
-    "metagraph_DNA --version",
-#    "python -c 'import metagraph'"
+    'metagraph_DNA --version',
+    ". test-venv/bin/activate && python -c 'import metagraph'"
 ]
 
 moduleclass = 'bio'
