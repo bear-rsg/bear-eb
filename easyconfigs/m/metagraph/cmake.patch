@@ -1,0 +1,55 @@
+--- ../CMakeLists.txt	2024-06-21 10:04:30.089040319 +0100
++++ CMakeLists.txt	2024-06-21 10:31:13.400183064 +0100
+@@ -98,7 +98,7 @@
+ message(STATUS "Compile for ${BoldCyan}${CMAKE_DBG_ALPHABET}${ColourReset} alphabet")
+ 
+ set(JSONCPP_WITH_TESTS FALSE)
+-add_subdirectory(external-libraries/jsoncpp)
++#add_subdirectory(external-libraries/jsoncpp)
+ 
+ add_compile_options(
+   -Wall -Wextra -Werror
+@@ -266,7 +268,8 @@
+   external-libraries/Priority-Deque
+   external-libraries/rollinghashcpp
+   external-libraries/spdlog/include
+-  external-libraries/zlib
++  #external-libraries/zlib
++  ${ZLIBDIR}
+   external-libraries/Simple-Web-Server
+   ${PROJECT_SOURCE_DIR}/src
+ )
+@@ -297,13 +300,13 @@
+     set(THREADS_PREFER_PTHREAD_FLAG ON)
+ ENDIF()
+ add_subdirectory(external-libraries/spdlog)
+-add_subdirectory(external-libraries/zlib)
+-target_compile_options(zlib
+-  PRIVATE
+-    -Wno-unused-variable
+-    -Wno-sign-compare
+-    -Wno-implicit-fallthrough
+-)
++#add_subdirectory(external-libraries/zlib)
++#target_compile_options(zlib
++#  PRIVATE
++#    -Wno-unused-variable
++#    -Wno-sign-compare
++#    -Wno-implicit-fallthrough
++#)
+ 
+ add_library(progress_bar STATIC
+   external-libraries/cpp_progress_bar/progress_bar.cpp
+@@ -372,10 +375,10 @@
+ 
+ set(METALIBS ${METALIBS}
+   -lKMC
+-  -lhts zlib
++  -lhts -lz
+   -lsdsl
+   brwt
+-  jsoncpp_lib
++  -ljsoncpp
+   progress_bar
+   mersenne_twister
+   spdlog::spdlog

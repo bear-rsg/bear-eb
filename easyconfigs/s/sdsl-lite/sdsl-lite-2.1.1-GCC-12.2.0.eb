@@ -3,6 +3,11 @@ easyblock = 'CMakeMake'
 name = 'sdsl-lite'
 version = '2.1.1'
 
+github_account = 'hmusta'
+_sdslhash = 'fe4a62b'
+_divsufhash = '0f24acd'
+_divsufver = '2.0.1-20150920'
+
 homepage = 'https://github.com/simongog/sdsl-lite'
 description = """The Succinct Data Structure Library (SDSL) is a powerful and flexible C++11 library implementing
  succinct data structures. In total, the library contains the highlights of 40 research publications. Succinct
@@ -12,41 +17,70 @@ description = """The Succinct Data Structure Library (SDSL) is a powerful and fl
  are (most of the time) identical."""
 
 toolchain = {'name': 'GCC', 'version': '12.2.0'}
-toolchainopts = {'pic'}
-
-local_sdsldir = 'sdsl-lite-*'
-local_extract_cmd_pattern = "pwd && ls && tar -C %s/%s --strip-components=1 -xf %%s"
-source_urls = ['https://github.com/simongog/sdsl-lite/archive/']
-
-#https://github.com/simongog/sdsl-lite/archive/refs/tags/v2.1.1.tar.gz
+#toolchainopts = {'pic': False}
+toolchainopts = {
+#    'pic': True,
+    'opt': True,
+#    'loose': True,
+#    'vectorize': False,
+#    'defaultprec': False,
+    'unroll': True,
+    'extra_cxxflags': '-DNDEBUG',
+#    'openmp': True,
+#    'extra_cxxflags': '-mcx16 -msse4.2 -ffast-math',
+#    'extra_cxxflags': '-mcx16',
+#    'lto': True
+#    'extra_cxxflags': '-Wno-unused-variable -Wno-maybe-uninitialized'
+}
 
 
 sources = [
     {
-        'download_filename': 'c32874c.tar.gz',
+        'source_urls': GITHUB_SOURCE,
+        'download_filename': ['%s.tar.gz' % _sdslhash],
         'filename': SOURCE_TAR_GZ,
     },
     {
         'source_urls': ['https://github.com/simongog/libdivsufsort/archive/'],
-        'download_filename': '22e6b23.tar.gz',
-        'filename': 'libdivsufsort-2.0.1-20161201.tar.gz',
-        'extract_cmd': local_extract_cmd_pattern % (local_sdsldir, 'external/libdivsufsort'),
+        'download_filename': '%s.tar.gz' % _divsufhash,
+        'filename': 'libdivsufsort-%s.tar.gz' % _divsufver,
+        'extract_cmd': "tar -C %(name)s-*/external/libdivsufsort --strip-components=1 -xf %s"
     },
 ]
-patches = ['SDSL-remove-googletest.patch', 'SDSL-deactivate-failed-test.patch']
+patches = [
+    'SDSL-remove-googletest.patch',
+    'SDSL-deactivate-failed-test.patch',
+]
 checksums = [
-    'ffab55af40d33a1a1705a693589d95ec31318270d58830a00d3723ee74b0c47b',  # SDSL-2.1.1-20240617.tar.gz
-    '211d4c64c13175a5020f4f16e418b9410facf5d22fb2cb7295a58887a61ae13f',  # libdivsufsort-2.0.1-20161201.tar.gz
-    'a355a66bffd41c21a65fe6e25e9076da81a7fd5275294cf5a0c8facec2fc42f6',  # SDSL-remove-googletest.patch
-    'd0136af5e786f05d117bce473702986373327c4b69e3a68d0fd4e081096d0807',  # SDSL-deactivate-failed-test.patch
+    {'sdsl-lite-2.1.1.tar.gz': '7a3a5242d66c930ac21544ddc035d6d2eb74d1c94c8f87d17aeaf8afaa936a5a'},
+    {'libdivsufsort-2.0.1-20150920.tar.gz': '41f94b06b1677952ac19c72c4048bbb874140b50089713e683f11adec80643b7'},
+    {'SDSL-remove-googletest.patch': 'a355a66bffd41c21a65fe6e25e9076da81a7fd5275294cf5a0c8facec2fc42f6'},
+    {'SDSL-deactivate-failed-test.patch': 'd0136af5e786f05d117bce473702986373327c4b69e3a68d0fd4e081096d0807'},
 ]
 
 builddependencies = [
     ('CMake', '3.24.3'),
-#    ('googletest', '1.12.1'),
+    ('googletest', '1.12.1')
 ]
+
 buildopts = 'sdsl'
-#runtest = 'test-sdsl'
+runtest = 'int-vector-test'
+#    'bits-test',
+#    'bit-vector-test',
+#    'coder-test',
+#    'compile-test',
+#    'int-vector-buffer-test',
+#    'int-vector-mapper-test',
+#    'int-vector-test',
+#    'inv-perm-support-test',
+#    'k2-treap-test',
+#    'nn-dict-dynamic-test',
+#    'rank-support-test',
+#    'rmq-test',
+#    'sd-vector-test',
+#    'sorted-int-stack-test',
+#    'sorted-stack-support-test',
+#'test-sdsl'
 
 separate_build_dir = True
 
