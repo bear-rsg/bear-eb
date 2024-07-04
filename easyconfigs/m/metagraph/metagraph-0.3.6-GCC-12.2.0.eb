@@ -56,7 +56,7 @@ dependencies = [
 
 start_dir = '%(name)s'
 
-configopts = ( 
+configopts = (
     ' -DCMAKE_DBG_ALPHABET=' + _alphabet
     + ' -DJSONCPPDIR=$EBROOTJSONCPP'
     + ' -DZLIBDIR=$EBROOTZLIB'
