@@ -22,11 +22,6 @@ toolchainopts = {
     'opt': True,
     'unroll': True,
     'openmp': True,
-    'cstd': 'c++11',
-    'extra_cxxflags': '-msse4.2 -ffast-math',
-    'lto': True
-}
-
 
 sources = [
     {
@@ -57,8 +52,6 @@ builddependencies = [
     ('googletest', '1.12.1')
 ]
 
-#configopts = ' -DCMAKE_COMPILER_IS_GNUCXX=1 '
-
 buildopts = 'sdsl'
 runtest = 'int-vector-test'
 #    'bits-test',
@@ -76,7 +69,7 @@ runtest = 'int-vector-test'
 #    'sd-vector-test',
 #    'sorted-int-stack-test',
 #    'sorted-stack-support-test',
-#'test-sdsl'
+# 'test-sdsl'
 
 separate_build_dir = True
 
