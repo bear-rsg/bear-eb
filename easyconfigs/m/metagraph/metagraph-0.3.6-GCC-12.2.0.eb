@@ -12,7 +12,7 @@ The indexes can be efficiently queried with any query sequence of interest"""
 
 toolchain = {'name': 'GCC', 'version': '12.2.0'}
 toolchainopts = {
-    'openmp': True, 
+    'openmp': True,
     'optarch': False,
     'lto': True,
     'extra_cxxflags': "-Wno-error=deprecated-declarations -Wno-error=maybe-uninitialized"

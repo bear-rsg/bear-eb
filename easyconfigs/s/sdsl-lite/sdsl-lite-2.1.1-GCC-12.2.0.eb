@@ -22,6 +22,10 @@ toolchainopts = {
     'opt': True,
     'unroll': True,
     'openmp': True,
+    'cstd': 'c++11',
+    'extra_cxxflags': '-msse4.2 -ffast-math',
+    'lto': True
+}
 
 sources = [
     {
