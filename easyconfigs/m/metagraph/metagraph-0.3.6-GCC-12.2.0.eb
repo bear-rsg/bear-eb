@@ -16,8 +16,8 @@ toolchainopts = {
     'optarch': False,
 #    'vectorize': False,
     'lto': True,
-    'extra_cxxflags': """-Wno-error=deprecated-declarations \
-        -Wno-error=maybe-uninitialized """ }
+    'extra_cxxflags': "-Wno-error=deprecated-declarations -Wno-error=maybe-uninitialized"
+}
 
 github_account = 'ratschlab'
 sources = [
@@ -37,6 +37,7 @@ patches = [
 ]
 checksums = [
     {'metagraph-v0.3.6.tar.gz': '1dd31c2a27db2d62487474cf3e106c86720406cbaecbb038d8165e752e0669c9'},
+    {'cmake.patch': 'c625f43ba06b3d8820cf2350802b45cc445db2a86a2b990d5c40a37e5a2a3602'},
 ]
 
 builddependencies = [
@@ -57,6 +58,7 @@ dependencies = [
 ]
 
 start_dir = '%(name)s'
+#buildininstalldir = True
 
 configopts = ( 
 #    '-DBUILD_KMC=ON'
@@ -64,34 +66,29 @@ configopts = (
     + ' -DJSONCPPDIR=$EBROOTJSONCPP'
     + ' -DZLIBDIR=$EBROOTZLIB'
 #    '-DSDSLDIR=$EBROOTSDSL'
+#    + ' -DPYTHON_INTERFACE=Y' 
     + ' -DCMAKE_CXX_FLAGS_RELEASE=\"-O2 -DNDEBUG \" '
 )
-#    -DPYTHON_INTERFACE=Y \
+#    + ' -DPYTHON_INTERFACE=Y'
 
 separate_build_dir = True
 
-_localFiles = ['%(name)s_%(alphabet)s'
-    'libfbvector.a',        
-    'libmersenne_twister.a',
-    'libprogress_bar.a',
-    'external-libraries',
-    'test-venv',
-    'KMC',
-    '%(name)s',
-    'libmetagraph-cli.a',     
-    'libmetagraph-core.a'  
-]
-
-files_to_copy = ['%(name)s', (['%s' % x for x in _localFiles])]
+#postinstallmsgs = ['Building Python API for metagraph']
+#postinstallcmds = [
+#    ('cp -r %(builddir)s/easybuild_obj/test_venv %(installdir)s/venvAPI'),
+#    ('cp -r %(start_dir)s/api %(installdir)s/api')
+#]
 
 sanity_check_paths = {
     'files': ['bin/%s_%s' % (name, _alphabet)],
-    'dirs': ['bin']
+#    'dirs': ['bin', 'lib', 'include']
+#    'dirs': ['bin', 'lib',  'api']
 }
 
 sanity_check_commands = [
-    'metagraph_DNA --version',
-    ". test-venv/bin/activate && python -c 'import metagraph'"
+    ('%s_%s --version' % (name, _alphabet))
+#    ('source ./test-venv/bin/activate && ' + 'python -c \"import %s\"' % name)
+#    && python -c 'import metagraph'"
 ]
 
 moduleclass = 'bio'
