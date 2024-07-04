@@ -53,13 +53,3 @@
    progress_bar
    mersenne_twister
    spdlog::spdlog
-@@ -602,6 +605,7 @@
- 
-   SET_SOURCE_FILES_PROPERTIES(${interface_files} PROPERTIES CPLUSPLUS ON)
- 
--  SWIG_ADD_LIBRARY(metagraph LANGUAGE python SOURCES ${interface_files})
--  SWIG_LINK_LIBRARIES(metagraph metagraph-core ${METALIBS} ${PYTHON_LIBRARIES})
-+  INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/src/graph/representation/succinct)
-+  SWIG_ADD_LIBRARY(metagraphapy LANGUAGE python SOURCES ${interface_files})
-+  SWIG_LINK_LIBRARIES(metagraphapy metagraph-core ${METALIBS} ${PYTHON_LIBRARIES})
- endif()

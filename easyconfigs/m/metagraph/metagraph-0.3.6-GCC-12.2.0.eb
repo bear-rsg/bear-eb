@@ -14,7 +14,6 @@ toolchain = {'name': 'GCC', 'version': '12.2.0'}
 toolchainopts = {
     'openmp': True, 
     'optarch': False,
-#    'vectorize': False,
     'lto': True,
     'extra_cxxflags': "-Wno-error=deprecated-declarations -Wno-error=maybe-uninitialized"
 }
@@ -37,7 +36,7 @@ patches = [
 ]
 checksums = [
     {'metagraph-v0.3.6.tar.gz': '1dd31c2a27db2d62487474cf3e106c86720406cbaecbb038d8165e752e0669c9'},
-    {'cmake.patch': 'c625f43ba06b3d8820cf2350802b45cc445db2a86a2b990d5c40a37e5a2a3602'},
+    {'cmake.patch': '635e3cd63a7772d860aa7bc4ba72b4597e885049b26951e0a72f8839de7e9367'},
 ]
 
 builddependencies = [
@@ -53,42 +52,33 @@ dependencies = [
     ('sdsl-lite', '2.1.1'),
     ('jemalloc', '5.3.0'),
     ('Python', '3.10.8'),
-#    ('SWIG', '4.1.1'),
-#    ('googletest', '1.12.1')
 ]
 
 start_dir = '%(name)s'
-#buildininstalldir = True
 
 configopts = ( 
-#    '-DBUILD_KMC=ON'
     ' -DCMAKE_DBG_ALPHABET=' + _alphabet
     + ' -DJSONCPPDIR=$EBROOTJSONCPP'
     + ' -DZLIBDIR=$EBROOTZLIB'
-#    '-DSDSLDIR=$EBROOTSDSL'
-#    + ' -DPYTHON_INTERFACE=Y' 
     + ' -DCMAKE_CXX_FLAGS_RELEASE=\"-O2 -DNDEBUG \" '
 )
-#    + ' -DPYTHON_INTERFACE=Y'
 
 separate_build_dir = True
 
-#postinstallmsgs = ['Building Python API for metagraph']
-#postinstallcmds = [
-#    ('cp -r %(builddir)s/easybuild_obj/test_venv %(installdir)s/venvAPI'),
-#    ('cp -r %(start_dir)s/api %(installdir)s/api')
-#]
+postinstallmsgs = ['Building Python API for metagraph']
+postinstallcmds = [
+    ('cp -r %(start_dir)s/api %(installdir)s/include/api ; cp %(start_dir)s/../package.json %(installdir)s'),
+    ('python -m venv %(installdir)s/include/api/venv && source %(installdir)s/include/api/venv/bin/activate'),
+    ('cd %(installdir)s/include/api/python && make install && pip install -r requirements.txt')
+]
 
 sanity_check_paths = {
     'files': ['bin/%s_%s' % (name, _alphabet)],
-#    'dirs': ['bin', 'lib', 'include']
-#    'dirs': ['bin', 'lib',  'api']
+    'dirs': ['bin', 'lib', 'include']
 }
 
 sanity_check_commands = [
     ('%s_%s --version' % (name, _alphabet))
-#    ('source ./test-venv/bin/activate && ' + 'python -c \"import %s\"' % name)
-#    && python -c 'import metagraph'"
 ]
 
 moduleclass = 'bio'
