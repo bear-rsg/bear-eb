@@ -1,0 +1,69 @@
+easyblock = 'Binary'
+
+name = 'edk'
+version = '2.1.1.0'
+
+homepage = 'https://www.sr-research.com/'
+description = """Provides the application programming interface (API) and related resources for integrating with SR
+ Research eye tracking hardware in supported software environments."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://centos8.sr-research.com/edk/']
+sources = [
+    'eyelink-addapptomenu-%(version)s-1.el8.x86_64.rpm',
+    'eyelink-edf2asc-4.2.1.0-1.el8.x86_64.rpm',
+    'eyelink-edfapi-4.2.1.0-1.el8.x86_64.rpm',
+    'eyelink-edfconverter-4.2.1.0-1.el8.x86_64.rpm',
+    'eyelink-fonts-%(version)s-1.el8.x86_64.rpm',
+    'eyelink-matlab-examples-%(version)s-1.el8.x86_64.rpm',
+    'eyelink-pylink-%(version)s-1.el8.x86_64.rpm',
+    'eyelink-sdl1-examples-%(version)s-1.el8.x86_64.rpm',
+    'eyelink-sdl2-examples-%(version)s-1.el8.x86_64.rpm',
+    'eyelinkcore-%(version)s-1.el8.x86_64.rpm',
+    'eyelinkcoregraphics-%(version)s-1.el8.x86_64.rpm',
+    'eyelinkcoregraphics-sdl2-%(version)s-1.el8.x86_64.rpm',
+]
+checksums = [
+    {'eyelink-addapptomenu-2.1.1.0-1.el8.x86_64.rpm':
+     'f815dc4e48a5f4fb63435737478eb7035b81eff833f4bf9a118ee17813257b02'},
+    {'eyelink-edf2asc-4.2.1.0-1.el8.x86_64.rpm': '3abbd0e3fcd41f4662a4af4ab67f0af0eeb5394102c9b6f04ca319c0023f6edd'},
+    {'eyelink-edfapi-4.2.1.0-1.el8.x86_64.rpm': 'c50a621e8838610acaadfe8a689112a3ff1dfaa635c030bb9c6076e55af65142'},
+    {'eyelink-edfconverter-4.2.1.0-1.el8.x86_64.rpm':
+     'f37a4bbe0764b55e1116d9f5599676b506f31e0fd8179eb10f724655d78c8d2e'},
+    {'eyelink-fonts-2.1.1.0-1.el8.x86_64.rpm': 'a94952fb94973245e35e510ca95302b3371a2718093ab17c4a858e9723032ee8'},
+    {'eyelink-matlab-examples-2.1.1.0-1.el8.x86_64.rpm':
+     'a1aaf05eb801a0d9003cf5fdec466fab19eda293ecabfb78ed4622b8301d8163'},
+    {'eyelink-pylink-2.1.1.0-1.el8.x86_64.rpm': '45a9fcac0637c0f09596ab87c261a0dda7666fa6cdf4782b2bd55255679d7d91'},
+    {'eyelink-sdl1-examples-2.1.1.0-1.el8.x86_64.rpm':
+     '4f113b964170c013086fee371f60e65d49be2cdd620c49d29a70a40684f5bb67'},
+    {'eyelink-sdl2-examples-2.1.1.0-1.el8.x86_64.rpm':
+     '47a83a32f57ae842ebedfe48a0f6cc531f7b29d698a80afed2c4647023be033a'},
+    {'eyelinkcore-2.1.1.0-1.el8.x86_64.rpm': 'ccb8fa2965a8f473585638edfc9182137af38b07ef121323fb888c8bedd69a9f'},
+    {'eyelinkcoregraphics-2.1.1.0-1.el8.x86_64.rpm':
+     '9c5def18d61148f4662ae36394f69e2a4506c5df7c2eff698a2ddff81f966cee'},
+    {'eyelinkcoregraphics-sdl2-2.1.1.0-1.el8.x86_64.rpm':
+     '2fa9f7c262bac511bfab66e64664672e2ec08de002fbb7f628d865f60c8c214e'},
+]
+
+osdependencies = [('rpm', 'cpio')]  # required for extracting rpm-files
+
+dependencies = [
+    ('alsa-lib', '1.2.10'),
+    ('Java', '17')
+]
+
+install_cmds = ['rpm2cpio ' + source + ' | cpio -idmv ' for source in sources]
+
+postinstallcmds = ["mv %(builddir)s/usr/* %(installdir)s"]
+
+prepend_to_path = ['bin/EDFConverter']
+
+sanity_check_paths = {
+    'files': ['bin/edf2asc'],
+    'dirs': ['bin/EDFConverter']
+}
+
+modextrapaths = {'LD_LIBRARY_PATH': ['lib64/EyeLink', 'bin/EDFConverter/lib']}
+
+moduleclass = 'tools'
