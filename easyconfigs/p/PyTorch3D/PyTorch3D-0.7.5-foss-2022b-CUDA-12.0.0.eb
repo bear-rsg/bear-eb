@@ -4,8 +4,6 @@ easyblock = 'PythonBundle'
 name = 'PyTorch3D'
 version = '0.7.5'
 versionsuffix = '-CUDA-%(cudaver)s'
-#local_pytorch_version = '1.7.1'
-#versionsuffix = '-PyTorch-%s' % local_pytorch_version
 
 homepage = "https://pytorch3d.org/"
 description = """PyTorch3D is FAIR's library of reusable components for deep learning with 3D data."""
@@ -24,7 +22,6 @@ dependencies = [
 
 sanity_pip_check = True
 use_pip = True
-# termcolor may have been fixed at 1.1.0 for a reson if it fails revisit
 exts_list = [
     ('portalocker', '2.7.0', {
         'checksums': ['032e81d534a88ec1736d03f780ba073f047a06c478b06e2937486f334e955c51'],
