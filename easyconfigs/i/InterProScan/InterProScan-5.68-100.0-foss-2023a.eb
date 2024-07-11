@@ -53,9 +53,11 @@ postinstallcmds = ["%(installdir)s/interproscan.sh || true"]
 
 sanity_check_paths = {
     'files': ['interproscan-%(version_major)s.jar', 'interproscan.sh', 'interproscan.properties'],
-    'dirs': ['bin', 'lib', 'data/antifam', 'data/cdd', 'data/funfam', 'data/gene3d', 'data/hamap',
+    'dirs': [
+        'bin', 'lib', 'data/antifam', 'data/cdd', 'data/funfam', 'data/gene3d', 'data/hamap',
         'data/panther', 'data/pfam', 'data/ncbifam', 'data/phobius', 'data/pirsf', 'data/pirsr',
-        'data/prints', 'data/prosite', 'data/sfld', 'data/smart', 'data/superfamily', 'data/tmhmm'],
+        'data/prints', 'data/prosite', 'data/sfld', 'data/smart', 'data/superfamily', 'data/tmhmm'
+    ],
 }
 
 sanity_check_commands = ["interproscan.sh 2>&1 | grep 'Welcome to InterProScan-%(version)s'"]
