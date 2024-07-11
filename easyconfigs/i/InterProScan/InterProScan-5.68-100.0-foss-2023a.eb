@@ -23,7 +23,7 @@ checksums = [
 ]
 
 dependencies = [
-    ('Java', '11.0.2', '', True),
+    ('Java', '11', '', True),
     ('Perl', '5.36.1'),
     ('libgd', '2.3.3'),
     ('Python', '3.11.3'),
