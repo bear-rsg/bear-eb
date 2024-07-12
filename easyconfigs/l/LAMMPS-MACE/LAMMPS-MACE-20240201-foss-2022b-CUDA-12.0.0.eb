@@ -1,0 +1,52 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+
+name = 'LAMMPS-MACE'
+_commit = '184b6fd'  # latest commit on the mace branch
+_fullcommit = '184b6fdeccd0c430fd259e7467ca37d616632b63'
+version = '20240201'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = "https://mace-docs.readthedocs.io/en/latest/guide/lammps.html"
+description = """MACE is a machine learning software for predicting many-body atomic interactions and generating force
+ fields. It utilizes higher order equivariant message passing for fast and accurate predictions."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+source_urls = ['https://github.com/ACEsuit/lammps/archive/']
+sources = [f'{_commit}.tar.gz']
+checksums = ['dcca35c91cfefacaffbd5b4f5b600e8bdb2ef9c5d04588b70889bf06aabadfb6']
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+]
+
+dependencies = [
+    ('CUDA', '12.0.0', '', SYSTEM),
+    ('cuDNN', '8.8.0.121', versionsuffix, SYSTEM),
+    ('FFmpeg', '5.1.2'),
+    ('git', '2.38.1', '-nodocs'),
+    ('gzip', '1.12'),
+    ('Python', '3.10.8'),
+    ('PyTorch', '2.1.2', versionsuffix),
+]
+
+srcdir = 'cmake'
+configopts = ' '.join([
+    "-DBUILD_MPI=ON",
+    "-DBUILD_SHARED_LIBS=ON",
+    "-DPYTHON_EXECUTABLE=$EBROOTPYTHON/bin/python",
+    "-DPKG_KOKKOS=ON",
+    "-DKokkos_ENABLE_CUDA=ON",
+    f"-DCMAKE_CXX_COMPILER=%(builddir)s/lammps-{_fullcommit}/lib/kokkos/bin/nvcc_wrapper",
+    "-DKokkos_ARCH_ICX=ON",
+    "-DKokkos_ARCH_AMPERE80=ON",
+    "-DPKG_ML-MACE=ON",
+])
+
+sanity_check_paths = {
+    'files': ['bin/lmp'],
+    'dirs': [],
+}
+
+moduleclass = 'chem'
