@@ -50,7 +50,7 @@ postinstallcmds = [
 modextravars = {
     'FUNC_PATH': '%(installdir)s/umi-varcal-master/functions',
     'README_PATH': '%(installdir)s/umi-varcal-master/README.md',
-} 
+}
 
 download_dep_fail = True
 sanity_pip_check = True
