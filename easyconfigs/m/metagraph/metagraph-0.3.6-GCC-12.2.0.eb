@@ -36,7 +36,7 @@ patches = [
 ]
 checksums = [
     {'metagraph-v0.3.6.tar.gz': '1dd31c2a27db2d62487474cf3e106c86720406cbaecbb038d8165e752e0669c9'},
-    {'cmake.patch': '635e3cd63a7772d860aa7bc4ba72b4597e885049b26951e0a72f8839de7e9367'},
+    {'jsonCppZlibCMake.patch': '635e3cd63a7772d860aa7bc4ba72b4597e885049b26951e0a72f8839de7e9367'}
 ]
 
 builddependencies = [
