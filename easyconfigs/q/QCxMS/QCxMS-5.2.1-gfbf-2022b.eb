@@ -1,0 +1,42 @@
+easyblock = 'MesonNinja'
+
+name = 'QCxMS'
+version = '5.2.1'
+
+homepage = 'https://github.com/qcxms/QCxMS'
+description = """QCxMS is a quantum chemical (QC) based program that enables users to calculate mass spectra (MS)
+ using Born-Oppenheimer Molecular Dynamics (MD). It is the successor of the QCEIMS program, in which the EI part
+ is exchanged to x (x=EI, CID) to account for the greater general applicability of the program."""
+
+toolchain = {'name': 'gfbf', 'version': '2022b'}
+
+github_account = 'qcxms'
+source_urls = [GITHUB_SOURCE]
+sources = [{'download_filename': 'v.%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+patches = ['QCxMS-5.2.1_meson-linking.patch']
+checksums = [
+    {'QCxMS-5.2.1.tar.gz': 'dda5ea49c664dd4f98b5ca8a9862d3d850e63e76da8fec13e24f3ca57619cbf2'},
+    {'QCxMS-5.2.1_meson-linking.patch': '3dae2d1263cd6782816d7c73a78e2aab9e5825e86576da6632b8d6bb309fd9ba'},
+]
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('Meson', '0.64.0'),
+    ('Ninja', '1.11.1'),
+    ('pkgconf', '1.9.3'),
+]
+
+dependencies = [
+    ('mctc-lib', '0.3.1'),
+    ('tblite', '0.2.1'),
+    ('dftd4', '3.4.0'),
+]
+
+configopts = "-Dlapack='flexiblas' --buildtype release "
+
+sanity_check_paths = {
+    'files': ['bin/qcxms'],
+    'dirs': [],
+}
+
+moduleclass = 'chem'

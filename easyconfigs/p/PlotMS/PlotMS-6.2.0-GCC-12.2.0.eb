@@ -1,0 +1,36 @@
+easyblock = 'MesonNinja'
+
+name = 'PlotMS'
+version = '6.2.0'
+
+homepage = 'https://github.com/qcxms/PlotMS'
+description = """Plot Mass Spectra (PlotMS) plotting program for the QCxMS program"""
+
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
+
+github_account = 'qcxms'
+source_urls = [GITHUB_SOURCE]
+sources = [{'download_filename': 'v.%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
+checksums = ['1fe31f236cb6aa1796b0c9e3fcb1df81a135116e9eb7beb0e56208f30e7561db']
+
+builddependencies = [
+    ('Meson', '0.64.0'),
+    ('Ninja', '1.11.1'),
+    ('pkgconf', '1.9.3'),
+]
+
+dependencies = [
+    ('mctc-lib', '0.3.1'),
+]
+
+configopts = "-Dfortran_link_args=-static "
+configopts += "--buildtype release "
+
+sanity_check_paths = {
+    'files': ['bin/plotms'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["plotms --help"]
+
+moduleclass = 'chem'
