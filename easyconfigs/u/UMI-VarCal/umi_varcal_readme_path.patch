@@ -1,0 +1,11 @@
+--- umi-varcal-master/functions/Config.py.old	2023-12-28 10:53:19.000000000 +0000
++++ umi-varcal-master/functions/Config.py	2024-07-15 16:18:09.099043799 +0100
+@@ -21,7 +21,7 @@
+ 	config={}
+ 
+ 	# get versionning details from README
+-	README_PATH = sys.argv[0].replace('umi-varcal.py', 'README.md')
++	README_PATH = os.environ.get('README_PATH')
+ 
+ 	version = open(README_PATH).readlines()[3].split(':')[1].strip()
+ 	lastUpdate = open(README_PATH).readlines()[4].split(':')[1].strip()
