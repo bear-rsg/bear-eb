@@ -1,0 +1,28 @@
+# This easyconfig was created by Simon Branford of the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'hdf5storage'
+version = '0.1.19'
+
+homepage = "https://pythonhosted.org/hdf5storage/"
+description = """This Python package provides high level utilities to read/write a variety of Python types to/from
+ HDF5 (Heirarchal Data Format) formatted files. This package also provides support for MATLAB MAT v7.3 formatted
+ files, which are just HDF5 files with a different extension and some extra meta-data. All of this is done without
+ pickling data. Pickling is bad for security because it allows arbitrary code to be executed in the interpreter.
+ One wants to be able to read possibly HDF5 and MAT files from untrusted sources, so pickling is avoided in this
+ package."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+sources = ['%(name)s-%(version)s.tar.gz']
+checksums = ['7a1a6badf546e8942f4d22d598aee14021796bc28918519c9687a6abb0eeef86']
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('h5py', '3.8.0'),
+]
+
+use_pip = True
+download_dep_fail = True
+
+moduleclass = 'tools'
