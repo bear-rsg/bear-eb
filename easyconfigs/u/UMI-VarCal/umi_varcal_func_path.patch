@@ -1,0 +1,19 @@
+--- umi-varcal-master/umi-varcal.py.old	2023-12-28 10:53:19.000000000 +0000
++++ umi-varcal-master/umi-varcal.py	2024-07-15 16:17:54.891572556 +0100
+@@ -1,5 +1,4 @@
+-
+-#!/usr/bin/python
++#!/usr/bin/env python
+ import os
+ import sys
+ 
+@@ -7,7 +6,8 @@
+ # sys.path.append(os.getcwd()+'/functions')
+ 
+ # get true path
+-FUNC_PATH = sys.argv[0].replace('umi-varcal.py', 'functions')
++FUNC_PATH = os.environ.get('FUNC_PATH')
++
+ sys.path.append(FUNC_PATH)
+ 
+ # import local modules
