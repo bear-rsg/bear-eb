@@ -67,6 +67,4 @@ sanity_check_paths = {
 
 sanity_check_commands = ['%(namelower)s --help', "python -c 'import openmc'"]
 
-modextrapaths = {'PYTHONPATH': ['lib/python%(pyshortver)s/site-packages']}
-
 moduleclass = 'phys'
