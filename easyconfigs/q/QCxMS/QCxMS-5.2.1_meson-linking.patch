@@ -1,0 +1,52 @@
+--- config/meson.build.orig	2024-07-15 16:01:42.476101309 +0100
++++ config/meson.build	2024-07-15 16:00:15.659341966 +0100
+@@ -76,13 +76,13 @@
+   mkl_dep = fc.find_library('mkl_rt')
+   exe_deps += mkl_dep
+ 
+-elif lapack_vendor == 'openblas'
+-  openblas_dep = dependency('openblas', required: false)
+-  if not openblas_dep.found()
+-    openblas_dep = fc.find_library('openblas_dep')
++elif lapack_vendor == 'flexiblas'
++  flexiblas_dep = dependency('flexiblas', required: false)
++  if not flexiblas_dep.found()
++    flexiblas_dep = fc.find_library('flexiblas_dep')
+   endif
+-  exe_deps += openblas_dep
+-  if not fc.links('external dsytrs; call dsytrs(); end', dependencies: openblas_dep)
++  exe_deps += flexiblas_dep
++  if not fc.links('external dsytrs; call dsytrs(); end', dependencies: flexiblas_dep)
+     lapack_dep = dependency('lapack', required: false)
+     if not lapack_dep.found()
+       lapack_dep = fc.find_library('lapack')
+@@ -103,6 +103,18 @@
+   exe_deps += blas_dep
+ endif
+ 
++sdftd3_dep = dependency('sdftd3', required: false)
++if not sdftd3_dep.found()
++  sdftd3_dep = fc.find_library('s-dftd3')
++endif
++exe_deps += sdftd3_dep
++
++dftd4_dep = dependency('dftd4', required: false)
++if not dftd4_dep.found()
++  dftd4_dep = fc.find_library('dftd4')
++endif
++exe_deps += dftd4_dep
++
+ # Create the tool chain library as subproject
+ mctc_dep = dependency(
+   'mctc-lib',
+--- meson_options.txt.orig	2024-07-15 16:03:29.211438424 +0100
++++ meson_options.txt	2024-07-15 16:03:39.066029547 +0100
+@@ -5,7 +5,7 @@
+   type: 'combo',
+   value: 'auto',
+   yield: true,
+-  choices: ['auto', 'mkl', 'mkl-rt', 'openblas', 'netlib'],
++  choices: ['auto', 'mkl', 'mkl-rt', 'flexiblas', 'netlib'],
+   description : 'linear algebra backend',
+ )
+ 
