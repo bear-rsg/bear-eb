@@ -1,7 +1,7 @@
 easyblock = 'CMakeMake'
 
 name = 'MUSEN'
-version = '1.73.1'
+version = '1.74.0'
 versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://msolids.net/musen/'
@@ -13,12 +13,19 @@ toolchainopts = {'pic': True, 'usempi': True}
 source_urls = ['https://github.com/msolids/musen/archive/']
 sources = ['v%(version)s.tar.gz']
 
-builddependencies = [('CMake', '3.24.3')]
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('binutils', '2.39'),
+]
 
 dependencies = [
     ('CUDA', '12.0.0', '', SYSTEM),
     ('protobuf', '23.0'),
     ('Qt5', '5.15.7'),
 ]
+
+preconfigopts = 'sed -i "s/Protobuf_USE_STATIC_LIBS \\"ON\\"/Protobuf_USE_STATIC_LIBS \\"OFF\\"/" %(builddir)s/%(namelower)s-%(version)s/CMakeLists.txt &&'
+
+configopts = '-DBUILD_GUI=OFF -DBUILD_CLI=ON '
 
 moduleclass = 'lib'
