@@ -10,7 +10,7 @@ producing compressed indexes that can represent several petabases of input data.
 The indexes can be efficiently queried with any query sequence of interest"""
 
 
-toolchain = {'name': 'GCC', 'version': '12.2.0'}
+toolchain = {'name': 'gfbf', 'version': '2022b'}
 toolchainopts = {
     'openmp': True,
     'optarch': False,
@@ -32,11 +32,11 @@ sources = [
     },
 ]
 patches = [
-    ('cmake.patch', '%(name)s/%(name)s')
+    ('disablePyVenvTest.patch', '%(name)s/%(name)s')
 ]
 checksums = [
     {'metagraph-v0.3.6.tar.gz': '1dd31c2a27db2d62487474cf3e106c86720406cbaecbb038d8165e752e0669c9'},
-    {'jsonCppZlibCMake.patch': '635e3cd63a7772d860aa7bc4ba72b4597e885049b26951e0a72f8839de7e9367'}
+    {'disablePyVenvTest.patch': '2a4e3589f20334d68d36b8579b3a303f3aad7baf92ad8080562ad88263457c38'},
 ]
 
 builddependencies = [
@@ -52,6 +52,7 @@ dependencies = [
     ('sdsl-lite', '2.1.1'),
     ('jemalloc', '5.3.0'),
     ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02')
 ]
 
 start_dir = '%(name)s'
@@ -61,16 +62,24 @@ configopts = (
     + ' -DJSONCPPDIR=$EBROOTJSONCPP'
     + ' -DZLIBDIR=$EBROOTZLIB'
     + ' -DCMAKE_CXX_FLAGS_RELEASE=\"-O2 -DNDEBUG \" '
+    + ' -DNO_DEATH_TESTS=Y '
 )
 
-separate_build_dir = True
-
-postinstallmsgs = ['Building Python API for metagraph']
-postinstallcmds = [
-    ('cp -r %(start_dir)s/api %(installdir)s/include/api ; cp %(start_dir)s/../package.json %(installdir)s'),
-    ('python -m venv %(installdir)s/include/api/venv && source %(installdir)s/include/api/venv/bin/activate'),
-    ('cd %(installdir)s/include/api/python && make install && pip install -r requirements.txt')
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'download_dep_fail': True,
+    'use_pip': True,
+    'sanity_pip_check': True,
+}
+exts_list = [
+    (name, version, {
+        'sources': ['%(name)s-v%(version)s.tar.gz'],
+        'start_dir': '%(name)s/api/python',
+        'checksums': ['1dd31c2a27db2d62487474cf3e106c86720406cbaecbb038d8165e752e0669c9'],
+    }),
 ]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 sanity_check_paths = {
     'files': ['bin/%s_%s' % (name, _alphabet)],
@@ -78,7 +87,8 @@ sanity_check_paths = {
 }
 
 sanity_check_commands = [
-    ('%s_%s --version' % (name, _alphabet))
+    ('%s_%s --version' % (name, _alphabet)),
+    ('python -c "from metagraph.client import GraphClient"')
 ]
 
 moduleclass = 'bio'
