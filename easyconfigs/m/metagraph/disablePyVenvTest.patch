@@ -1,0 +1,135 @@
+--- ../CMakeLists.txt	2024-06-21 10:04:30.089040319 +0100
++++ CMakeLists.txt	2024-06-21 10:31:13.400183064 +0100
+@@ -98,7 +98,7 @@
+ message(STATUS "Compile for ${BoldCyan}${CMAKE_DBG_ALPHABET}${ColourReset} alphabet")
+ 
+ set(JSONCPP_WITH_TESTS FALSE)
+-add_subdirectory(external-libraries/jsoncpp)
++include_directories(${JSONCPPDIR}/include)
+ 
+ add_compile_options(
+   -Wall -Wextra -Werror
+@@ -266,7 +268,8 @@
+   external-libraries/Priority-Deque
+   external-libraries/rollinghashcpp
+   external-libraries/spdlog/include
+-  external-libraries/zlib
++  #external-libraries/zlib
++  ${ZLIBDIR}
+   external-libraries/Simple-Web-Server
+   ${PROJECT_SOURCE_DIR}/src
+ )
+@@ -297,13 +300,13 @@
+     set(THREADS_PREFER_PTHREAD_FLAG ON)
+ ENDIF()
+ add_subdirectory(external-libraries/spdlog)
+-add_subdirectory(external-libraries/zlib)
+-target_compile_options(zlib
+-  PRIVATE
+-    -Wno-unused-variable
+-    -Wno-sign-compare
+-    -Wno-implicit-fallthrough
+-)
++#add_subdirectory(external-libraries/zlib)
++#target_compile_options(zlib
++#  PRIVATE
++#    -Wno-unused-variable
++#    -Wno-sign-compare
++#    -Wno-implicit-fallthrough
++#)
+ 
+ add_library(progress_bar STATIC
+   external-libraries/cpp_progress_bar/progress_bar.cpp
+@@ -372,10 +375,10 @@
+ 
+ set(METALIBS ${METALIBS}
+   -lKMC
+-  -lhts zlib
++  -lhts -lz
+   -lsdsl
+   brwt
+-  jsoncpp_lib
++  -ljsoncpp
+   progress_bar
+   mersenne_twister
+   spdlog::spdlog
+@@ -527,1 +530,1 @@
+-target_compile_options(unit_tests PRIVATE -Wno-undefined-var-template ${DEATH_TEST_FLAG})
++#target_compile_options(unit_tests PRIVATE -Wno-undefined-var-template ${DEATH_TEST_FLAG})
+@@ -544,1 +547,1 @@
+-target_compile_options(benchmarks PRIVATE -Wno-undefined-var-template)
++#target_compile_options(benchmarks PRIVATE -Wno-undefined-var-template)
+@@ -548,43 +551,43 @@
+ #-------------------
+ find_package(Python3 3.4 REQUIRED COMPONENTS Interpreter)
+ 
+-add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/test_venv/DONE
+-  COMMAND ${PROJECT_SOURCE_DIR}/integration_tests/install_test_environment.sh ${PROJECT_SOURCE_DIR}/api/python ${PROJECT_BINARY_DIR}/test_venv
+-)
+-execute_process(COMMAND ${PROJECT_SOURCE_DIR}/integration_tests/install_test_environment.sh ${PROJECT_SOURCE_DIR}/api/python ${PROJECT_BINARY_DIR}/test_venv)
++#add_custom_command(OUTPUT ${PROJECT_BINARY_DIR}/test_venv/DONE
++#  COMMAND ${PROJECT_SOURCE_DIR}/integration_tests/install_test_environment.sh ${PROJECT_SOURCE_DIR}/api/python ${PROJECT_BINARY_DIR}/test_venv
++#)
++#execute_process(COMMAND ${PROJECT_SOURCE_DIR}/integration_tests/install_test_environment.sh ${PROJECT_SOURCE_DIR}/api/python ${PROJECT_BINARY_DIR}/test_venv)
+ 
+ # creating a make target, s.t. the environment can be set up explicitly
+-add_custom_target(install_test_environment
+-  DEPENDS ${PROJECT_BINARY_DIR}/test_venv/DONE
+-)
++#add_custom_target(install_test_environment
++#  DEPENDS ${PROJECT_BINARY_DIR}/test_venv/DONE
++#)
+ 
+ # --- integration tests ---
+-add_custom_target(check
+-  COMMAND ${PROJECT_BINARY_DIR}/test_venv/bin/python ${PROJECT_SOURCE_DIR}/integration_tests/main.py
+-  DEPENDS metagraph
+-  DEPENDS install_test_environment
+-)
++#add_custom_target(check
++#  COMMAND ${PROJECT_BINARY_DIR}/test_venv/bin/python ${PROJECT_SOURCE_DIR}/integration_tests/main.py
++#  DEPENDS metagraph
++#  DEPENDS install_test_environment
++#)
+ # --- integration tests + unit tests ---
+-add_custom_target(check_all
+-  COMMAND make check
+-  COMMAND unit_tests
+-  DEPENDS check unit_tests
+-)
+-add_test(NAME integration_tests COMMAND make check)
+-add_test(NAME unit_tests COMMAND unit_tests)
++#add_custom_target(check_all
++#  COMMAND make check
++#  COMMAND unit_tests
++#  DEPENDS check unit_tests
++#)
++#add_test(NAME integration_tests COMMAND make check)
++#add_test(NAME unit_tests COMMAND unit_tests)
+ 
+ # --- integration tests runner ---
+-get_target_property(PythonPath Python3::Interpreter IMPORTED_LOCATION)
+-file(WRITE "${PROJECT_BINARY_DIR}/CMakeFiles/integration_tests" "#!/bin/bash\n")
+-file(APPEND "${PROJECT_BINARY_DIR}/CMakeFiles/integration_tests"
+-  "\n${PROJECT_BINARY_DIR}/test_venv/bin/python ${PROJECT_SOURCE_DIR}/integration_tests/main.py \"$@\""
+-)
+-file(INSTALL "${PROJECT_BINARY_DIR}/CMakeFiles/integration_tests"
+-  DESTINATION "${PROJECT_BINARY_DIR}"
+-  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+-                   GROUP_READ GROUP_EXECUTE
+-                   WORLD_READ WORLD_EXECUTE
+-)
++#get_target_property(PythonPath Python3::Interpreter IMPORTED_LOCATION)
++#file(WRITE "${PROJECT_BINARY_DIR}/CMakeFiles/integration_tests" "#!/bin/bash\n")
++#file(APPEND "${PROJECT_BINARY_DIR}/CMakeFiles/integration_tests"
++#  "\n${PROJECT_BINARY_DIR}/test_venv/bin/python ${PROJECT_SOURCE_DIR}/integration_tests/main.py \"$@\""
++#)
++#file(INSTALL "${PROJECT_BINARY_DIR}/CMakeFiles/integration_tests"
++#  DESTINATION "${PROJECT_BINARY_DIR}"
++#  FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
++#                   GROUP_READ GROUP_EXECUTE
++#                   WORLD_READ WORLD_EXECUTE
++#)
+ 
+ #-------------------
+ # Python interfaces
