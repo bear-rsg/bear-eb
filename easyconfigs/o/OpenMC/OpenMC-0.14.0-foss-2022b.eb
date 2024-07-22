@@ -58,6 +58,11 @@ exts_list = [
     }),
 ]
 
+postinstallcmds = [
+    "cd %(installdir)s/lib/python%(pyshortver)s/site-packages/%(namelower)s/lib && "
+    "ln -s ../../../../libopenmc.so libopenmc.so"
+]
+
 modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
 
 sanity_check_paths = {
@@ -65,6 +70,10 @@ sanity_check_paths = {
     'dirs': ['lib/python%(pyshortver)s/site-packages/%(namelower)s'],
 }
 
-sanity_check_commands = ['%(namelower)s --help', "python -c 'import openmc'"]
+sanity_check_commands = [
+    '%(namelower)s --help',
+    "python -c 'import openmc'",
+    "python -c 'import openmc.lib'"
+]
 
 moduleclass = 'phys'
