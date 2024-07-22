@@ -53,6 +53,12 @@
    progress_bar
    mersenne_twister
    spdlog::spdlog
+@@ -527,1 +530,1 @@
+-target_compile_options(unit_tests PRIVATE -Wno-undefined-var-template ${DEATH_TEST_FLAG})
++#target_compile_options(unit_tests PRIVATE -Wno-undefined-var-template ${DEATH_TEST_FLAG})
+@@ -544,1 +547,1 @@
+-target_compile_options(benchmarks PRIVATE -Wno-undefined-var-template)
++#target_compile_options(benchmarks PRIVATE -Wno-undefined-var-template)
 @@ -548,43 +551,43 @@
  #-------------------
  find_package(Python3 3.4 REQUIRED COMPONENTS Interpreter)

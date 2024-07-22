@@ -36,7 +36,7 @@ patches = [
 ]
 checksums = [
     {'metagraph-v0.3.6.tar.gz': '1dd31c2a27db2d62487474cf3e106c86720406cbaecbb038d8165e752e0669c9'},
-    {'disablePyVenvTest.patch': '2a4e3589f20334d68d36b8579b3a303f3aad7baf92ad8080562ad88263457c38'},
+    {'disablePyVenvTest.patch': 'c3feaf2a986482ca87245b42b300090e109c876ab404f0ff71e375e23342085a'},
 ]
 
 builddependencies = [
