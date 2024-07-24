@@ -1,0 +1,40 @@
+easyblock = 'MakeCp'
+name = 'AMRFinderPlus'
+version = '3.11.26'
+
+homepage = 'https://github.com/ncbi/amr'
+description = """This software and the accompanying database are designed to find acquired antimicrobial
+ resistance genes and some point mutations in protein or assembled nucleotide sequences."""
+
+toolchain = {'name': 'gompi', 'version': '2022b'}
+
+github_account = 'ncbi'
+source_urls = ['https://github.com/ncbi/amr/archive/']
+sources = ['amrfinder_v%(version)s.tar.gz']
+checksums = ['49d98d0f66e121d3ed5a3d9a817089ee69399b0bd06af52f79d796bfe8b2d8b2']
+
+dependencies = [
+    ('BLAST+', '2.14.0'),
+    ('HMMER', '3.3.2'),
+    ('cURL', '7.86.0')
+]
+
+# Binaries are installed to the root of the installation, so add that root to the PATH:
+modextrapaths = {'PATH': ''}
+
+# a list of binary files that will be produced
+local_binaries = ['amr_report', 'amrfinder', 'amrfinder_update', 'dna_mutation', 'fasta2parts', 'fasta_check',
+                  'fasta_extract', 'gff_check']
+
+files_to_copy = local_binaries
+
+sanity_check_paths = {
+    'files': local_binaries,
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    ('amrfinder', '-h')
+]
+
+moduleclass = 'bio'
