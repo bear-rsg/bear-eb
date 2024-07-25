@@ -23,8 +23,11 @@ dependencies = [
 modextrapaths = {'PATH': ''}
 
 # a list of binary files that will be produced
-local_binaries = ['amr_report', 'amrfinder', 'amrfinder_update', 'dna_mutation', 'fasta2parts', 'fasta_check',
-                  'fasta_extract', 'gff_check']
+local_binaries = [
+    'amr_report', 'amrfinder', 'amrfinder_update',
+    'dna_mutation', 'fasta2parts', 'fasta_check',
+    'fasta_extract', 'gff_check'
+]
 
 files_to_copy = local_binaries
 
