@@ -1,0 +1,52 @@
+easyblock = 'MesonNinja'
+
+name = 'freebayes'
+version = '1.3.8'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://github.com/freebayes/freebayes'
+description = "Bayesian haplotype-based genetic polymorphism discovery and genotyping."
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+patches = [
+    '%(name)s-1.3.8_fix-meson.patch',
+    '%(name)s-1.3.8_fix-includes.patch',
+]
+checksums = [
+    {'v1.3.8.tar.gz': 'd1c24b1d1b35277e7403cd67063557998218a105c916b01a745e7704715fce67'},
+    {'freebayes-1.3.8_fix-meson.patch': 'c5064f0e50aa508875f56bce3e4c5df5520c6a9330bbcd25abfbe28d38d9415f'},
+    {'freebayes-1.3.8_fix-includes.patch': '7d2439824a674e81830069fba2d0d325231cf173c0c47503043c4b5290bafe83'},
+]
+
+builddependencies = [
+    ('CMake', '3.24.3'),
+    ('Meson', '0.64.0'),
+    ('Ninja', '1.11.1'),
+    ('pkgconf', '1.9.3'),
+]
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('R', '4.3.1'),
+    ('parallel', '20230722'),
+    ('libffi', '3.4.4'),
+    ('VCFtools', '0.1.16'),
+    ('vcflib', '1.0.9', versionsuffix),
+    ('SeqLib', '1.2.0'),
+]
+
+configopts = "-Dprefer_system_deps=true --buildtype release"
+
+sanity_check_paths = {
+    'files': ['bin/freebayes', 'bin/bamleftalign', 'scripts/freebayes-parallel'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["freebayes --help"]
+
+modextrapaths = {'PATH': ['scripts']}
+
+moduleclass = 'bio'
