@@ -2,7 +2,7 @@ easyblock = 'MakeCp'
 
 name = 'PILER-CR'
 version = '1.06'
-_nodashname = name.replace('-','',1).lower()
+_nodashname = name.replace('-', '', 1).lower()
 
 homepage = 'http://www.drive5.com/pilercr/'
 description = """ PILERCR is public domain software for finding CRISPR repeats.
@@ -18,7 +18,7 @@ sources = [{
 }]
 checksums = ['50175f7aa171674cda5ba255631f340f9cc7f80e8cc25135a4cb857147d91068']
 
-files_to_copy = ['%s' % _nodashname] # stand-alone binary
+files_to_copy = ['%s' % _nodashname]  # stand-alone binary
 
 sanity_check_paths = {
     'files': ['%s' % _nodashname],
