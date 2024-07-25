@@ -20,9 +20,6 @@ use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('six', '1.16.0', {
-        'checksums': ['1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926'],
-    }),
     ('argh', '0.28.1', {
         'checksums': ['b2093086f0e809a3ecc24b64a2145309ee8f56d034936cd59e57c558a357329d'],
     }),
