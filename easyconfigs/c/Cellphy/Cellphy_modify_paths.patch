@@ -1,0 +1,31 @@
+--- cellphy.sh.old	2024-07-24 18:40:12.731667434 +0100
++++ cellphy.sh	2024-07-24 18:42:26.250453987 +0100
+@@ -11,7 +11,7 @@
+ 
+ usage() 
+ {
+-  echo "Usage: ./cellphy.sh [COMMAND] [options] input.VCF"
++  echo "Usage: cellphy [COMMAND] [options] input.VCF"
+   echo "\nCOMMAND:"
+   echo "\tFULL         Tree search+bootstrapping+mutation mapping (default)"
+   echo "\tSEARCH       Thorough tree search (20 starting trees) "
+@@ -25,7 +25,7 @@
+   echo "\t-r           REDO mode: overwrite all result files"
+   echo "\t-t THREADS   Number of threads to use (default: autodetect)"
+ 
+-  echo "\nExpert usage: ./cellphy.sh RAXML [raxml options]\n"
++  echo "\nExpert usage: cellphy RAXML [raxml options]\n"
+ }
+ 
+ version
+@@ -35,8 +35,8 @@
+   exit 1
+ fi
+ 
+-root=`dirname $0`
+-raxml_stem=$root/bin/raxml-ng-cellphy
++root=$EBROOTCELLPHY
++raxml_stem=raxml-ng-cellphy
+ sc_convert=$root/script/sc-caller-convert.sh
+ support_viz=$root/script/support-map.R
+ mutmap_viz=$root/script/mutation-map.R
