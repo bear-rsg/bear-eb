@@ -1,0 +1,79 @@
+easyblock = 'PythonBundle'
+
+name = 'bakta'
+version = '1.9.4'
+
+homepage = 'https://github.com/oschwengers/bakta'
+description = 'Rapid & standardized annotation of bacterial genomes, MAGs & plasmids'
+github_account = 'oschwengers'
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+# source_urls = http://www.drive5.com/pilercr/pilercr1.06.tar.gz
+
+builddependencies = [
+    ('Cython', '3.0.8'),
+]
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('Biopython', '1.81'),
+    ('PyYAML', '6.0'),
+    ('zlib-ng', '2.1.6'),
+    ('python-isal', '1.1.0'),
+    ('archspec', '0.2.0'),
+    ('prodigal', '2.6.3'),
+    ('AMRFinderPlus', '3.11.26'),
+    ('DIAMOND', '2.1.8'),
+    ('PyHMMER', '0.10.6'),
+    ('Circos', '0.69-9'),
+    ('Infernal', '1.1.4'),
+    ('tRNAscan-SE', '2.0.12'),
+    ('ARAGORN', '1.2.41'),
+    ('PILER-CR', '1.06')
+]
+
+hiddendependencies = [
+    ('PyYAML', '6.0'),
+    ('zlib-ng', '2.1.6'),
+    ('python-isal', '1.1.0'),
+    ('prodigal', '2.6.3'),
+    ('archspec', '0.2.0')
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('xopen', '1.7.0', {
+        'checksums': ['901f9c8298e95ed74767a4bd76d9f4cf71d8de27b8cf296ac3e7bc1c11520d9f'],
+    }),
+    ('about-time', '4.2.1', {
+        'checksums': ['6a538862d33ce67d997429d14998310e1dbfda6cb7d9bbfbf799c4709847fece'],
+    }),
+    ('grapheme', '0.6.0', {
+        'checksums': ['44c2b9f21bbe77cfb05835fec230bd435954275267fea1858013b102f8603cca'],
+    }),
+    ('alive-progress', '3.0.1', {
+        'checksums': ['3245114253b6adb4b38f2a2a1828edfcd9e8c012f7e30a5cef1932ca7344eb44'],
+    }),
+    ('pyrodigal', '3.5.0', {
+        'checksums': ['f80bf17a2388e4007c65312c7ed84b661e0244be1ef8ef74006f4967a3591d09'],
+    }),
+    ('pilercrpy', '20240725', {
+        'sources': {
+            'filename': '%(name)s-%(version)s.tar.gz',
+            'git_config': {
+                'url': 'https://github.com/widdowquinn',
+                'repo_name': '%(name)s',
+                'commit': '9e16818',
+            }
+        },
+        'checksums': ['7d77c999ad51387e9d28c7af9fe1b304d7cbefb44871af2f87fe63bc9a1bec27'],
+    }),
+    (name, version, {
+        'checksums': ['10330a10e459144dc78daa26f3a73674799706e2e1653e080366b1bbb9e5a5d9'],
+    }),
+]
+
+moduleclass = 'bio'

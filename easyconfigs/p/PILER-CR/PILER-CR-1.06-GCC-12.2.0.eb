@@ -1,0 +1,28 @@
+easyblock = 'MakeCp'
+
+name = 'PILER-CR'
+version = '1.06'
+_nodashname = name.replace('-', '', 1).lower()
+
+homepage = 'http://www.drive5.com/pilercr/'
+description = """ PILERCR is public domain software for finding CRISPR repeats.
+It is part of the PILER family of repeat analysis tools.
+"""
+
+toolchain = {'name': 'GCC', 'version': '12.2.0'}
+
+source_urls = ['http://www.drive5.com/%s/' % _nodashname]
+sources = [{
+   'download_filename': '%s%s.tar.gz' % (_nodashname, version),
+   'filename': '%(name)s-%(version)s.tar.gz'
+}]
+checksums = ['50175f7aa171674cda5ba255631f340f9cc7f80e8cc25135a4cb857147d91068']
+
+files_to_copy = ['%s' % _nodashname]  # stand-alone binary
+
+sanity_check_paths = {
+    'files': ['%s' % _nodashname],
+    'dirs': []
+}
+
+moduleclass = 'bio'
