@@ -1,0 +1,43 @@
+easyblock = 'PythonBundle'
+
+name = 'earthengine-api'
+version = '0.1.413'
+
+homepage = 'https://github.com/earthlab/earthpy'
+description = """EarthPy makes it easier to plot and manipulate spatial data in Python."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('tensorboard', '2.15.1'),
+    ('gcsfs', '2023.12.2.post1'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('uritemplate', '4.1.1', {
+        'checksums': ['4346edfc5c3b79f694bccd6d6099a322bbeb628dbf2cd86eea55a456ce5124f0'],
+    }),
+    ('httplib2', '0.20.4', {
+        'checksums': ['58a98e45b4b1a48273073f905d2961666ecf0fbac4250ea5b47aef259eb5c585'],
+    }),
+    ('google-auth-httplib2', '0.2.0', {
+        'modulename': 'google_auth_httplib2',
+        'checksums': ['38aa7badf48f974f1eb9861794e9c0cb2a0511a4ec0679b1f886d108f5640e05'],
+    }),
+    ('google_api_python_client', '2.138.0', {
+        'modulename': 'googleapiclient',
+        'checksums': ['31080fbf0e64687876135cc23d1bec1ca3b80d7702177dd17b04131ea889eb70'],
+    }),
+    ('earthengine_api', version, {
+        'modulename': 'ee',
+        'checksums': ['1dad6b99507ba258e193683eddd35bb2fa6111bb6462d535d3f6e12dfe96ea7e'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'geo'
