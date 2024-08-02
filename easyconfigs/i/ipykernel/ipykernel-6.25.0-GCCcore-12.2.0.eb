@@ -1,0 +1,62 @@
+easyblock = 'PythonBundle'
+
+name = 'ipykernel'
+version = "6.25.0"
+
+homepage = 'https://ipykernel.readthedocs.io'
+description = """IPython Kernel for Jupyter."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.2.0'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('IPython', '8.14.0'),
+    ('PyZMQ', '25.1.0')
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('tornado', '6.3.2', {
+        'checksums': ['4b927c4f19b71e627b13f3db2324e4ae660527143f9e1f2e2fb404f3a187e2ba'],
+    }),
+    ('trove-classifiers', '2023.7.6', {
+        'source_tmpl': 'trove_classifiers-%(version)s-py3-none-any.whl',
+        'checksums': ['b420d5aa048ee7c456233a49203f7d58d1736af4a6cde637657d78c13ab7969b'],
+    }),
+    ('hatchling', '1.18.0', {
+        'checksums': ['50e99c3110ce0afc3f7bdbadff1c71c17758e476731c27607940cfa6686489ca'],
+    }),
+    ('jupyter_core', '5.3.1', {
+        'patches': ['jupyter-core-5.3.1_fix_jupyter_path.patch'],
+        'checksums': [
+            {'jupyter_core-5.3.1.tar.gz': '5ba5c7938a7f97a6b0481463f7ff0dbac7c15ba48cf46fa4035ca6e838aa1aba'},
+            {'jupyter-core-5.3.1_fix_jupyter_path.patch':
+             '030f1beb91987eb7519360c6d0b5c999f8843f00bca6a170f9ea5d3667ee61e5'},
+        ],
+    }),
+    ('jupyter_client', '8.3.0', {
+        'checksums': ['3af69921fe99617be1670399a0b857ad67275eefcfa291e2c81a160b7b650f5f'],
+    }),
+    ('comm', '0.1.3', {
+        'checksums': ['a61efa9daffcfbe66fd643ba966f846a624e4e6d6767eda9cf6e993aadaab93e'],
+    }),
+    ('nest_asyncio', '1.5.7', {
+        'checksums': ['6a80f7b98f24d9083ed24608977c09dd608d83f91cccc24c9d2cba6d10e01c10'],
+    }),
+    (name, version, {
+        'checksums': ['e342ce84712861be4b248c4a73472be4702c1b0dd77448bfd6bcfb3af9d5ddf9'],
+    }),
+    ('debugpy', '1.6.7', {
+        'source_tmpl': '%(name)s-%(version)s-py2.py3-none-any.whl',
+        'checksums': ['53f7a456bc50706a0eaabecf2d3ce44c4d5010e46dfc65b6b81a518b42866267'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['lib/python%(pyshortver)s/site-packages/ipykernel_launcher.py'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/ipykernel'],
+}
+
+moduleclass = 'tools'
