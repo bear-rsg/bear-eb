@@ -8,10 +8,21 @@ homepage = 'https://msolids.net/musen/'
 description = "MUSEN - Open-Source DEM Simulation System."
 
 toolchain = {'name': 'foss', 'version': '2022b'}
-toolchainopts = {'pic': True, 'usempi': True}
+toolchainopts = {'pic': True, 'usempi': True, 'cstd': 'c++11'}
 
-source_urls = ['https://github.com/msolids/musen/archive/']
-sources = ['v%(version)s.tar.gz']
+# source_urls = ['https://github.com/msolids/musen/archive/']
+# sources = ['v%(version)s.tar.gz']
+
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/msolids',
+        'repo_name': '%(namelower)s',
+        'tag': 'v%(version)s',
+        'keep_git_dir': True  # the git structure is required for the generate_build_version.sh script
+    }
+}]
+
 
 builddependencies = [
     ('CMake', '3.24.3'),
@@ -24,8 +35,18 @@ dependencies = [
     ('Qt5', '5.15.7'),
 ]
 
-preconfigopts = 'sed -i "s/Protobuf_USE_STATIC_LIBS \\"ON\\"/Protobuf_USE_STATIC_LIBS \\"OFF\\"/" %(builddir)s/%(namelower)s-%(version)s/CMakeLists.txt &&'
+# parallel = 1
+
+# preconfigopts = """sed -i "s/Protobuf_USE_STATIC_LIBS \\"ON\\"/Protobuf_USE_STATIC_LIBS \\"OFF\\"/" %(builddir)s/%(namelower)s-%(version)s/CMakeLists.txt &&
+# sed -i '/#include "BuildVersion.h"/d' %(builddir)s/%(namelower)s-%(version)s/CMusen/CMusen.cpp &&"""
+
+# preconfigopts = 'sed -i "s/Protobuf_USE_STATIC_LIBS \\"ON\\"/Protobuf_USE_STATIC_LIBS \\"OFF\\"/" %(builddir)s/%(namelower)s-%(version)s/CMakeLists.txt &&'
+preconfigopts = 'sed -i "s/Protobuf_USE_STATIC_LIBS \\"ON\\"/Protobuf_USE_STATIC_LIBS \\"OFF\\"/" %(builddir)s/%(namelower)s/CMakeLists.txt &&'
 
 configopts = '-DBUILD_GUI=OFF -DBUILD_CLI=ON '
+
+prebuildopts = 'pushd %(builddir)s/%(namelower)s/Version && sh ./generate_build_version.sh && popd &&'
+
+build_cmd = "cmake --build . --parallel %(parallel)s"
 
 moduleclass = 'lib'
