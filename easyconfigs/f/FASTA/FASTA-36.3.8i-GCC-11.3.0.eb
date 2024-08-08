@@ -15,6 +15,7 @@ toolchain = {'name': 'GCC', 'version': '11.3.0'}
 
 source_urls = ['https://github.com/wrpearson/fasta36/archive/']
 sources = ['v%%(version)s_%s.tar.gz' % local_version_date]
+checksums = ['b4b1c3c9be6beebcbaf4215368e159d69255e34c0bdbc84affa10cdb473ce008']
 
 buildopts = '-C ./src -f ../make/Makefile.linux_sse2 all'
 

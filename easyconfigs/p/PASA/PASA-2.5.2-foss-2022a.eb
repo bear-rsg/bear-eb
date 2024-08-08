@@ -14,6 +14,7 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 source_urls = ['https://github.com/PASApipeline/PASApipeline/archive/']
 sources = ['%(namelower)s-v%(version)s.tar.gz']
+checksums = ['0b121df047e9142185b78840ec6dd9ef26ef6a2b4a5fa85c8a7208bea502895c']
 
 dependencies = [
     ('SQLite', '3.38.3'),

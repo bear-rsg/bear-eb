@@ -10,6 +10,7 @@ toolchain = {'name': 'gompi', 'version': '2022a'}
 
 source_urls = ['https://gitlab.com/paulklemm_PHD/proteinortho/-/archive/v%(version)s/']
 sources = ['proteinortho-v%(version)s.tar.gz']
+checksums = ['23079b3106deb41eab4a9123ea4744e9d05ab99e286184e617628fc243718dff']
 
 dependencies = [
     ('Perl', '5.34.1'),

@@ -10,6 +10,7 @@ toolchain = {'name': 'GCC', 'version': '11.3.0'}
 
 source_urls = ['https://gitlab.com/mcfrith/tantan/-/archive/%(version)s/']
 sources = ['tantan-%(version)s.tar.gz']
+checksums = ['8e88e61cb39bf0fcd78f4483f586068a0594972d7a2ad62d0aaae22890b76a5f']
 
 skipsteps = ['configure']
 
