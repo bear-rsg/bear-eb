@@ -1,0 +1,25 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'msgpack'
+version = '0.5.6'
+
+homepage = "https://pypi.org/project/msgpack"
+description = """MessagePack is an efficient binary serialization format.
+It lets you exchange data among multiple languages like JSON"""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+]
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['0ee8c8c85aa651be3aa0cd005b5931769eaa658c948ce79428766f1bd46ae2c3']
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+moduleclass = 'tools'

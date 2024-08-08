@@ -16,8 +16,9 @@ dependencies = [
     ('statsmodels', '0.14.0'),
     ('SciPy-bundle', '2023.02'),
     ('Pysam', '0.21.0'),
-    ('msgpack-c', '6.0.0'),
+    ('msgpack', '0.5.6'),
     ('pyfaidx', '0.7.2.1'),
+    ('pyfasta', '0.5.2'),
 ]
 
 source_urls = ["https://gitlab.com/vincent-sater/umi-varcal/-/archive/master"]
@@ -26,8 +27,9 @@ patches = [
     'umi_varcal_func_path.patch',
     'umi_varcal_readme_path.patch',
 ]
+
 checksums = [
-    {'umi-varcal-master.tar.gz': '17622274c2270d1b0c66ebb8ac142764cb4c3b211488d327482979f47a29d879'},
+    {'umi-varcal-master.tar.gz': '6f3dc862acf1da09d6a2552a50cc5e41c242f79f70f719810b21288c01d8c014'},
     {'umi_varcal_func_path.patch': '9ac9a8eee789daef4f64f2d99ec54879c8b1e933adfd69ebd4740d7ad3bc63b3'},
     {'umi_varcal_readme_path.patch': '34ac9fced28a6335fd4aaa9f563bee1de34efd79a3c144b2823084ecbffaf289'},
 ]
