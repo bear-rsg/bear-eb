@@ -1,0 +1,63 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'MakeCp'
+
+name = 'EVidenceModeler'
+version = '2.1.0'
+
+homepage = "https://evidencemodeler.github.io/"
+description = """The EVidenceModeler (aka EVM) software combines ab intio gene predictions and protein and transcript
+ alignments into weighted consensus gene structures. EVM provides a flexible and intuitive framework for combining
+ diverse evidence types into a single automated gene structure annotation system. Inputs to EVM include the genome
+ sequence, gene predictions and alignment data in GFF3 format, and a list of numeric weight values to be applied to
+ each type of evidence. The weights can be configured manually."""
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+sources = [{
+    'filename': '%(name)s-v%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/EVidenceModeler',
+        'repo_name': '%(name)s',
+        'tag': '%(name)s-v%(version)s',
+        'recursive': True,
+    },
+}]
+checksums = ['f9931a70efe5a16adcce4cece980d343864f313da0a7ac98ba345d135a4251e2']
+
+builddependencies = [
+    ('Autotools', '20220317'),
+    ('binutils', '2.38'),
+]
+
+dependencies = [(
+    'Perl', '5.34.1'),
+]
+
+files_to_copy = [
+    (['EVidenceModeler'], 'bin'),
+    (['README.md'], 'doc'),
+    (['LICENSE.txt'], 'doc'),
+    (['EvmUtils/*'], 'EvmUtils'),
+    (['PerlLib/*'], 'PerlLib'),
+    (['plugins/ParaFly/bin'], 'Plugins/ParaFly'),
+    (['testing/*'], 'Testing'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/EVidenceModeler'],
+    'dirs': ['PerlLib', 'EvmUtils'],
+}
+
+modextravars = {'EVM_HOME': '%(installdir)s'}
+
+modextrapaths = {
+    'PERL5LIB': 'PerlLib',
+}
+
+sanity_check_commands = [
+    "EVidenceModeler --version"
+]
+
+modloadmsg = """\n\nINFO: Use the $EVM_HOME variable to reach the EVidenceModeler software.\n\n"""
+
+moduleclass = 'bio'

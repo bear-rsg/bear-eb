@@ -1,0 +1,43 @@
+easyblock = 'ConfigureMake'
+
+name = 'tRNAscan-SE'
+version = '2.0.11'
+
+homepage = 'http://trna.ucsc.edu/tRNAscan-SE/'
+description = """tRNAscan-SE is the most widely employed tool for identifying
+ and annotating tRNA genes in genomes."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+#  using github due to cert error from the UCSC-LL download web server
+source_urls = ['https://github.com/UCSC-LoweLab/%(name)s/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['214c7e055ad277e95f998822f184c0377dd68f4ba02a685afa768967211b3143']
+
+builddependencies = [
+    # tRNAscan-SE's configure script really wants Autoconf 2.69
+    ('Autoconf', '2.69', '', True),
+]
+
+dependencies = [
+    ('Perl', '5.34.1'),
+    ('Infernal', '1.1.4'),
+]
+
+parallel = 1
+
+# tRNAscan-SE.conf sets the Infernal bin directory to be ours.
+postinstallcmds = [
+    "for b in $(ls $EBROOTINFERNAL/bin); do ln -s $EBROOTINFERNAL/bin/$b %(installdir)s/bin; done",
+]
+
+fix_perl_shebang_for = ['bin/*']
+
+sanity_check_paths = {
+    'files': ['bin/tRNAscan-SE', 'lib/tRNAscan-SE/tRNAscanSE/tRNA.pm'],
+    'dirs': ['include'],
+}
+
+sanity_check_commands = ["tRNAscan-SE --help"]
+
+moduleclass = 'bio'
