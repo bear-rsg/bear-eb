@@ -1,0 +1,52 @@
+easyblock = 'ConfigureMake'
+
+name = 'PASA'
+version = '2.5.2'
+
+homepage = 'https://github.com/PASApipeline/PASApipeline'
+description = """PASA, acronym for Program to Assemble Spliced Alignments (and pronounced 'pass-uh'),
+ is a eukaryotic genome annotation tool that exploits spliced alignments of expressed transcript
+ sequences to automatically model gene structures, and to maintain gene structure annotation consistent
+ with the most recently available experimental sequence data. PASA also identifies and classifies all
+ splicing variations supported by the transcript alignments."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+source_urls = ['https://github.com/PASApipeline/PASApipeline/archive/']
+sources = ['%(namelower)s-v%(version)s.tar.gz']
+
+dependencies = [
+    ('SQLite', '3.38.3'),
+    ('GMAP-GSNAP', '2023-02-17'),
+    ('pblat', '2.5.1'),
+    ('minimap2', '2.24'),
+    ('FASTA', '36.3.8i'),
+]
+
+buildininstalldir = True
+
+skipsteps = ['configure', 'install']
+
+unpack_options = '--strip-components=1'
+
+local_bins = [
+    '%(namelower)s',
+    'cdbfasta',
+    'cdbyank',
+    'cln2qual',
+    'mdust',
+    'psx',
+    'seqclean',
+    'seqclean.psx',
+    'slclust',
+    'trimpoly',
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in local_bins],
+    'dirs': []
+}
+
+sanity_check_commands = ['command -v %(namelower)s']
+
+moduleclass = 'bio'
