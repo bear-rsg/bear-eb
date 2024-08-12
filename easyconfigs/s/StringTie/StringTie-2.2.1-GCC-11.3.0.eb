@@ -22,7 +22,7 @@ dependencies = [
     ('libdeflate', '1.10'),
     ('XZ', '5.2.5'),
     ('zlib', '1.2.12'),
-    ('HTSlib', '1.16'),
+    ('HTSlib', '1.15.1'),
     ('Python', '3.10.4'),
 ]
 
