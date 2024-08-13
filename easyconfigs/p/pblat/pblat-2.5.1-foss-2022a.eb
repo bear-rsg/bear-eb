@@ -16,7 +16,7 @@ sources = ['%(version)s.tar.gz']
 checksums = ['e85a4d752b8e159502d529f0f9e47579851a6b466b6c2f1f4d49f598642bc615']
 
 dependencies = [
-    ('HTSlib', '1.16'),
+    ('HTSlib', '1.15.1'),
     ('zlib', '1.2.12'),
     ('OpenSSL', '1.1', '', SYSTEM),
 ]
