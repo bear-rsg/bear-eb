@@ -48,17 +48,6 @@ _jaxlib_buildopts += '--bazel_options="--action_env=CPATH=$EBROOTPYBIND11/includ
 # Avoid warning (treated as error) in upb/table.c
 _jaxlib_buildopts += '--bazel_options="--copt=-Wno-maybe-uninitialized" '
 
-#excluded_tests = {
-#    '': [
-#        # Below tests failed on BEAR
-#        'tests/pmap_test.py',
-#        'lax_scipy_test.py',
-#        'random_lax_test.py',
-#        'sparse_bcoo_bcsr_test.py',
-#        'random_lax_test.py',
-#    ]
-#}
-
 components = [
     ('jaxlib', version, {
         'sources': [
@@ -111,7 +100,6 @@ exts_list = [
             {'jax-0.4.25_fix_env_test_no_log_spam.patch':
              'a18b5f147569d9ad41025124333a0f04fd0d0e0f9e4309658d7f6b9b838e2e2a'},
         ],
-#        'runtest': "pytest -n %(parallel)s tests --ignore %(excluded_tests)s",
     }),
 ]
 
