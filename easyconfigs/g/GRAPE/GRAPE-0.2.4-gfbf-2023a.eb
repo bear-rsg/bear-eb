@@ -1,5 +1,4 @@
 # This easyconfig was created by the BEAR Software team at the University of Birmingham.
-#easyblock = 'CargoPythonBundle'
 easyblock = 'PythonBundle'
 
 name = 'GRAPE'
@@ -19,13 +18,8 @@ The library is composed of two main modules, Ensmallen, which is the Rust/Python
 """
 
 toolchain = {'name': 'gfbf', 'version': '2023a'}
-#toolchainopts = {'optarch': 'rustc'}
 
 builddependencies = [
-#    ('binutils', '2.40'),
-#    ('CMake', '3.26.3'),
-#    ('Ninja', '1.11.1'),
-#    ('Rust', '1.75.0'),
     ('maturin', '1.4.0', '-Rust-1.75.0'),
     ('Python', '3.11.3'),
 ]
@@ -52,104 +46,7 @@ download_dep_fail = True
 exts_default_options = {
     'source_urls': [PYPI_LOWER_SOURCE],
     'source_tmpl': SOURCELOWER_TAR_GZ
-#    'sources': {
-#        'filename': [SOURCELOWER_TAR_GZ],
-#        'download_filename': [SOURCELOWER_TAR_GZ]
-#    }
 }
-
-#crates = [
-#   libc = "0.2.109"
-#   crossbeam = "0.8.0"
-#   log = "0.4.8"
-#   regex = "1.5.4"
-#   lazy_static="1.4.0"
-#   env_logger = "0.7.1"
-#   rayon = "1.6"
-#   serde = "1.0.130"
-#   rand = {version="0.7", features = ["small_rng"] }
-#   itertools = "0.10.0"
-#   permutation = "0.2.5"
-#   tokenizers = "0.11.0"
-#   counter = "=0.5.2"
-#   is_sorted = "0.1.1"
-#   derive-getters = "0.1.0"
-#   bitvec = {version="1.0.1", features=["atomic"]}
-#   glob = "0.3.0"
-#   keyed_priority_queue = "0.3.2"
-#   validator = "0.14.0"
-#   num_cpus = "1.13.0"
-#   iter-set = "2.0.1"
-#   memchr = "2.4.1"
-#   atomic_float = "0.1.0"
-#   num-traits = "0.2.14"
-#   heterogeneous_graphlets = {git = "https://github.com/LucaCappelletti94/heterogeneous_graphlets"}
-#   v_htmlescape = "0.13.1"
-#   linked_hash_set = "0.1.4"
-#   hashbrown = {version="0.14", features=["rayon"]}
-#   indicatif = {version="0.16.0", features = ["rayon"]}
-#   arbitrary = { version = "0.4.5", features = ["derive"] }
-#   mmap = {path = "./mmap"}
-#   csr = {path = "./csr"}
-#   express_measures = {path = "./express_measures"}
-#   roaring = { git = "https://github.com/zommiommy/roaring-rs", branch = "master" }
-#   vec_rand = { git = "https://github.com/zommiommy/vec_rand", branch = "master" }
-#   visited-rs = { git = "https://github.com/LucaCappelletti94/visited-rs", branch = "main" }
-#   hyperloglog-rs = {version="0.1.51", features=["std"]}
-#   elias_fano_rust = "0.1.1"
-#   tags = {path="./tags/"}
-#   atoi_radix10 = { git = "https://github.com/gilescope/atoi_radix10"}
-#   parallel_frontier = {git="https://github.com/zommiommy/parallel_frontier"}
-#   xxhash-rust = {version ="0.8.6", features=["xxh3"]}
-#   siphasher = "0.3"
-#]
-#crates = [
-##(crate, version, [repo, rev])
-##   ('graph', 'https://github.com/AnacletoLAB/ensmallen/graph.git')
-#   ('libc', '0.2.109'),
-#   ('crossbeam', '0.8.0'),
-#   ('log', '0.4.8'),
-#   ('regex', '1.5.4'),
-#   ('lazy_static', '1.4.0'),
-#   ('env_logger', '0.7.1'),
-##   ('rayon', '1.6'),
-#   ('serde', '1.0.130'),
-##   rand = {version="0.7", features = ["small_rng"] }
-#   ('itertools', '0.10.0'),
-#   ('permutation', '0.2.5'),
-#   ('tokenizers', '0.11.0'),
-#   ('counter', '0.5.2'),
-#   ('is_sorted', '0.1.1'),
-#   ('derive', '0.1.0'),
-##   bitvec = {version="1.0.1", features=["atomic"]}
-#   ('glob', '0.3.0'),
-#   ('keyed_priority_queue', '0.3.2'),
-#   ('validator', '0.14.0'),
-#   ('num_cpus', '1.13.0'),
-##   ('iter', '2.0.1'),
-#   ('memchr', '2.4.1'),
-#   ('atomic_float', '0.1.0'),
-##   ('num', '0.2.14'),
-##   heterogeneous_graphlets = {git = "https://github.com/LucaCappelletti94/heterogeneous_graphlets"}
-#   ('v_htmlescape', '0.13.1'),
-#   ('linked_hash_set', '0.1.4'),
-##   hashbrown = {version="0.14", features=["rayon"]}
-##   indicatif = {version="0.16.0", features = ["rayon"]}
-##   arbitrary = { version = "0.4.5", features = ["derive"] }
-##   mmap = {path = "./mmap"}
-##   csr = {path = "./csr"}
-##   express_measures = {path = "./express_measures"}
-##   roaring = { git = "https://github.com/zommiommy/roaring-rs", branch = "master" }
-##   vec_rand = { git = "https://github.com/zommiommy/vec_rand", branch = "master" }
-##   visited-rs = { git = "https://github.com/LucaCappelletti94/visited-rs", branch = "main" }
-##   hyperloglog-rs = {version="0.1.51", features=["std"]}
-#   ('elias_fano_rust', '0.1.1'),
-##   tags = {path="./tags/"}
-##   atoi_radix10 = { git = "https://github.com/gilescope/atoi_radix10"}
-##   parallel_frontier = {git="https://github.com/zommiommy/parallel_frontier"}
-##   xxhash-rust = {version ="0.8.6", features=["xxh3"]}
-##   ('siphasher', '0.3'),
-#]
 
 exts_list = [
     ('pydantic_core', '2.16.3', {
