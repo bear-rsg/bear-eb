@@ -1,0 +1,28 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Conda'
+
+name = 'EDTA'
+version = '2.2.0'
+
+homepage = 'https://missionbio.github.io/mosaic/index.html'
+description = """
+Mosaic is a set of tools to analyze DNA and protein data obtained from the Mission Bio Tapestri instrument.
+Its designed to allow convenient handling and visualization of single-cell multiomics data to enable
+exploratory analysis.
+"""
+toolchain = SYSTEM
+
+builddependencies = [('Miniforge3', '24.1.2-0')]
+
+channels = ['bioconda', 'conda-forge']
+
+requirements = '%(namelower)s==%(version)s'
+
+sanity_check_paths = {
+    'files': ['bin/RepeatMasker'],
+    'dirs': ['bin'],
+}
+
+sanity_check_commands = ['EDTA.pl --check_dependencies']
+
+moduleclass = 'bio'
