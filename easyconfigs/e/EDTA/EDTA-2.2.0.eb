@@ -4,12 +4,12 @@ easyblock = 'Conda'
 name = 'EDTA'
 version = '2.2.0'
 
-homepage = 'https://missionbio.github.io/mosaic/index.html'
+homepage = 'https://github.com/oushujun/EDTA/'
 description = """
-Mosaic is a set of tools to analyze DNA and protein data obtained from the Mission Bio Tapestri instrument.
-Its designed to allow convenient handling and visualization of single-cell multiomics data to enable
-exploratory analysis.
+This package is developed for automated whole-genome de-novo TE annotation and
+benchmarking the annotation performance of TE libraries.
 """
+
 toolchain = SYSTEM
 
 builddependencies = [('Miniforge3', '24.1.2-0')]
