@@ -17,11 +17,12 @@ The library is composed of two main modules, Ensmallen, which is the Rust/Python
  submodule, and Embiggen, which is the Python Graph Representation learning, Prediction and Evaluation submodule.
 """
 
-toolchain = {'name': 'gfbf', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2023a'}
 
 builddependencies = [
     ('maturin', '1.4.0', '-Rust-1.75.0'),
     ('Python', '3.11.3'),
+    ('hatchling', '1.18.0'),
 ]
 
 dependencies = [
@@ -34,8 +35,9 @@ dependencies = [
     ('matplotlib', '3.7.2'),
     ('tqdm', '4.66.1'),
     ('BeautifulSoup', '4.12.2'),
-    ('hatchling', '1.18.0'),
     ('typing-extensions', '4.9.0'),
+    ('OpenCV', '4.8.1', '-contrib'),
+    ('pydantic', '2.5.3'),
 ]
 
 sanity_pip_check = True
@@ -49,15 +51,6 @@ exts_default_options = {
 }
 
 exts_list = [
-    ('pydantic_core', '2.16.3', {
-        'checksums': ['1cac689f80a3abab2d3c0048b29eea5751114054f032a941a32de4c852c59cad'],
-    }),
-    ('annotated_types', '0.7.0', {
-        'checksums': ['aff07c09a53a08bc8cfccb9c85b05f1aa9a2a6f23728d790723543408344ce89'],
-    }),
-    ('pydantic', '2.6.3', {
-        'checksums': ['e07805c4c7f5c6826e33a1d4c9d47950d7eaf34868e2690f8594d2e30241f11f'],
-    }),
     ('PyTrie', '0.4.0', {
         'sources': {'download_filename': 'PyTrie-%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'},
         'checksums': ['8f4488f402d3465993fb6b6efa09866849ed8cda7903b50647b7d0342b805379'],
@@ -86,11 +79,8 @@ exts_list = [
     ('downloaders', '1.0.20', {
         'checksums': ['8ed2f3c5d95296ee59d004421c735fff9c46b89ef51ff5f4e861a10636ecb960'],
     }),
-    ('opencv-python', '4.10.0.84', {
-        'modulename': 'cv2',
-        'checksums': ['72d234e4582e9658ffea8e9cae5b63d488ad06994ef12d81dc303b17472f3526'],
-    }),
     ('ddd_subplots', '1.0.27', {
+        'preinstallopts': 'sed -i "s/opencv-python/opencv-contrib-python/" setup.py &&',
         'checksums': ['925a61b888ee0491650cac022f28059e415486022a8ec33329c0555a0429f649'],
     }),
     ('keras_mixed_sequence', '1.0.29', {
