@@ -30,7 +30,6 @@ dependencies = [
     ('Python-bundle-PyPI', '2023.06'),
     ('IPython', '8.14.0'),
     ('scikit-learn', '1.4.2'),
-    ('scikit-build', '0.17.6'),
     ('SciPy-bundle', '2023.07'),
     ('imageio', '2.33.1'),
     ('matplotlib', '3.7.2'),
