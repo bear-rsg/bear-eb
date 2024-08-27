@@ -23,6 +23,7 @@ builddependencies = [
     ('maturin', '1.4.0', '-Rust-1.75.0'),
     ('Python', '3.11.3'),
     ('hatchling', '1.18.0'),
+    ('scikit-build', '0.17.6'),
 ]
 
 dependencies = [
