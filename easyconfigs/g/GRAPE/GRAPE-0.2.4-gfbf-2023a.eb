@@ -1,0 +1,156 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'GRAPE'
+version = '0.2.4'
+
+homepage = "https://github.com/AnacletoLAB/grape/tree/main"
+description = """GRAPE (Graph Representation leArning, Predictions and Evaluation) is a fast graph processing and
+ embedding library, designed to scale with big graphs and to run on both off-the-shelf laptop and desktop computers and
+ High-Performance Computing clusters of workstations.
+
+The library is written in Rust and Python programming languages, and has been developed by AnacletoLAB (Dept. of
+ Computer Science of the University of Milan), in collaboration with the Robinson Lab - Jackson Laboratory for Genomic
+ Medicine and with the BBOP - Lawrence Berkeley National Laboratory.
+
+The library is composed of two main modules, Ensmallen, which is the Rust/Python high-performance graph processing
+ submodule, and Embiggen, which is the Python Graph Representation learning, Prediction and Evaluation submodule.
+"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('maturin', '1.4.0', '-Rust-1.75.0'),
+    ('Python', '3.11.3'),
+    ('hatchling', '1.18.0'),
+    ('scikit-build', '0.17.6'),
+]
+
+dependencies = [
+    ('Python-bundle-PyPI', '2023.06'),
+    ('IPython', '8.14.0'),
+    ('scikit-learn', '1.4.2'),
+    ('SciPy-bundle', '2023.07'),
+    ('imageio', '2.33.1'),
+    ('matplotlib', '3.7.2'),
+    ('tqdm', '4.66.1'),
+    ('BeautifulSoup', '4.12.2'),
+    ('typing-extensions', '4.9.0'),
+    ('OpenCV', '4.8.1', '-contrib'),
+    ('pydantic', '2.5.3'),
+]
+
+sanity_pip_check = True
+use_pip = True
+use_pip_extras = "auditwheel"
+download_dep_fail = True
+
+exts_default_options = {
+    'source_urls': [PYPI_LOWER_SOURCE],
+    'source_tmpl': SOURCELOWER_TAR_GZ
+}
+
+exts_list = [
+    ('PyTrie', '0.4.0', {
+        'sources': {'download_filename': 'PyTrie-%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'},
+        'checksums': ['8f4488f402d3465993fb6b6efa09866849ed8cda7903b50647b7d0342b805379'],
+    }),
+    ('curies', '0.7.0', {
+        'checksums': ['6ce4b3b6202f7fed9ccef4b6b91fc6a13de233774fc39088e64bc676b1a4a48e'],
+    }),
+    ('more_click', '0.1.2', {
+        'checksums': ['085da66d5a9b823c5d912a888dca1fa0c8b3a14ed1b21ea9c8a1b814857a3981'],
+    }),
+    ('stack_data', '0.6.3', {
+        'checksums': ['836a778de4fec4dcd1dcd89ed8abff8a221f58308462e1c4aa2a3cf30148f0b9'],
+    }),
+    ('prompt_toolkit', '3.0.43', {
+        'checksums': ['3527b7af26106cbc65a040bcc84839a3566ec1b051bb0bfe953631e704b0ff7d'],
+    }),
+    ('pure_eval', '0.2.2', {
+        'checksums': ['2b45320af6dfaa1750f543d714b6d1c520a1688dec6fd24d339063ce0aaa9ac3'],
+    }),
+    ('pystow', '0.5.4', {
+        'checksums': ['2692180cb405bd77259bee6c7f4db545d10e81939980064730609f21750567ff'],
+    }),
+    ('bioregistry', '0.11.14', {
+        'checksums': ['373d5957925b5d37f582ea3394336b3d71b75a0ada55d56324797fdd64c4b5e8'],
+    }),
+    ('downloaders', '1.0.20', {
+        'checksums': ['8ed2f3c5d95296ee59d004421c735fff9c46b89ef51ff5f4e861a10636ecb960'],
+    }),
+    ('ddd_subplots', '1.0.27', {
+        'preinstallopts': 'sed -i "s/opencv-python/opencv-contrib-python/" setup.py &&',
+        'checksums': ['925a61b888ee0491650cac022f28059e415486022a8ec33329c0555a0429f649'],
+    }),
+    ('keras_mixed_sequence', '1.0.29', {
+        'modulename': False,
+        'checksums': ['4d49f4325988dccd9d1f6d1ea53e1fc0be8a4479545387f79db7d9245ed66e91'],
+    }),
+    ('humanize', '4.8.0', {
+        'checksums': ['9783373bf1eec713a770ecaa7c2d7a7902c98398009dfa3d8a2df91eec9311e8'],
+    }),
+    ('deflate_dict', '1.2.0', {
+        'checksums': ['f03d8335629b192467fcc4ce5cb4fdc0f716e3ebdd0bd30edbf81113d49e2bb8'],
+    }),
+    ('dict_hash', '1.3.0', {
+        'checksums': ['57dd361a9a3345ce9fae914327f2e51d0ebe40a48dbf5238eb078786bdcb03ff'],
+    }),
+    ('compress_pickle', '2.1.0', {
+        'checksums': ['3e944ce0eeab5b6331324d62351c957d41c9327c8417d439843e88fe69b77991'],
+    }),
+    ('compress_json', '1.1.0', {
+        'checksums': ['0fcc3fb518250546e747af4b00cca488c62c60cee84a79f33374ff0b77adec43'],
+    }),
+    ('sanitize_ml_labels', '1.1.0', {
+        'checksums': ['f28be5075f8b12ba6043beac40d3df8c653db8477e22df93a4a41df784b51138'],
+    }),
+    ('py-cpuinfo', '9.0.0', {
+        'modulename': 'cpuinfo',
+        'checksums': ['3cdbbf3fac90dc6f118bfd64384f309edeadd902d7c8fb17f02ffa1fc3f49690'],
+    }),
+    ('IPy', '1.01', {
+        'modulename': 'IPy',
+        'sources': {'download_filename': 'IPy-%(version)s.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'},
+        'checksums': ['edeca741dea2d54aca568fa23740288c3fe86c0f3ea700344571e9ef14a7cc1a'],
+    }),
+    ('environments_utils', '1.0.13', {
+        'checksums': ['ffb304f746d5da2c441d19cc6ab8a6a6df9c865afbc0a305c1d5d49d1d5c357c'],
+    }),
+    ('jaro_winkler', '2.0.3', {
+        'modulename': 'jaro',
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['9ad42a94eb110351e72dd5b9e0a0f1053b0760761d676f9be35da19ea80d511b'],
+    }),
+    ('validate_email', '1.3', {
+        'checksums': ['784719dc5f780be319cdd185dc85dd93afebdb6ebb943811bc4c7c5f9c72aeaf'],
+    }),
+    ('validate_version_code', '1.0.4', {
+        'checksums': ['5d766d1b9b9c10f354542f6376bfd764037c8bdf4f6e59dfc9ed60dc14e2600b'],
+    }),
+    ('validators', '0.33.0', {
+        'checksums': ['535867e9617f0100e676a1257ba1e206b9bfd847ddc171e4d44811f07ff0bfbf'],
+    }),
+    ('userinput', '1.0.22', {
+        'checksums': ['b74ef2221c3749ecfd845763caa4d4f7d5554e4ab5c5828f775f10566b401690'],
+    }),
+    ('pydot', '3.0.1', {
+        'checksums': ['e18cf7f287c497d77b536a3d20a46284568fea390776dface6eabbdf1b1b5efc'],
+    }),
+    ('cache_decorator', '2.2.0', {
+        'checksums': ['ebb427b5acb00fb0a47ed9fc7d52fe96de94f40ca52f381205ace8756df6df5a'],
+    }),
+    ('ensmallen', '0.8.98', {
+        'source_tmpl': '%(name)s-%(version)s-cp37-abi3-manylinux2014_%(arch)s.manylinux_2_17_%(arch)s.whl',
+        'checksums': ['05d195e14c67bab152c1193dc1a6ef2126e631bff23701309182943c32be3760'],
+    }),
+    ('embiggen', '0.11.95', {
+        'checksums': ['6e68b501be2e1ee80a2d2a799bd321dbb1d53c8bb2608118440c09bdc9acb864'],
+    }),
+    (name, version, {
+        'modulename': 'grape',
+        'checksums': ['119ef66ea8486fae52a3e0a1b6658758e0723704805e9b069fccdfdeeab3692e'],
+    }),
+]
+
+moduleclass = 'data'
