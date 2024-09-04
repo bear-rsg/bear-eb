@@ -1,0 +1,33 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'xpclr'
+version = '1.1.2'
+
+homepage = "https://github.com/hardingnj/xpclr"
+description = """"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+github_account = 'hardingnj'
+dependencies = [
+    ('Python', '3.11.3'),
+    ('scikit_allel', '1.3.11'),
+]
+
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['241ddd6ff7b8f44421b8108afcf5725f93baca465bcf55c03bf0af50f7ddaa9b']
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+sanity_check_commands = [(name, '-h')]
+
+sanity_check_paths = {
+    'files': ['bin/xpclr'],
+    'dirs':['lib']
+}
+
+moduleclass = 'bio'
