@@ -18,16 +18,16 @@ dependencies = [
     ('Perl', '5.36.1'),
 ]
 
-postinstallcmds = [
-    'rm -r %%(installdir)s/%s' % x for x in ['install', 'source', 'README.install']
-]
-
 # Run tests that don't require 3rd party integrations (i.e. numbers 58-64)
 # List of available tests can be found by running `$NX/inp-testnx.pl`
-runtest = "export NX=%(installdir)s/bin &&"
-runtest += " mkdir %(builddir)s/tests && cd %(builddir)s/tests &&"
-runtest += " echo '58 59 60 61 62 63 64' > test.inp &&"
-runtest += " ${NX}/test-nx.pl | grep --invert-match -zq ERROR"
+local_test_command = "export NX=%(installdir)s/bin &&"
+local_test_command += " mkdir %(builddir)s/tests && cd %(builddir)s/tests &&"
+local_test_command += " echo '58 59 60 61 62 63 64' > test.inp &&"
+local_test_command += " ${NX}/test-nx.pl | grep --invert-match -zq ERROR"
+
+postinstallcmds = ["rm -r %%(installdir)s/%s" % x for x in ['install', 'source', 'README.install']]
+postinstallcmds += [local_test_command]
+
 
 modextravars = {
     'NX': '%(installdir)s/bin'
