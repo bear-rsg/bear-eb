@@ -23,7 +23,7 @@ postinstallcmds = [
 ]
 
 # Run tests that don't require 3rd party integrations (i.e. numbers 58-64)
-# Lilst of available tests can be found by running `$NX/inp-testnx.pl`
+# List of available tests can be found by running `$NX/inp-testnx.pl`
 runtest = "export NX=%(installdir)s/bin &&"
 runtest += " mkdir %(builddir)s/tests && cd %(builddir)s/tests &&"
 runtest += " echo '58 59 60 61 62 63 64' > test.inp &&"
