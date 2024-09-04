@@ -27,7 +27,7 @@ sanity_check_commands = [(name, '-h')]
 
 sanity_check_paths = {
     'files': ['bin/xpclr'],
-    'dirs':['lib']
+    'dirs': ['lib']
 }
 
 moduleclass = 'bio'
