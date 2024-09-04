@@ -1,0 +1,44 @@
+# Using pre-compiled binaries but should investigate compilation
+# from source for future versions
+easyblock = 'PackedBinary'
+
+name = 'Newton-X'
+version = '2.6-b01'
+
+homepage = "https://newtonx.org/"
+description = """NX is a general-purpose program package for simulating the dynamics of electronically
+excited molecules and molecular assemblies."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+download_instructions = "Complete the form at https://newtonx.org/download/ to receive a download link via email."
+sources = ["nx-v%(version)s.tgz"]
+
+dependencies = [
+    ('Perl', '5.36.1'),
+]
+
+postinstallcmds = [
+    'rm -r %%(installdir)s/%s' % x for x in ['install', 'source', 'README.install']
+]
+
+# Run tests that don't require 3rd party integrations (i.e. numbers 58-64)
+# Lilst of available tests can be found by running `$NX/inp-testnx.pl`
+runtest = "export NX=%(installdir)s/bin &&"
+runtest += " mkdir %(builddir)s/tests && cd %(builddir)s/tests &&"
+runtest += " echo '58 59 60 61 62 63 64' > test.inp &&"
+runtest += " ${NX}/test-nx.pl | grep --invert-match -zq ERROR"
+
+modextravars = {
+    'NX': '%(installdir)s/bin'
+}
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['nx2bagel', 'raninicon', 'xyz2nx']],
+    'dirs': ['bin/lib', 'docs'],
+}
+
+# Restrict access to ensure that users are aware of the licence restrictions
+# and also for the purpose of providing usage stats to the developer.
+# See https://bearadmin.bham.ac.uk/identity/group/p-newton-x
+local_bham_group = "p-newton-x"
