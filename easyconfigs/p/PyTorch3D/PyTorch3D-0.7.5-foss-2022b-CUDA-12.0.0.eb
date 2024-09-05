@@ -1,0 +1,50 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'PyTorch3D'
+version = '0.7.5'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = "https://pytorch3d.org/"
+description = """PyTorch3D is FAIR's library of reusable components for deep learning with 3D data."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('CUDA', '12.0.0', '', SYSTEM),
+    ('tqdm', '4.64.1'),
+    ('PyTorch', '2.1.2', '-CUDA-%(cudaver)s'),
+    ('imageio', '2.31.1'),
+    ('IPython', '8.14.0'),
+    ('torchvision', '0.16.0', '-CUDA-%(cudaver)s'),
+]
+
+sanity_pip_check = True
+use_pip = True
+exts_list = [
+    ('portalocker', '2.7.0', {
+        'checksums': ['032e81d534a88ec1736d03f780ba073f047a06c478b06e2937486f334e955c51'],
+    }),
+    ('termcolor', '2.2.0', {
+        'checksums': ['dfc8ac3f350788f23b2947b3e6cfa5a53b630b612e6cd8965a015a776020b99a'],
+    }),
+    ('yacs', '0.1.8', {
+        'checksums': ['efc4c732942b3103bea904ee89af98bcd27d01f0ac12d8d4d369f1e7a2914384'],
+    }),
+    ('iopath', '0.1.8', {
+        'source_tmpl': '%(namelower)s-%(version)s-py3-none-any.whl',
+        'unpack_sources': False,
+        'checksums': ['e11029c30ee77616b3efd82888aa80941d12afcc5940c2ef57e04a8e93a10f9f'],
+    }),
+    ('fvcore', '0.1.5.post20210617', {
+        'checksums': ['1f1fb91b82166f85ed0f7da8906e87688de9e1b4879b478dc3969d93d24f0379'],
+    }),
+    (name, version, {
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/facebookresearch/%(namelower)s/archive'],
+        'checksums': ['335c51933485e8bf44b88dbf07d0106c05362da8830cef3968983314db0645d5'],
+    }),
+]
+
+moduleclass = 'tools'
