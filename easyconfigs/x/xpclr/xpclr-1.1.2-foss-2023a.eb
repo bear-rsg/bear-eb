@@ -5,7 +5,8 @@ name = 'xpclr'
 version = '1.1.2'
 
 homepage = "https://github.com/hardingnj/xpclr"
-description = """"""
+description = """Code to compute the XP-CLR statistic to infer natural selection.
+ updated implementation as per Chen, Patterson & Reich 2010 https://www.ncbi.nlm.nih.gov/pubmed/20086244"""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
