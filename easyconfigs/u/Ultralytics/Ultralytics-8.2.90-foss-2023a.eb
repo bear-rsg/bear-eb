@@ -1,0 +1,44 @@
+easyblock = 'PythonBundle'
+
+name = 'Ultralytics'
+version = '8.2.90'
+
+homepage = 'https://ultralytics.com'
+description = """Ultralytics YOLOv8 for SOTA object detection, multi-object tracking, instance segmentation,
+ pose estimation and image classification."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('matplotlib', '3.7.2'),
+    ('OpenCV', '4.8.1', '-contrib'),
+    ('Pillow', '10.0.0'),
+    ('psutil', '5.9.8'),
+    ('py-cpuinfo', '9.0.0'),
+    ('PyTorch', '2.1.2'),
+    ('PyYAML', '6.0'),
+    ('SciPy-bundle', '2023.07'),
+    ('Seaborn', '0.13.2'),
+    ('torchvision', '0.16.0'),
+    ('tqdm', '4.66.1'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('ultralytics-thop', '2.0.6', {
+        'modulename': 'thop',
+        'sources': ['ultralytics_thop-%(version)s.tar.gz'],
+        'checksums': ['2194c6f620c09c075f5814f013a36275a49d1102313d7977fc548fade9ead06f'],
+    }),
+    ('ultralytics', version, {
+        'preinstallopts': 'sed -i "s/opencv-python/opencv-contrib-python/" pyproject.toml &&',
+        'checksums': ['43c8228f13806a2274e7161f5da1285cd2b83a41765f9afbdeec05065fb3cb7f'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'ai'
