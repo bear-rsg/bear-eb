@@ -8,7 +8,7 @@ homepage = 'https://msolids.net/musen/'
 description = "MUSEN - Open-Source DEM Simulation System."
 
 toolchain = {'name': 'foss', 'version': '2022b'}
-toolchainopts = {'pic': True, 'usempi': True, 'cstd': 'c++11'}
+toolchainopts = {'pic': True, 'usempi': True, 'cstd': 'c++17'}
 
 # source_urls = ['https://github.com/msolids/musen/archive/']
 # sources = ['v%(version)s.tar.gz']
