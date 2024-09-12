@@ -41,7 +41,8 @@ dependencies = [
 # sed -i '/#include "BuildVersion.h"/d' %(builddir)s/%(namelower)s-%(version)s/CMusen/CMusen.cpp &&"""
 
 # preconfigopts = 'sed -i "s/Protobuf_USE_STATIC_LIBS \\"ON\\"/Protobuf_USE_STATIC_LIBS \\"OFF\\"/" %(builddir)s/%(namelower)s-%(version)s/CMakeLists.txt &&'
-preconfigopts = 'sed -i "s/Protobuf_USE_STATIC_LIBS \\"ON\\"/Protobuf_USE_STATIC_LIBS \\"OFF\\"/" %(builddir)s/%(namelower)s/CMakeLists.txt &&'
+# preconfigopts = 'sed -i "s/Protobuf_USE_STATIC_LIBS \\"ON\\"/Protobuf_USE_STATIC_LIBS \\"OFF\\"/" %(builddir)s/%(namelower)s/CMakeLists.txt && '
+preconfigopts = 'sed -i "s/CMAKE_CUDA_STANDARD 14/CMAKE_CUDA_STANDARD 17/" %(builddir)s/%(namelower)s/CMakeLists.txt &&'
 
 configopts = '-DBUILD_GUI=OFF -DBUILD_CLI=ON '
 
