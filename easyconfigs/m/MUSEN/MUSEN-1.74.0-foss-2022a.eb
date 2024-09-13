@@ -1,0 +1,60 @@
+easyblock = 'CMakeMake'
+
+name = 'MUSEN'
+version = '1.74.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://msolids.net/musen/'
+description = "MUSEN - Open-Source DEM Simulation System."
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+toolchainopts = {'pic': True, 'cstd': 'c++17'}
+
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/msolids',
+        'repo_name': '%(namelower)s',
+        'tag': 'v%(version)s',
+        'keep_git_dir': True  # the git structure is required for the generate_build_version.sh script
+    }
+}]
+checksums = ['99351bbca8be323669ffa0cf9ccc10c76fc3e93382a201e6186ea33f444ed747']
+
+builddependencies = [
+    ('CMake', '3.23.1'),
+    ('binutils', '2.38'),
+]
+
+dependencies = [
+    ('CUDA', '11.7.0', '', SYSTEM),
+    ('protobuf', '3.19.4'),
+    ('Qt5', '5.15.5'),
+]
+
+preconfigopts = "sed -i \"s/CMAKE_CUDA_STANDARD 14/CMAKE_CUDA_STANDARD 17/\" "
+preconfigopts += "%(builddir)s/%(namelower)s/CMakeLists.txt &&"
+
+configopts = "-DBUILD_GUI=OFF -DBUILD_CLI=ON -DProtobuf_LIBRARIES=$EBROOTPROTOBUF/lib/libprotobuf.so "
+configopts += "-DProtobuf_PROTOC_LIBRARIES=$EBROOTPROTOBUF/lib/libprotoc.so "
+
+prebuildopts = 'pushd %(builddir)s/%(namelower)s/Version && sh ./generate_build_version.sh && popd &&'
+
+build_cmd = "cmake --build ."
+
+postinstallcmds = [
+    "mkdir -p %(installdir)s/{bin,lib64}",
+    "cd %(installdir)s && mv CMUSEN ./bin/cmusen",
+    "mv ./libmusen.a %(installdir)s/lib64",
+]
+
+sanity_check_paths = {
+    'files': ['bin/cmusen', 'lib64/libmusen.a'],
+    'dirs': ['Databases', 'Documentation', 'Examples'],
+}
+
+sanity_check_commands = [
+    "cmusen -v"
+]
+
+moduleclass = 'lib'
