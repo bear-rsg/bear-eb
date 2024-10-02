@@ -1,0 +1,43 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+
+name = 'nanobind'
+version = '2.1.0'
+
+homepage = "https://github.com/wjakob/nanobind"
+description = """nanobind is a small binding library that exposes C++ types in Python and vice versa.
+ It is reminiscent of Boost.Python and pybind11 and uses near-identical syntax."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+sources = [
+    {
+        'filename': 'v%(version)s.tar.gz',
+        'git_config': {
+            'url': 'https://github.com/wjakob/',
+            'repo_name': '%(name)s',
+            'tag': 'v%(version)s',
+            'recursive': True,
+        }
+    },
+]
+checksums = [None]
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    ('scikit-build-core', '0.5.0'),
+    # for tests
+    ('SciPy-bundle', '2023.07'),
+    ('Eigen', '3.4.0'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+]
+
+sanity_check_paths = {
+    'files': ['nanobind/stubgen.py'],
+    'dirs': ['nanobind/cmake', 'nanobind/ext', 'nanobind/include', 'nanobind/src']
+}
+
+moduleclass = 'math'
