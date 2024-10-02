@@ -16,7 +16,7 @@ checksums = ['b299af82daf8fa3e4845e17f202491fe71b313bf6ab64c767a5287190b3dd7fe']
 
 builddependencies = [
     ('scikit-build-core', '0.5.0'),
-    ('nanobind','2.1.0'),
+    ('nanobind', '2.1.0'),
 ]
 
 dependencies = [
