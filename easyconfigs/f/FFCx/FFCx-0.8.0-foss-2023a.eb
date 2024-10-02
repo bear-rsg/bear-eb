@@ -1,0 +1,39 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'FFCx'
+version = '0.8.0'
+
+homepage = "https://www.fenicsproject.org"
+description = """FFCx is a new version of the FEniCS Form Compiler. It is being actively developed
+ and is compatible with DOLFINx. FFCx is a compiler for finite element variational forms. From a high-level
+ description of the form in the Unified Form Language (UFL), it generates efficient low-level C code that
+ can be used to assemble the corresponding discrete operator (tensor)."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/FEniCS/ffcx/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['8a854782dbd119ec1c23c4522a2134d5281e7f1bd2f37d64489f75da055282e3']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('cffi', '1.15.1'),
+    ('basix', '0.8.0'),
+    ('UFL', '2024.1.0'),
+]
+
+# cffi with compilation support requires setuptools but there's no hard dep on 3.12.
+preinstallopts = """sed -i "s/python_version >= '3.12'/python_version >= '3.9'/g" pyproject.toml && """
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+# sanity_check_paths = {
+#    'files': ['bin/qnorm'],
+#    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+# }
+
+# sanity_check_commands = ["qnorm --help"]moduleclass = 'math'
