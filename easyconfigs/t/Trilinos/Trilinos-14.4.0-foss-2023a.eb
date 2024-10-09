@@ -1,0 +1,80 @@
+easyblock = 'CMakeMake'
+
+name = 'Trilinos'
+version = '14.4.0'
+
+homepage = 'https://trilinos.org'
+description = """The Trilinos Project is an effort to develop algorithms and enabling technologies
+ within an object-oriented software framework for the solution of large-scale, complex multi-physics
+ engineering and scientific problems. A unique design feature of Trilinos is its focus on packages."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'usempi': True, 'pic': True, 'strict': True}
+
+source_urls = ['https://github.com/trilinos/Trilinos/archive/refs/tags/']
+sources = ['trilinos-release-14-4-0.tar.gz']
+checksums = ['8e7d881cf6677aa062f7bfea8baa1e52e8956aa575d6a4f90f2b6f032632d4c6']
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    ('SWIG', '4.1.1'),
+    ('Doxygen', '1.9.7'),
+    ('Perl', '5.36.1'),
+]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Boost', '1.82.0'),
+    ('SCOTCH', '7.0.3'),
+    ('SuiteSparse', '7.1.0', '-ParMETIS-4.0.3'),  # parMETIS recommended for DOLFINx
+    ('HDF5', '1.14.0'),
+    ('netCDF', '4.9.2'),
+    ('MATIO', '1.5.26'),
+    ('GLM', '0.9.9.8'),
+    ('X11', '20230603'),
+]
+
+# based off https://www.dealii.org/current/external-libs/trilinos.html
+_copts = [
+    '-DTrilinos_ENABLE_Amesos=ON',
+    '-DTrilinos_ENABLE_Epetra=ON',
+    '-DTrilinos_ENABLE_EpetraExt=ON',
+    '-DTrilinos_ENABLE_Ifpack=ON',
+    '-DTrilinos_ENABLE_AztecOO=ON',
+    '-DTrilinos_ENABLE_Sacado=ON',
+    '-DTrilinos_ENABLE_SEACAS=ON',
+    '-DTrilinos_ENABLE_Teuchos=ON',
+    '-DTrilinos_ENABLE_MueLu=ON',
+    '-DTrilinos_ENABLE_ML=ON',
+    '-DTrilinos_ENABLE_ROL=ON',
+    '-DTrilinos_ENABLE_Tpetra=ON',
+    '-DTrilinos_ENABLE_COMPLEX=OFF',
+    '-DTrilinos_ENABLE_COMPLEX_DOUBLE=OFF',
+    '-DTrilinos_ENABLE_COMPLEX_FLOAT=OFF',
+    '-DTrilinos_ENABLE_Zoltan=ON',
+    '-DTrilinos_ENABLE_EXPLICIT_INSTANTIATION=ON',
+    '-DNetCDF_NEEDS_HDF5=ON',
+    '-DTPL_ENABLE_HDF5=ON',
+    '-DTPL_ENABLE_GLM=ON',
+    # '-DTPL_ENABLE_METIS=ON',
+    '-DTPL_ENABLE_ParMETIS=ON',
+    '-DTPL_ENABLE_MPI=ON',
+    '-DTPL_ENABLE_SCALAPACK=ON',
+    '-DTPL_ENABLE_Scotch=ON',
+    '-DPython_ROOT=$EBROOTPYTHON',
+    '-DBLAS_LIBRARY_NAMES=flexiblas',
+    '-DBLAS_LIBRARY_DIRS=$EBROOTFLEXIBLAS/lib',
+    '-DLAPACK_LIBRARY_NAMES=flexiblas',
+    '-DLAPACK_LIBRARY_DIRS=$EBROOTFLEXIBLAS/lib',
+    '-DCMAKE_VERBOSE_MAKEFILE=OFF',
+    '-DBUILD_SHARED_LIBS=ON',
+    '-DTrilinos_VERBOSE_CONFIGURE=OFF',
+    '-DKokkos_ENABLE_AGGRESSIVE_VECTORIZATION=ON',
+]
+configopts = ' '.join(_copts)
+
+sanity_check_paths = {
+    'files': ['lib/libtrilinosss.so'],
+    'dirs': [],
+}
+
+moduleclass = 'numlib'
