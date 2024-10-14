@@ -18,6 +18,8 @@ sources = [
     '%(namelower)s-data-%(version)s.tar.gz',
 ]
 checksums = [
+    {'interproscan-core-5.70-102.0.tar.gz': '283b8efe82b8143a665b77edb6957e8a3d200df5ab9d0d85065331b91d89fb8f'},
+    {'interproscan-data-5.70-102.0.tar.gz': '754c7d4ae9d8475ccbe630a9eba70cefba78d54774e96b533d497d4950f93813'},
 ]
 
 dependencies = [
