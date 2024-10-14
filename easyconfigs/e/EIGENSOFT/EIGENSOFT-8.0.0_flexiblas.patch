@@ -1,0 +1,25 @@
+--- src/Makefile	2024-10-11 14:00:00.593058571 +0100
++++ src/Makefile	2024-10-11 14:40:30.923582392 +0100
+@@ -1,15 +1,17 @@
+-override CFLAGS += -I../include -I/usr/include/openblas
++override CFLAGS += -I../include $(shell pkgconf --cflags gsl flexiblas)
+ #LDLIBS += -lgsl -lopenblas -lrt -lm
+-override LDLIBS += -lgsl -lopenblas -lm -lpthread
++override LDLIBS += $(shell pkgconf --libs gsl flexiblas)
+ # Some Linux distributions require separate lapacke library
+ # override LDLIBS += -llapacke
++override LDLIBS += $(shell pkgconf --libs lapacke)
+ # Mac additions using homebrew installations
+ #override CFLAGS += -I/usr/local/opt/openblas/include -I/usr/local/opt/gsl/include
+ #override LDFLAGS += -L/usr/local/opt/openblas/lib -L/usr/local/opt/gsl/lib
+ # Harvard Medical School O2 cluster additions
+-ifdef SLURM_CONF
+-override CFLAGS += -I/n/app/openblas/0.2.19/include -I/n/app/gsl/2.3/include
+-override LDFLAGS += -L/n/app/openblas/0.2.19/lib -L/n/app/gsl/2.3/lib/
++GSL_MOD != pkgconf --cflags gsl
++ifndef GSL_MOD
++override CFLAGS += -I$EBROOTGSL/include
++override LDFLAGS += -L$EBROOTGSL/lib
+ endif
+ 
+ ifeq ($(OPTIMIZE), 1)
