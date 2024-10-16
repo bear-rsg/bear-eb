@@ -1,0 +1,58 @@
+easyblock = "CMakePythonPackage"
+
+name = 'DOLFINx'
+version = '0.8.0'
+
+homepage = 'https://github.com/FEniCS/dolfinx'
+description = """DOLFINx is the computational environment of FEniCSx and implements
+ the FEniCS Problem Solving Environment in C++ and Python.  DOLFINx is a new version of DOLFIN."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'usempi': True, 'pic': True, 'packed-linker-options': True, 'openmp': True}
+
+source_urls = ['https://github.com/FEniCS/dolfinx/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['acf3104d9ecc0380677a6faf69eabfafc58d0cce43f7777e1307b95701c7cad9']
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    ('pkg-config', '0.29.2'),
+    ('pkgconf' , '1.9.5'),
+    ('patchelf', '0.18.0'),
+    ('scikit-build-core', '0.5.0'),
+    ('nanobind', '2.1.0'),  # move from pybind to nanobind in https://github.com/FEniCS/dolfinx/pull/2820
+    ('mpi4py', '3.1.4'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Boost', '1.82.0'),
+    ('FFCx', '0.8.0'),
+    ('SCOTCH', '7.0.3'),
+    ('SuiteSparse', '7.1.0', '-METIS-5.1.0'),
+    ('ParMETIS', '4.0.3'),
+    ('PETSc', '3.20.3', '-METIS-5.1.0'),
+    ('SLEPc', '3.20.1', '-petsc-with-metis'),  # this uses this modified build of PETSc
+    ('HDF5', '1.14.0'),
+    ('Trilinos', '14.4.0'),
+    ('zlib', '1.2.13'),
+    ('Eigen', '3.4.0'),
+    ('PLY', '3.11'),
+    ('VTK', '9.3.0'),
+    ('petsc4py', '3.20.3'),
+    ('slepc4py', '3.20.2'),
+    ('SUNDIALS', '6.6.0'),
+    ('pkgconfig', '1.5.5', '-python'),
+    ('pugixml', '1.14'),
+    ('spdlog', '1.11.0'),
+    ('mpi4py', '3.1.4'),
+    ('cffi', '1.15.1'),
+    ('PyVista', '0.43.8'),
+]
+
+#  demos run as tests fail with 'bad X server connection', skipping for now
+runtest = False
+
+#  preinstallopts = "sed -i 's/pybind11==[0-9.]*/pybind11/g' %(builddir)s/dolfin-%(version)s/python/setup.py && "
+
+moduleclass = 'math'
