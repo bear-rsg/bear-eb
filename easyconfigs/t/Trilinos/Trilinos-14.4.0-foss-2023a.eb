@@ -25,7 +25,7 @@ dependencies = [
     ('Python', '3.11.3'),
     ('Boost', '1.82.0'),
     ('SCOTCH', '7.0.3'),
-    ('SuiteSparse', '7.1.0', '-ParMETIS-4.0.3'),  # parMETIS recommended for DOLFINx
+    ('SuiteSparse', '7.1.0', '-METIS-5.1.0'),
     ('HDF5', '1.14.0'),
     ('netCDF', '4.9.2'),
     ('MATIO', '1.5.26'),
