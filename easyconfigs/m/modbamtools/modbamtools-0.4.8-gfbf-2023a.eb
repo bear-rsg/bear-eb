@@ -1,0 +1,46 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'modbamtools'
+version = '0.4.8'
+
+homepage = "https://rrazaghi.github.io/modbamtools/"
+description = """A set of tools to manipulate and visualize data from base modification bam files"""
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('Pysam', '0.22.0' ),
+    ('tqdm', '4.66.1' ),
+    ('HDBSCAN', '0.8.39'),
+    ('Pillow-SIMD', '9.5.0'),
+    ('pyBigWig', '0.3.22'),
+    ('Kaleido', '0.2.1'),
+    ('plotly.py', '5.16.0'),
+    ('modbam2bed', '0.5.3'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('click', '8.1.3', {
+        'checksums': ['7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e'],
+    }),
+    ('PyPDF2', '3.0.1', {
+        'modulename': 'PyPDF2',
+        'checksums': ['a74408f69ba6271f71b9352ef4ed03dc53a31aa404d29b5d31f53bfecfee1440'],
+    }),
+    (name, version, {
+        'preinstallopts': "sed -i '51,+0s/3\.10/3\.11/' setup.py && ",
+        'checksums': ['2c9e6e2b8333afaadf3608844ebbc850f6de6075e8121f557beb02ef5586fac1'],
+    }),
+]
+
+moduleclass = 'bio'

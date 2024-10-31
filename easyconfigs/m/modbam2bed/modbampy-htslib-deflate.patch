@@ -1,0 +1,101 @@
+diff -ruN ../modbam2bed.orig/build.py ../modbam2bed/build.py
+--- ../modbam2bed.orig/build.py	2024-10-30 13:56:33.569032588 +0000
++++ ../modbam2bed/build.py	2024-10-30 19:05:08.390020330 +0000
+@@ -5,13 +5,13 @@
+ 
+ dir_path = os.path.dirname(os.path.realpath(__file__))
+ src_dir='src'
+-libraries=['m', 'lzma', 'bz2', 'pthread', 'curl', 'crypto']
++libraries=['m', 'lzma', 'bz2', 'pthread', 'curl', 'crypto', 'hts']
+ library_dirs=[]
+ print("WITHDEFLATE:", os.getenv('WITHDEFLATE'))
+ if os.getenv('WITHDEFLATE') == "1":
+     print("Using deflate")
+     libraries.append('deflate')
+-    library_dirs.append(os.path.join(dir_path, 'libdeflate'))
++    library_dirs.append(os.path.join(os.environ['EBROOTLIBDEFLATE'], 'lib'))
+ 
+ ffibuilder = FFI()
+ ffibuilder.set_source("libmodbampy",
+@@ -24,11 +24,11 @@
+     """,
+     libraries=libraries,
+     library_dirs=library_dirs,
+-    include_dirs=[src_dir, 'htslib'],
++    include_dirs=[src_dir, os.environ['EBROOTHTSLIB'], 'include'],
+     extra_compile_args=['-std=c99', '-msse3', '-O3'],
+     extra_objects=[
+         'pymod.a',
+-        os.path.join('htslib', 'libhts.a')]
++        os.path.join(os.environ['EBROOTHTSLIB'], 'lib', 'libhts.a')]
+ )
+ 
+ cdef = ["""
+diff -ruN ../modbam2bed.orig/Makefile ../modbam2bed/Makefile
+--- ../modbam2bed.orig/Makefile	2024-10-30 13:56:33.585614467 +0000
++++ ../modbam2bed/Makefile	2024-10-30 18:58:37.583345589 +0000
+@@ -11,22 +11,22 @@
+ 
+ CC ?= gcc
+ CFLAGS ?= -fpic -msse3 -O3 -std=c99
+-DEFLATE ?= $(PWD)/libdeflate
+-STATIC_HTSLIB ?= htslib/libhts.a
++DEFLATE ?= $(EBROOTLIBDEFLATE)
++STATIC_HTSLIB ?= $(EBROOTHTSLIB)/lib/libhts.a
+ EXTRA_CFLAGS ?=
+ EXTRA_LDFLAGS ?=
+-EXTRA_LIBS ?=
++EXTRA_LIBS ?= -lhts
+ HTS_CONF_ARGS ?=
+ HTS_CONF_ENV ?= CFLAGS="$(CFLAGS) $(EXTRA_CFLAGS)"
+ 
+ WITHDEFLATE ?= 
+ DEFLATEREQ =
+ ifeq ($(WITHDEFLATE), 1)
+-CFLAGS += -I$(DEFLATE) -L$(DEFLATE)
+-HTS_CONF_ARGS += --with-libdeflate
+-HTS_CONF_ENV += LDFLAGS="-L$(DEFLATE)"
++CFLAGS += -I$(DEFLATE)/include -L$(DEFLATE)/lib
++#HTS_CONF_ARGS += --with-libdeflate
++#HTS_CONF_ENV += LDFLAGS="-L$(DEFLATE)/lib"
+ EXTRA_LIBS += -ldeflate
+-DEFLATEREQ = libdeflate/libdeflate.so.0
++#DEFLATEREQ = $(EBROOTLIBDEFLATE)/lib/libdeflate.so.0
+ endif
+ 
+ NOTHREADS ?=
+@@ -64,16 +64,16 @@
+ %.o: src/%.c
+ 	mkdir -p obj && \
+ 		$(CC) -c -pthread -Wall -fstack-protector-strong -D_FORTIFY_SOURCE=2 $(CFLAGS) \
+-		-Isrc -Ihtslib $(ARGP_INCLUDE) $(EXTRA_CFLAGS) $^ -o $@
++		-Isrc -I$(EBROOTHTSLIB)/include -fPIC $(ARGP_INCLUDE) $(EXTRA_CFLAGS) $^ -o $@
+ 
+ .PHONY: clean_obj
+ clean_obj:
+ 	rm -rf *.o
+ 
+ 
+-modbam2bed: modbam2bed.o common.o counts.o bamiter.o args.o $(STATIC_HTSLIB)
++modbam2bed: modbam2bed.o common.o counts.o bamiter.o args.o
+ 	$(CC) -pthread -Wall -fstack-protector-strong -D_FORTIFY_SOURCE=2 $(CFLAGS) \
+-		-Isrc -Ihtslib $(EXTRA_CFLAGS) $(EXTRA_LDFLAGS)\
++		-Isrc -I$(EBROOTHTSLIB)/include $(EXTRA_CFLAGS) $(EXTRA_LDFLAGS)\
+ 		$^ $(ARGP) \
+ 		-lm -lz -llzma -lbz2 -lpthread -lcurl -lcrypto $(EXTRA_LIBS) \
+ 		-o $(@)
+diff -ruN ../modbam2bed.orig/setup.py ../modbam2bed/setup.py
+--- ../modbam2bed.orig/setup.py	2024-10-30 13:56:33.588852923 +0000
++++ ../modbam2bed/setup.py	2024-10-30 16:52:07.537990697 +0000
+@@ -52,9 +52,9 @@
+     def run(self):
+ 
+         def compile_hts():
+-            subprocess.check_call(['make', os.path.join('htslib', 'libhts.a'), 'pymod.a'])
++            subprocess.check_call(['make', 'pymod.a'])
+ 
+-        self.execute(compile_hts, [], 'Compiling htslib using Makefile')
++        self.execute(compile_hts, [], 'Not compiling htslib using Makefile')
+         build_ext.run(self)
+ 
+ 

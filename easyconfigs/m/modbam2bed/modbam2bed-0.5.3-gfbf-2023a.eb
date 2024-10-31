@@ -1,0 +1,34 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'modbam2bed'
+version = '0.5.3'
+
+homepage = "https://github.com/epi2me-labs/modbam2bed"
+description = """A program to aggregate modified base counts stored in a modified-base BAM
+ (Section 2.1) file to a bedMethyl file."""
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('cffi', '1.15.1'),
+    ('libdeflate', '1.18'),
+    ('HTSlib', '1.19.1'),
+]
+
+github_account = 'epi2me-labs'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+
+patches = ['modbampy-htslib-deflate.patch']
+
+download_dep_fail = True
+sanity_pip_check = False
+use_pip = True
+
+options = {'modulename': 'modbampy'}
+sanity_check_commands = ['python -c "import modbampy"']
+
+moduleclass = 'bio'
