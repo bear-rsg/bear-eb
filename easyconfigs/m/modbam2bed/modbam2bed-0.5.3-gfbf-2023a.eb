@@ -15,14 +15,17 @@ dependencies = [
     ('SciPy-bundle', '2023.07'),
     ('cffi', '1.15.1'),
     ('libdeflate', '1.18'),
-    ('HTSlib', '1.19.1'),
+    ('HTSlib', '1.18', '-fPIC'),
 ]
 
 github_account = 'epi2me-labs'
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
-
 patches = ['modbampy-htslib-deflate.patch']
+checksums = [
+    {'v0.5.3.tar.gz': 'b50e1cdc1247fc34fbf9abd5227956275140c710cf7547c389476cd4bb2451b2'},
+    {'modbampy-htslib-deflate.patch': 'd57aab71b1777ae73ee5f0263b6113f64949200f17bc9d8d8fa334c67ecba960'},
+]
 
 download_dep_fail = True
 sanity_pip_check = False
