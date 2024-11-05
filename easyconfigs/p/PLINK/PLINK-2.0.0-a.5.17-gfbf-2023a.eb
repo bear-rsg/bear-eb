@@ -12,8 +12,6 @@ toolchain = {'name': 'gfbf', 'version': '2023a'}
 
 
 dependencies = [
-    ('zlib', '1.2.13'),
-    ('zstd', '1.5.5'),
     ('libdeflate', '1.18'),
 ]
 
@@ -30,7 +28,7 @@ components = [
     ('PLINK1', '1.90', {
         'start_dir': '%s-ng-%s/1.9' % (name.lower(), version),
         'buildopts': (
-            'CFLAGS="${CFLAGS} -DDYNAMIC_ZLIB" CXXFLAGS="${CXXFLAGS} -DDYNAMIC_ZLIB" '
+            'CFLAGS="${CFLAGS} -O1 -DDYNAMIC_ZLIB" CXXFLAGS="${CXXFLAGS} -DDYNAMIC_ZLIB" '
             'LDFLAGS="${LDFLAGS} -lm -lpthread -ldl" BLASFLAGS="${LIBBLAS}" ZLIB="-L$EBROOTZLIB/lib -lz"'
         ),
         'files_to_copy': [(['plink'], 'bin')],
