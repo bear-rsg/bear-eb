@@ -1,0 +1,29 @@
+easyblock = 'PythonPackage'
+
+name = 'cdsapi'
+version = '0.7.4'
+
+homepage = 'https://pypi.org/project/cdsapi'
+description = "Climate Data Store API"
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://pypi.python.org/packages/source/c/cdsapi']
+sources = ['%(name)s-%(version)s.tar.gz']
+checksums = ['a32fedb6cf6c5683e488652fadbf5b956561f573e98d0ec474e2d8381fe24a34']
+
+builddependencies = [
+    ('binutils', '2.40'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('tqdm', '4.66.1'),
+    ('cads-api-client', '1.5.0'),
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+moduleclass = 'tools'
