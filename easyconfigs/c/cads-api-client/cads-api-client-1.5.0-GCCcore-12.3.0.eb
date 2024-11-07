@@ -1,0 +1,41 @@
+easyblock = 'PythonBundle'
+
+name = 'cads-api-client'
+version = '1.5.0'
+
+homepage = 'https://github.com/ecmwf-projects/cads-api-client'
+description = "CADS API Python client"
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('tqdm', '4.66.1'),
+    ('typing-extensions', '4.9.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('multiurl', '0.3.2', {
+        'checksums': ['8d412bf8efe823916d289523a0891884dabdac3b30d9304f2f915b0fa94ab4e2'],
+    }),
+    (name, version, {
+        'sources': [{'download_filename': 'cads_api_client-%(version)s.tar.gz',
+                    'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['eb4046a0014463ed8e6c3b230754bca7df02bd97d7914b4574aff3debee7ff41'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    ('python', "-c 'from cads_api_client import ApiClient'"),
+]
+
+moduleclass = 'tools'
