@@ -1,0 +1,11 @@
+--- qml/frepresentations.f90.old	2024-11-08 11:43:40.043224825 +0000
++++ qml/frepresentations.f90	2024-11-08 11:43:48.866277975 +0000
+@@ -31,7 +31,7 @@
+     integer, intent(in) :: type1
+     integer, dimension(:), intent(in) :: nuclear_charges
+ 
+-    integer, intent(out) :: n
++    integer, intent(inout) :: n
+     integer, dimension(:), intent(out) :: type1_indices
+     integer :: j
+ 

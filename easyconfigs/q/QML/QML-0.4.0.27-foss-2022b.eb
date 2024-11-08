@@ -1,0 +1,35 @@
+easyblock = "PythonPackage"
+
+name = "QML"
+version = "0.4.0.27"
+
+homepage = "https://www.qmlcode.org"
+description = """QML is a Python2/3-compatible toolkit for representation learning of properties
+ of molecules and solids."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+toolchainopts = {'pic': True}
+
+sources = [SOURCELOWER_TAR_GZ]
+patches = [
+   '%(name)s-%(version)s_fix-setup.py.patch',
+   '%(name)s_frepresentations-fix.patch',
+]
+checksums = [
+    {'qml-0.4.0.27.tar.gz': '87ed611c214cf84bded1513243a03a00964578ad611306bbd42c673f88f5bb02'},
+    {'QML-0.4.0.27_fix-setup.py.patch': 'c6b57efe664881b16eefbe9f6d0f2c0a095ca525de4de391461251234ce7c918'},
+    {'QML_frepresentations-fix.patch': 'e2a46a6e02c3a5ca376cc408f6a99f15c3bd0a84b543408fe025ac0f5bf578c5'},
+]
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('SciPy-bundle', '2023.02'),
+    ('ASE', '3.22.1'),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+moduleclass = 'chem'
