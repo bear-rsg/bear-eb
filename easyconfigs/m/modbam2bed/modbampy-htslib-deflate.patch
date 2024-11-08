@@ -27,7 +27,7 @@ diff -ruN ../modbam2bed.orig/build.py ../modbam2bed/build.py
      extra_objects=[
          'pymod.a',
 -        os.path.join('htslib', 'libhts.a')]
-+        os.path.join(os.environ['EBROOTHTSLIB'], 'lib', 'libhts.a')]
++        ]
  )
  
  cdef = ["""
