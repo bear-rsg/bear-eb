@@ -1,0 +1,31 @@
+--- setup.py.old	2024-11-08 09:27:11.046674868 +0000
++++ setup.py	2024-11-08 09:31:02.645078825 +0000
+@@ -1,5 +1,6 @@
+ from __future__ import absolute_import
+ 
++import os
+ import sys
+ from numpy.distutils.core import Extension, setup
+ 
+@@ -20,10 +21,17 @@
+ FORTRAN = "f90"
+ 
+ # GNU (default)
+-COMPILER_FLAGS = ["-O3", "-fopenmp", "-m64", "-march=native", "-fPIC",
+-                    "-Wno-maybe-uninitialized", "-Wno-unused-function", "-Wno-cpp"]
+-LINKER_FLAGS = ["-lgomp"]
+-MATH_LINKER_FLAGS = ["-lblas", "-llapack"]
++COMPILER_FLAGS = os.environ.get("CFLAGS", '').split(' ')
++if not COMPILER_FLAGS:
++    COMPILER_FLAGS = ["-O3", "-fopenmp", "-m64", "-march=native", "-fPIC", "-Wno-maybe-uninitialized", "-Wno-unused-function", "-Wno-cpp"]
++
++LINKER_FLAGS = os.environ.get("LDFLAGS", '').split(' ')
++if not LINKER_FLAGS:
++    LINKER_FLAGS = ["-lgomp"] 
++
++MATH_LINKER_FLAGS = os.environ.get("LIBLAPACK", '').split(' ')
++if not MATH_LINKER_FLAGS:
++    MATH_LINKER_FLAGS = ["-lblas", "-llapack"]
+ 
+ # UNCOMMENT TO FORCE LINKING TO MKL with GNU compilers:
+ if mkl_exists(verbose=True):
