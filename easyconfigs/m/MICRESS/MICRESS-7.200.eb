@@ -10,19 +10,46 @@ description = "The Microstructure Evolution Simulation Software"
 toolchain = {'name': 'system', 'version': 'system'}
 
 # Download the .run file from Micress
-# N.B. not publically available - researchers normally provide link and password to installation content
-sources = ['%(name)s-%(version)s-linux-installer.run']
-checksums = ['eaf31b140cc1c1ea6d200937fadecf9195266e3b4f61f340a6691001396a648a']
+# N.B. not publicly available - researchers normally provide link and password to installation content
+
+# Repo for RPMs
+source_urls = [
+    'http://repo.okay.com.mx/centos/8/x86_64/release/',
+    'https://pkgs.sysadmins.ws/el8/extras/x86_64'
+]
+sources = [
+    '%(name)s-%(version)s-linux-installer.run',
+    'libogg-1.3.2-10.el8.x86_64.rpm',
+    'libtheora-1.1.1-21.el8.x86_64.rpm',
+    'libvorbis-1.3.6-1.el8.x86_64.rpm',
+    'opus-1.3.1-10.el8.x86_64.rpm',
+    'speex-1.2.0-1.el8.x86_64.rpm',
+]
+checksums = [
+    {'MICRESS-7.200-linux-installer.run': 'eaf31b140cc1c1ea6d200937fadecf9195266e3b4f61f340a6691001396a648a'},
+    {'libogg-1.3.2-10.el8.x86_64.rpm': '347b951e3302e78722fd63aa2b148dfc40145c86775191003e2043453d3c9917'},
+    {'libtheora-1.1.1-21.el8.x86_64.rpm': '3223a5dd986ea61ccdea7bd328113ca8e4bb79242f2bb0432ca45a9df7988df1'},
+    {'libvorbis-1.3.6-1.el8.x86_64.rpm': '118a45a41b252bb8a27eaa32665056d83c2f51ed0d393f567644cc56f729ee9f'},
+    {'opus-1.3.1-10.el8.x86_64.rpm': 'b742b3f1f3e6d1310afee26c0983b13ea4a0ed5bcc78aa41e31834fa13788f54'},
+    {'speex-1.2.0-1.el8.x86_64.rpm': '50994efd4a8d2acd08713a80814d5257bbbe4c3fba66d07f5500e0cdf4335c26'},
+]
 
 extract_sources = False
+
+osdependencies = [('rpm', 'cpio')]  # for extracting rpm-files
 
 install_cmd = "./%(name)s-%(version)s-linux-installer.run "
 install_cmd += "--mode unattended "
 install_cmd += "--prefix %(installdir)s "
-install_cmd += "--installDesktopShortcuts 0"
+install_cmd += "--installDesktopShortcuts 0 && "
+
+# Extract contents of RPMs
+install_cmd += 'for file in *.rpm; do rpm2cpio ${file} | cpio -idmv; done && '
+# Copy libs (preserving symlinks) to Bin directory of Micress install
+install_cmd += 'cp -a --no-preserve=ownership %(builddir)s/usr/lib64/*.so* %(installdir)s/Bin'
 
 sanity_check_paths = {
-    'files': ['Bin/MICpad.exe', 'Bin/MICRESS_par_noTQ.exe'],
+    'files': ['Bin/MICpad.exe', 'Bin/MICRESS_par_noTQ.exe', 'Bin/libspeex.so.1'],
     'dirs': ['Tools', 'Examples'],
 }
 
