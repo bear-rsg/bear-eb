@@ -2,7 +2,6 @@
 easyblock = 'ConfigureMake'
 name = 'mixedploidy-entropy'
 version = '2.0'
-versionsuffix = ''
 
 homepage = "https://bitbucket.org/buerklelab/mixedploidy-entropy/src/master/"
 description = """This is a model for quantifying population structure in autopolyploid and mixed-ploidy individuals
