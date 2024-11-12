@@ -25,7 +25,7 @@ dependencies = [
     ('GSL', '2.7'),
     ('Perl', '5.36.1'),
 ]
-configure_cmd_prefix = 'autoreconf -fi && ' 
+configure_cmd_prefix = 'autoreconf -fi && '
 
 fix_perl_shebang_for = ['slurm_entropy*.pl']
 postinstallmsgs = ['Copy SLURM perl scripts']
