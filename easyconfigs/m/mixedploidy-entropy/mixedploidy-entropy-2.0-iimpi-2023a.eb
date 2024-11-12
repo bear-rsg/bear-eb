@@ -1,0 +1,40 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+name = 'mixedploidy-entropy'
+version = '2.0'
+
+homepage = "https://bitbucket.org/buerklelab/mixedploidy-entropy/src/master/"
+description = """This is a model for quantifying population structure in autopolyploid and mixed-ploidy individuals
+ using genotype-likelihood data. The repository contains the model written in C++ along with example files to help you
+ get started with the analysis. The methods are described in Shastry, V., Adams, P.E., Lindtke, D., Mandeville, E.G.,
+ Parchman, T.L., Gompert, Z. and Buerkle, C.A. (2021), Model-based genotype and ancestry estimation for potential
+ hybrids with mixed-ploidy. Molecular Ecology Resources 21: 1434-1451. https://doi.org/10.1111/1755-0998.13330"""
+
+toolchain = {'name': 'iimpi', 'version': '2023a'}
+
+bitbucket_account = 'buerklelab'
+source_urls = [BITBUCKET_SOURCE]
+sources = [{'download_filename': '246ccf1003c4.zip', 'filename': SOURCE_ZIP}]
+checksums = ['36dc33ffdfa6109608f3928b747c8b87e2769286ae4841f265985c8139213768']
+
+builddependencies = [('Autotools', '20220317')]
+
+dependencies = [
+    ('HDF5', '1.14.0'),
+    ('GSL', '2.7'),
+    ('Perl', '5.36.1'),
+]
+configure_cmd_prefix = 'autoreconf -fi && '
+
+fix_perl_shebang_for = ['slurm_entropy*.pl']
+postinstallmsgs = ['Copy SLURM perl scripts']
+postinstallcmds = [("cp %(start_dir)s/slurm_entropy{{2..4},6,mixed}.pl %(installdir)s")]
+
+sanity_check_commands = [('estpost.entropy', '--v')]
+
+sanity_check_paths = {
+    'files': ['bin/entropy', 'bin/estpost.entropy'],
+    'dirs': ['bin'],
+}
+
+moduleclass = 'bio'
