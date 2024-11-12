@@ -23,12 +23,15 @@ builddependencies = [('Autotools', '20220317')]
 dependencies = [
     ('HDF5', '1.14.0'),
     ('GSL', '2.7'),
+    ('Perl', '5.36.1'),
 ]
 configure_cmd_prefix = 'autoreconf -fi && ' 
 
-files_to_copy = [(['slurm_entropy{{2..4},6,mixed}.pl'], 'bin')]
+fix_perl_shebang_for = ['slurm_entropy*.pl']
+postinstallmsgs = ['Copy SLURM perl scripts']
+postinstallcmds = [("cp %(start_dir)s/slurm_entropy{{2..4},6,mixed}.pl %(installdir)s")]
 
-#sanity_check_commands = [('estpost.entropy', '-v')]
+sanity_check_commands = [('estpost.entropy', '--v')]
 
 sanity_check_paths = {
     'files': ['bin/entropy', 'bin/estpost.entropy'],
