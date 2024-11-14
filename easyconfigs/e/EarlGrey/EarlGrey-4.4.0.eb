@@ -18,6 +18,10 @@ channels = ['bioconda', 'conda-forge']
 
 requirements = '%(namelower)s==%(version)s'
 
+postinstallcmds = [
+     "ln -s %(installdir)s/share/RepeatMasker/*.pm %(installdir)s/bin",
+]
+
 sanity_check_paths = {
     'files': ['bin/earlGrey'],
     'dirs': ['bin'],
