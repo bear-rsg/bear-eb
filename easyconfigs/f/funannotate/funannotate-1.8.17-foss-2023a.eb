@@ -9,10 +9,6 @@ description = """funannotate is a pipeline for genome annotation (built specific
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-builddependencies = [
-    ('GeneMark-ET', '4.72'),  # required for modextrapath setting to work here
-]
-
 # see also https://github.com/nextgenusfs/funannotate/blob/master/docs/dependencies.rst
 dependencies = [
     ('Python', '3.11.3'),
@@ -81,10 +77,6 @@ exts_list = [
 sanity_check_paths = {
     'files': ['bin/funannotate'],
     'dirs': [],
-}
-
-modextrapaths = {
-    'GENEMARK_PATH': 'EBROOTGENEMARKMINET',
 }
 
 sanity_check_commands = [
