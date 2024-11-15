@@ -1,0 +1,40 @@
+easyblock = 'CMakeMake'
+
+name = 'tblite'
+version = '0.3.0'
+
+homepage = 'https://tblite.readthedocs.io/'
+description = """The tblite project aims to provide an efficent and uniform interface to the (extended) tight-binding
+ Hamiltonians."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'pic': True}
+
+github_account = 'tblite'
+source_urls = ['https://github.com/tblite/tblite/releases/download/v%(version)s']
+sources = ['%(name)s-%(version)s.tar.xz']
+checksums = ['46d77c120501ac55ed6a64dea8778d6593b26fb0653c591f8e8c985e35884f0a']
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('CMake', '3.26.3'),
+]
+
+dependencies = [
+    ('mctc-lib', '0.3.1'),
+    ('mstore', '0.3.0'),
+    ('dftd4', '3.7.0'),
+    ('multicharge', '0.3.0'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/tblite', 'lib/libtblite.a'],
+    'dirs': ['include/%(name)s', 'lib/cmake', 'lib/pkgconfig'],
+}
+
+sanity_check_commands = ["tblite --help"]
+
+# run suite of tests with ctest
+runtest = True
+
+moduleclass = 'chem'
