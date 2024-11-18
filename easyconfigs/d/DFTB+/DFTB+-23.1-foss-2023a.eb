@@ -54,13 +54,14 @@ dependencies = [
     ('dftd4', '3.7.0'),
     ('ELSI', '2.11.0', '-PEXSI'),
     ('libmbd', '0.12.6'),
+    ('tblite', '0.3.0'),
 ]
 
 # Prefer dependencies from EB than bundled sources
 configopts = '-DHYBRID_CONFIG_METHODS="Find;Submodule;Fetch" '
 configopts += '-DWITH_MPI=1 -DWITH_OMP=1 -DWITH_SDFTD3=1 -DWITH_ELSI=1 -DWITH_MBD=1 -DWITH_UNIT_TESTS=1 '
 configopts += '-DBUILD_SHARED_LIBS=1 -DWITH_API=1 -DWITH_PYTHON=0 '  # Python bindings installed as extension
-configopts += '-DSCALAPACK_LIBRARY="$LIBSCALAPACK" -DCMAKE_INSTALL_LIBDIR:PATH=lib '
+configopts += '-DSCALAPACK_LIBRARY="$LIBSCALAPACK" -DWITH_TBLITE=1 -DCMAKE_INSTALL_LIBDIR:PATH=lib '
 
 runtest = 'test'
 
