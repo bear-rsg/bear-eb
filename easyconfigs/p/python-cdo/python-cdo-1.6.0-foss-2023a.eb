@@ -1,0 +1,30 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'python-cdo'
+version = '1.6.0'
+
+homepage = "https://code.mpimet.mpg.de/projects/cdo/wiki/Cdo{rbpy}"
+description = """Cdo.py - Use Python to access the power of CDO"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('CDO', '2.2.2'),
+    ('netcdf4-python', '1.6.4'),
+    ('SciPy-bundle', '2023.07'),
+    ('xarray', '2023.9.0'),
+]
+
+source_urls = ['https://pypi.python.org/packages/source/c/cdo']
+sources = ['cdo-%(version)s.tar.gz']
+checksums = ['6bdfc38b3ba00c5375aa97e2fd0431a4186953cba5156e60247a8ab6a0dd7f7e']
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+options = {'modulename': 'cdo'}
+
+moduleclass = 'data'
