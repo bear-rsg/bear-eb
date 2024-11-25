@@ -1,0 +1,51 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'defense-finder'
+version = '1.3.0'
+
+homepage = "https://github.com/mdmparis/defense-finder"
+description = """DefenseFinder is a program to systematically detect known anti-phage systems."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+builddependencies = [
+    ('Cython', '3.0.8'),
+    ('scikit-build-core', '0.9.3'),
+]
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('PyYAML', '6.0'),
+    ('SciPy-bundle', '2023.02'),
+    ('HMMER', '3.3.2'),
+    ('PyHMMER', '0.10.6'),
+    ('networkx', '2.8.8'),
+    ('archspec', '0.2.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('click', '8.0.3', {
+        'checksums': ['410e932b050f5eed773c4cda94de75971c89cdb3155a72a0831139a79e5ecb5b'],
+    }),
+    ('colorlog', '6.3.0a1', {
+        'checksums': ['a7cfd8226fadb1730019bca1f4c4f351649ce3a39350544a6a1fad5774282021'],
+    }),
+    ('pyrodigal', '3.6.3', {
+        'checksums': ['3e226f743c960d4d30c46ae6868aff7e2a6b98f8d837cfbd2637568569b21f78'],
+    }),
+    ('MacSyFinder', '2.1.1', {
+        'modulename': 'macsypy',
+        'checksums': ['fe27b88a463753000e75d1589b832801852e1702d01a60670b5b0eeaf1a6cbbe'],
+    }),
+    ('mdmparis-defense-finder', version, {
+        'modulename': 'defense_finder',
+        'preinstallopts': "touch requirements.txt requirements-dev.txt &&",
+        'checksums': ['6abd7317eb3bafe8514f6bd86f27c4ba87a91eb42bf44276d0f70e944450f385'],
+    }),
+]
+
+moduleclass = 'bio'
