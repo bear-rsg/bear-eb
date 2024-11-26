@@ -21,8 +21,6 @@ dependencies = [
 
 fix_python_shebang_for = ['figaro.py']
 
-_cabc = 'collection'
-
 preinstall_cmd = "sed -i '36,+0s/collections/&.abc as &/g' figaroSupport/easyMultiprocessing.py"
 preinstall_cmd += "&&sed -i '2,+0s/collections/&.abc as &/g' figaroSupport/environmentParameterParser.py"
 preinstall_cmd += "&&sed -i '6,+0s/collections/&.abc as &/g' figaroSupport/expectedErrorCurve.py"
