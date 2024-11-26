@@ -21,9 +21,11 @@ dependencies = [
 
 fix_python_shebang_for = ['figaro.py']
 
-preinstall_cmd = "sed -i '36,+0s/collections/collections\.abc as collections/g' figaroSupport/easyMultiprocessing.py"
-preinstall_cmd += "&&sed -i '2,+0s/collections/collections\.abc as collections/g' figaroSupport/environmentParameterParser.py"
-preinstall_cmd += "&&sed -i '6,+0s/collections/collections\.abc as collections/g' figaroSupport/expectedErrorCurve.py"
+_cabc = 'collection'
+
+preinstall_cmd = "sed -i '36,+0s/collections/&.abc as &/g' figaroSupport/easyMultiprocessing.py"
+preinstall_cmd += "&&sed -i '2,+0s/collections/&.abc as &/g' figaroSupport/environmentParameterParser.py"
+preinstall_cmd += "&&sed -i '6,+0s/collections/&.abc as &/g' figaroSupport/expectedErrorCurve.py"
 
 postinstallcmds = [
     "chmod a+x %(installdir)s/figaro.py",
@@ -42,7 +44,7 @@ sanity_check_commands = [
 
 modextrapaths = {
     'PATH': '',
-#    'PYTHONPATH': '/rds/bear-apps/2023a/EL8-ice/software/Python/3.11.3-GCCcore-12.3.0/easybuild/python/',
+    'PYTHONPATH': '',
 }
 
 moduleclass = 'bio'
