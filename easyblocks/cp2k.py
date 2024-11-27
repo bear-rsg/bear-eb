@@ -241,7 +241,6 @@ class EB_CP2K(EasyBlock):
             else:
                 options['FCFLAGSOPT'] += ' -I%s ' % elpa_inc_dir
             if LooseVersion(self.version) >= LooseVersion('6.1'):
-                elpa_ver = ''.join(get_software_version('ELPA').split('.')[:2])
                 options['DFLAGS'] += ' -D__ELPA'
                 elpa_inc_dir = os.path.join(elpa, 'include', 'elpa-%s' % get_software_version('ELPA'), 'elpa')
                 if cp2k_version >= LooseVersion('2024'):
