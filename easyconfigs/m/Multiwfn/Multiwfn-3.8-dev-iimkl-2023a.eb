@@ -21,7 +21,7 @@ dependencies = [
     ('motif', '2.3.8'),
 ]
 
-files_to_copy = [ ]
+files_to_copy = []
 
 postinstallcmds = [
     'mkdir -p %(installdir)s/bin',
