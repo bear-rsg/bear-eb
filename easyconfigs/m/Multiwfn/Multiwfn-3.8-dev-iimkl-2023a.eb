@@ -16,7 +16,6 @@ sources = ['%(name)s_%(version)s_src_Linux.zip']
 checksums = ['51a7f26414c0ec9dcb0685e2838b4e420af6fe61a8d8c1a9a6419dbcd23a8dc7']
 
 dependencies = [
-    ('zlib', '1.2.13'),
     ('Meson', '1.3.1'),
     ('motif', '2.3.8'),
 ]
