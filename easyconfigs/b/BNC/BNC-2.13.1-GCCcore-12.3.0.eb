@@ -32,7 +32,7 @@ build_cmd = 'qmake bnc.pro && make'
 
 _dirs = ['Example_Configs', 'newmat', 'qwt', 'qwtpolar', 'scripts', 'src']
 
-files_to_copy = [(['bnc'], 'bin'), *_dirs, 'LICENSE', 'CHANGELOG.md']
+files_to_copy = [(['bnc'], 'bin'), 'LICENSE', 'CHANGELOG.md'] + _dirs
 
 modextrapaths = {'PATH': 'scripts'}
 
