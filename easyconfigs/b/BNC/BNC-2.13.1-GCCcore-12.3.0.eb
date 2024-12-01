@@ -30,14 +30,15 @@ start_dir = '%(name)s_%(version)s'
 
 build_cmd = 'qmake bnc.pro && make'
 
-files_to_copy = [(['bnc'], 'bin'), 'Example_Configs', 'newmat', 'qwt',
-                 'qwtpolar', 'scripts', 'src', 'LICENSE', 'CHANGELOG.md']
+_dirs = ['Example_Configs', 'newmat', 'qwt', 'qwtpolar', 'scripts', 'src']
+
+files_to_copy = [(['bnc'], 'bin'), *_dirs, 'LICENSE', 'CHANGELOG.md']
 
 modextrapaths = {'PATH': 'scripts'}
 
 sanity_check_paths = {
     'files': ['bin/bnc'],
-    'dirs': ['qwt'],
+    'dirs': _dirs,
 }
 
 _binaries = ['bnc', 'bncLogstash.pl', 'cmbPlot.pl', 'compareSP3Plot.pl',
