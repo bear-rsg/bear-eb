@@ -1,0 +1,34 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PerlBundle'
+
+name = 'Date-Manip'
+version = '6.95'
+
+homepage = 'https://metacpan.org/pod/Date::Manip'
+description = "Date manipulation routines"
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+builddependencies = [('binutils', '2.40')]
+
+dependencies = [
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '%(perlver)s'),
+]
+
+exts_default_options = {
+	'source_urls': ['https://cpan.metacpan.org/authors/id/S/SB/SBECK/'],
+}
+
+exts_list = [
+    ('Test::Inter', '1.11', {
+        'source_tmpl': 'Test-Inter-%(version)s.tar.gz',
+        'checksums': ['2b9845212547cd6056753f87866d19368efc67c080146bcbb929a51ab055da37'],
+    }),
+    (name, version, {
+        'modulename': 'Date::Manip',
+        'checksums': ['92383832311f22083f55d03c8dae8f4bcc387cd902624e5ef9ac680f144cbd4c'],
+    }),
+]
+
+moduleclass = 'data'
