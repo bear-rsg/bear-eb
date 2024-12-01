@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 exts_default_options = {
-	'source_urls': ['https://cpan.metacpan.org/authors/id/S/SB/SBECK/'],
+    'source_urls': ['https://cpan.metacpan.org/authors/id/S/SB/SBECK/'],
 }
 
 exts_list = [

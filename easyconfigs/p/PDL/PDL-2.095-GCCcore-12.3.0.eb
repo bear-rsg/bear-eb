@@ -12,8 +12,8 @@ toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 builddependencies = [('binutils', '2.40')]
 
 dependencies = [
-	('Perl', '5.36.1'),
-	('Perl-bundle-CPAN', '%(perlver)s'),
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '%(perlver)s'),
 ]
 
 exts_list = [

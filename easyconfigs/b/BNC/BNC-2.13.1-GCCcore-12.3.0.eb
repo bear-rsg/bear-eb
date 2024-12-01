@@ -18,12 +18,12 @@ builddependencies = [('binutils', '2.40')]
 
 dependencies = [
     ('Qt5', '5.15.10'),
-	('Perl', '5.36.1'),
-	('Perl-bundle-CPAN', '5.36.1'),
-	('PDL', '2.095'),
-	('Proc-ProcessTable', '0.636'),
-	('Date-Manip', '6.95'),
-	('Chart-Gnuplot', '0.23'),
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '5.36.1'),
+    ('PDL', '2.095'),
+    ('Proc-ProcessTable', '0.636'),
+    ('Date-Manip', '6.95'),
+    ('Chart-Gnuplot', '0.23'),
 ]
 
 start_dir = '%(name)s_%(version)s'
@@ -31,7 +31,7 @@ start_dir = '%(name)s_%(version)s'
 build_cmd = 'qmake bnc.pro && make'
 
 files_to_copy = [(['bnc'], 'bin'), 'Example_Configs', 'newmat', 'qwt',
-				 'qwtpolar', 'scripts', 'src', 'LICENSE', 'CHANGELOG.md']
+                 'qwtpolar', 'scripts', 'src', 'LICENSE', 'CHANGELOG.md']
 
 modextrapaths =  {'PATH': 'scripts'}
 
