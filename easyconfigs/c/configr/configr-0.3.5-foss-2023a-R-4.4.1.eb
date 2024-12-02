@@ -1,0 +1,43 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'configr'
+version = '0.3.5'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=configr"
+description = """Implements the JSON, INI, YAML and TOML parser for R setting and writing of
+ configuration file. The functionality of this package is similar to that of package 'config'."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('R', '4.4.1'),
+    ('R-bundle-CRAN', '2024.06'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+exts_list = [
+    (name, version, {
+        'checksums': ['43a19fa4920f2265ac4b2e03de36c5e135d1c97dfdc1fecee0b061ee92fa8ee2'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['configr/R/configr'],
+    'dirs': [],
+}
+
+moduleclass = 'data'
