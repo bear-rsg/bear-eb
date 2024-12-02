@@ -1,0 +1,29 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PerlModule'
+
+name = 'Proc-ProcessTable'
+version = '0.636'
+
+homepage = 'https://metacpan.org/pod/Proc::ProcessTable'
+description = "Perl extension to access the unix process table"
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://cpan.metacpan.org/authors/id/J/JW/JWB/']
+sources = [SOURCE_TAR_GZ]
+checksums = ['944224ffb00fc1ef35069633770a0afda8623b5c7532d1e4ab48a9df394890fd']
+
+builddependencies = [('binutils', '2.40')]
+
+dependencies = [
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '%(perlver)s'),
+]
+
+options = {'modulename': 'Proc::ProcessTable'}
+sanity_check_paths = {
+    'files': ['lib/perl5/site_perl/%(perlver)s/x86_64-linux-thread-multi/Proc/ProcessTable.pm'],
+    'dirs': ['lib/perl5/site_perl/%(perlver)s/x86_64-linux-thread-multi/Proc/ProcessTable'],
+}
+
+moduleclass = 'data'

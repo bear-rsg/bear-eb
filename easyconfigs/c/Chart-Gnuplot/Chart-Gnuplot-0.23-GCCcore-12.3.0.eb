@@ -1,0 +1,30 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PerlModule'
+
+name = 'Chart-Gnuplot'
+version = '0.23'
+
+homepage = 'https://metacpan.org/pod/Chart::Gnuplot'
+description = "Plot graphs using Gnuplot in Perl on the fly."
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://cpan.metacpan.org/authors/id/K/KW/KWMAK/Chart/Gnuplot/']
+sources = [SOURCE_TAR_GZ]
+checksums = ['dcb46c0f93436464bdc3403469c828c6c33e954123a2adf4092fbb30bb244b6c']
+
+builddependencies = [('binutils', '2.40')]
+
+dependencies = [
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '%(perlver)s'),
+]
+
+options = {'modulename': 'Chart::Gnuplot'}
+
+sanity_check_paths = {
+    'files': ['lib/perl5/site_perl/%(perlver)s/Chart/Gnuplot.pm'],
+    'dirs': ['lib/perl5/site_perl/%(perlver)s/Chart/Gnuplot'],
+}
+
+moduleclass = 'data'

@@ -1,0 +1,49 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'MakeCp'
+
+name = 'BNC'
+version = '2.13.1'
+
+homepage = "https://software.rtcm-ntrip.org/export/HEAD/ntrip/trunk/BNC/src/bnchelp.html"
+description = """BKG Ntrip Client (BNC) is a toolkit for retrieving, decoding, converting and processing real-time
+ GNSS data streams."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://igs.bkg.bund.de/root_ftp/NTRIP/software/BNC']
+sources = ['%(namelower)s-%(version)s-sources.zip']
+checksums = ['57f29f5043c8371762482814d40cb4f4708cb39d2217428173e512e7e9737e71']
+
+builddependencies = [('binutils', '2.40')]
+
+dependencies = [
+    ('Qt5', '5.15.10'),
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '5.36.1'),
+    ('PDL', '2.095'),
+    ('Proc-ProcessTable', '0.636'),
+    ('Date-Manip', '6.95'),
+    ('Chart-Gnuplot', '0.23'),
+]
+
+start_dir = '%(name)s_%(version)s'
+
+build_cmd = 'qmake bnc.pro && make'
+
+_dirs = ['Example_Configs', 'newmat', 'qwt', 'qwtpolar', 'scripts', 'src']
+
+files_to_copy = [(['bnc'], 'bin'), 'LICENSE', 'CHANGELOG.md'] + _dirs
+
+modextrapaths = {'PATH': 'scripts'}
+
+sanity_check_paths = {
+    'files': ['bin/bnc'],
+    'dirs': _dirs,
+}
+
+_binaries = ['bnc', 'bncLogstash.pl', 'cmbPlot.pl', 'compareSP3Plot.pl',
+             'pppPlot.pl', 'sot.pl']
+
+sanity_check_commands = ['%s --help' % x for x in _binaries]
+
+moduleclass = 'geo'
