@@ -3,7 +3,6 @@ easyblock = 'Bundle'
 
 name = 'configr'
 version = '0.3.5'
-versionsuffix = '-R-%(rver)s'
 
 homepage = "https://cran.r-project.org/package=configr"
 description = """Implements the JSON, INI, YAML and TOML parser for R setting and writing of
