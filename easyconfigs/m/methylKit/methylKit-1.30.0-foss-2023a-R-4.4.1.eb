@@ -6,9 +6,9 @@ version = '1.30.0'
 versionsuffix = '-R-%(rver)s'
 
 homepage = "https://bioconductor.org/packages/release/bioc/html/methylKit.html"
-description = """methylKit is an R package for DNA methylation analysis and annotation from high-throughput bisulfite sequencing.
- The package is designed to deal with sequencing data from RRBS and its variants, but also target-capture methods and whole
- genome bisulfite sequencing."""
+description = """methylKit is an R package for DNA methylation analysis and annotation from high-throughput
+ bisulfite sequencing. The package is designed to deal with sequencing data from RRBS and its variants,
+ but also target-capture methods and whole genome bisulfite sequencing."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
