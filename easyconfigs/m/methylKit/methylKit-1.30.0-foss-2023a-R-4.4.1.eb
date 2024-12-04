@@ -1,0 +1,52 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'methylKit'
+version = '1.30.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://bioconductor.org/packages/release/bioc/html/methylKit.html"
+description = """methylKit is an R package for DNA methylation analysis and annotation from high-throughput bisulfite sequencing.
+ The package is designed to deal with sequencing data from RRBS and its variants, but also target-capture methods and whole
+ genome bisulfite sequencing."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('R', '4.4.1'),
+    ('R-bundle-Bioconductor', '3.19', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.19/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.19/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.19/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.19/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    ('fastseg', '1.50.0', {
+        'checksums': ['4df86c840be7fab646a1792d394884c8963d5d91cbbd53f0215e8284cf3ff40d'],
+    }),
+    (name, version, {
+        'checksums': ['b2b9989132f2861f7ed1d0bccff5cdc2f8d3aea670203cf092334a364cdc0d00'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['methylKit/R/methylKit'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
