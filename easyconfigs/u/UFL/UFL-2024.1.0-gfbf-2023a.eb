@@ -1,0 +1,35 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'UFL'
+version = '2024.1.0'
+
+homepage = "https://www.fenicsproject.org"
+description = """The Unified Form Language (UFL) is a domain specific language for declaration of
+ finite element discretizations of variational forms. More precisely, it defines a flexible interface
+ for choosing finite element spaces and defining expressions for weak forms in a notation close to
+ mathematical notation.UFL is part of the FEniCS Project."""
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+source_urls = ['https://github.com/FEniCS/ufl/archive']
+sources = ['%(version)s.tar.gz']
+checksums = ['64668587b73e877487ccad6ad1c8ba04c4c4bcfc117104bdc0908b30f8681ff6']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+]
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["python -c 'from ufl import *'"]
+
+moduleclass = 'math'
