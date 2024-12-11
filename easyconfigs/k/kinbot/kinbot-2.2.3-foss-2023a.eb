@@ -1,0 +1,49 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'kinbot'
+version = '2.2.3'
+
+homepage = "https://github.com/zadorlab/KinBot"
+description = """Automated reaction pathway search for gas-phase molecules"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),  # for numpy and scipy
+    ('matplotlib', '3.7.2'),
+    ('networkx', '3.1'),
+    ('pyvis', '0.3.1'),
+    ('tqdm', '4.66.1'),
+    ('Pillow', '10.0.0'),
+    ('OpenBabel', '3.1.1'),
+    ('RDKit', '2024.03.3'),
+    ('jax', '0.4.25'),
+    ('ASE', '3.23.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('rmsd', '1.6.1', {
+        'checksums': ['9e595fad496f895dbee64f780a22504e70a1ad055c721875fae871b7ce249dc3'],
+    }),
+    ('sella', '2.3.5', {
+        'checksums': ['2340eea946c936b24ed918713d5448f9ca76f5a4ea28be9aa6e11eb91b96c372'],
+    }),
+    (name, version, {
+        'checksums': ['e3b5df9d1e49ad5fb6113c59617f210666b8d44f75b028b59b9f6ee4d3c06833'],
+    }),
+]
+
+# Sanity check example from https://hackmd.io/@jzador/kinbot_workshop_2023
+
+modloadmsg = """
+To use this module with Guassian you have to load the 2022a toolchain:
+module load bear-apps/2022a; module load Gaussian/16.C.02-AVX2
+"""
+
+moduleclass = 'chem'
