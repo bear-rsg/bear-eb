@@ -1,0 +1,30 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'molcloud'
+version = '0.3.0'
+
+homepage = "https://github.com/whitead/molcloud"
+description = """This package draws molecules in a big canvas packed together."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('networkx', '3.1'),
+    ('matplotlib', '3.7.2'),
+    ('SciPy-bundle', '2023.07'),
+    ('pygraphviz', '1.11'),
+    ('RDKit', '2024.03.3'),
+    ('tqdm', '4.66.1'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    (name, version, {
+    }),
+]
+
+moduleclass = 'chem'
