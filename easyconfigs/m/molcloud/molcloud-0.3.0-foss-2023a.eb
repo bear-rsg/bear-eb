@@ -24,6 +24,7 @@ use_pip = True
 
 exts_list = [
     (name, version, {
+        'checksums': ['6e10be7996664a807fac053733ac6453268bd33ddbe7c43ac6a0b9d2da43c823'],
     }),
 ]
 
