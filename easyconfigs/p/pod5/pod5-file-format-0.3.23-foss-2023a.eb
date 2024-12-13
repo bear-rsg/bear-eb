@@ -82,11 +82,12 @@ preconfigopts = (
 
 # delete add_subdirectory(third_party/pybind11) from CMakeLists.txt
 preconfigopts += "sed -i '/pybind11/d'  %(builddir)s/%(name)s-%(version)s/CMakeLists.txt && "
-preconfigopts += "sed -i -e  '1iset(PYBIND11_FINDPYTHON ON)' "
-preconfigopts += "-e '1afind_package(pybind11 CONFIG REQUIRED)' %(builddir)s/%(name)s-%(version)s/c++/CMakeLists.txt && "
+preconfigopts += "sed -i -e  '1iset(PYBIND11_FINDPYTHON ON)' -e "
+preconfigopts += "'1afind_package(pybind11 CONFIG REQUIRED)' %(builddir)s/%(name)s-%(version)s/c++/CMakeLists.txt && "
 preconfigopts += 'cd %(builddir)s/easybuild_obj && '
 
-configopts = ' -DPYTHON_VERSION=%(pyver)s -DBUILD_PYTHON_WHEEL=ON -DZSTD_LIB="$EBROOTZSTD/lib" -DZSTD_INCLUDE_DIR="$EBROOTZSTD/include"'
+configopts = ' -DPYTHON_VERSION=%(pyver)s -DBUILD_PYTHON_WHEEL=ON'
+configopts += ' -DZSTD_LIB="$EBROOTZSTD/lib" -DZSTD_INCLUDE_DIR="$EBROOTZSTD/include"'
 
 # install lib_pod5 from wheel - dependency of pod5
 installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
