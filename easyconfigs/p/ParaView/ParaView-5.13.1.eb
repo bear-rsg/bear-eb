@@ -1,0 +1,27 @@
+easyblock = 'Binary'
+
+name = 'ParaView'
+version = '5.13.1'
+
+homepage = "https://www.paraview.org"
+description = "ParaView is a scientific parallel visualizer."
+
+toolchain = SYSTEM
+
+_download_suffix = 'download.php?submit=Download&version=v%(version_major_minor)s&type=binary&os=Linux&downloadFile='
+source_urls = ['https://www.paraview.org/paraview-downloads/%s' % _download_suffix]
+sources = ["ParaView-%(version)s-MPI-Linux-Python3.10-x86_64.tar.gz"]
+checksums = ['bb6edf410b8e5e464fa526d0ed6583cbb8ec5720ef68f3db6f86b8796362de20']
+
+extract_sources = True
+
+sanity_check_paths = {
+    'files': ['bin/paraview'],
+    'dirs': [],
+}
+
+modextrapaths = {
+    'LD_LIBRARY_PATH': ['lib/mesa'],
+}
+
+moduleclass = 'vis'
