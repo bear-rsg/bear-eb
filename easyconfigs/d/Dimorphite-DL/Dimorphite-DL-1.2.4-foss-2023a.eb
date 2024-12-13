@@ -1,0 +1,38 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CmdCp'
+
+name = 'Dimorphite-DL'
+version = '1.2.4'
+
+homepage = "https://github.com/durrantlab/dimorphite_dl"
+description = """Dimorphite-DL adds hydrogen atoms to molecular representations, as appropriate for a user-specified
+ pH range. It is a fast, accurate, accessible, and modular open-source program for enumerating small-molecule
+ ionization states."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/durrantlab/dimorphite_dl/archive/']
+sources = ['v.%(version)s.tar.gz']
+checksums = ['278bb1df76c8be5262f4affa48bcc5f4474b3bafd0ed768e7ec8c60f7f9049f5']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('RDKit', '2024.03.3'),
+]
+
+skipsteps = ['configure', 'build']
+
+files_to_copy = [(['*'], 'lib/python%(pyshortver)s/site-packages/dimorphite_dl')]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+sanity_check_paths = {
+    'files': ['lib/python%(pyshortver)s/site-packages/dimorphite_dl/dimorphite_dl.py'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/dimorphite_dl/training_data'],
+}
+
+sanity_check_commands = [
+    "python -c 'import dimorphite_dl'",
+]
+
+moduleclass = 'chem'
