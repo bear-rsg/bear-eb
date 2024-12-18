@@ -62,12 +62,12 @@ def det_wrf_subdir(wrf_version):
     return wrf_subdir
 
 
-class EB_WRF(EasyBlock):
-    """Support for building/installing WRF."""
+class WRFCHEM(EasyBlock):
+    """Support for building/installing WRF chem."""
 
     def __init__(self, *args, **kwargs):
         """Add extra config options specific to WRF."""
-        super(EB_WRF, self).__init__(*args, **kwargs)
+        super(WRFCHEM, self).__init__(*args, **kwargs)
 
         self.build_in_installdir = True
         self.comp_fam = None
@@ -460,7 +460,7 @@ class EB_WRF(EasyBlock):
             'dirs': [os.path.join(self.wrfsubdir, d) for d in ['main', 'run']],
         }
 
-        super(EB_WRF, self).sanity_check_step(custom_paths=custom_paths)
+        super(WRFCHEM, self).sanity_check_step(custom_paths=custom_paths)
 
     def make_module_req_guess(self):
         """Path-like environment variable updates specific to WRF."""
@@ -474,7 +474,7 @@ class EB_WRF(EasyBlock):
 
     def make_module_extra(self):
         """Add netCDF environment variables to module file."""
-        txt = super(EB_WRF, self).make_module_extra()
+        txt = super(WRFCHEM, self).make_module_extra()
         for netcdf_var in ['NETCDF', 'NETCDFF']:
             if os.getenv(netcdf_var) is not None:
                 txt += self.module_generator.set_environment(netcdf_var, os.getenv(netcdf_var))
