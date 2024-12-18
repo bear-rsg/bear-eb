@@ -1,4 +1,5 @@
 # WRF chem
+easyblock = 'WRFCHEM'
 name = 'WRF'
 version = '4.4'
 buildtype = "dmpar"
