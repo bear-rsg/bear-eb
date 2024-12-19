@@ -1,0 +1,14 @@
+--- arch/makefile.include.intel_omp.orig	2024-12-19 12:41:14.549338434 +0000
++++ arch/makefile.include.intel_omp	2024-12-19 12:41:47.928263909 +0000
+@@ -71,6 +71,11 @@
+ #INCS_FFTLIB = -I./include -I$(MKLROOT)/include/fftw
+ #LIBS       += fftlib
+ 
++# DFT-D4
++CPP_OPTIONS += -DDFTD4
++LLIBS       += $(shell pkg-config --libs dftd4) -lmulticharge -lmctc-lib -lmstore
++INCS        += $(shell pkg-config --cflags dftd4)
++
+ # For machine learning library vaspml (experimental)
+ #CPP_OPTIONS += -Dlibvaspml
+ #CPP_OPTIONS += -DVASPML_USE_CBLAS
