@@ -1,0 +1,41 @@
+easyblock = 'PythonPackage'
+
+name = 'FIGARO'
+# use a more recent git hash to include fixes since 1.1.2
+_hash = '0916f0d'
+version = '1.1.2.post1'
+
+homepage = 'https://github.com/Zymo-Research/figaro'
+description = "FIGARO: An efficient and objective tool for optimizing microbiome rRNA gene trimming parameters."
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+github_account = 'Zymo-Research'
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = ['%s.tar.gz' % _hash]
+checksums = ['051ff478cd14ec2375c8722c277b9cc1889cb5933ac17683911b6ca7f680cf10']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+]
+
+unpack_options = "--strip-components=1 && touch %(namelower)s/__init__.py && echo >> figaro/__init__.py"
+unpack_options += """ && sed -i 'a__version__ = "%(version)s"' %(namelower)s/__init__.py"""
+unpack_options += " &&  touch DESCRIPTION.md && touch %(namelower)s/defaults/__init__.py"
+
+use_pip = True
+sanity_pip_check = True
+download_dep_fail = True
+
+sanity_check_paths = {
+    'files': ['bin/figaro'],
+    'dirs': ['bin', 'lib'],
+}
+
+sanity_check_commands = [
+    "figaro --help"
+]
+
+moduleclass = 'bio'
