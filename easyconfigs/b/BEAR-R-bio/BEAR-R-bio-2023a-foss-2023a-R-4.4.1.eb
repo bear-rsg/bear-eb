@@ -15,6 +15,7 @@ dependencies = [
     ('R-bundle-Bioconductor', '3.19', versionsuffix),
     ('DMRcaller', '1.36.0', versionsuffix),
     ('methylKit', '1.30.0', versionsuffix),
+    ('qs', '0.27.2', versionsuffix),
 ]
 
 moduleclass = 'bio'

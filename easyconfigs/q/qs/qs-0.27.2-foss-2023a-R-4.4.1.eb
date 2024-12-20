@@ -1,0 +1,54 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'qs'
+version = '0.27.2'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=qs"
+description = """Provides functions for quickly writing and reading any R object to and from disk."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('R', '4.4.1'),
+    ('R-bundle-CRAN', '2024.06'),
+    ('zstd', '1.5.5'),
+    ('lz4', '1.9.4'),
+    ('xxHash', '0.8.2'),
+    ('Blosc', '1.21.5'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('RApiSerialize', '0.1.4', {
+        'checksums': ['26b974aca70f93a117253e010bb61f5fd315b36b1d045ab25cdfd417150d63c9'],
+    }),
+    ('stringfish', '0.16.0', {
+        'checksums': ['3608bc83900246297b38df46954bd9aa3b6f463a56eefbe80cfc713eab797993'],
+    }),
+    (name, version, {
+        'checksums': ['ed27ebee27f37289ec1cc141134e785aeba61a2c8b9c83b463597bc17e9fab01'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['qs/R/qs'],
+    'dirs': [],
+}
+
+moduleclass = 'lib'
