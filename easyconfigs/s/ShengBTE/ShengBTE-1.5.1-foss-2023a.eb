@@ -1,0 +1,43 @@
+# Author: Jasper Grimm (UoY)
+
+easyblock = 'MakeCp'
+
+name = 'ShengBTE'
+version = '1.5.1'
+
+homepage = 'https://bitbucket.org/sousaw/shengbte'
+description = "A solver for the Boltzmann transport equation for phonons."
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'openmp': True}
+
+bitbucket_account = 'sousaw'
+source_urls = [BITBUCKET_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['4b1adbbdf522f48f44fb51b1dbdde8db2df296f8b449d29e7d9aa137b0fc7d84']
+
+dependencies = [
+    ('spglib', '2.5.0'),
+]
+
+start_dir = 'Src'
+
+# strip "include arch.make" -- not needed as we already set necessary env vars
+prebuildopts = "sed -i 's/^include arch.make//' Makefile && "
+# -fallow-argument-mismatch needed for GCC 10+
+buildopts = '-j 1 LIBS="$LIBBLAS -lsymspg" FFLAGS="$FFLAGS -fallow-argument-mismatch"'
+
+local_tests = ["Test-%s" % x for x in ['QE', 'RTA', 'VASP']]
+
+files_to_copy = [([name], 'bin'), (['LICENSE', 'README.md'], 'share')] + local_tests
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': ['share'] + local_tests,
+}
+
+sanity_check_commands = [
+    "cd %%(builddir)s/*%%(namelower)s*/%s && %%(mpi_cmd_prefix)s %%(name)s" % x for x in local_tests
+]
+
+moduleclass = 'phys'
