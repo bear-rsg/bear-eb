@@ -1,6 +1,6 @@
 easyblock = 'PythonPackage'
 name = 'thirdorder'
-version = '1.1.1'
+version = '1.1.3'
 
 homepage = 'https://bitbucket.org/sousaw/thirdorder/'
 description = """A Python script to help create input files for computing anhamonic
@@ -18,7 +18,7 @@ dependencies = [
 
 source_urls = ['https://bitbucket.org/sousaw/thirdorder/get/']
 sources = ['v%(version)s.tar.gz']
-checksums = ['f95e6371d78231d68028ec4e28d1d45ce60b1093e64f87e4b0cdb259375cd0d4']
+checksums = ['9e506b47c33835cbdcabede7049d110c231f3f11a0460ae37d1948d4f87efd07']
 
 use_pip = True
 sanity_pip_check = True
