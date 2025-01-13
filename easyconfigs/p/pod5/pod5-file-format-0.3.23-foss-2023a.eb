@@ -13,7 +13,11 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 github_account = 'nanoporetech'
 source_urls = [GITHUB_SOURCE]
 sources = [{'download_filename': '%(version)s.tar.gz', 'filename': SOURCE_TAR_GZ}]
-checksums = ['870f5b0ca5f05dc19a6eb3cfeaf0755f5c21ac261621556bb5306fa9ef8ac438']
+patches = ['pod5-file-format-0.3.23_dep_fix.patch']
+checksums = [
+    {'pod5-file-format-0.3.23.tar.gz': '870f5b0ca5f05dc19a6eb3cfeaf0755f5c21ac261621556bb5306fa9ef8ac438'},
+    {'pod5-file-format-0.3.23_dep_fix.patch': 'e5e62004926b3b565e81f92df923f641ad7e2d6de1cafcb59ce0650908888545'},
+]
 
 builddependencies = [
     ('poetry', '1.5.1'),
@@ -62,7 +66,7 @@ exts_list = [
         'checksums': ['6b1d3829ee8921c4301998c909f7829fa9ed3cbdac0d3b16af2d743aed1ba8df'],
     }),
     ('pod5', version, {
-        'preinstallopts': '%s' % local_preinstallopts,
+        'preinstallopts': "sed -i -e 's/h5py~=3.11/h5py/' -e 's/pyarrow ~= 18.*;/pyarrow;/' pyproject.toml && ",
         'checksums': ['4d400545ac09cf2b62ba3ef107e80f5a9f75ee6433a1b521bbfad48af1072b4d'],
     }),
 ]
@@ -88,6 +92,7 @@ preconfigopts += 'cd %(builddir)s/easybuild_obj && '
 
 configopts = ' -DPYTHON_VERSION=%(pyver)s -DBUILD_PYTHON_WHEEL=ON'
 configopts += ' -DZSTD_LIB="$EBROOTZSTD/lib" -DZSTD_INCLUDE_DIR="$EBROOTZSTD/include"'
+configopts += ' -DCMAKE_MODULE_PATH="%(start_dir)scmake"'
 
 # install lib_pod5 from wheel - dependency of pod5
 installopts = ' && export XDG_CACHE_HOME=%(builddir)s && cd %(installdir)s'
