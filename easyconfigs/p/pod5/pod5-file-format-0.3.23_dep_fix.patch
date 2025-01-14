@@ -1,0 +1,20 @@
+--- c++/CMakeLists.txt.orig	2025-01-10 13:50:43.300918841 +0000
++++ c++/CMakeLists.txt	2025-01-10 19:37:30.679540031 +0000
+@@ -11,7 +11,8 @@
+     endif()
+ else()
+     find_package(Arrow REQUIRED)
+-    find_package(Flatbuffers REQUIRED)
++    find_package(FlatBuffers REQUIRED)
++    message("FlatBuffers: ${FlatBuffers_FOUND} ${FlatBuffers_CONFIG}")
+     find_package(zstd REQUIRED)
+     find_package(ZLIB REQUIRED)
+ 
+@@ -21,7 +22,6 @@
+ endif()
+ 
+ find_package(Threads REQUIRED)
+-
+ find_program(
+     FLATBUFFERS_FLATC_EXECUTABLE
+     flatc
