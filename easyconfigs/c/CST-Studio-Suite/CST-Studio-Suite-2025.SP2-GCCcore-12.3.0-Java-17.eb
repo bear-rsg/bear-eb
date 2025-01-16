@@ -1,0 +1,40 @@
+easyblock = 'EB_CST'
+
+name = 'CST-Studio-Suite'
+version = '2025.SP2'
+versionsuffix = '-Java-17'
+
+homepage = 'https://www.3ds.com/products-services/simulia/products/cst-studio-suite/'
+description = """CST Studio Suite is a high-performance 3D EM analysis software package for designing, analyzing and
+ optimizing electromagnetic (EM) components and systems."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+sources = [
+    'CST_S2_2025/CST_S2_2025.CST_S2_2025.SIMULIA_CST_Studio_Suite.Linux64.tar',
+    'CST_S2_2025/CST_S2_2025_SP2.SPK_SIMULIA_CST_Studio_Suite.Linux64.tar.gz',
+]
+checksums = [
+    {'CST_S2_2025.CST_S2_2025.SIMULIA_CST_Studio_Suite.Linux64.tar':
+     'f608aebd9b4d097ee2e8821f6d4a07e57d0be0ea57fc080a209a9089f9aabff9'},
+    {'CST_S2_2025_SP2.SPK_SIMULIA_CST_Studio_Suite.Linux64.tar.gz':
+     'bc8685b1aa71590b0685c58406dce359a10e2d4b58eab62babd1d6356e13dec8'},
+]
+
+builddependencies = [
+    ('binutils', '2.40'),
+]
+dependencies = [
+    ('Java', '17', '', SYSTEM),
+    ('motif', '2.3.8'),
+    ('Xvfb', '21.1.8'),
+]
+
+license_server = 'eee-cst-ce.bham.ac.uk'
+license_server_port = '27004'
+sp_level = '%(version_minor)s'
+extract_sources = True
+
+modextravars = {'CST_FORCE_SOFTWARE_RENDERER': '1'}
+
+moduleclass = 'cae'
