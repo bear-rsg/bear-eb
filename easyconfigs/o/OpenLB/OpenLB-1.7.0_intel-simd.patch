@@ -1,0 +1,75 @@
+--- config.mk.orig	2025-01-15 11:33:43.258030801 +0000
++++ config.mk	2025-01-16 11:49:27.221867695 +0000
+@@ -1,58 +1,27 @@
+-# OpenLB build configuration
++# Example build config for OpenLB with SIMD using Intel C++ and MPI library
+ #
+-# This file sets up the necessary build flags for compiling OpenLB with
+-# the GNU C++ compiler and sequential execution. For more complex setups
+-# edit this file or consult the example configs provided in `config/`.
++# Recommended for CPU-only clusters with AVX2 / AVX-512 capability
+ #
+-# Basic usage:
+-#  - Edit variables to fit desired configuration
+-#  - Run `make clean; make` to clean up any previous artifacts and compile the dependencies
+-#  - Switch to example directory, e.g. `examples/laminar/poiseuille2d`
++# Usage:
++#  - Copy this file to OpenLB root as `config.mk`
++#  - Run `make clean; make`
++#  - Switch to example directory, e.g. `examples/laminar/cavity3dBenchmark`
+ #  - Run `make`
+-#  - Start the simulation using `./poiseuille2d`
++#  - Start the simulation using `mpirun ./cavity3d`
+ 
+-# Compiler to use for C++ files, change to `mpic++` when using OpenMPI and GCC
+-CXX             := g++
+-# Compiler to use for C files (used for emebedded dependencies)
+-CC              := gcc
+-
+-# Suggested optimized build flags for GCC, consult `config/` for further examples
+-CXXFLAGS        := -O3 -Wall -march=native -mtune=native
+-# Uncomment to add debug symbols and enable runtime asserts
+-#CXXFLAGS        += -g -DOLB_DEBUG
+-
+-# OpenLB requires support for C++17
+-# works in:
+-#  * gcc 9 or later      (https://gcc.gnu.org/projects/cxx-status.html#cxx17)
+-#  * icc 19.0 or later   (https://software.intel.com/en-us/articles/c17-features-supported-by-intel-c-compiler)
+-#  * clang 7 or later  (https://clang.llvm.org/cxx_status.html#cxx17)
+-CXXFLAGS        += -std=c++17
++CXX             := mpicxx
++CC              := icx
+ 
+-# optional linker flags
+-LDFLAGS         :=
++CXXFLAGS        := -O3 -Wall -march=native
++CXXFLAGS        += -std=c++17
+ 
+-# Parallelization mode, must be one of: OFF, MPI, OMP, HYBRID
+-# Note that for MPI and HYBRID the compiler also needs to be adapted.
+-# See e.g. `config/cpu_gcc_openmpi.mk`
+-PARALLEL_MODE   := OFF
++# HYBRID mode is also possible but more complex to run correctly
++PARALLEL_MODE   := MPI
+ 
+-# optional MPI and OpenMP flags
+-MPIFLAGS        :=
+ OMPFLAGS        := -fopenmp
+ 
+-# Options: CPU_SISD, CPU_SIMD, GPU_CUDA
+-# Both CPU_SIMD and GPU_CUDA require system-specific adjustment of compiler flags.
+-# See e.g. `config/cpu_simd_intel_mpi.mk` or `config/gpu_only.mk` for examples.
+-# CPU_SISD must always be present.
+-PLATFORMS       := CPU_SISD
++PLATFORMS       := CPU_SISD CPU_SIMD
+ 
+-# Fundamental arithmetic data type
+-# Common options are float or double
+ FLOATING_POINT_TYPE := double
+ 
+-# Any entries are passed to the compiler as `-DFEATURE_*` declarations
+-# Used to enable some alternative code paths and dependencies
+-FEATURES        :=
+-
+-# Set to OFF if libz and tinyxml are provided by the system (optional)
+ USE_EMBEDDED_DEPENDENCIES := ON
