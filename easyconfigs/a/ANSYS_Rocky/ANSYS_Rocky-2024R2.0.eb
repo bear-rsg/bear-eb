@@ -39,11 +39,4 @@ sanity_check_paths = {
     'dirs': ['bin/lib', 'fluent', 'modules'],
 }
 
-# N.B. these variable names will need to be updated with any version bumps
-# Required for coupling with other ANSYS products, e.g. Fluent. (Rocky and ANSYS versions must match.)
-modloadmsg = """Please execute the following commands once the module is loaded:
-    export ANSYS242_DIR=${EBROOTANSYS}/v242/ansys
-    export AWP_ROOT242=${EBROOTANSYS}/v242
-"""
-
 moduleclass = 'tools'

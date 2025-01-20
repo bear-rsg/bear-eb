@@ -33,7 +33,11 @@ osdependencies = [('p7zip-plugins', 'p7zip-full')]  # for extracting iso-files
 # # "System.DllNotFoundException: Ans.QT.dll":
 # osdependencies = ['libxslt']
 
-modextravars = {'KMP_AFFINITY': 'disabled'}
+modextravars = {
+    'KMP_AFFINITY': 'disabled',
+    'ANSYS242_DIR': '$root/v242/ansys',  # Required for ANSYS_Rocky coupling
+    'AWP_ROOT242': '$root/v242',  # Required for ANSYS_Rocky coupling
+}
 
 modtclfooter = "unsetenv UCX_NET_DEVICES"
 
