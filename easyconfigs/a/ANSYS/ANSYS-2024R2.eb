@@ -35,8 +35,8 @@ osdependencies = [('p7zip-plugins', 'p7zip-full')]  # for extracting iso-files
 
 modextravars = {
     'KMP_AFFINITY': 'disabled',
-    'ANSYS242_DIR': '$root/v242/ansys',  # Required for ANSYS_Rocky coupling
-    'AWP_ROOT242': '$root/v242',  # Required for ANSYS_Rocky coupling
+    'ANSYS242_DIR': '%(installdir)s/v242/ansys',  # Required for ANSYS_Rocky coupling
+    'AWP_ROOT242': '%(installdir)s/v242',  # Required for ANSYS_Rocky coupling
 }
 
 modtclfooter = "unsetenv UCX_NET_DEVICES"
