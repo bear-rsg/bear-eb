@@ -1,0 +1,44 @@
+name = 'ANSYS'
+version = '2024R2'
+
+homepage = 'https://www.ansys.com'
+description = """ANSYS simulation software enables organizations to confidently predict
+ how their products will operate in the real world. We believe that every product is
+ a promise of something greater."""
+
+toolchain = SYSTEM
+
+download_instructions = 'Manually obtain (ANSYS%(version)s_LINX64_DISKX.iso) from your ANSYS vendor'
+# Custom extract command is used since iso sources contain duplicate file.
+sources = [
+    {'filename': 'ANSYS%(version)s_LINX64_DISK1.iso', 'extract_cmd': '7z x -aos %s'},
+    {'filename': 'ANSYS%(version)s_LINX64_DISK2.iso', 'extract_cmd': '7z x -aos %s'},
+    {'filename': 'ANSYS%(version)s_LINX64_DISK3.iso', 'extract_cmd': '7z x -aos %s'},
+    {'filename': 'ANSYS%(version)s_LINX64_DISK4.iso', 'extract_cmd': '7z x -aos %s'},
+]
+checksums = [
+    {'ANSYS2024R2_LINX64_DISK1.iso': '5e45e1bbcaa0e58d45aa1203cfebbb4b895614f47ba939232a30e13aab80e98c'},
+    {'ANSYS2024R2_LINX64_DISK2.iso': 'ad2a5f3158f7816727f25ffc3c51f0cd707995a9f6113df1c542a85245a5e099'},
+    {'ANSYS2024R2_LINX64_DISK3.iso': 'a06f270064a178f8fe302e2829576d66bdc9fbc1b94f9d8f68d9ec8ee4196650'},
+    {'ANSYS2024R2_LINX64_DISK4.iso': 'cc4e8520a38130dbba001a4f23250707c077a573a4c8395cfac2bcdfda9d9831'},
+]
+
+osdependencies = [('p7zip-plugins', 'p7zip-full')]  # for extracting iso-files
+
+# Specify license_server and license_server_port here, or use EB_ANSYS_LICENSE_SERVER and EB_ANSYS_LICENSE_SERVER_PORT
+# license_server = "ansys.lic.example.com"
+# license_server_port = "1234:5678"
+
+# # To run the workbench "runwb2" certain deps are required, otherwise you get an error saying:
+# # "System.DllNotFoundException: Ans.QT.dll":
+# osdependencies = ['libxslt']
+
+modextravars = {
+    'KMP_AFFINITY': 'disabled',
+    'ANSYS242_DIR': '%(installdir)s/v242/ansys',  # Required for ANSYS_Rocky coupling
+    'AWP_ROOT242': '%(installdir)s/v242',  # Required for ANSYS_Rocky coupling
+}
+
+modtclfooter = "unsetenv UCX_NET_DEVICES"
+
+moduleclass = 'tools'

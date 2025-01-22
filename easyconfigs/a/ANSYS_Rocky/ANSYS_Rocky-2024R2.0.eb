@@ -1,0 +1,42 @@
+easyblock = 'CmdCp'
+
+name = 'ANSYS_Rocky'
+version = '2024R2.0'
+local_intver = '24.2.0'
+
+homepage = "https://www.ansys.com/en-gb/products/fluids/ansys-rocky"
+description = """Ansys Rocky is the industry-leading discrete element method (DEM)
+ software that quickly and accurately simulates particle flow behavior."""
+
+toolchain = SYSTEM
+
+download_instructions = """Login and download from https://download.ansys.com/currentReleases.
+Navigate to the "AddOn Packages" section and retrieve the "Main Package" download.
+"""
+
+sources = ["ROCKY_%(version)s_LINX64.zip"]
+checksums = ['42bac893a8918280317a384205622c8269d1b9f059f430ea6f903691c700df50']
+
+dependencies = [
+    ('alsa-lib', '1.2.10'),
+    ('ANSYS', '2024R2'),
+    ('CUDA', '11.7.0'),
+]
+
+cmds_map = [(
+    '.*',
+    "tar -jxv --strip-components=1 -f ansys-rocky-bin-%s-linux64.tbz2 -C %%(installdir)s" % local_intver
+)]
+
+skipsteps = ['install']  # the install step deletes the directory created by the above command
+files_to_copy = []
+
+# Binaries are installed to the root of the installation, so add that root to the PATH:
+modextrapaths = {'PATH': ''}
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['Rocky', 'RockySolver']] + ['Rocky'],
+    'dirs': ['bin/lib', 'fluent', 'modules'],
+}
+
+moduleclass = 'tools'
