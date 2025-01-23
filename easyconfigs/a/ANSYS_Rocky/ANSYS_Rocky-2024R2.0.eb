@@ -31,6 +31,11 @@ cmds_map = [(
 skipsteps = ['install']  # the install step deletes the directory created by the above command
 files_to_copy = []
 
+# The file rocky30.ico doesn't exist but there is a check in various scripts to ensure that it's in
+# the Rocky.desktop file and tries to write it if not, which results in an error due to user permissions
+# being insufficient in the installation directory.
+postinstallcmds = ['sed -i "/^Icon=/c\Icon=%(installdir)s/bin/rocky30.ico" %(installdir)s/Rocky.desktop']
+
 # Binaries are installed to the root of the installation, so add that root to the PATH:
 modextrapaths = {'PATH': ''}
 
