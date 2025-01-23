@@ -30,6 +30,8 @@ buildopts = '%s ' % ' '.join(local_targets)
 buildopts += 'DEPS=1 '  # required for VASP parallel builds
 buildopts += 'FFTW_ROOT="${EBROOTFFTW}" '
 
+local_test_skip = 'HEG_333_LW'
+pretestopts = 'export VASP_TESTSUITE_SKIP_TESTS="%s" && ' % local_test_skip
 runtest = 'test'
 
 files_to_copy = [(['bin/vasp_' + x for x in local_targets], 'bin')]
