@@ -1,0 +1,19 @@
+easyblock = 'Toolchain'
+
+name = 'nvompi'
+version = '2024.11'
+
+homepage = '(none)'
+description = 'NVHPC based compiler toolchain, including OpenMPI for MPI support.'
+
+toolchain = SYSTEM
+
+local_compiler = ('NVHPC', '24.11-CUDA-12.6.0')
+
+dependencies = [
+    local_compiler,
+    ('OpenMPI', '4.1.6', '', local_compiler),
+    ('CUDA', '12.6.0', '', SYSTEM),
+]
+
+moduleclass = 'toolchain'

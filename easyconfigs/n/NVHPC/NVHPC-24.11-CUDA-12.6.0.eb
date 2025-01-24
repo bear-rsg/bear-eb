@@ -69,5 +69,7 @@ default_cuda_version = '%(cudaver)s'
 #   module_add_nvshmem = False    # Add NVHPC's NVSHMEM library
 #   module_add_cuda = False       # Add NVHPC's bundled CUDA
 
+modextrapaths = {'LD_LIBRARY_PATH': 'Linux_x86_64/24.11/compilers/extras/qd/lib'}
+
 # this bundle serves as a compiler-only toolchain, so it should be marked as compiler (important for HMNS)
 moduleclass = 'compiler'
