@@ -1,0 +1,40 @@
+name = 'WPS'
+version = '4.5'
+
+homepage = 'http://www.wrf-model.org'
+description = """WRF Preprocessing System (WPS) for WRF. The Weather Research and Forecasting (WRF) Model is
+ a next-generation mesoscale numerical weather prediction system designed to serve both operational
+ forecasting and atmospheric research needs."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'opt': True}
+
+source_urls = ['https://github.com/wrf-model/WPS/archive/']
+sources = ['v%(version)s.tar.gz']
+patches = [
+    'WPS-4.4_netCDF-Fortran_separate_path.patch',
+    'WPS-4.6.0_fix_jasper_decode.patch',
+]
+checksums = [
+    {'v4.5.tar.gz': '3cb29107f85b81af05b7dd494e5d4a13cf1b33b87d7e2911a64a7abc59bf55f3'},
+    {'WPS-4.4_netCDF-Fortran_separate_path.patch': '751bb744bf8e5386b3bcf9c3c92dbd06183acf4007d061a3c10da808387bb0a8'},
+    {'WPS-4.6.0_fix_jasper_decode.patch': 'f4ea3c77c42c3474d582e311b8bd0d80c67243f45922e85ee3ff52df61d6c77e'},
+]
+
+buildtype = "dmpar"
+versionsuffix = '-%s' % buildtype
+
+builddependencies = [
+    ('Perl', '5.36.1'),
+]
+
+dependencies = [
+    ('WRF', '4.5.1', versionsuffix),
+    ('JasPer', '4.0.0'),
+    ('netCDF', '4.9.2'),
+    ('netCDF-Fortran', '4.6.1'),
+    ('zlib', '1.2.13'),
+    ('libpng', '1.6.39'),
+]
+
+moduleclass = 'geo'
