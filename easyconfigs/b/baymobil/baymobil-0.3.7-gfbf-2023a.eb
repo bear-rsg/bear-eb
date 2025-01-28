@@ -1,0 +1,36 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'baymobil'
+version = '0.3.7'
+
+homepage = "https://github.com/mtomtom/baymobil"
+description = """Baymobil is a tool designed to analyze SNP (Single Nucleotide Polymorphism) specific error rates in
+ grafted plants. It compares the error rates between homograft and heterograft data sets to determine if the
+ heterograft data contains mobile transcripts."""
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('dill', '0.3.7'),
+    ('matplotlib', '3.7.2'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('pandarallel', '1.6.5', {
+        'checksums': ['1c2df98ff6441e8ae13ff428ceebaa7ec42d731f7f972c41ce4fdef1d3adf640'],
+    }),
+    ('multipledispatch', '1.0.0', {
+        'checksums': ['5c839915465c68206c3e9c473357908216c28383b425361e5d144594bf85a7e0'],
+    }),
+    (name, version, {
+        'checksums': ['79675933896bf611cd13ce499ee3f5d6374f885d86e066bf79470a35a2d1ee16'],
+    }),
+]
+
+moduleclass = 'bio'
