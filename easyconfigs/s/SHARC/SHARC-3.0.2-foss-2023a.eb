@@ -12,6 +12,7 @@ toolchainopts = {'optarch': False}
 
 source_urls = ['https://github.com/sharc-md/sharc/archive/']
 sources = ['v%(version)s.tar.gz']
+checksums = ['9440e26578a9d95ca3737b3561158c6e49a1726ffda2b4cc6bc5bb038521dc99']
 
 dependencies = [
     ('Python', '3.11.3'),
