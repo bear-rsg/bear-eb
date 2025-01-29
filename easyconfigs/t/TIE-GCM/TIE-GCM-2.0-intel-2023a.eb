@@ -54,7 +54,7 @@ modextravars = {
     'TIEGCM_ROOT': '$::env(EBROOTTIEMINGCM)/tiegcm2.0',
 }
 
-modextrapaths =  {'PATH': 'tiegcm2.0/tgcmrun'}
+modextrapaths = {'PATH': 'tiegcm2.0/tgcmrun'}
 
 sanity_check_commands = ['tgcmrun --help']
 
