@@ -21,12 +21,14 @@ patches = [
     'tiegcm2.0_gfortran.patch',
     'tiegcm2.0_apex_igrf14.patch',
     'tiegcm2.0_python2to3.patch',
+    'tiegcm2.0_tgcmrun.patch',
 ]
 checksums = [
     {'tiegcm2.0.tar': '2cc663bf2a52de7fe39fe3c0c5d9900077a8f5758e385aced6dc550182e55ed1'},
     {'tiegcm2.0_gfortran.patch': 'fc679238d92876c2cbb85e50d562b3e85960567e510154a3aadaa4bec1302b20'},
     {'tiegcm2.0_apex_igrf14.patch': '4ad3de9dabdfd6cd6b9c9bb881a4d5e4b48fb41afa629875d17cf1291a631cdc'},
-    {'tiegcm2.0_python2to3.patch': '163c4c606250cee0891adb9a1112ea688a7d7f8c5170a3544bec22a51615e708'},
+    {'tiegcm2.0_python2to3.patch': '7c2429b378182c43f211419e20cd5d9ee1c7af39c8ee0f61a87f22561e8ab0b2'},
+    {'tiegcm2.0_tgcmrun.patch': 'd96769c8d195a4bea2b9f2e2be92c37b2b63c4a70926ab1bb933fde40dcc0a97'},
 ]
 
 dependencies = [
@@ -34,7 +36,10 @@ dependencies = [
     ('Python', '3.11.3'),  # needed for some scripts
 ]
 
-postinstallcmds = ['cp tiegcm2.0/scripts/tiegcm-bluebear.job %(installdir)s']
+postinstallcmds = [
+    'cp tiegcm2.0/scripts/tiegcm-bluebear.job %(installdir)s',
+    'cp tiegcm2.0/scripts/tiegcm-bluebear.job %(installdir)s/tiegcm2.0/tgcmrun/tiegcm_bluebear_default.job',
+]
 
 sanity_check_paths = {
     'files': ['tiegcm2.0/scripts/Make.gfort_bluebear'],
@@ -46,6 +51,11 @@ modextravars = {
     'TIEGCM_RES50': '$::env(BB_APPS_DATA)/TIE_GCM/2.0/tiegcm_res5.0_data',
     'TIEGCM_MAKEBLUEBEAR': 'Make.gfort_bluebear',
     'TIEGCM_BBSCRIPT': '$::env(EBROOTTIEMINGCM)/tiegcm-bluebear.job',
+    'TIEGCM_ROOT': '$::env(EBROOTTIEMINGCM)/tiegcm2.0',
 }
+
+modextrapaths =  {'PATH': 'tiegcm2.0/tgcmrun'}
+
+sanity_check_commands = ['tgcmrun --help']
 
 moduleclass = 'geo'

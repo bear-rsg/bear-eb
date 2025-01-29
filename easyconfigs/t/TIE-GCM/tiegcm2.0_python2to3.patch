@@ -111,7 +111,13 @@ diff -Nru tiegcm2.0.orig/tgcmrun/classes.py tiegcm2.0/tgcmrun/classes.py
  
 diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
 --- tiegcm2.0.orig/tgcmrun/getoptions.py	2025-01-23 15:38:28.824373000 +0000
-+++ tiegcm2.0/tgcmrun/getoptions.py	2025-01-28 13:00:31.377942412 +0000
++++ tiegcm2.0/tgcmrun/getoptions.py	2025-01-29 19:11:23.641882839 +0000
+@@ -1,4 +1,4 @@
+-import argparse,sys,os
++import argparse,sys,os,getpass
+ from classes import Run,Job
+ from utils import getenv
+ 
 @@ -104,7 +104,7 @@
          return run.get_number(run.name)
      if option:              # check for command-line argument
@@ -121,6 +127,19 @@ diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
          sys.exit()
        else:
          return option
+@@ -113,10 +113,10 @@
+       answer = ''
+       while not run.validate_number(answer):
+ #
+-# Note: type returned by raw_input is always a string.
++# Note: type returned by input() is always a string.
+ # run.number has to be an integer (it will used to index into lists, etc)
+ #
+-        answer = raw_input("\nEnter number of desired run (0-"+str(run.nruns-1)+") ('q' to quit, 'p' to print list, default=0): ")
++        answer = input("\nEnter number of desired run (0-"+str(run.nruns-1)+") ('q' to quit, 'p' to print list, default=0): ")
+         if answer == 'q': 
+           sys.exit()        # quit the app
+         elif answer == '':
 @@ -128,7 +128,7 @@
            if run.validate_number(answer): # if this succeeds, it returns integer (not a string)
              return answer
@@ -139,7 +158,7 @@ diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
          sys.exit()
  #
  # Get run.model_name:
-@@ -145,7 +145,7 @@
+@@ -145,21 +145,21 @@
    elif arg == 'model_name':
      if option:
        if option != 'tiegcm' and option != 'timegcm':
@@ -148,7 +167,15 @@ diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
          sys.exit()
        run.model_name = option
      else:
-@@ -159,7 +159,7 @@
+-      job.user = os.getlogin() 
++      job.user = getpass.getuser() 
+       answer = ''
+       while answer != 'tiegcm' and answer != 'timegcm':
+-        answer = raw_input("Run "+run.name+": Enter model name ('tiegcm' or 'timegcm', default=tiegcm): ")
++        answer = input("Run "+run.name+": Enter model name ('tiegcm' or 'timegcm', default=tiegcm): ")
+         if answer == 'q':
+           sys.exit()
+         elif answer == '':
            answer = 'tiegcm'
            continue
          elif answer != 'tiegcm' and answer != 'timegcm':
@@ -183,8 +210,9 @@ diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
  #
        else:
 -        print 'Environment variable ',envvar,' is not set.'
+-        answer = raw_input('Run '+run.name+': Enter model_root directory for '+job.model_name+' (q to quit): ')
 +        print('Environment variable ',envvar,' is not set.')
-         answer = raw_input('Run '+run.name+': Enter model_root directory for '+job.model_name+' (q to quit): ')
++        answer = input('Run '+run.name+': Enter model_root directory for '+job.model_name+' (q to quit): ')
          if answer == 'q':
            sys.exit()
          if answer == '':
@@ -207,7 +235,7 @@ diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
          get_options(arg,run,job,option) # try again
        return rootdir
  #
-@@ -228,7 +228,7 @@
+@@ -228,20 +228,20 @@
    elif arg == 'model_res':
      if option:
        if option != '5.0' and option != '2.5':
@@ -216,7 +244,13 @@ diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
          sys.exit()
        run.model_res = option
      else:
-@@ -241,7 +241,7 @@
+       answer = ''
+       while answer != '5.0' and answer != '2.5':
+-        answer = raw_input("Run "+run.name+": Enter model resolution (5.0 or 2.5, default=5.0): ")
++        answer = input("Run "+run.name+": Enter model resolution (5.0 or 2.5, default=5.0): ")
+         if answer == 'q':
+           sys.exit()
+         elif answer == '':
            model_res = '5.0' 
            answer = model_res
          elif answer != '5.0' and answer != '2.5':
@@ -274,8 +308,9 @@ diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
          return execdir
        else: # prompt for execdir
 -        print 'Env var ',TGCMTEMP,' is not set.'
+-        answer = raw_input('Enter execution directory (execdir) for run '+run.name+': ')
 +        print('Env var ',TGCMTEMP,' is not set.')
-         answer = raw_input('Enter execution directory (execdir) for run '+run.name+': ')
++        answer = input('Enter execution directory (execdir) for run '+run.name+': ')
          if not os.path.isdir:
            os.path.makedirs(answer)
 -          print "Made execdir directory ",answer," for run ",run.name
@@ -289,8 +324,9 @@ diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
  #
  #   if os.path.isdir(job.execdir):
 -#     print "Use existing execdir ",job.execdir,"? (yes/no)" 
+-#     answer = raw_input("  If no, all files in the directory will be removed prior to running the run) (default=yes): ")
 +#     print("Use existing execdir ",job.execdir,"? (yes/no)")
- #     answer = raw_input("  If no, all files in the directory will be removed prior to running the run) (default=yes): ")
++#     answer = input("  If no, all files in the directory will be removed prior to running the run) (default=yes): ")
  #     if answer == 'q':
  #       sys.exit()
  #     elif answer == 'no':
@@ -336,8 +372,9 @@ diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
            tgcmdata = job.execdir
        else:
 -        print 'Env var TGCMDATA is not set.'
+-        answer = raw_input('Enter directory containing data for model '+job.model_name+' (default='+execdir+' or q to quit): ')
 +        print('Env var TGCMDATA is not set.')
-         answer = raw_input('Enter directory containing data for model '+job.model_name+' (default='+execdir+' or q to quit): ')
++        answer = input('Enter directory containing data for model '+job.model_name+' (default='+execdir+' or q to quit): ')
          if answer == 'q':
            sys.exit()
          if answer == '':
@@ -414,6 +451,122 @@ diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
      return None
  
  #-----------------------------------------------------------------------
+diff -Nru tiegcm2.0.orig/tgcmrun/tgcmrun tiegcm2.0/tgcmrun/tgcmrun
+--- tiegcm2.0.orig/tgcmrun/tgcmrun	2025-01-23 15:38:28.819597000 +0000
++++ tiegcm2.0/tgcmrun/tgcmrun	2025-01-29 18:44:36.879830000 +0000
+@@ -60,7 +60,7 @@
+ #
+   if job.stdout_dir:
+     os.chdir(job.stdout_dir)
+-    print 'Tgcmrun moved to directory ',job.stdout_dir
++    print('Tgcmrun moved to directory ',job.stdout_dir)
+  
+   version = Version()
+   job.model_version = version.name(job.model_name)
+@@ -68,7 +68,7 @@
+ 
+   run.fullname(job,run.name)
+ 
+-  print '\n----------------------------- Run ',run.fullname,' --------------------------------\n'
++  print('\n----------------------------- Run ',run.fullname,' --------------------------------\n')
+ #
+ # Set run parameters (most importantly, namelist modifications):
+ # Note: after going to tiegcm2.0, the model_res argument to set_run will no longer be necessary. 
+@@ -94,7 +94,7 @@
+   nl.default_file = job.model_root+'/tgcmrun/'+job.model_name+'_res'+job.model_res+'_default.inp'
+ 
+   if not os.path.isfile(nl.default_file):
+-    print ">>> Cannot find default namelist file ",nl.default_file
++    print(">>> Cannot find default namelist file ",nl.default_file)
+     sys.exit()
+   nl.new_file = run.fullname+'.inp'
+   nl.make_namelist(nl.default_file,nl.new_file,run.list_mods,run.list_rm,run.fullname,tgcmdata)
+@@ -103,7 +103,7 @@
+ #
+   job.script_default = job.model_root+'/tgcmrun/'+job.model_name+'_'+job.machine+'_default.job'
+   if not os.path.isfile(job.script_default):
+-    print '>>> Cannot find default job script ',job.script_default
++    print('>>> Cannot find default job script ',job.script_default)
+     sys.exit()
+   job.stdin  = "'"+nl.new_file+"'"
+ #
+@@ -121,30 +121,30 @@
+ #
+ # Print job parameters and prompt for submission:
+ #
+-  print '\nJob parameters for run ',run.fullname,' (',run.desc,'):'
+-  print 'Job script:           ',job.script_run
+-  print 'Machine/platform:     ',job.machine
+-  print 'Compiler:             ',job.compiler
+-  print 'Model version:        ',job.model_version
+-  print 'Model root directory: ',job.model_root
+-  print 'Model resolution:     ',job.model_res
+-  print 'Execution directory:  ',job.execdir
+-  print 'Namelist input file:  ',job.stdin
+-  print 'Standard out file:    ',job.stdout 
+-  print 'Standard out dir:     ',job.stdout_dir
+-  print 'History out dir:      ',job.hist_dir
+-  print 'TGCMDATA env var:     ',tgcmdata
++  print('\nJob parameters for run ',run.fullname,' (',run.desc,'):')
++  print('Job script:           ',job.script_run)
++  print('Machine/platform:     ',job.machine)
++  print('Compiler:             ',job.compiler)
++  print('Model version:        ',job.model_version)
++  print('Model root directory: ',job.model_root)
++  print('Model resolution:     ',job.model_res)
++  print('Execution directory:  ',job.execdir)
++  print('Namelist input file:  ',job.stdin)
++  print('Standard out file:    ',job.stdout) 
++  print('Standard out dir:     ',job.stdout_dir)
++  print('History out dir:      ',job.hist_dir)
++  print('TGCMDATA env var:     ',tgcmdata)
+ #
+ # Print any LSF arguments found on the command-line:
+ #
+   if job.nprocs or job.wallclock or job.project or job.queue or job.submitflag or job.execute:
+-    print '\nCommand-line arguments for run ',run.fullname,': '
+-  if job.submitflag:print 'Submit flag: ',job.submitflag
+-  if job.execute:   print 'Execute flag:',job.execute
+-  if job.nprocs:    print '#BSUB -n ',job.nprocs
+-  if job.wallclock: print '#BSUB -W ',job.wallclock
+-  if job.project:   print '#BSUB -P ',job.project
+-  if job.queue:     print '#BSUB -q ',job.queue
++    print('\nCommand-line arguments for run ',run.fullname,': ')
++  if job.submitflag:print('Submit flag: ',job.submitflag)
++  if job.execute:   print('Execute flag:',job.execute)
++  if job.nprocs:    print('#BSUB -n ',job.nprocs)
++  if job.wallclock: print('#BSUB -W ',job.wallclock)
++  if job.project:   print('#BSUB -P ',job.project)
++  if job.queue:     print('#BSUB -q ',job.queue)
+ #
+ # Print warning if SOURCE file is specified but does not exist:
+ #
+@@ -159,13 +159,13 @@
+       sourcefile = list[2]
+       sourcefile = sourcefile.replace("'","")
+       if not os.path.isfile(sourcefile):
+-        print '>>> WARNING: Cannot find SOURCE file ',sourcefile
++        print('>>> WARNING: Cannot find SOURCE file ',sourcefile)
+ 
+ #       sourcefile = sourcefile.replace(job.model_tag,"")
+ #       if not os.path.isfile(sourcefile):
+-#         print '>>> WARNING: Also cannot find SOURCE file ',sourcefile
++#         print('>>> WARNING: Also cannot find SOURCE file ',sourcefile)
+ #       else:
+-#         print 'Will use SOURCE = ',sourcefile
++#         print('Will use SOURCE = ',sourcefile)
+ 
+ #
+ # Submit job or not:
+@@ -174,7 +174,7 @@
+     if job.submitflag == 'yes':
+       job.submit(run.fullname)
+   else:
+-    answer = raw_input('\nSubmit this job? (yes/no/q[uit]) (default=yes): ')
++    answer = input('\nSubmit this job? (yes/no/q[uit]) (default=yes): ')
+     if answer == 'q' or answer == 'quit':
+       sys.exit() 
+     elif answer == '' or answer == 'yes':
 diff -Nru tiegcm2.0.orig/tgcmrun/utils.py tiegcm2.0/tgcmrun/utils.py
 --- tiegcm2.0.orig/tgcmrun/utils.py	2025-01-23 15:38:28.828608497 +0000
 +++ tiegcm2.0/tgcmrun/utils.py	2025-01-23 18:14:06.500947123 +0000
@@ -533,8 +686,8 @@ diff -Nru tiegcm2.0.orig/scripts/mklogs tiegcm2.0/scripts/mklogs
  #
 diff -Nru tiegcm2.0.orig/scripts/rmbinchars tiegcm2.0/scripts/rmbinchars
 --- tiegcm2.0.orig/scripts/rmbinchars	2025-01-23 15:38:29.391251531 +0000
-+++ tiegcm2.0/scripts/rmbinchars	2025-01-29 13:12:34.979491553 +0000
-@@ -9,7 +9,7 @@
++++ tiegcm2.0/scripts/rmbinchars	2025-01-29 18:40:30.568929647 +0000
+@@ -9,11 +9,11 @@
      return ''.join(stripped)
  
  if len(sys.argv) == 1:
@@ -543,6 +696,11 @@ diff -Nru tiegcm2.0.orig/scripts/rmbinchars tiegcm2.0/scripts/rmbinchars
    sys.exit()
  
  for infile in sys.argv[1:]:
+-# print 'Reading file ',infile
++# print('Reading file ',infile)
+   f = open(infile,'r')
+   lines = f.readlines()
+   lines = [line.rstrip() for line in lines]
 @@ -22,7 +22,7 @@
  # Overwrite input file:
  #

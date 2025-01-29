@@ -1,0 +1,52 @@
+diff -Nru tiegcm2.0.bak/tgcmrun/classes.py tiegcm2.0/tgcmrun/classes.py
+--- tiegcm2.0.bak/tgcmrun/classes.py	2025-01-29 22:12:53.845876000 +0000
++++ tiegcm2.0/tgcmrun/classes.py	2025-01-29 22:13:24.176711000 +0000
+@@ -316,11 +316,11 @@
+ #
+       elif 'set make' in line and self.machine != 'ys':
+         if self.compiler == 'intel':
+-          newline = 'set make = Make.intel_hao64'
++          newline = 'set make = Make.intel_bluebear'
+         elif self.compiler == 'pgi':
+           newline = 'set make = Make.pgi_hao64'
+         elif self.compiler == 'gfort':
+-          newline = 'set make = Make.gfort_hao64'
++          newline = 'set make = Make.gfort_bluebear'
+         else:
+           print('>>> Unknown compiler ',self.compiler)
+           sys.exit()
+diff -Nru tiegcm2.0.bak/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
+--- tiegcm2.0.bak/tgcmrun/getoptions.py	2025-01-29 22:12:53.888850000 +0000
++++ tiegcm2.0/tgcmrun/getoptions.py	2025-01-29 22:13:24.178852000 +0000
+@@ -46,7 +46,7 @@
+   help_model_name = "Model name (either 'tiegcm' or 'timegcm')"
+   help_model_res  = "Model resolution (either 5.0 or 2.5 degrees)"
+   help_model_root = "Model root directory (default: env vars TIEGCM_ROOT or TIMEGCM_ROOT)"
+-  help_machine    = "Machine or platform (either 'ys' (yellowstone) or 'linux' (generic Linux))"
++  help_machine    = "Machine or platform (either 'ys' (yellowstone), 'linux' (generic Linux) or 'bluebear')"
+   help_execdir    = "Directory where model will be built and executed (default: env var TGCMTEMP)"
+   help_tgcmdata   = "Path to data files needed by the model (default: env var TGCMDATA)"
+   help_nprocs     = "Number of processors (total MPI tasks)"
+@@ -249,9 +249,9 @@
+ #
+   elif arg == 'machine':
+     if option:
+-      if option != 'ys' and option != 'linux':
++      if option != 'ys' and option != 'linux' and option != 'bluebear':
+         print('>>> Unrecognized machine type found on command line: ',option)
+-        print("    Machine must be either 'ys' (yellowstone) or 'linux'")
++        print("    Machine must be either 'ys' (yellowstone), 'linux' or 'bluebear'")
+         sys.exit()
+       job.machine = option
+     else:
+@@ -274,8 +274,8 @@
+ #
+   elif arg == 'compiler':
+     if option:
+-      if job.machine != 'linux':
+-        print(">>> The '-compiler' option is valid only for the linux desktop platform")
++      if job.machine != 'linux' and job.machine != 'bluebear':
++        print(">>> The '-compiler' option is valid only for the linux desktop platform and bluebear")
+         print("    Machine = ",job.machine)
+         sys.exit()
+       if option != 'intel' and option != 'pgi' and option != 'gfort':
