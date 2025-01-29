@@ -1,0 +1,51 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Tarball'
+
+name = 'TIE-GCM'
+version = '2.0'
+
+homepage = "https://www.hao.ucar.edu/modeling/tgcm/tie.php"
+description = """The NCAR Thermosphere-Ionosphere-Electrodynamics General Circulation Model (TIE-GCM) is a
+ comprehensive, first-principles, three-dimensional, non-linear representation of the coupled thermosphere and
+ ionosphere system that includes a self-consistent solution of the middle and low-latitude dynamo field. The model
+ solves the three-dimensional momentum, energy and continuity equations for neutral and ion species at each time
+ step, using a semi-implicit, fourth-order, centered finite difference scheme on each pressure surface in a staggered
+ vertical grid. It can be run in either serial or parallel mode on a variety of platforms, including Linux
+ workstations and supercomputers."""
+
+toolchain = {'name': 'intel', 'version': '2023a'}
+
+# user registration required: http://www.hao.ucar.edu/modeling/tgcm/download.php
+sources = ['tiegcm2.0.tar']
+patches = [
+    'tiegcm2.0_intel.patch',
+    'tiegcm2.0_apex_igrf14.patch',
+    'tiegcm2.0_python2to3.patch',
+]
+checksums = [
+    {'tiegcm2.0.tar': '2cc663bf2a52de7fe39fe3c0c5d9900077a8f5758e385aced6dc550182e55ed1'},
+    {'tiegcm2.0_intel.patch': '9853836cb5866474c2e659a60bbb9adda63d464fa6804104daa545681b414b67'},
+    {'tiegcm2.0_apex_igrf14.patch': '4ad3de9dabdfd6cd6b9c9bb881a4d5e4b48fb41afa629875d17cf1291a631cdc'},
+    {'tiegcm2.0_python2to3.patch': '163c4c606250cee0891adb9a1112ea688a7d7f8c5170a3544bec22a51615e708'},
+]
+
+dependencies = [
+    ('ESMF', '8.6.0'),
+    ('Python', '3.11.3'),  # needed for some scripts
+]
+
+postinstallcmds = ['cp tiegcm2.0/scripts/tiegcm-bluebear.job %(installdir)s']
+
+sanity_check_paths = {
+    'files': ['tiegcm2.0/scripts/Make.intel_bluebear'],
+    'dirs': [],
+}
+
+modextravars = {
+    'TIEGCM_RES25': '$::env(BB_APPS_DATA)/TIE_GCM/2.0/tiegcm_res2.5_data',
+    'TIEGCM_RES50': '$::env(BB_APPS_DATA)/TIE_GCM/2.0/tiegcm_res5.0_data',
+    'TIEGCM_MAKEBLUEBEAR': 'Make.intel_bluebear',
+    'TIEGCM_BBSCRIPT': '$::env(EBROOTTIEMINGCM)/tiegcm-bluebear.job',
+}
+
+moduleclass = 'geo'

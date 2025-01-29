@@ -1,0 +1,563 @@
+diff -Nru tiegcm2.0.orig/tgcmrun/classes.py tiegcm2.0/tgcmrun/classes.py
+--- tiegcm2.0.orig/tgcmrun/classes.py	2025-01-23 15:38:28.825699000 +0000
++++ tiegcm2.0/tgcmrun/classes.py	2025-01-28 13:12:32.075493536 +0000
+@@ -153,7 +153,7 @@
+ 
+     f.write('/\n')
+     f.close()
+-#   print 'Wrote namelist file ',file
++#   print('Wrote namelist file ',file)
+ 
+ #----------------------- Begin Class Job definition ---------------------
+ class Job:
+@@ -317,13 +317,13 @@
+       elif 'set make' in line and self.machine != 'ys':
+         if self.compiler == 'intel':
+           newline = 'set make = Make.intel_hao64'
+-	elif self.compiler == 'pgi':
++        elif self.compiler == 'pgi':
+           newline = 'set make = Make.pgi_hao64'
+-	elif self.compiler == 'gfort':
++        elif self.compiler == 'gfort':
+           newline = 'set make = Make.gfort_hao64'
+-	else:
+-	  print '>>> Unknown compiler ',self.compiler
+-	  sys.exit()
++        else:
++          print('>>> Unknown compiler ',self.compiler)
++          sys.exit()
+         f.write(newline+'\n')
+ #
+ # Otherwise, no change to this line in default job script:
+@@ -332,14 +332,14 @@
+ 
+     f.close()
+     os.popen('chmod u+x '+self.script_run)    # make it executable
+-#   print "Wrote job script ",self.script_run
++#   print("Wrote job script ",self.script_run)
+ 
+ # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ # def calc_wallclock
+ 
+ # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+   def submit(self,run_fullname):
+-    print "Submitting ",self.script_run," for run ",run_fullname
++    print("Submitting ",self.script_run," for run ",run_fullname)
+     subprocess.call([self.script_run])
+   
+ #----------------------- Begin Class Run definition ---------------------
+@@ -440,14 +440,14 @@
+ # This will be used to prompt user for the desired run.
+ #
+   def print_runs(self):
+-    print '\nThe following runs are available:' 
++    print('\nThe following runs are available:')
+     header = '''
+ NUMBER\tNAME\t\tDESCRIPTION
+ ------\t----\t\t-----------'''
+-    print header
++    print(header)
+     n = 0
+     while n < self.nruns:
+-      print n,"\t",self.names[n][0],"\t",self.names[n][1]
++      print(n,"\t",self.names[n][0],"\t",self.names[n][1])
+       n = n+1
+ # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+ #
+@@ -522,7 +522,7 @@
+       if self.name=='dec2006_heelis_gpi': source='timegcm_dres.p_dec2006.nc'
+ 
+     if source == '':
+-      print '>>> Could not find old source history file for ',version,' ',self.name
++      print('>>> Could not find old source history file for ',version,' ',self.name)
+       sys.exit()
+     else:
+       source = "'"+tgcmdata+"/"+source+"'"
+@@ -892,7 +892,7 @@
+ #
+         if job.model_res == '2.5': 
+           if int(job.step) > 10: 
+-            print 'NOTE ',self.name,': Changing timestep from ',job.step,' to 10 seconds'
++            print('NOTE ',self.name,': Changing timestep from ',job.step,' to 10 seconds')
+             job.step = '10' # reduce timestep for res2.5 to 10 seconds
+ 
+       self.list_mods = [
+@@ -1103,7 +1103,7 @@
+ 
+       if job.model_res == '2.5': 
+         if int(job.step) > 15: 
+-          print 'NOTE ',self.name,': Changing timestep from ',job.step,' to 15 seconds'
++          print('NOTE ',self.name,': Changing timestep from ',job.step,' to 15 seconds')
+           job.step = '15' # force timestep for res2.5 to 15 seconds
+ 
+       self.list_mods = [
+@@ -1155,7 +1155,7 @@
+       opdiffcap = '0.'
+       if job.model_res == '2.5': 
+         if int(job.step) > 10: 
+-          print 'NOTE ',self.name,': Changing timestep from ',job.step,' to 10 seconds'
++          print('NOTE ',self.name,': Changing timestep from ',job.step,' to 10 seconds')
+           job.step = '10' # force timestep for res2.5 to 10 seconds
+         opdiffcap = '6.e8'
+ 
+@@ -1275,7 +1275,7 @@
+       stop = '366,0,0' # step=60 -> 1.8 min/day * 365 days = 657 mins / 60 = 11 hours
+       if job.model_res == '2.5': 
+         if int(job.step) > 20: 
+-          print 'NOTE ',self.name,': Changing timestep from ',job.step,' to 20 seconds'
++          print('NOTE ',self.name,': Changing timestep from ',job.step,' to 20 seconds')
+           job.step = '20' # force timestep for res2.5 to 20 seconds
+         stop = '55,0,0'
+ 
+diff -Nru tiegcm2.0.orig/tgcmrun/getoptions.py tiegcm2.0/tgcmrun/getoptions.py
+--- tiegcm2.0.orig/tgcmrun/getoptions.py	2025-01-23 15:38:28.824373000 +0000
++++ tiegcm2.0/tgcmrun/getoptions.py	2025-01-28 13:00:31.377942412 +0000
+@@ -104,7 +104,7 @@
+         return run.get_number(run.name)
+     if option:              # check for command-line argument
+       if not run.validate_number(option):
+-        print '>>> Bad run number found on command-line: ',option,' (Must be an integer >= 0 and <= ',run.nruns-1,')'
++        print('>>> Bad run number found on command-line: ',option,' (Must be an integer >= 0 and <= ',run.nruns-1,')')
+         sys.exit()
+       else:
+         return option
+@@ -128,7 +128,7 @@
+           if run.validate_number(answer): # if this succeeds, it returns integer (not a string)
+             return answer
+           else:
+-            print '>>> Bad run number: ',answer,' (Must be an integer >= 0 and <= ',run.nruns-1,')'
++            print('>>> Bad run number: ',answer,' (Must be an integer >= 0 and <= ',run.nruns-1,')')
+             answer = ''     # go back up to prompt ("while not" loop) w/o printing list
+ 
+   elif arg == 'run_name':
+@@ -137,7 +137,7 @@
+         run.name = option
+         return run.name
+       else:
+-        print '>>> Invalid run name: ',option,' found on command line.'
++        print('>>> Invalid run name: ',option,' found on command line.')
+         sys.exit()
+ #
+ # Get run.model_name:
+@@ -145,7 +145,7 @@
+   elif arg == 'model_name':
+     if option:
+       if option != 'tiegcm' and option != 'timegcm':
+-        print ">>> Unknown model name on the command line: '",option,"' (must be 'tiegcm' or 'timegcm')"
++        print(">>> Unknown model name on the command line: '",option,"' (must be 'tiegcm' or 'timegcm')")
+         sys.exit()
+       run.model_name = option
+     else:
+@@ -159,7 +159,7 @@
+           answer = 'tiegcm'
+           continue
+         elif answer != 'tiegcm' and answer != 'timegcm':
+-          print ">>> Unknown model name ",answer," (must be 'tiegcm' or 'timegcm')"
++          print(">>> Unknown model name ",answer," (must be 'tiegcm' or 'timegcm')")
+           get_options(arg,run,job,option)
+       run.model_name = answer
+     return run.model_name
+@@ -178,12 +178,12 @@
+   elif arg == 'model_root':
+     if option:
+       if not os.path.isdir(option):
+-        print '>>> Cannot find model_root directory provided on the command line: ',option
++        print('>>> Cannot find model_root directory provided on the command line: ',option)
+         sys.exit()
+       else:
+         scripts_dir = option+'/scripts'
+         if not os.path.isdir(scripts_dir):
+-          print '>>> Model root ',option,' from command line exists, but scripts directory ',scripts_dir,' does not exist.'
++          print('>>> Model root ',option,' from command line exists, but scripts directory ',scripts_dir,' does not exist.')
+           sys.exit()
+       return option
+ #
+@@ -197,29 +197,29 @@
+       envvalue = getenv(envvar)
+       if envvalue != '':
+         rootdir = envvalue   
+-#       print 'Got env var ',envvar,' = ',rootdir,' (needed for ',job.model_name,' model_root)'
++#       print('Got env var ',envvar,' = ',rootdir,' (needed for ',job.model_name,' model_root)')
+ #
+ # model_root not on command-line, and env var not set, so prompt user:
+ #
+       else:
+-        print 'Environment variable ',envvar,' is not set.'
++        print('Environment variable ',envvar,' is not set.')
+         answer = raw_input('Run '+run.name+': Enter model_root directory for '+job.model_name+' (q to quit): ')
+         if answer == 'q':
+           sys.exit()
+         if answer == '':
+           get_options(arg,run,job,option) # try again
+         rootdir = answer
+-        print 'Got response to prompt: rootdir=',rootdir
++        print('Got response to prompt: rootdir=',rootdir)
+ #
+ # Check for directory existence of either env var value, or prompt response:
+ #
+       if not os.path.isdir(rootdir):
+-        print '>>> Cannot find model root directory ',rootdir
++        print('>>> Cannot find model root directory ',rootdir)
+         get_options(arg,run,job,option) # try again
+       
+       scripts_dir = rootdir+'/scripts'
+       if not os.path.isdir(scripts_dir):
+-        print '>>> Model root ',rootdir,' exists, but scripts directory ',scripts_dir,' does not exist.'
++        print('>>> Model root ',rootdir,' exists, but scripts directory ',scripts_dir,' does not exist.')
+         get_options(arg,run,job,option) # try again
+       return rootdir
+ #
+@@ -228,7 +228,7 @@
+   elif arg == 'model_res':
+     if option:
+       if option != '5.0' and option != '2.5':
+-        print ">>> Unknown model resolution on the command line: '",option,"' (must be 5.0 or 2.5)"
++        print(">>> Unknown model resolution on the command line: '",option,"' (must be 5.0 or 2.5)")
+         sys.exit()
+       run.model_res = option
+     else:
+@@ -241,7 +241,7 @@
+           model_res = '5.0' 
+           answer = model_res
+         elif answer != '5.0' and answer != '2.5':
+-          print ">>> Unknown model resolution (must be 5.0 or 2.5)"
++          print(">>> Unknown model resolution (must be 5.0 or 2.5)")
+         run.model_res = answer
+     return run.model_res
+ #
+@@ -250,8 +250,8 @@
+   elif arg == 'machine':
+     if option:
+       if option != 'ys' and option != 'linux':
+-        print '>>> Unrecognized machine type found on command line: ',option
+-        print "    Machine must be either 'ys' (yellowstone) or 'linux'"
++        print('>>> Unrecognized machine type found on command line: ',option)
++        print("    Machine must be either 'ys' (yellowstone) or 'linux'")
+         sys.exit()
+       job.machine = option
+     else:
+@@ -265,7 +265,7 @@
+         if loc >= 0:
+           job.machine = 'linux'
+       if job.machine == '':
+-        print ">>> Could not determine machine (must be either 'linux' or 'ys')"
++        print(">>> Could not determine machine (must be either 'linux' or 'ys')")
+         sys.exit()
+     return job.machine
+ #
+@@ -275,13 +275,13 @@
+   elif arg == 'compiler':
+     if option:
+       if job.machine != 'linux':
+-        print ">>> The '-compiler' option is valid only for the linux desktop platform"
+-        print "    Machine = ",job.machine
+-	sys.exit()
++        print(">>> The '-compiler' option is valid only for the linux desktop platform")
++        print("    Machine = ",job.machine)
++        sys.exit()
+       if option != 'intel' and option != 'pgi' and option != 'gfort':
+-        print ">>> Invalid value for 'compiler' option: ",option
+-        print ">>> Value for 'compiler' option must be 'intel', 'pgi', or 'gfort'"
+-	sys.exit()
++        print(">>> Invalid value for 'compiler' option: ",option)
++        print(">>> Value for 'compiler' option must be 'intel', 'pgi', or 'gfort'")
++        sys.exit()
+       return option
+     else:                     # default is intel
+       return 'intel'
+@@ -295,41 +295,41 @@
+       tgcmtemp = getenv('TGCMTEMP') # User's large scratch temp directory
+       if tgcmtemp != '':            # env var is set
+         execdir = tgcmtemp+'/'+job.model_name+'_'+'res'+job.model_res+'_'+run.name+'/run'
+-        print 'Set ',execdir,' as execdir for ',run.name
++        print('Set ',execdir,' as execdir for ',run.name)
+         return execdir
+       else: # prompt for execdir
+-        print 'Env var ',TGCMTEMP,' is not set.'
++        print('Env var ',TGCMTEMP,' is not set.')
+         answer = raw_input('Enter execution directory (execdir) for run '+run.name+': ')
+         if not os.path.isdir:
+           os.path.makedirs(answer)
+-          print "Made execdir directory ",answer," for run ",run.name
++          print("Made execdir directory ",answer," for run ",run.name)
+         else:
+-          print 'Set ',answer,' as execdir for ',run.name,' Note: the job script will make this directory for the run.'
++          print('Set ',answer,' as execdir for ',run.name,' Note: the job script will make this directory for the run.')
+         return answer
+ #
+ # If execdir exists, prompt for whether to empty the directory prior to the run.
+ #
+ #   if os.path.isdir(job.execdir):
+-#     print "Use existing execdir ",job.execdir,"? (yes/no)" 
++#     print("Use existing execdir ",job.execdir,"? (yes/no)")
+ #     answer = raw_input("  If no, all files in the directory will be removed prior to running the run) (default=yes): ")
+ #     if answer == 'q':
+ #       sys.exit()
+ #     elif answer == 'no':
+ #       for file in os.listdir(job.execdir):
+ #         os.remove(job.execdir+'/'+file)
+-#       print "Removed files in execdir ",job.execdir
++#       print("Removed files in execdir ",job.execdir)
+ #     else:
+-#       print "Files NOT removed from execdir ",job.execdir
++#       print("Files NOT removed from execdir ",job.execdir)
+ #   else:
+ #     os.makedirs(job.execdir) # this makes parents and leaf as necessary
+-#     print "Made directory ",job.execdir," for run ",run_name
++#     print("Made directory ",job.execdir," for run ",run_name)
+ #
+ # Execution flag TRUE/FALSE (command-line only):
+ #
+   elif arg == 'exec':
+     if option:
+       if option != 'yes' and option != 'no':
+-        print ">>> Bad value for ",arg,": '",option,"' (must be 'yes' or 'no' )"
++        print(">>> Bad value for ",arg,": '",option,"' (must be 'yes' or 'no' )")
+         sys.exit()
+       return option
+     else:
+@@ -340,7 +340,7 @@
+   elif arg == 'tgcmdata':
+     if option:
+       if not os.path.isdir(option):
+-        print '>>> Could not find tgcmdata directory found on command line: ',option
++        print('>>> Could not find tgcmdata directory found on command line: ',option)
+         sys.exit()
+       tgcmdata = option
+     else:
+@@ -350,16 +350,16 @@
+       tgcmdata = getenv('TGCMDATA',default=default_tgcmdata)
+       if tgcmdata:
+         if not os.path.isdir(tgcmdata):
+-          print '>>> Could not find TGCMDATA directory ',tgcmdata
+-          print '    Am setting tgcmdata to execdir ',job.execdir
++          print('>>> Could not find TGCMDATA directory ',tgcmdata)
++          print('    Am setting tgcmdata to execdir ',job.execdir)
+           tgcmdata = job.execdir
+       else:
+-        print 'Env var TGCMDATA is not set.'
++        print('Env var TGCMDATA is not set.')
+         answer = raw_input('Enter directory containing data for model '+job.model_name+' (default='+execdir+' or q to quit): ')
+         if answer == 'q':
+           sys.exit()
+         if answer == '':
+-          print "NOTE: Setting tgcmdata to execdir (",tgcmdata,")"
++          print("NOTE: Setting tgcmdata to execdir (",tgcmdata,")")
+           tgcmdata = job.execdir
+         else:
+           get_options(arg,run,job,option)
+@@ -372,7 +372,7 @@
+       try: 
+         job.nprocs = int(option)
+       except:
+-        print '\n>>> Ooops, bad value for -nprocs option: ',option,' (must be an integer)' 
++        print('\n>>> Ooops, bad value for -nprocs option: ',option,' (must be an integer)')
+         sys.exit()
+       return job.nprocs
+ #
+@@ -411,7 +411,7 @@
+   elif arg == 'submit':
+     if option:
+       if option != 'yes' and option != 'no':
+-        print "\n>>> Oooops, bad value for -submit: ",option," (must be 'yes' or 'no')"
++        print("\n>>> Oooops, bad value for -submit: ",option," (must be 'yes' or 'no')")
+         sys.exit()
+       job.submitflag = option
+       return job.submitflag
+@@ -422,9 +422,9 @@
+     if option:
+       if not os.path.isdir(option):
+         os.makedirs(option) # this makes parents and leaf as necessary
+-        print 'Made stdout directory ',option
++        print('Made stdout directory ',option)
+       else: # do not clean stdout dir 
+-        print 'Will use existing stdout directory ',option
++        print('Will use existing stdout directory ',option)
+       job.stdout_dir = option
+       return job.stdout_dir
+ #
+@@ -441,9 +441,9 @@
+ 
+       if not os.path.isdir(histdir):
+         os.makedirs(histdir) # this makes parents and leaf as necessary
+-        print 'Made history directory ',histdir
++        print('Made history directory ',histdir)
+       else: # do not clean hist dir 
+-        print 'Will use existing history directory ',histdir
++        print('Will use existing history directory ',histdir)
+ 
+       if option[0] != '/':    # relative to execdir
+         histdir = option      # this goes in the namelist read file
+@@ -467,20 +467,20 @@
+ #
+ # elif arg == 'source':
+ #   if option:
+-#     print 'source file from command-line: ',option
++#     print('source file from command-line: ',option)
+ #     if not os.path.isfile(option):
+-#       print '>>> Cannot find source history file "',option,'" (this was read from the command-line)'
++#       print('>>> Cannot find source history file "',option,'" (this was read from the command-line)')
+ #       sys.exit()
+ #     else:
+-#       print 'Source history file (SOURCE) from command line: ',option
+-#       print 'NOTE: You may need to change SOURCE_START in the namelist input file(s).'
++#       print('Source history file (SOURCE) from command line: ',option)
++#       print('NOTE: You may need to change SOURCE_START in the namelist input file(s).')
+ #       job.source = option
+ #       return job.source
+ #
+ # Unknown option:
+ #
+   else:
+-    print '>>> Unknown arg: ',arg
++    print('>>> Unknown arg: ',arg)
+     return None
+ 
+ #-----------------------------------------------------------------------
+diff -Nru tiegcm2.0.orig/tgcmrun/utils.py tiegcm2.0/tgcmrun/utils.py
+--- tiegcm2.0.orig/tgcmrun/utils.py	2025-01-23 15:38:28.828608497 +0000
++++ tiegcm2.0/tgcmrun/utils.py	2025-01-23 18:14:06.500947123 +0000
+@@ -59,7 +59,7 @@
+   except KeyError:
+     if default:
+       os.environ[var] = default
+-      print 'Note: Set env var ',var,' to default: ',default
++      print('Note: Set env var ',var,' to default: ',default)
+       return os.environ[var]
+     else:
+       return ''
+diff -Nru tiegcm2.0.orig/scripts/change_nlcomment tiegcm2.0/scripts/change_nlcomment
+--- tiegcm2.0.orig/scripts/change_nlcomment	2025-01-23 15:38:29.398033006 +0000
++++ tiegcm2.0/scripts/change_nlcomment	2025-01-29 14:11:12.377928308 +0000
+@@ -11,7 +11,7 @@
+   file_read = open(file,'r')
+   contents = file_read.read()
+   file_read.close()
+-# print contents
++# print(contents)
+ #
+ # Open output file and change chars per line.
+ #
+@@ -64,12 +64,12 @@
+ if args.overwrite: overwrite = args.overwrite
+ if overwrite != '':
+   if overwrite == 'yes' or overwrite == 'y':
+-    print 'Will overwrite input files.'
++    print('Will overwrite input files.')
+   else:
+-    print 'Will NOT overwrite input files.'
++    print('Will NOT overwrite input files.')
+ 
+ nlfiles = args.nlfiles
+-print 'There are ',len(nlfiles),' input files.'
++print('There are ',len(nlfiles),' input files.')
+ 
+ oldstr = ';'
+ newstr = '!'
+@@ -82,31 +82,31 @@
+     if overwrite != '':
+       if overwrite == 'yes' or overwrite == 'y':
+         replace_string(file,oldstr,newstr)
+-        print 'Overwrote file ',file
++        print('Overwrote file ',file)
+       else:
+         newfile = file+'.new'
+         shutil.copyfile(file,newfile)
+         replace_string(newfile,oldstr,newstr)
+-        print 'Wrote file ',newfile
++        print('Wrote file ',newfile)
+       continue
+ #
+ # Prompt user for each file (command line arg not provided):
+ #
+-    answer = raw_input('Overwrite file '+file+' (y/n/q, default=n)? ')
++    answer = input('Overwrite file '+file+' (y/n/q, default=n)? ')
+     if answer == 'q': sys.exit()
+     if answer == 'y':
+       replace_string(file,oldstr,newstr)
+-      print 'Overwrote file ',file
++      print('Overwrote file ',file)
+     elif answer == 'n' or answer == '':
+       newfile = file+'.new'
+       shutil.copyfile(file,newfile)
+       replace_string(newfile,oldstr,newstr)
+-      print 'Wrote file ',newfile
++      print('Wrote file ',newfile)
+     else:
+-      print 'File ',file,' is unchanged.'
++      print('File ',file,' is unchanged.')
+ #
+ # File not found:
+ #
+   else:
+-    print '>>> Cannot find file ',file
++    print('>>> Cannot find file ',file)
+     continue
+diff -Nru tiegcm2.0.orig/scripts/mklogs tiegcm2.0/scripts/mklogs
+--- tiegcm2.0.orig/scripts/mklogs	2025-01-23 15:38:29.392380379 +0000
++++ tiegcm2.0/scripts/mklogs	2025-01-29 14:09:33.696557479 +0000
+@@ -27,19 +27,19 @@
+ #-----------------------------------------------------------------------
+ 
+ if len(sys.argv) == 1:
+-  print 'mklogs: Need at least one file argument.'
++  print('mklogs: Need at least one file argument.')
+   sys.exit()
+ 
+ for arg in sys.argv[1:]:
+   file = arg
+   if not os.path.isfile(file):
+-    print '>>> mklogs: Could not open file ',file
++    print('>>> mklogs: Could not open file ',file)
+     continue
+ #
+ # Open, read, and close arg file:
+ #
+   f = open(file,'r')
+-  print 'mklogs: Extracting log files from ',file
++  print('mklogs: Extracting log files from ',file)
+   lines = f.readlines()  
+   lines = [line.rstrip() for line in lines]
+   f.close()
+@@ -66,9 +66,9 @@
+ # Make sure we are dealing with integer strings:
+ #
+         try: int(list[0])
+-	except: continue
++        except: continue
+         try: int(list[1])
+-	except: continue
++        except: continue
+ #
+ # Loop over procs within range, inclusive:
+ #
+diff -Nru tiegcm2.0.orig/scripts/rmbinchars tiegcm2.0/scripts/rmbinchars
+--- tiegcm2.0.orig/scripts/rmbinchars	2025-01-23 15:38:29.391251531 +0000
++++ tiegcm2.0/scripts/rmbinchars	2025-01-29 13:12:34.979491553 +0000
+@@ -9,7 +9,7 @@
+     return ''.join(stripped)
+ 
+ if len(sys.argv) == 1:
+-  print '>>> Please provide input files from which to remove non-ASCII characters.'
++  print('>>> Please provide input files from which to remove non-ASCII characters.')
+   sys.exit()
+ 
+ for infile in sys.argv[1:]:
+@@ -22,7 +22,7 @@
+ # Overwrite input file:
+ #
+   f = open(infile,'w')
+-  print 'Overwriting file ',infile,' with non-ASCII characters removed.'
++  print('Overwriting file ',infile,' with non-ASCII characters removed.')
+   for line in lines:
+     newline = strip_non_ascii(line)
+     f.write(newline+'\n')
+@@ -31,7 +31,7 @@
+ # Write to output file infile.txt:
+ #
+ # outfile = infile+'.txt'
+-# print 'Writing file ',outfile
++# print('Writing file ',outfile)
+ # f = open(outfile,'w')
+ # for line in lines:
+ #   newline = strip_non_ascii(line)
