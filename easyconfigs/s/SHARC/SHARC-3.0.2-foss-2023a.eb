@@ -1,0 +1,56 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+
+name = 'SHARC'
+version = '3.0.2'
+
+homepage = "https://sharc-md.org/"
+description = """Surface Hopping including Arbitrary Couplings"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'optarch': False}
+
+source_urls = ['https://github.com/sharc-md/sharc/archive/']
+sources = ['v%(version)s.tar.gz']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('HDF5', '1.14.0'),
+    ('HDF', '4.2.16-2'),
+    ('netCDF', '4.9.2'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('h5py', '3.9.0'),
+    ('PyYAML', '6.0'),
+    ('imkl', '2023.1.0'),
+]
+
+skipsteps = ['configure', 'install']
+buildininstalldir = True
+
+prebuildopts = 'sed -i "s/USE_PYSHARC := false/USE_PYSHARC := true/" source/Makefile &&'
+prebuildopts = 'sed -i "s/-llapack//" source/Makefile && sed -i "s/-lblas/-lflexiblas/" source/Makefile &&'
+build_cmd = 'cd pysharc && make install && cd ../source && make install'
+parallel = False
+
+postinstallcmds = [
+    'rm %(installdir)s/%(namelower)s-%(version)s/bin/{sharcvars.sh,sharcvars.csh}',
+    'touch %(installdir)s/%(namelower)s-%(version)s/bin/{sharcvars.sh,sharcvars.csh}',
+]
+
+modextrapaths = {
+    'PYHTONPATH': ['%(namelower)s-%(version)s/pysharc', '%(namelower)s-%(version)s/lib'],
+}
+modextravars = {
+    'SHARC': '%(installdir)s/%(namelower)s-%(version)s/bin',
+    'PYSHARC': '%(installdir)s/%(namelower)s-%(version)s/pysharc',
+    'SHARCLIB': '%(installdir)s/%(namelower)s-%(version)s/lib',
+}
+
+sanity_check_paths = {
+    'files': ['%(installdir)s/%(namelower)s-%(version)s/bin/sharc1.x'],
+    'dirs': [],
+}
+
+moduleclass = 'chem'
