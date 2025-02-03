@@ -1,0 +1,50 @@
+easyblock = 'MakeCp'
+
+name = 'OpenLB'
+version = '1.7.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'http://www.openlb.net'
+description = """The OpenLB project provides a C++ package
+ for the implementation of lattice Boltzmann methods
+ that is general enough to address a vast range of tansport problems,
+ e.g. in computational fluid dynamics."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'usempi': 'true', 'cstd': 'c++20', 'optarch': True}
+
+source_urls = ['https://gitlab.com/openlb/release/-/archive/%(version)s/']
+sources = ['release-%(version)s.tar.gz']
+patches = ['%(name)s-%(version)s_CUDAompi.patch']
+checksums = [
+    {'release-1.7.0.tar.gz': 'e724f37c952778b3cbf4ee27d71456227e659991644cd9f371beba922fb6ed44'},
+    {'OpenLB-1.7.0_CUDAompi.patch': 'a834f753344dc2cde6eaa908f6410fd36dda61759883dde3d1b201bcb3dd1965'},
+]
+
+dependencies = [('CUDA', '12.6.0', '', SYSTEM)]
+
+files_to_copy = [
+    'build', 'doc', 'examples',
+    'src', 'external', 'config.mk',
+    'default.mk', 'default.mixed.mk',
+    'default.single.mk', 'rules.mk',
+    'Makefile'
+]
+
+build_cmd = "make && make -C examples/laminar/poiseuille2d"
+
+sanity_check_paths = {
+    'files': ['examples/laminar/poiseuille2d/poiseuille2d'],
+    'dirs': ['src']
+}
+
+
+sanity_check_commands = [
+    "mpirun -np 1 ./examples/laminar/poiseuille2d/poiseuille2d",
+]
+
+modextravars = {
+    'OLB_ROOT': '%(installdir)s',
+}
+
+moduleclass = 'base'
