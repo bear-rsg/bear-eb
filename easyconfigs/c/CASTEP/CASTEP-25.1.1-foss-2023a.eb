@@ -42,7 +42,7 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     'castep.mpi --help',
-    'optados.mpi --help',
+    'optados --help',
 ]
 
 moduleclass = 'phys'
