@@ -1,0 +1,58 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CmdCp'
+
+name = 'Thermo-Calc'
+version = '2025a'
+
+homepage = 'https://www.thermocalc.com'
+description = """The Thermo-Calc software is a sophisticated database and programming interface package used to
+ perform thermodynamic calculations. It can calculate complex homogeneous and heterogeneous phase equilibria, and then
+ plot the results as property diagrams and phase diagrams."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+# Install files provided by Met&Mat:
+# 1. Get the file titled e.g. 'Thermo-Calc-linux-2025.1.162371-212.run' from Met & Mat
+# 2. Tar this: "tar -cvz -f Thermo-Calc-2025a.tar.gz Thermo-Calc-linux-2025.1.162371-212.run"
+# 3. Copy the resulting file to the sources directory
+sources = [SOURCE_TAR_GZ]
+checksums = ['96d75b6f2e57c98be3c60c190777cb8f72c224e577704de6c79fae8655fd4587']
+
+dependencies = [
+    ('libxslt', '1.1.38'),
+]
+
+# Symlink for shared data. Note that the user building this app will need read access to the shared content
+postinstallcmds = ['ln -s ${BB_APPS_DATA}/%(name)s/*/TT* %(installdir)s/data/']
+buildininstalldir = True
+modaliases = {'tc': 'Console.sh'}
+files_to_copy = []
+
+local_install_cmd = ' '.join([
+    "./%(name)s*.run",
+    "--mode unattended",
+    "--enable-components thermo,databases,tcpython,tq",
+    "--license_server met-tc.bham.ac.uk",
+    "--installation_mode custom",
+    "--prefix %(builddir)s"
+])
+
+cmds_map = [('.*', '%s' % local_install_cmd)]
+
+sanity_check_paths = {
+    'files': ['Console.sh', '%(name)s.sh'],
+    'dirs': ['data/TTAL5'],
+}
+
+modextrapaths = {
+    'LD_LIBRARY_PATH': './SDK/TQ',
+    'PATH': '',
+}
+
+modextravars = {
+    'LSHOST': 'met-tc.bham.ac.uk',
+    'TC25A_HOME': '%(installdir)s',  # Fix this for each version
+    'TCPATH': '%(installdir)s',  # Fix this for each version
+}
+
+moduleclass = 'cae'
