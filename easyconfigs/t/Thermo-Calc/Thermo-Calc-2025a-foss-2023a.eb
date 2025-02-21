@@ -16,7 +16,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 # 2. Tar this: "tar -cvz -f Thermo-Calc-2025a.tar.gz Thermo-Calc-linux-2025.1.162371-212.run"
 # 3. Copy the resulting file to the sources directory
 sources = [SOURCE_TAR_GZ]
-checksums = ['96d75b6f2e57c98be3c60c190777cb8f72c224e577704de6c79fae8655fd4587']
+checksums = ['32c23e11ec724648691bc9864541f428ff2b455e3eab1f3b586fa63338ff821f']
 
 dependencies = [
     ('libxslt', '1.1.38'),
