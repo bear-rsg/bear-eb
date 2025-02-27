@@ -1,0 +1,14 @@
+diff -aur relion-12cf15de1ae8c30aed8da98cc2889a965e8b8814.old/cmake/BuildTypes.cmake relion-12cf15de1ae8c30aed8da98cc2889a965e8b8814/cmake/BuildTypes.cmake
+--- relion-12cf15de1ae8c30aed8da98cc2889a965e8b8814.old/cmake/BuildTypes.cmake	2024-09-18 10:12:58.523622834 +0100
++++ relion-12cf15de1ae8c30aed8da98cc2889a965e8b8814/cmake/BuildTypes.cmake	2024-09-18 13:32:13.873163051 +0100
+@@ -4,8 +4,8 @@
+ # So -D__INTEL_COMPILER just manages to avoid compiling float128-targets (see fftw3.h, for instance).
+ # Add -G to allow cuda-gdb to break inside kernels.
+ if(CUDA)
+-    set(EXTRA_NVCC_FLAGS "-D__INTEL_COMPILER --default-stream per-thread --std=c++14")
+-    set(RELION_NVCC_FLAGS "${CUDARCH} ${WARN_DBL} ${EXTRA_NVCC_FLAGS}" CACHE STRING "" FORCE)
++    set(EXTRA_NVCC_FLAGS "-D__INTEL_COMPILER --default-stream per-thread")
++    set(RELION_NVCC_FLAGS "${WARN_DBL} ${EXTRA_NVCC_FLAGS}" CACHE STRING "" FORCE)
+ elseif (HIP)
+     if (${HIP_VERSION} VERSION_LESS "5.3" )
+         set(EXTRA_HIPCC_FLAGS "-fgpu-default-stream=legacy -fno-gpu-rdc -munsafe-fp-atomics")
