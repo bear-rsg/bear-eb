@@ -65,7 +65,6 @@ postinstallcmds = [
 
 modextrapaths = {'PATH': ''}
 
-#sanity_check_commands = ['%(installdir)s/blobtools --help']
 sanity_check_commands = ['blobtools --help']
 sanity_check_paths = {
     'files': ['blobtools', 'data/nodesDB.txt'],
