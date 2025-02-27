@@ -1,0 +1,78 @@
+--- blobtools-blobtools_v1.1.1.orig/setup.py	2025-02-27 09:18:30.687791511 +0000
++++ blobtools-blobtools_v1.1.1/setup.py	2025-02-27 10:48:07.876871223 +0000
+@@ -1,8 +1,4 @@
+-import pip
+ from setuptools import setup, find_packages
+-from setuptools.command.install import install
+-from pip._internal.req import parse_requirements
+-from codecs import open
+ from os import path
+ 
+ __version__ = '1.1'
+@@ -13,40 +9,39 @@
+ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+     long_description = f.read()
+ 
+-# get the dependencies and installs
+-install_reqs = parse_requirements(path.join(here, 'requirements.txt'), session=False)
+-reqs = [str(ir.req) for ir in install_reqs]
+-
+-class OverrideInstall(install):
+-
+-    """
+-    Emulate sequential install of pip install -r requirements.txt
+-    To fix numpy bug in scipy, scikit in py2
+-    """
+-
+-    def run(self):
+-        for req in reqs:
+-            pip._internal.main(["install", req])
+-
+ setup(
+     name='blobtools',
+     version=__version__,
+-    description='A modular command-line solution for visualisation, quality control and taxonomic partitioning of genome datasets',
++    description='A modular command-line solution for visualisation, quality control, and taxonomic partitioning of genome datasets',
+     long_description=long_description,
++    long_description_content_type='text/markdown',
+     url='https://github.com/DRL/blobtools',
+-    download_url='https://github.com/DRL/blobtools/tarball/' + __version__,
+-    license='GnuGPL3',
++    license='GPL-3.0-or-later',
+     classifiers=[
+-      'Development Status :: 4 - Beta',
+-      'Operating System :: POSIX',
+-      'Topic :: Scientific/Engineering :: Bio-Informatics',
+-      'Topic :: Scientific/Engineering :: Visualization',
+-      'Programming Language :: Python :: 2.7',
++        'Development Status :: 4 - Beta',
++        'Operating System :: POSIX',
++        'Topic :: Scientific/Engineering :: Bio-Informatics',
++        'Topic :: Scientific/Engineering :: Visualization',
++        'Programming Language :: Python :: 3',
++        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+     ],
+-    keywords='Bioinformatics visualisation genome assembly QC',
++    keywords='bioinformatics visualization genome assembly QC',
+     packages=find_packages(exclude=['docs', 'tests*']),
+     include_package_data=True,
+-    author='Dominik R Laetsch',
+-    cmdclass={'install': OverrideInstall},
+-    author_email='dominik.laetsch@gmail.com'
++    python_requires='>=3.6',
++    install_requires=[
++        "numpy",
++        "scipy",
++        "matplotlib",
++        "tqdm",
++        "pysam",
++        "pyyaml",
++        "docopt",
++    ],
++    entry_points={
++        'console_scripts': [
++            'blobtools = lib.interface:main',
++        ],
++    },
+ )
++

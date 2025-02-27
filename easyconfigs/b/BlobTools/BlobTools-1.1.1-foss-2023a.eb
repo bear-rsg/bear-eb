@@ -1,0 +1,74 @@
+easyblock = 'PythonPackage'
+
+name = 'BlobTools'
+version = '1.1.1'
+local_taxdump_ver = '2025-02-01'
+
+homepage = 'https://blobtools.readme.io/docs'
+description = """ A modular command-line solution for visualisation,
+ quality control and taxonomic partitioning of genome datasets. """
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = [
+    'https://github.com/DRL/blobtools/archive/refs/tags/',
+    'ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/taxdump_archive',
+]
+sources = [
+    {
+        'filename': '%(namelower)s_v%(version)s.tar.gz',
+        'extract_cmd': "tar -xzf %s -C %(builddir)s --strip-components 1",
+    },
+    {
+        'filename': 'taxdmp_%s.zip' % local_taxdump_ver,
+        'extract_cmd': 'unzip %s && cp -a nodes.dmp names.dmp %(builddir)s/data/',
+    },
+]
+patches = ['blobtools-1.1.1_fix_setup.patch']
+
+checksums = [
+    {'blobtools_v1.1.1.tar.gz': '637328dad29dabb626c13b2d29c7fb69f8a76c904392b4bede5a4274154d79c7'},
+    {'taxdmp_2025-02-01.zip': '5399e4cda94b87d126b3c14450393e94d929524693645ac24994d630ad15abde'},
+    {'blobtools-1.1.1_fix_setup.patch': '3731356d589f51d9065fb5be86cad01ccd7a1a6188dbbe42ff556ade388a3b4d'},
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('matplotlib', '3.7.2'),
+    ('SAMtools', '1.21'),
+    ('tqdm', '4.66.1'),
+    ('Pysam', '0.22.0'),
+    ('PyYAML', '6.0'),
+]
+
+download_dep_fail = True
+use_pip = True
+sanity_pip_check = True
+
+options = {'modulename': False}
+
+postinstallcmds = [
+    'cp -a %(builddir)s/data/ %(installdir)s/',
+    'cp -a %(builddir)s/example/ %(installdir)s/',
+    'cp -a %(builddir)s/blobtools %(installdir)s/',
+    'cp -a %(builddir)s/LICENSE.md %(installdir)s/',
+    'cp -a %(builddir)s/README.md %(installdir)s/',
+    'cp -a %(installdir)s/lib/python3.11/site-packages/lib %(installdir)s/',
+    'rm -rf %(installdir)s/lib/python3.11/site-packages/data',
+    'rm -rf %(installdir)s/lib/python3.11/site-packages/lib',
+    'rm -rf %(installdir)s/lib64/python3.11/site-packages/data',
+    'rm -rf %(installdir)s/lib64/python3.11/site-packages/lib',
+    'rm -rf %(installdir)s/bin',
+    '%(installdir)s/blobtools nodesdb --nodes %(installdir)s/data/nodes.dmp --names %(installdir)s/data/names.dmp',
+]
+
+modextrapaths = {'PATH': ''}
+
+sanity_check_commands = ['blobtools --help']
+sanity_check_paths = {
+    'files': ['blobtools', 'data/nodesDB.txt'],
+    'dirs': ['data', 'lib', 'example'],
+}
+
+moduleclass = 'bio'
