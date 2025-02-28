@@ -22,7 +22,7 @@ BioArxiv: https://biorxiv.org/content/early/2016/07/04/061960
 toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 sources = [
-    '%(name)s_%(version)s_Mar31_2023.zip',  #  MotionCor2_1.6.4_Mar31_2023.zip
+    '%(name)s_%(version)s_Mar31_2023.zip',
 ]
 checksums = ['28bb3e6477abf34fe41a78bcb9da9d77d08e2e89ecd41240fab085a308e6c498']
 
