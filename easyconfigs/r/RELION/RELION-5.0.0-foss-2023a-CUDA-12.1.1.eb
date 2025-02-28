@@ -91,7 +91,7 @@ _preinstallopts_no_hatchling = """sed -i -e 's/^build-backend = .*/build-backend
 _preinstallopts_no_hatchling += """-e 's/^requires = .*/requires = ["setuptools"]/g' """
 _preinstallopts_no_hatchling += """-e 's/dynamic = .*/version = "%(version)s"/g' pyproject.toml && """
 
-local_imod = """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' """ 
+local_imod = """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' """
 local_imod += """-e 's/^requires = .*/requires = ["setuptools"]/g' """
 local_imod += """-e 's/dynamic = .*/version = "%(version)s"/g' pyproject.toml && """
 

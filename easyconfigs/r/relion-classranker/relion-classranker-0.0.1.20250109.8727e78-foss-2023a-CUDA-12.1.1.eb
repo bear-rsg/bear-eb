@@ -19,10 +19,10 @@ This model comprises two main components: a CNN responsible for extracting image
 features, and an MLP that combines the image features with additional statistics
 to assigns a score ranging from zero to one for each 2D class average.
 
-The selection is subsequently done in RELION through a user defined cutoff for  
+The selection is subsequently done in RELION through a user defined cutoff for
 the predicted score.
 
-For training, a supervised approach is adopted, where pairs of 2D classes and   
+For training, a supervised approach is adopted, where pairs of 2D classes and
 corresponding human-assigned scores are used to teach the model.
 """
 
