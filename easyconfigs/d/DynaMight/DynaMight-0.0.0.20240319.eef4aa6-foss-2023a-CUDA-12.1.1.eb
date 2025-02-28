@@ -33,16 +33,23 @@ dependencies = [
 
 use_pip = True
 
-# avoid hatchling requirement to install (compare genomepy-0.15.0-foss-2022a.eb) 
+# avoid hatchling requirement to install (compare genomepy-0.15.0-foss-2022a.eb)
 # (since installing it introduces conflicting version requirements with poetry included with Python)
 _preinstallopts_no_hatchling = """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' """
 _preinstallopts_no_hatchling += """-e 's/^requires = .*/requires = ["setuptools"]/g' """
 _preinstallopts_no_hatchling += r"""-e 's/dynamic = \["version"\]/version = "%(version)s"/g' pyproject.toml && """
+
+local_dynamight = """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' """
+local_dynamight += """-e 's/^requires = .*/requires = ["setuptools"]/g' """
+local_dynamight += """-e 's/dynamic = \["version"\]/version = "%(version)s"/g' pyproject.toml && """
+
 exts_list = [
     (name, '0.0.0.20240319', {
-        'preinstallopts': """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' -e 's/^requires = .*/requires = ["setuptools"]/g' -e 's/dynamic = \["version"\]/version = "%(version)s"/g' pyproject.toml && """,
+#        'preinstallopts': """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' -e 's/^requires = .*/requires = ["setuptools"]/g' -e 's/dynamic = \["version"\]/version = "%(version)s"/g' pyproject.toml && """,
+        'preinstallopts': local_dynamight,
         'source_urls': ['https://github.com/3dem/DynaMight/archive/'],
-        'sources': [{'download_filename': 'eef4aa673af6cc908042b38646ae489ee8f2fde9.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'sources': [{'download_filename': 'eef4aa673af6cc908042b38646ae489ee8f2fde9.tar.gz',
+                     'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['10a8bde14b8cb7150ff375cc5e7ebe4d6e09f0a1bf2cca17db91d3a6218587de'],
     }),
 ]

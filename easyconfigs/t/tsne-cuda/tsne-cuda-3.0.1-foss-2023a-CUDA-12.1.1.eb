@@ -8,8 +8,8 @@ versionsuffix = '-CUDA-12.1.1'
 homepage = 'https://github.com/CannyLab/tsne-cuda'
 description = """A optimized CUDA version of FIt-SNE algorithm with associated python modules. We
 find that our implementation of t-SNE can be up to 1200x faster than Sklearn, or
-up to 50x faster than Multicore-TSNE when used with the right GPU. The paper    
-describing our approach, as well as the results below, is available at          
+up to 50x faster than Multicore-TSNE when used with the right GPU. The paper
+describing our approach, as well as the results below, is available at    
 https://arxiv.org/abs/1807.11824."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}

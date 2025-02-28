@@ -5,8 +5,8 @@ name = 'relion-blush_data'
 version = '1.0'
 
 homepage = 'https://zenodo.org/search?q=10072731'
-description = """This file serves as the model weights for the Blush regularization technique,   
-which is employed in the enhancement of three-dimensional reconstruction within 
+description = """This file serves as the model weights for the Blush regularization technique,
+which is employed in the enhancement of three-dimensional reconstruction within
 cryo-electron microscopy (cryo-EM) data processing."""
 
 toolchain = SYSTEM

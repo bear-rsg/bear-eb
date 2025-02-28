@@ -1,4 +1,4 @@
-# Thomas Hoffmann, EMBL Heidelberg, structures-it@embl.de, 2023/11   
+# Thomas Hoffmann, EMBL Heidelberg, structures-it@embl.de, 2023/11
 
 easyblock = 'CMakePythonPackage'
 name = 'RELION'
@@ -51,7 +51,7 @@ dependencies = [
     ('SciPy-bundle', '2023.07'),
     ('CUDA', '12.1.1', '', SYSTEM),
     ('Ghostscript', '10.01.2'),
-    ('xpdf', '4.05'), 
+    ('xpdf', '4.05'),
     ('X11', '20230603'),
     ('FLTK', '1.3.8'),
     ('LibTIFF', '4.5.0'),
@@ -70,7 +70,7 @@ dependencies = [
     ('relion-blush', '0.0.1.20240529.7889199', versionsuffix),
     ('relion-classranker', '0.0.1.20250109.8727e78', versionsuffix),
     # PR 19157 ('Model-Angelo', '1.0.11', versionsuffix),
-    ('DynaMight', '0.0.0.20240319.eef4aa6', versionsuffix), # needs updating
+    ('DynaMight', '0.0.0.20240319.eef4aa6', versionsuffix),
     ('topaz', '0.2.5.20231120', versionsuffix),
     # mdocfile loaded last, because it updates typing-extensions (4.8.0)...
     ('mdocfile', '0.1.2'),
@@ -91,6 +91,9 @@ _preinstallopts_no_hatchling = """sed -i -e 's/^build-backend = .*/build-backend
 _preinstallopts_no_hatchling += """-e 's/^requires = .*/requires = ["setuptools"]/g' """
 _preinstallopts_no_hatchling += """-e 's/dynamic = .*/version = "%(version)s"/g' pyproject.toml && """
 
+local_imod = """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' """ 
+local_imod += """-e 's/^requires = .*/requires = ["setuptools"]/g' """
+local_imod += """-e 's/dynamic = .*/version = "%(version)s"/g' pyproject.toml && """
 
 exts_defaultclass = 'PythonPackage'
 exts_default_options = {'source_urls': [PYPI_SOURCE], 'download_dep_fail': True, 'use_pip': True}
@@ -99,7 +102,7 @@ exts_list = [
         'checksums': ['75b8cbcd6084f60e3b9222f76a79520ecee2aa54acd364c453bd1fd2884255d9'],
     }),
     ('yet_another_imod_wrapper', '0.1.1', {
-        'preinstallopts': """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' -e 's/^requires = .*/requires = ["setuptools"]/g' -e 's/dynamic = .*/version = "%(version)s"/g' pyproject.toml && """,
+        'preinstallopts': local_imod,
         'checksums': ['e6f3ab3f8dd4cf5c45b8f4cbeaee0d522e97fb62e22caee03b896dca2b1c7a9d'],
     }),
 ]
@@ -130,7 +133,7 @@ modextravars = {
     'RELION_QSUB_EXTRA2': 'Slurm Account / Project code',
     'RELION_QSUB_EXTRA2_HELP': "Set the slurm project account code.",
     'RELION_QSUB_EXTRA3': "GPU (e.g. '--gres gpu:1')",
-    'RELION_QSUB_EXTRA3_HELP': "For jobs requiring GPU, set the Slurm: '--gres gpu:1'",     
+    'RELION_QSUB_EXTRA3_HELP': "For jobs requiring GPU, set the Slurm: '--gres gpu:1'",
     'RELION_MPI_MAX': '288',
     'RELION_THREAD_MAX': '144',
     #

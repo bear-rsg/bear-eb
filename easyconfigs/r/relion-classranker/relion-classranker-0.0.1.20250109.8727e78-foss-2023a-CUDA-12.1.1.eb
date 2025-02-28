@@ -10,9 +10,9 @@ version = '%s.%s.%s' % (_v, _date, _sha[:7])
 versionsuffix = '-CUDA-%(cudaver)s'
 
 homepage = 'https://github.com/3dem/%(name)s'
-description = """The class ranker is part of the cryogenic electron microscopy (cryo-EM) dataset 
-processing pipeline in RELION. It is used to automatically select suitable      
-particles (EM images) assigned to 2D class averages for further downstream      
+description = """The class ranker is part of the cryogenic electron microscopy (cryo-EM) dataset
+processing pipeline in RELION. It is used to automatically select suitable
+particles (EM images) assigned to 2D class averages for further downstream
 processing.
 
 This model comprises two main components: a CNN responsible for extracting image
@@ -51,7 +51,9 @@ exts_list = [
             'relion-classranker-0.0.1_add_script.patch',
         ],
         'source_urls': ['https://github.com/3dem/relion-classranker/archive/'],
-        'sources': [{'download_filename': '8727e78cf00ffcbb0cb3dd5918db987a13cf4f3a.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'sources': [
+            {'download_filename': '8727e78cf00ffcbb0cb3dd5918db987a13cf4f3a.tar.gz',
+             'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': [
             {'relion_classranker-0.0.1.20230822.tar.gz':
              '995dce571e5ab8e989f25323b3dbb8f5c1b0c574781d2dd979a0eb1306971070'},
