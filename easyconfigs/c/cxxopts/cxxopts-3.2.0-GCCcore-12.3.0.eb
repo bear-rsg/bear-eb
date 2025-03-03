@@ -1,0 +1,30 @@
+##
+# Author:    Robert Mijakovic <robert.mijakovic@lxp.lu>
+##
+# update: thembl
+easyblock = 'CMakeMake'
+
+name = 'cxxopts'
+version = '3.2.0'
+
+homepage = 'https://github.com/jarro2783/cxxopts'
+description = """cxxopts is a lightweight C++ command line option parser"""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+github_account = 'jarro2783'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['9f43fa972532e5df6c5fd5ad0f5bac606cdec541ccaf1732463d8070bbb7f03b']
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    ('binutils', '2.40'),
+]
+
+sanity_check_paths = {
+    'files': ["include/cxxopts.hpp"],
+    'dirs': ["lib"]
+}
+
+moduleclass = 'devel'

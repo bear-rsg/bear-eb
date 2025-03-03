@@ -1,0 +1,56 @@
+--- relion-12cf15de1ae8c30aed8da98cc2889a965e8b8814/src/pipeline_jobs.cpp.old	2024-09-18 09:46:22.266990462 +0100
++++ relion-12cf15de1ae8c30aed8da98cc2889a965e8b8814/src/pipeline_jobs.cpp	2024-09-18 09:51:43.782934408 +0100
+@@ -2031,7 +2031,7 @@
+ 
+ 	joboptions["shrink"] = JobOption("Shrink factor:", 0, 0, 1, 0.1, "This is useful to speed up the calculations, and to make them less memory-intensive. The micrographs will be downscaled (shrunk) to calculate the cross-correlations, and peak searching will be done in the downscaled FOM maps. When set to 0, the micrographs will de downscaled to the lowpass filter of the references, a value between 0 and 1 will downscale the micrographs by that factor. Note that the results will not be exactly the same when you shrink micrographs!\
+ \n\nIn the Laplacian-of-Gaussian picker, this option is ignored and the shrink factor always becomes 0.");
+-	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", false, "If set to Yes, the job will try to use GPU acceleration. The Laplacian-of-Gaussian picker does not support GPU.");
++	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", getenv("RELION_USE_GPU_ACCELERATION"), "If set to Yes, the job will try to use GPU acceleration. The Laplacian-of-Gaussian picker does not support GPU.");
+ 	joboptions["gpu_ids"] = JobOption("Which GPUs to use:", std::string(""), "This argument is not necessary. If left empty, the job itself will try to allocate available GPU resources. You can override the default allocation by providing a list of which GPUs (0,1,2,3, etc) to use. MPI-processes are separated by ':'. For example: 0:1:0:1:0:1");
+ 
+ 	joboptions["do_pick_helical_segments"] = JobOption("Pick 2D helical segments?", false, "Set to Yes if you want to pick 2D helical segments. Note this will run the old algorithms for reference-based helical segment picking, as described by He & Scheres, J Struct Biol, 2017. Often, we now run filament picking from the Topaz tab instead....");
+@@ -3141,7 +3141,7 @@
+ All MPI salves will then read in the combined results. This reduces heavy load on the network, but increases load on the disc I/O. \
+ This will affect the time it takes between the progress-bar in the expectation step reaching its end (the mouse gets to the cheese) and the start of the ensuing maximisation step. It will depend on your system setup which is most efficient.");
+ 
+-	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", false, "If set to Yes, the job will try to use GPU acceleration.");
++	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", getenv("RELION_USE_GPU_ACCELERATION"), "If set to Yes, the job will try to use GPU acceleration.");
+ 	joboptions["gpu_ids"] = JobOption("Which GPUs to use:", std::string(""), "This argument is not necessary. If left empty, the job itself will try to allocate available GPU resources. You can override the default allocation by providing a list of which GPUs (0,1,2,3, etc) to use. MPI-processes are separated by ':', threads by ','. For example: '0,0:1,1:0,0:1,1'");
+ }
+ 
+@@ -3420,7 +3420,7 @@
+ All MPI salves will then read in the combined results. This reduces heavy load on the network, but increases load on the disc I/O. \
+ This will affect the time it takes between the progress-bar in the expectation step reaching its end (the mouse gets to the cheese) and the start of the ensuing maximisation step. It will depend on your system setup which is most efficient.");
+ 
+-	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", false, "If set to Yes, the job will try to use GPU acceleration.");
++	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", getenv("RELION_USE_GPU_ACCELERATION"), "If set to Yes, the job will try to use GPU acceleration.");
+ 	joboptions["gpu_ids"] = JobOption("Which GPUs to use:", std::string(""), "This argument is not necessary. If left empty, the job itself will try to allocate available GPU resources. You can override the default allocation by providing a list of which GPUs (0,1,2,3, etc) to use. MPI-processes are separated by ':', threads by ','. For example: '0,0:1,1:0,0:1,1'");
+ }
+ 
+@@ -3820,7 +3820,7 @@
+ All MPI salves will then read in the combined results. This reduces heavy load on the network, but increases load on the disc I/O. \
+ This will affect the time it takes between the progress-bar in the expectation step reaching its end (the mouse gets to the cheese) and the start of the ensuing maximisation step. It will depend on your system setup which is most efficient.");
+ 
+-	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", false, "If set to Yes, the job will try to use GPU acceleration.");
++	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", getenv("RELION_USE_GPU_ACCELERATION"), "If set to Yes, the job will try to use GPU acceleration.");
+ 	joboptions["gpu_ids"] = JobOption("Which GPUs to use:", std::string(""), "This argument is not necessary. If left empty, the job itself will try to allocate available GPU resources. You can override the default allocation by providing a list of which GPUs (0,1,2,3, etc) to use. MPI-processes are separated by ':', threads by ','.  For example: '0,0:1,1:0,0:1,1'");
+ }
+ 
+@@ -4307,7 +4307,7 @@
+ 	joboptions["do_combine_thru_disc"] = JobOption("Combine iterations through disc?", false, "If set to Yes, at the end of every iteration all MPI followers will write out a large file with their accumulated results. The MPI leader will read in all these files, combine them all, and write out a new file with the combined results. \
+ All MPI salves will then read in the combined results. This reduces heavy load on the network, but increases load on the disc I/O. \
+ This will affect the time it takes between the progress-bar in the expectation step reaching its end (the mouse gets to the cheese) and the start of the ensuing maximisation step. It will depend on your system setup which is most efficient.");
+-	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", false, "If set to Yes, the job will try to use GPU acceleration.");
++	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", getenv("RELION_USE_GPU_ACCELERATION"), "If set to Yes, the job will try to use GPU acceleration.");
+ 	joboptions["gpu_ids"] = JobOption("Which GPUs to use:", std::string(""), "This argument is not necessary. If left empty, the job itself will try to allocate available GPU resources. You can override the default allocation by providing a list of which GPUs (0,1,2,3, etc) to use. MPI-processes are separated by ':', threads by ','.  For example: '0,0:1,1:0,0:1,1'");
+ }
+ 
+@@ -4686,7 +4686,7 @@
+ 	joboptions["do_combine_thru_disc"] = JobOption("Combine iterations through disc?", false, "If set to Yes, at the end of every iteration all MPI followers will write out a large file with their accumulated results. The MPI leader will read in all these files, combine them all, and write out a new file with the combined results. \
+ All MPI salves will then read in the combined results. This reduces heavy load on the network, but increases load on the disc I/O. \
+ This will affect the time it takes between the progress-bar in the expectation step reaching its end (the mouse gets to the cheese) and the start of the ensuing maximisation step. It will depend on your system setup which is most efficient.");
+-	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", false, "If set to Yes, the job will try to use GPU acceleration.");
++	joboptions["use_gpu"] = JobOption("Use GPU acceleration?", getenv("RELION_USE_GPU_ACCELERATION"), "If set to Yes, the job will try to use GPU acceleration.");
+ 	joboptions["gpu_ids"] = JobOption("Which GPUs to use:", std::string(""), "This argument is not necessary. If left empty, the job itself will try to allocate available GPU resources. You can override the default allocation by providing a list of which GPUs (0,1,2,3, etc) to use. MPI-processes are separated by ':', threads by ','.  For example: '0,0:1,1:0,0:1,1'");
+ }
+ 
