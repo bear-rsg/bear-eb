@@ -600,7 +600,9 @@ crates = [
     ('async-compression', '0.4.19'),
     ('async-trait', '0.1.86'),
     ('async_http_range_reader', '0.9.1'),
-    ('async_zip', '0.0.17', 'https://github.com/charliermarsh/rs-async-zip', 'c909fda63fcafe4af496a07bfda28a5aae97e58d'),
+    ('async_zip', '0.0.17',
+        'https://github.com/charliermarsh/rs-async-zip',
+        'c909fda63fcafe4af496a07bfda28a5aae97e58d'),
     ('atomic-waker', '1.1.2'),
     ('autocfg', '1.4.0'),
     ('axoasset', '1.2.0'),
@@ -1138,13 +1140,11 @@ crates = [
     ('zstd-safe', '7.2.3'),
     ('zstd-sys', '2.0.14+zstd.1.5.7'),
 ]
-#parallel = 1
 
 builddependencies = [
     ('binutils', '2.40'),
     ('Rust', _rust_ver),
     ('maturin', '1.8.2', '-Rust-%s' % _rust_ver)
-#    ('pubgrub', '0.3.0')
 ]
 dependencies = [
     ('bzip2', '1.0.8'),
