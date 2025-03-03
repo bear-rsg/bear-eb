@@ -41,7 +41,7 @@ _preinstallopts_no_hatchling += r"""-e 's/dynamic = \["version"\]/version = "%(v
 
 local_dynamight = """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' """
 local_dynamight += """-e 's/^requires = .*/requires = ["setuptools"]/g' """
-local_dynamight += """-e 's/dynamic = \["version"\]/version = "%(version)s"/g' pyproject.toml && """
+local_dynamight += r"""-e 's/dynamic = \["version"\]/version = "%(version)s"/g' pyproject.toml && """
 
 exts_list = [
     (name, '0.0.0.20240319', {
