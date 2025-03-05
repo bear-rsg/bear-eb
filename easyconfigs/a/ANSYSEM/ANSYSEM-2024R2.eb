@@ -1,0 +1,33 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+name = 'ANSYSEM'
+version = '2024R2'
+update_version = '%(version)s.1'
+
+homepage = 'https://www.ansys.com'
+description = """ANSYS simulation software enables organizations to confidently predict
+how their products will operate in the real world. We believe that every product is
+a promise of something greater."""
+
+toolchain = SYSTEM
+
+sources = [
+    'ELECTRONICS_%(version)s_LINX64.tgz',
+    '%%(version)s/ELECTRONICS_%s_LINX64.tgz' % update_version,
+]
+checksums = [
+    {'ELECTRONICS_2024R2_LINX64.tgz': 'd06324b8e0ea192484e3bd80a919763bb4bde96105e5d9afcea47a7dab0de1a9'},
+    {'ELECTRONICS_2024R2.1_LINX64.tgz': 'c8b9bc09e4c5e15cb5c585aae459c4ee8cb3d5d4c375d04e5ad0407cbe0733c1'},
+]
+
+# Licensing information can be provided using the following configuration variables, else the following
+# environment variables will be interrogated: EB_ANSYS_EM_LICENSE_SERVER & EB_ANSYS_EM_LICENSE_SERVER_PORT
+
+license_server = 'server.local'
+license_server_port = '1234'
+# Select a default location for all simulations (including local) to use as a temporary work space.
+ansysem_temp_dir = '/tmp'
+
+# The ANS_NODEPCHECK=1 ensure that the dependency check isn't run once for each node
+modextravars = {'ANS_NODEPCHECK': '1'}
+
+moduleclass = 'tools'
