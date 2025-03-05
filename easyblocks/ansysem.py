@@ -129,7 +129,6 @@ either in the Easyconfig or as the env var EB_ANSYS_EM_LICENSE_SERVER_PORT")
         env.setvar('IATEMPDIR', install_tmpdir)
 
         """Install Ansys Electromagnetics using 'install'."""
-        # cmd = "./Linux/AnsysEM/Disk1/InstData/setup.exe -options \"%s\" -silent" % (self.replayfile)
         cmd = "./Linux/AnsysEM/Disk1/InstData/setup.exe -f \"%s\" -i silent" % (self.replayfile)
         run_cmd(cmd, log_all=True, simple=True)
 
