@@ -36,6 +36,6 @@ sanity_check_paths = {
     'dirs': ['bin/rna', 'bin/tenkit'],
 }
 
-sanity_check_commands = ['cellranger testrun --id=tiny'] 
+sanity_check_commands = ['cellranger testrun --id=tiny']
 
 moduleclass = 'bio'
