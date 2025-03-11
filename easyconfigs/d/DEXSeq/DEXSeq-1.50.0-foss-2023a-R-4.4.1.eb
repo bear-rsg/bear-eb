@@ -1,0 +1,51 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'DEXSeq'
+version = '1.50.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://bioconductor.org/packages/release/bioc/html/DEXSeq.html"
+description = """The package is focused on finding differential exon usage using RNA-seq exon counts between samples
+ with different experimental designs. It provides functions that allows the user to make the necessary statistical
+ tests based on a model that uses the negative binomial distribution to estimate the variance between biological
+ replicates and generalized linear models for testing. The package also provides functions for the visualization
+ and exploration of the results. """
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('R', '4.4.1'),
+    ('R-bundle-Bioconductor', '3.19', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.19/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.19/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.19/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.19/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'checksums': ['441452a07b41dbeb931018303ae7e3840be29045a262b3a547831cb71f74c38f'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['DEXSeq/R/DEXSeq'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
