@@ -1,0 +1,41 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Tarball'
+
+name = 'CellRanger'
+version = '9.0.1'
+
+homepage = "https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger"
+description = """Cell Ranger is a set of analysis pipelines that process Chromium
+ single-cell RNA-seq output to align reads, generate gene-cell matrices and perform
+ clustering and gene expression analysis."""
+
+toolchain = SYSTEM
+
+download_instructions = """
+Download manually from https://www.10xgenomics.com/support/software/cell-ranger/downloads
+"""
+
+local_datasources = ['GRCh38', 'GRCm39', 'mRatBN7-2', ('GRCh38', '7.1.0'), ('GRCm38', '7.0.0')]
+
+sources = [SOURCELOWER_TAR_GZ]
+checksums = [
+    {'cellranger-9.0.1.tar.gz': 'd4c5c0138e00dc8d84547402d79cee534a3d3099fd7c2671262e9d3af64ae11a'},
+    {'refdata-gex-GRCh38-2024-A.tar.gz': 'd19fd72923dc074f042f0b16a149af6dc8bd40ff072bb4c8ad1070cf54901cb6'},
+    {'refdata-gex-GRCm39-2024-A.tar.gz': '0ad24c56026cc4ffc52125842ec64b448b089fc1cdd7156c71facd6913809966'},
+    {'refdata-gex-mRatBN7-2-2024-A.tar.gz': '36c3b69876b02714b36c36991059064d3d594417a6ee48a9d109388445331533'},
+    {'refdata-cellranger-vdj-GRCh38-alts-ensembl-7.1.0.tar.gz':
+     '69270be9a8765336888c1a3f4e4718a5b491b4cd91d123592d3ce810549d409a'},
+    {'refdata-cellranger-vdj-GRCm38-alts-ensembl-7.0.0.tar.gz':
+     'b941735bda1c9f3039e02e6dceebcaf8c49fb91967979e101ec2f9b04d517c62'},
+]
+
+keepsymlinks = True
+
+sanity_check_paths = {
+    'files': ['bin/cellranger'],
+    'dirs': ['bin/rna', 'bin/tenkit'],
+}
+
+sanity_check_commands = ['cellranger testrun --id=tiny'] 
+
+moduleclass = 'bio'
