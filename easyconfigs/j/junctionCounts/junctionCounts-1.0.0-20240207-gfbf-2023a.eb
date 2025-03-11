@@ -1,0 +1,48 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'junctionCounts'
+version = '1.0.0-20240207'
+local_commit = '6640f01'
+
+homepage = "https://github.com/ajw2329/junctionCounts"
+description = """junctionCounts (https://doi.org/10.1093/nargab/lqae093) is a tool intended to identify
+ and quantify binary alternative splicing events from RNA-seq data. junctionCounts currently consists of
+ two primary utilities: infer_pairwise_events.py, which identifies binary alternative splicing events
+ (e.g. skipped exon events), and junctionCounts.py, which quantifies those events (i.e. provides a percent-spliced-in,
+ or PSI value) from RNA-seq data (specifically from a BAM file)."""
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Pysam', '0.22.0'),
+    ('SciPy-bundle', '2023.07'),
+    ('BEDTools', '2.31.1'),
+    ('cds_insertion', '0.1dev-20240521'),
+    ('splice_lib', '0.1dev-20240207'),
+    ('R', '4.4.1'),
+    ('R-bundle-CRAN', '2024.06'),
+    ('R-bundle-Bioconductor', '3.19'),
+    ('DEXSeq', '1.50.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('ncls', '0.0.68', {
+        'checksums': ['81aaa5abb123bb21797ed2f8ef921e20222db14a3ecbc61ccf447532f2b7ba93'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/ajw2329/junctionCounts/archive/'],
+        'sources': [{'download_filename': '6640f01.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['465780fd888b87d5772b0b64a7ed6e372c20634ac234ea77b538c202b3ab6119'],
+    }),
+]
+
+moduleclass = 'bio'
