@@ -18,6 +18,8 @@ Download manually from https://www.10xgenomics.com/support/software/cell-ranger/
 local_datasources = ['GRCh38', 'GRCm39', 'mRatBN7-2', ('GRCh38', '7.1.0'), ('GRCm38', '7.0.0')]
 
 sources = [SOURCELOWER_TAR_GZ]
+sources += ['refdata-gex-%s-2024-A.tar.gz' % x for x in local_datasources[:3]]
+sources += ['refdata-cellranger-vdj-%s-alts-ensembl-%s.tar.gz' % x for x in local_datasources[3:]]
 checksums = [
     {'cellranger-9.0.1.tar.gz': 'd4c5c0138e00dc8d84547402d79cee534a3d3099fd7c2671262e9d3af64ae11a'},
     {'refdata-gex-GRCh38-2024-A.tar.gz': 'd19fd72923dc074f042f0b16a149af6dc8bd40ff072bb4c8ad1070cf54901cb6'},
