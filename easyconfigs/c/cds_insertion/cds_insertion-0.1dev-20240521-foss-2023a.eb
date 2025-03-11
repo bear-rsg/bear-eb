@@ -2,7 +2,7 @@
 easyblock = 'PythonPackage'
 
 name = 'cds_insertion'
-version = '0.1dev'
+version = '0.1dev-20240521'
 local_commit_id = 'e2b8416'
 
 homepage = "https://github.com/ajw2329/cds_insertion"
@@ -13,7 +13,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 dependencies = [
     ('Python', '3.11.3'),
     ('BEDTools', '2.31.1'),
-    ('splice_lib', '0.1dev'),
+    ('splice_lib', '0.1dev-20240207'),
 ]
 
 source_urls = ['https://github.com/ajw2329/cds_insertion/archive']

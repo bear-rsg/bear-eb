@@ -2,7 +2,7 @@
 easyblock = 'PythonPackage'
 
 name = 'splice_lib'
-version = '0.1dev'
+version = '0.1dev-20240207'
 local_commit_id = '0bc7ef0'
 
 homepage = "https://github.com/ajw2329/splice_lib"
