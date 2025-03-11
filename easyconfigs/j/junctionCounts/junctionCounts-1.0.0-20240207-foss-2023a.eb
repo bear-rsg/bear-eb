@@ -12,7 +12,7 @@ description = """junctionCounts (https://doi.org/10.1093/nargab/lqae093) is a to
  (e.g. skipped exon events), and junctionCounts.py, which quantifies those events (i.e. provides a percent-spliced-in,
  or PSI value) from RNA-seq data (specifically from a BAM file)."""
 
-toolchain = {'name': 'gfbf', 'version': '2023a'}
+toolchain = {'name': 'foss', 'version': '2023a'}
 
 dependencies = [
     ('Python', '3.11.3'),
@@ -23,8 +23,8 @@ dependencies = [
     ('splice_lib', '0.1dev-20240207'),
     ('R', '4.4.1'),
     ('R-bundle-CRAN', '2024.06'),
-    ('R-bundle-Bioconductor', '3.19'),
-    ('DEXSeq', '1.50.0'),
+    ('R-bundle-Bioconductor', '3.19', '-R-%(rver)s'),
+    ('DEXSeq', '1.50.0', '-R-%(rver)s'),
 ]
 
 sanity_pip_check = True
