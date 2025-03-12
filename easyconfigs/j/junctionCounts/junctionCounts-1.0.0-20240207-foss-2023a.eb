@@ -42,7 +42,17 @@ exts_list = [
         'source_urls': ['https://github.com/ajw2329/junctionCounts/archive/'],
         'sources': [{'download_filename': '6640f01.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['465780fd888b87d5772b0b64a7ed6e372c20634ac234ea77b538c202b3ab6119'],
+        'modulename': 'junctionCounts'
     }),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    ('python', "-c 'import junctionCounts'"),
 ]
 
 moduleclass = 'bio'
