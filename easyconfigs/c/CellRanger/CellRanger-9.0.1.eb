@@ -32,6 +32,7 @@ checksums = [
 ]
 
 keepsymlinks = True
+postinstallcmds = ['cp -r %(builddir)s/refdata-* %(installdir)s']
 
 sanity_check_paths = {
     'files': ['bin/cellranger'],
