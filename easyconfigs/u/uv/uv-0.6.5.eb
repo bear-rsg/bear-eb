@@ -1,0 +1,29 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Binary'
+
+name = 'uv'
+version = '0.6.5'
+
+homepage = "https://github.com/astral-sh/uv"
+description = """An extremely fast Python package and project manager, written in Rust."""
+
+toolchain = SYSTEM
+
+github_account = 'astral-sh'
+source_urls = [GITHUB_RELEASE.replace('/v', '/')]
+sources = ['%(name)s-%(arch)s-unknown-linux-gnu.tar.gz']
+checksums = ['8fc9895719a1291ecd193cb86f9282ff3649cef797d29eacc74c4f573aab1e2f']
+
+extract_sources = True
+prepend_to_path = ['.']
+
+sanity_check_paths = {
+    'files': ['uv', 'uvx'],
+    'dirs': [''],
+}
+
+sanity_check_commands = ['uv --help']
+
+modextravars = {'UV_LINK_MODE': 'copy'}
+
+moduleclass = 'tools'
