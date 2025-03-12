@@ -29,7 +29,8 @@ fix_python_shebang_for = ['lib/python3.11/site-packages/cds_insertion/cds_insert
 local_cds_path = "%(installdir)s/lib/python%(pyshortver)s/site-packages/cds_insertion/cds_insertion.py"
 postinstallcmds = [
     "mkdir -p %(installdir)s/bin",
-    "ln -s {local_cds_path} %(installdir)s/bin/cds_insertion".format(local_cds_path=local_cds_path)
+    f"ln -s {local_cds_path} %(installdir)s/bin/cds_insertion",
+    f"chmod +x {local_cds_path}"
 ]
 
 sanity_check_paths = {
