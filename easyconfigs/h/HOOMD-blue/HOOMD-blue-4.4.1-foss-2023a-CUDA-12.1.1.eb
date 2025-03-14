@@ -35,6 +35,7 @@ dependencies = [
 _copts = [
     '-DENABLE_GPU=ON',
     '-DHOOMD_GPU_PLATFORM=CUDA',
+    '-DCUDA_ARCH_LIST=%(cuda_cc_cmake)s',
     '-DENABLE_MPI=ON',
     '-DBUILD_MD=ON',
     '-DBUILD_METAL=ON',
