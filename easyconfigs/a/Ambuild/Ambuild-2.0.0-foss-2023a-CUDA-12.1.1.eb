@@ -13,7 +13,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 dependencies = [
     ('CUDA', '12.1.1', '', SYSTEM),
     ('Python', '3.11.3'),
-    ('HOOMD-blue', '4.4.1'),
+    ('HOOMD-blue', '4.4.1', versionsuffix),
 ]
 
 github_account = 'linucks'
