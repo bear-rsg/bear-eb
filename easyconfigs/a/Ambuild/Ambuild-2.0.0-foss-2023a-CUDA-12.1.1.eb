@@ -1,0 +1,31 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'Ambuild'
+version = '2.0.0'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = "https://github.com/linucks/ambuild"
+description = """Ambuild is a python program for creating polymeric molecular structures."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('Python', '3.11.3'),
+    ('HOOMD-blue', '4.4.1'),
+]
+
+github_account = 'linucks'
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = ['%(version)s.tar.gz']
+
+postinstallcmds = [
+    'sed -i "s/__version__/version.version/" %(installdir)s/lib/python3.11/site-packages/ambuild/ab_util.py'
+]
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+moduleclass = 'chem'
