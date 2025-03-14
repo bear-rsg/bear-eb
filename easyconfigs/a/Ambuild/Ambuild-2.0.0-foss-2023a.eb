@@ -17,6 +17,7 @@ dependencies = [
 github_account = 'linucks'
 source_urls = [GITHUB_LOWER_SOURCE]
 sources = ['%(version)s.tar.gz']
+checksums = ['9ad86e8ac30c028a5a223fe69eb091306b6cc37ad24d33f3b214381b18e59f78']
 
 postinstallcmds = [
     'sed -i "s/__version__/version.version/" %(installdir)s/lib/python3.11/site-packages/ambuild/ab_util.py'

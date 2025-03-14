@@ -14,6 +14,7 @@ toolchainopts = {'usempi': True}
 github_account = 'glotzerlab'
 source_urls = [GITHUB_LOWER_RELEASE]
 sources = ['hoomd-%(version)s.tar.gz']
+checksums = ['cbc73ac095b6e892abc33b4df3eba4c4baeeb1f04332517bd8da0e0cb17cb053']
 
 builddependencies = [
     ('CMake', '3.26.3'),
