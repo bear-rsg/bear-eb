@@ -1,0 +1,28 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'python-box'
+version = '7.3.2'
+
+homepage = "https://github.com/cdgriffith/Box"
+description = """Python dictionaries with advanced dot notation access."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('ruamel.yaml', '0.17.32')
+]
+
+source_urls = [PYPI_SOURCE]
+sources = [f'{name.replace("-", "_")}-{version}.tar.gz']
+checksums = ['028b9917129e67f311932d93347b8a4f1b500d7a5a2870ee3c035f4e7b19403b']
+
+options = {'modulename': 'box'}
+
+download_dep_fail = True
+sanity_pip_check = True
+use_pip = True
+
+moduleclass = 'lang'
