@@ -2,6 +2,7 @@ easyblock = 'RPackage'
 
 name = 'ichorCNA'
 version = '0.3.2-20191219'
+versionsuffix = '-R-%(rver)s'
 local_commit = '5bfc03e'
 github_account = 'broadinstitute'
 
