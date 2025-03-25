@@ -10,7 +10,6 @@ For INC______ - `EBFILENAME`
 
 Default:
 * [ ] EL8-icelake
-* [ ] EL8-cascadelake
 
 2023a and above:
 * [ ] EL8-sapphire
