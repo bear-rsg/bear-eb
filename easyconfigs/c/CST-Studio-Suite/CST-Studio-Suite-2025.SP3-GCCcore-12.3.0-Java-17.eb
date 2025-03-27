@@ -30,6 +30,11 @@ dependencies = [
     ('Xvfb', '21.1.8'),
 ]
 
+postinstallcmds = [
+    'cd %(installdir)s/LinuxAMD64 && '
+    'sed -i \'s/"${CST_REGSVR32}" -c -s "${CST_OCX}"/"${CST_REGSVR32}" "${CST_OCX}"/\' {modeler,schematic}_AMD64'
+]
+
 license_server = 'eee-cst-ce.bham.ac.uk'
 license_server_port = '27004'
 sp_level = '%(version_minor)s'
