@@ -1,0 +1,12 @@
+--- stackstac-0.5.1.orig/pyproject.toml	2025-04-02 13:44:09.453523604 +0100
++++ stackstac-0.5.1/pyproject.toml	2025-04-02 13:44:38.833376392 +0100
+@@ -80,7 +80,7 @@
+ ]
+ 
+ [build-system]
+-build-backend = "pdm.pep517.api"
++build-backend = "pdm.backend"
+ requires = [
+-    "pdm-pep517",
++    "pdm-backend",
+ ]
