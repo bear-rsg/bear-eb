@@ -1,0 +1,54 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pystac-client'
+version = '0.8.6'
+
+homepage = "https://github.com/stac-utils/pystac-client"
+description = """A Python client for working with STAC APIs."""
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+builddependencies = [
+    ('hatchling', '1.18.0'),  # for jsonschema
+    ('maturin', '1.4.0', '-Rust-1.75.0'),  # for rpds_py
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('rpds_py', '0.17.1', {
+        'modulename': 'rpds',
+        'checksums': ['0210b2668f24c078307260bf88bdac9d6f1093635df5123789bfee4d8d7fc8e7'],
+    }),
+    ('referencing', '0.32.1', {
+        'checksums': ['3c57da0513e9563eb7e203ebe9bb3a1b509b042016433bd1e45a2853466c3dd3'],
+    }),
+    ('jsonschema_specifications', '2023.12.1', {
+        'checksums': ['48a76787b3e70f5ed53f1160d2b81f586e4ca6d1548c5de7085d1682674764cc'],
+    }),
+    #  we need a newer version of jsonschema than included in P-b-P 2023.06
+    ('jsonschema', '4.18.4', {
+        'checksums': ['fb3642735399fa958c0d2aad7057901554596c63349f4f6b283c493cf692a25d'],
+    }),
+    #  we use 1.11.0 due to unsupported trove classifier in >1.11.0
+    ('pystac', '1.11.0', {
+        'use_pip_extras': 'validation',
+        'checksums': ['acb1e04be398a0cda2d8870ab5e90457783a8014a206590233171d8b2ae0d9e7'],
+    }),
+    ('pystac_client', version, {
+        'checksums': ['83d4f4420c14b8dbb3e39ab0da00e72639903912942075d42e06737d61ab3e7d'],
+    }),
+]
+
+moduleclass = 'lib'
