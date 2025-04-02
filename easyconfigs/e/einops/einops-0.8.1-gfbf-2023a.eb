@@ -22,7 +22,6 @@ citing = """
 toolchain = {'name': 'gfbf', 'version': '2023a'}
 
 builddependencies = [
-    # ('binutils', '2.40'),
     ('hatchling', '1.18.0'),
 ]
 
