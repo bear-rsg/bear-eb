@@ -1,0 +1,40 @@
+easyblock = 'PythonBundle'
+
+name = 'Transformers'
+version = '4.42.0'
+
+homepage = 'https://github.com/huggingface/transformers'
+description = """State-of-the-art Natural Language Processing for PyTorch and TensorFlow 2.0"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('PyTorch', '2.1.2'),
+    ('PyTorch-bundle', '2.1.2'),
+    ('PyYAML', '6.0'),
+    ('tqdm', '4.66.1'),
+    ('tokenizers', '0.19.1'),
+    ('Safetensors', '0.4.3'),
+    ('accelerate', '0.33.0'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+exts_list = [
+    ('regex', '2023.12.25', {
+        'checksums': ['29171aa128da69afdf4bde412d5bedc335f2ca8fcfe4489038577d05f16181e5'],
+    }),
+    ('transformers', version, {
+        'use_pip_extras': 'torch',
+        'checksums': ['eade2cdeec7c7e0f17dd303d96e920fa98404ca0abaa154afea33c1101c91651'],
+    }),
+]
+
+sanity_check_commands = [
+    "python -c 'from transformers import AutoTokenizer'",
+]
+
+moduleclass = 'math'
