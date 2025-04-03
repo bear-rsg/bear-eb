@@ -1,0 +1,65 @@
+##
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+#
+# Authors::   Dugan Witherick (University of Warwick)
+# Updated to 210716_3
+# J. Sassmannshausen (Imperial College London/UK)
+##
+easyblock = 'CMakeMake'
+
+name = 'FHI-aims'
+version = '250320'
+
+homepage = 'https://fhi-aims.org/'
+description = """FHI-aims is an efficient, accurate all-electron,
+full-potential electronic structure code package for computational molecular
+and materials science (non-periodic and periodic systems). The code supports
+DFT (semilocal and hybrid) and many-body perturbation theory. FHI-aims is
+particularly efficient for molecular systems and nanostructures, while
+maintaining high numerical accuracy for all production tasks. Production
+calculations handle up to several thousand atoms and can efficiently use (ten)
+thousands of cores.
+"""
+
+toolchain = {'name': 'intel', 'version': '2023a'}
+toolchainopts = {'opt': True, 'precise': True}
+
+download_instructions = """
+The source code must be downloaded manually from the FHI-aims club
+(https://fhi-aims.org/get-the-code-menu/login).
+Access to the FHI-aims club requires a valid license and registration.
+Details on available license options and how to register to access
+FHI-aims club may be found at:
+https://fhi-aims.org/get-the-code-menu/get-the-code """
+
+sources = ['%(namelower)s.%(version)s.tgz']
+checksums = ['76decd2929726c0fb93219cb703592599be191753dcc6a34da1764b16e1d7a22']
+
+builddependencies = [
+    ('CMake', '3.26.3')
+]
+
+configopts = ' -DCMAKE_Fortran_COMPILER="$MPIF90" '
+configopts += ' -DCMAKE_C_COMPILER="$MPICC" '
+configopts += ' -DCMAKE_CXX_COMPILER="$MPICXX" '
+configopts += ' -DLIBS="mkl_scalapack_lp64 mkl_blacs_intelmpi_lp64 mkl_intel_lp64 mkl_sequential mkl_core" '
+configopts += ' -DLIB_PATHS="$CMAKE_LIBRARY_PATH" '
+configopts += ' -DCMAKE_C_FLAGS="$CFLAGS" '
+configopts += ' -DCMAKE_Fortran_FLAGS="$FFLAGS" '
+configopts += ' -DFortran_MIN_FLAGS="-O0 -fp-model precise" '
+configopts += ' -DTARGET_NAME="aims.x" '
+configopts += ' -DELPA2_KERNEL="AVX512" '
+
+postinstallcmds = [
+    "cp -ar %(builddir)s/%(namelower)s.%(version)s/* %(installdir)s/",
+    "rm -rf %(installdir)s/{cmake,CMakeLists.txt,initial_cache.example.cmake,src}"
+]
+
+sanity_check_paths = {
+    'files': ['bin/aims.x'],
+    'dirs': [],
+}
+
+moduleclass = 'chem'
+
+local_bham_group = "p-fhi-aims"
