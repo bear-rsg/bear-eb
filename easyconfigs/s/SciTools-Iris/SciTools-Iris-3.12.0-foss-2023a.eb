@@ -1,0 +1,77 @@
+easyblock = 'PythonBundle'
+
+name = 'SciTools-Iris'
+version = '3.12.0'
+
+homepage = 'https://scitools-iris.readthedocs.io'
+description = """A powerful, format-agnostic, community-driven Python package for analysing and
+visualising Earth science data."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('bokeh', '3.2.2'),
+    ('Cartopy', '0.22.0'),
+    ('matplotlib', '3.7.2'),
+    ('netcdf4-python', '1.6.4'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('python-xxhash', '3.4.1'),
+    ('PyYAML', '6.0'),
+    ('SciPy-bundle', '2023.07'),
+    ('UDUNITS', '2.2.28'),
+]
+
+use_pip = True
+
+exts_list = [
+    ('cloudpickle', '3.1.1', {
+        'checksums': ['b216fa8ae4019d5482a8ac3c95d8f6346115d8835911fd4aefd1a445e4242c64'],
+    }),
+    ('toolz', '0.12.1', {
+        'checksums': ['ecca342664893f177a13dac0e6b41cbd8ac25a358e5f215316d43e2100224f4d'],
+    }),
+    ('locket', '1.0.0', {
+        'checksums': ['5c0d4c052a8bbbf750e056a8e65ccd309086f4f0f18a2eac306a8dfa4112a632'],
+    }),
+    ('partd', '1.4.2', {
+        'checksums': ['d022c33afbdc8405c226621b015e8067888173d85f7f5ecebb3cafed9a20f02c'],
+    }),
+    ('HeapDict', '1.0.1', {
+        'checksums': ['8495f57b3e03d8e46d5f1b2cc62ca881aca392fd5cc048dc0aa2e1a6d23ecdb6'],
+    }),
+    ('zict', '3.0.0', {
+        'checksums': ['e321e263b6a97aafc0790c3cfb3c04656b7066e6738c37fffcca95d803c9fba5'],
+    }),
+    ('tblib', '3.1.0', {
+        'checksums': ['06404c2c9f07f66fee2d7d6ad43accc46f9c3361714d9b8426e7f47e595cd652'],
+    }),
+    ('dask', '2025.3.0', {
+        'checksums': ['322834f44ebc24abeb564c56ccb817c97d6e7af6be71ad0ad96b78b51f2e0e85'],
+    }),
+    ('distributed', '2025.3.0', {
+        'checksums': ['84a68c91db2a106c752ca7845fba8cd92ad4f3545c0fb2d9b6dec0f44b225539'],
+    }),
+    ('docrep', '0.3.2', {
+        'checksums': ['ed8a17e201abd829ef8da78a0b6f4d51fb99a4cbd0554adbed3309297f964314'],
+    }),
+    ('dask_jobqueue', '0.9.0', {
+        'checksums': ['494ef64b7bb3848c7d72ed334c288030caca6a09dca54cfaa3f395f4ba7f5c47'],
+    }),
+    ('antlr4-python3-runtime', '4.7.2', {
+        'modulename': 'antlr4',
+        'checksums': ['168cdcec8fb9152e84a87ca6fd261b3d54c8f6358f42ab3b813b14a7193bb50b'],
+    }),
+    ('cf-units', '3.2.0', {
+        'preinstallopts': 'UDUNITS2_XML_PATH="$EBROOTUDUNITS/share/udunits/udunits2.xml"',
+        'checksums': ['88a9f140e4157fe4c2d322b5e079046c4c0a7d76cb4950c700a8363bc235074f'],
+    }),
+    ('scitools_iris', version, {
+        'modulename': 'iris',
+        'checksums': ['53dccdf61f10b4fd3e81ae7a28b75b9822e0e22095254c05abca78dcb3de6dbe'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'geo'
