@@ -23,7 +23,7 @@ jobs:
         run: python -m pip install --upgrade pip
 
       - name: Install EasyBuild and pycodestyle  # needed for check-contrib
-        run: pip install easybuild pycodestyle
+        run: pip install easybuild==4.9.4 pycodestyle
 
       - name: Run check-contrib
         run: |
