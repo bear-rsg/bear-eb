@@ -52,7 +52,14 @@ jobs:
         env:
           BEFORE_SHA: ${{ github.event.before }}
           AFTER_SHA: ${{ github.sha }}
+          LMOD_VERSION: 8.7.4
+          MOD_INIT: "/usr/lmod/$LMOD_VERSION/init/bash"
+
         run: |
+          export PATH="/usr/lmod/$LMOD_VERSION/libexec:$PATH"
+          echo $MOD_INIT > "$GITHUB_WORKSPACE/mod_init"
+          echo $PATH > "$GITHUB_WORKSPACE/path"
+
           echo "Fetching prior commit for diff"
           git fetch origin "$BEFORE_SHA"
 
