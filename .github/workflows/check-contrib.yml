@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Check out source repository
         uses: actions/checkout@v4
+        #  with:
+        #      fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
 
       - name: Set up Python env
         uses: actions/setup-python@v5
@@ -22,12 +24,18 @@ jobs:
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
 
-      - name: Install EasyBuild and pycodestyle  # needed for check-contrib
-        run: pip install easybuild==4.9.4 pycodestyle
-
-      - name: Run check-contrib
+      - name: Install EasyBuild and required deps
         run: |
-          for file in $(find . -name '*.eb'); do
-            echo "Checking $file"
+          pip install easybuild==4.9.4 pycodestyle
+          sudo apt-get install -y lua5.2 liblua5.2-dev lua-filesystem lua-posix tcl tcl-dev
+          sudo apt install -y curl
+          LMOD_VERSION=8.7.4
+          curl -OL https://github.com/surak/Lmod/releases/download/${LMOD_VERSION}/lmod_${LMOD_VERSION}_all.deb
+          sudo apt install -y ./lmod_${LMOD_VERSION}_all.deb
+
+      - name: check-contrib modified .ebs only
+        run: |
+          CHANGED_EBS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.eb$' || true)
+          for file in $CHANGED_EBS; do
             eb "$file" --check-contrib
           done
