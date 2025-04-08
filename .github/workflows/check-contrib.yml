@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Check out source repository
         uses: actions/checkout@v4
-        #  with:
-        #      fetch-depth: ${{ github.event_name == 'pull_request' && 2 || 0 }}
+        with:
+          fetch-depth: 2  # shallow but deep enough to diff last commit
 
       - name: Set up Python env
         uses: actions/setup-python@v5
@@ -33,10 +33,26 @@ jobs:
           curl -OL https://github.com/surak/Lmod/releases/download/${LMOD_VERSION}/lmod_${LMOD_VERSION}_all.deb
           sudo apt install -y ./lmod_${LMOD_VERSION}_all.deb
 
-      - name: check-contrib modified .ebs only
-      #  this is too broad and runs this action on any change, rather than just eb
+      - name: Run --check-contrib
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
         run: |
-          CHANGED_EBS=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.eb$' || true)
+          echo "Fetching prior commit for diff"
+          git fetch origin "$BEFORE_SHA"
+
+          echo "Checking for modified .eb files"
+          CHANGED_EBS=$(git diff --name-only --diff-filter=d "$BEFORE_SHA" "$AFTER_SHA" -- '*.eb' || echo "")
+
+          if [ -z "$CHANGED_EBS" ]; then
+            echo "No .eb files changed. Skipping check-contrib."
+            exit 0
+          fi
+
+          echo "Files to check:"
+          printf '%s\n' "$CHANGED_EBS"
+
           for file in $CHANGED_EBS; do
-            eb "$file" --check-contrib
+            echo "Checking $file"
+            eb "$file" --check-contrib || exit 1  # Fail fast on errors
           done
