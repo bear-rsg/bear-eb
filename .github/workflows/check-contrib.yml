@@ -14,7 +14,7 @@ jobs:
       - name: Check out source repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2  # shallow but deep enough to diff last commit
+          fetch-depth: 2  # shallow but deep enough to diff last commit; I don't want to have do to fetch-depth: 0 and get the full history
 
       - name: Set up Python env
         uses: actions/setup-python@v5
@@ -26,12 +26,25 @@ jobs:
 
       - name: Install EasyBuild and required deps
         run: |
+          echo "Installing easybuild and pycodestyle"
           pip install easybuild==4.9.4 pycodestyle
+
+          echo "Installing LMOD"
           sudo apt-get install -y lua5.2 liblua5.2-dev lua-filesystem lua-posix tcl tcl-dev
           sudo apt install -y curl
           LMOD_VERSION=8.7.4
           curl -OL https://github.com/surak/Lmod/releases/download/${LMOD_VERSION}/lmod_${LMOD_VERSION}_all.deb
           sudo apt install -y ./lmod_${LMOD_VERSION}_all.deb
+
+          #  default install location via sudo apt goes to /usr/lmod
+          export PATH="/usr/lmod/$LMOD_VERSION/libexec:$PATH"
+          export MOD_INIT="/usr/lmod/$LMOD_VERSION/init/bash"
+          echo $MOD_INIT > mod_init; echo $PATH > path
+          source $(cat $HOME/mod_init); type module
+          export EASYBUILD_MODULES_TOOL=Lmod
+
+          # Verify LMOD install
+          which lmod ; lmod --version
 
       - name: Run --check-contrib
         env:
@@ -51,6 +64,9 @@ jobs:
 
           echo "Files to check:"
           printf '%s\n' "$CHANGED_EBS"
+
+          # check eb is available
+          eb --version; eb --show-config
 
           for file in $CHANGED_EBS; do
             echo "Checking $file"
