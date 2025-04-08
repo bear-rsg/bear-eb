@@ -19,7 +19,7 @@ checksums = [
 
 builddependencies = [
     ('CMake', '3.26.3'),
-    # Test dependencies - bla bla
+    # Test dependencies - bla bla # 1441, 1804, add another line to test check-contrib
     ('Eigen', '3.4.0'),
     ('Catch2', '2.13.9'),
     ('Python-bundle-PyPI', '2023.06'),  # to provide pytest
