@@ -39,8 +39,10 @@ jobs:
           #  default install location via sudo apt goes to /usr/lmod
           export PATH="/usr/lmod/$LMOD_VERSION/libexec:$PATH"
           export MOD_INIT="/usr/lmod/$LMOD_VERSION/init/bash"
-          echo $MOD_INIT > mod_init; echo $PATH > path
-          source $(cat $HOME/mod_init); type module
+
+          echo $MOD_INIT > "$GITHUB_WORKSPACE/mod_init"
+          echo $PATH > "$GITHUB_WORKSPACE/path"
+          source $(cat "$GITHUB_WORKSPACE/mod_init") ; type module
           export EASYBUILD_MODULES_TOOL=Lmod
 
           # Verify LMOD install
