@@ -1,0 +1,33 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'MOB-suite'
+version = '3.1.9'
+
+homepage = "https://github.com/phac-nml/mob-suite"
+description = """Software tools for clustering, reconstruction and typing of plasmids from draft assemblies."""
+
+toolchain = {'name': 'foss', 'version': '2022b'}
+
+dependencies = [
+    ('Python', '3.10.8'),
+    ('Biopython', '1.81'),
+    ('BLAST+', '2.14.0'),
+    ('ETE', '3.1.3'),
+    ('Mash', '2.3'),
+    ('PyTables', '3.8.0'),
+    ('PycURL', '7.45.2'),
+    ('SciPy-bundle', '2023.02'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_list = [
+    ('mob_suite', version, {
+        'preinstallopts': 'sed -i "s/numpy>=1.11.1,<1.23.5/numpy>=1.11.1,<1.24.5/" setup.py &&',
+        'checksums': ['c5313378d22fb45d684101054eee6153244261e355668f843d2d956209f9fb97'],
+    }),
+]
+
+moduleclass = 'bio'
