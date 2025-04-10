@@ -15,15 +15,13 @@ dependencies = [
     ('SciPy-bundle', '2023.07'),
     ('networkx', '3.1'),
     ('Pillow-SIMD', '9.5.0'),
+    ('tornado', '6.3.2'),
 ]
 
 use_pip = True
 sanity_pip_check = True
 
 exts_list = [
-    ('tornado', '6.2', {
-        'checksums': ['9b630419bde84ec666bfd7ea0a4cb2a8a651c2d5cccdbdd1972a0c859dfc3c13'],
-    }),
     ('jsonpointer', '2.3', {
         'checksums': ['97cba51526c829282218feb99dab1b1e6bdf8efd1c43dc9d57be093c0d69c99a'],
     }),
