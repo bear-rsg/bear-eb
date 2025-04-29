@@ -57,8 +57,8 @@ diff -Naur vaspkit.1.5.1.orig/how_to_set_environment_variables vaspkit.1.5.1/how
 +#SBATCH --job-name=name            # Job name
 +#SBATCH --output=out               # Standard output
 +#SBATCH --error=err                # Standard error
-+#SBATCH --nodes=2                  # Number of nodes
-+#SBATCH --ntasks-per-node=4        # Number of tasks per node
++#SBATCH --nodes=1                  # Number of nodes
++#SBATCH --ntasks-per-node=8        # Number of tasks per node
 +#SBATCH --requeue                  # Requeue the job if it fails
 +cd $SLURM_SUBMIT_DIR
  mpirun -np 8 vasp_std > vasp-out
