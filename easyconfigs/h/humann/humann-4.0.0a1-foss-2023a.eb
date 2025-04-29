@@ -18,7 +18,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 dependencies = {
     ('Python', '3.11.3'),
-    ('SciPy-bundle', '2023.07'),
+    ('MetaPhlAn', '4.1.1')
 }
 
 exts_list = [
