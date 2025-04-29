@@ -1,0 +1,70 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'figeno'
+version = '1.6.6'
+
+homepage = "https://github.com/CompEpigen/figeno"
+description = """Tool for plotting sequencing data along genomic coordinates."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('Pysam', '0.22.0'),
+    ('pyBigWig', '0.3.22'),
+    ('Flask', '2.3.3'),
+    ('hatchling', '1.18.0'),
+    ('h5py', '3.9.0'),
+    ('pyfaidx', '0.8.1.1'),
+    ('multiprocess', '0.70.15'),
+    ('PyYAML', '6.0'),
+]
+
+sanity_pip_check = True
+use_pip = True
+
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+}
+
+exts_list = [
+    ('importlib_resources', '6.1.1', {
+        'checksums': ['3893a00122eafde6894c59914446a512f728a0c1a45f9bb9b63721b6bacf0b4a'],
+    }),
+    ('vcfpy', '0.13.6', {
+        'checksums': ['778afe1dfec387206ddac754186e0777c326e0c300496b7631ade532532ce0bb'],
+    }),
+    ('asciitree', '0.3.3', {
+        'checksums': ['4aa4b9b649f85e3fcb343363d97564aa1fb62e249677f2e18a96765145cc0f6e'],
+    }),
+    ('toolz', '0.12.0', {
+        'checksums': ['88c570861c440ee3f2f6037c4654613228ff40c93a6c25e0eba70d17282c6194'],
+    }),
+    ('cytoolz', '0.12.2', {
+        'checksums': ['31d4b0455d72d914645f803d917daf4f314d115c70de0578d3820deb8b101f66'],
+    }),
+    ('cooler', '0.9.3', {
+        'checksums': ['21eee066d6fa30185cd21b0ead94beb341a9fb974bd3190ee22627424a040b63'],
+    }),
+    ('filedialpy', '1.2.0', {
+        'checksums': ['f087c06f4aba3ed840927c63821030a194e07715ee003a41ba8546ca5185bcb4'],
+    }),
+    ('bottle', '0.12.25', {
+        'checksums': ['e1a9c94970ae6d710b3fb4526294dfeb86f2cb4a81eff3a4b98dc40fb0e5e021'],
+    }),
+    ('proxy_tools', '0.1.0', {
+        'checksums': ['ccb3751f529c047e2d8a58440d86b205303cf0fe8146f784d1cbcd94f0a28010'],
+    }),
+    ('pywebview', '4.4.1', {
+        'modulename': 'webview',
+        'checksums': ['ea4c517e9265fadfd77937facb67787c07425d303b00b9d5c3a401bbb4576941'],
+    }),
+    (name, version, {
+        'checksums': ['9eecd8ba12cdad34a55c079e16947ad7814fdb7a5302492e16fe30d97b381d28'],
+    }),
+]
+
+moduleclass = 'vis'
