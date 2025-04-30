@@ -327,4 +327,3 @@ sanity_check_commands = [
 ]
 
 moduleclass = 'bio'
-#[('chopper', '0.10.0')]
