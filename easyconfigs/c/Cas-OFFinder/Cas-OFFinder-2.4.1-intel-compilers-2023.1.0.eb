@@ -1,0 +1,34 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMakeCp'
+name = 'Cas-OFFinder'
+version = '2.4.1'
+
+homepage = "http://www.rgenome.net/cas-offinder/portable"
+description = """A fast and versatile algorithm that searches for potential off-target sites of Cas9 RNA-guided
+ endonucleases."""
+
+_intelver = '2023.1.0'
+toolchain = {'name': 'intel-compilers', 'version': _intelver}
+toolchainopts = {'openmp': True}
+
+source_urls = ['https://github.com/snugel/cas-offinder/archive']
+sources = ['%(version)s.tar.gz']
+checksums = ['b33b9f39c15abae317ddaf6a4d93cd4dd184a73e8437a1a1c2dc75d933531f84']
+
+builddependencies = [('CMake', '3.26.3')]
+
+configopts = '-DOpenCL_LIBRARY=$EBROOTINTELMINCOMPILERS/compiler/%s/linux/lib/libOpenCL.%s ' % (_intelver, SHLIB_EXT)
+configopts += '-DOpenCL_INCLUDE_DIR=$EBROOTINTELMINCOMPILERS/compiler/%s/linux/include/sycl' % _intelver
+
+files_to_copy = [
+    (['%(namelower)s'], 'bin'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['%(namelower)s']
+
+moduleclass = 'bio'
