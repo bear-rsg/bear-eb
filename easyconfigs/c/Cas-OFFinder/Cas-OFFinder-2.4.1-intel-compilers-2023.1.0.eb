@@ -9,6 +9,7 @@ description = """A fast and versatile algorithm that searches for potential off-
 
 _intelver = '2023.1.0'
 toolchain = {'name': 'intel-compilers', 'version': _intelver}
+toolchainopts = {'openmp': True}
 
 source_urls = ['https://github.com/snugel/cas-offinder/archive']
 sources = ['%(version)s.tar.gz']
