@@ -7,22 +7,23 @@ homepage = "http://www.rgenome.net/cas-offinder/portable"
 description = """A fast and versatile algorithm that searches for potential off-target sites of Cas9 RNA-guided
  endonucleases."""
 
-toolchain = {'name': 'intel-compilers', 'version': '2023.1.0'}
+_toolchainver = '2023.1.0'
+toolchain = {'name': 'intel-compilers', 'version': _toolchainver}
 
 source_urls = ['https://github.com/snugel/cas-offinder/archive']
 sources = ['%(version)s.tar.gz']
 checksums = ['b33b9f39c15abae317ddaf6a4d93cd4dd184a73e8437a1a1c2dc75d933531f84']
 
-configopts = '-DOpenCL_LIBRARY=$EBROOTINTELMINCOMPILERS/compiler/2023.1.0/linux/lib/libOpenCL.so '
-configopts += '-DOpenCL_INCLUDE_DIR=$EBROOTINTELMINCOMPILERS/compiler/2023.1.0/linux/include/sycl'
+configopts = '-DOpenCL_LIBRARY=$EBROOTINTELMINCOMPILERS/compiler/%s/linux/lib/libOpenCL.so ' % _toolchainver
+configopts += '-DOpenCL_INCLUDE_DIR=$EBROOTINTELMINCOMPILERS/compiler/%s/linux/include/sycl' % _toolchainver
 
-files_to_copy = [(['cas-offinder'], 'bin')]
+files_to_copy = [(['%(namelower)s'], 'bin')]
 
 sanity_check_paths = {
-    'files': ['bin/cas-offinder'],
+    'files': ['bin/%(namelower)s'],
     'dirs': [],
 }
 
-sanity_check_commands = ['cas-offinder']
+sanity_check_commands = ['%(namelower)s']
 
 moduleclass = 'bio'
