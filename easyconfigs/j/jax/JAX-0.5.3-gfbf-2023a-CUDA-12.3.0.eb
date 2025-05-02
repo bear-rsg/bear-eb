@@ -1,0 +1,89 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Denis Kristak
+# Updated by: Alex Domingo (Vrije Universiteit Brussel)
+# Updated by: Pavel Tománek (INUITS)
+# Updated by: Thomas Hoffmann (EMBL Heidelberg)
+easyblock = 'PythonBundle'
+
+name = 'JAX'
+version = '0.5.3'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://jax.readthedocs.io/'
+description = """Composable transformations of Python+NumPy programs:
+differentiate, vectorize, JIT to GPU/TPU, and more"""
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+cuda_compute_capabilities = ["5.0", "6.0", "6.1", "7.0", "7.5", "8.0", "8.6", "9.0"]
+
+builddependencies = [
+    ('pytest-xdist', '3.3.1'),
+    ('matplotlib', '3.7.2'),  # required for tests/lobpcg_test.py
+]
+
+dependencies = [
+    ('CUDA', '12.3.0', '', SYSTEM),
+    ('cuDNN', '8.9.7.29', versionsuffix, SYSTEM),
+    ('NCCL', '2.18.3', versionsuffix),
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('absl-py', '2.1.0'),
+    ('flatbuffers-python', '23.5.26'),
+    ('zlib', '1.2.13'),
+]
+
+#Test commit hash
+local_testhash = 'c8032a9904eeb2410995425f817929f507fe22d5'
+# Some tests require an isolated run:
+local_isolated_tests = [
+    'tests/host_callback_test.py::HostCallbackTapTest::test_tap_scan_custom_jvp',
+    'tests/host_callback_test.py::HostCallbackTapTest::test_tap_transforms_doc',
+    'tests/lax_scipy_special_functions_test.py::LaxScipySpcialFunctionsTest' +
+    '::testScipySpecialFun_gammainc_s_2x1x4_float32_float32',
+]
+# deliberately not testing in parallel, as that results in (additional) failing tests;
+# use XLA_PYTHON_CLIENT_ALLOCATOR=platform to allocate and deallocate GPU memory during testing,
+# see https://github.com/google/jax/issues/7323 and
+# https://github.com/google/jax/blob/main/docs/gpu_memory_allocation.rst;
+# use CUDA_VISIBLE_DEVICES=0 to avoid failing tests on systems with multiple GPUs;
+# use NVIDIA_TF32_OVERRIDE=0 to avoid loosing numerical precision by disabling TF32 Tensor Cores;
+local_test_exports = [
+    "NVIDIA_TF32_OVERRIDE=0",
+    "CUDA_VISIBLE_DEVICES=0",
+    "XLA_PYTHON_CLIENT_ALLOCATOR=platform",
+    "JAX_ENABLE_X64=true",
+]
+#download tests
+local_test = ''.join(['pushd %(builddir)s && '])
+local_test += ''.join(['wget -r https://github.com/jax-ml/jax/tree/%s/tests && ' % local_testhash])
+local_test += ''.join(['export %s;' % x for x in local_test_exports])
+# run all tests at once except for local_isolated_tests:
+local_test += "pytest -vv tests %s && " % ' '.join(['--deselect %s' % x for x in local_isolated_tests])
+# run remaining local_isolated_tests separately: 
+local_test += ' && '.join(['pytest -vv %s && popd' % x for x in local_isolated_tests])
+
+use_pip = True
+
+exts_list = [
+    ('opt_einsum', '3.4.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['69bb92469f86a1565195ece4ac0323943e83477171b91d24c35afe028a90d7cd'],
+    }),
+    ('ml_dtypes', '0.5.1', {
+        'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['c09526488c3a9e8b7a23a388d4974b670a9a3dd40c5c8a61db5593ce9b725bab'],
+    }),
+    ((name + 'lib'), version, {
+        'source_tmpl': '%(namelower)s-%(version)s-cp311-cp311-manylinux2014_x86_64.whl',
+        'checksums': ['29e1530fc81833216f1e28b578d0c59697654f72ee31c7a44ed7753baf5ac466'],
+    }),
+    (name, version, {
+        'runtest': local_test,
+        'source_tmpl': '%(namelower)s-%(version)s-py3-none-any.whl',
+        'checksums': ['1483dc237b4f47e41755d69429e8c3c138736716147cd43bb2b99b259d4e3c41'],
+    }),
+]
+
+sanity_pip_check = True
+
+moduleclass = 'ai'
