@@ -62,7 +62,7 @@ local_test = ''.join(['pushd %(builddir)s && '])
 local_test += ''.join(['export %s;' % x for x in local_test_exports])
 # run all tests at once except for local_isolated_tests:
 local_test += "pytest -vv tests %s && " % ' '.join(['--deselect %s' % x for x in local_isolated_tests])
-# run remaining local_isolated_tests separately: 
+# run remaining local_isolated_tests separately:
 local_test += ' && '.join(['pytest -vv %s' % x for x in local_isolated_tests])
 local_test += '&& popd'
 
@@ -112,8 +112,6 @@ exts_list = [
     (name, version, {
         'source_tmpl': SOURCELOWER_PY3_WHL,
         'checksums': ['1483dc237b4f47e41755d69429e8c3c138736716147cd43bb2b99b259d4e3c41'],
-#        'runtest': local_test,
-#        'testinstall': True,
     }),
 ]
 
