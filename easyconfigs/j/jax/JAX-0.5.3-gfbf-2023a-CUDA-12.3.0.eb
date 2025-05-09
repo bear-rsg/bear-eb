@@ -3,6 +3,7 @@
 # Updated by: Alex Domingo (Vrije Universiteit Brussel)
 # Updated by: Pavel Tománek (INUITS)
 # Updated by: Thomas Hoffmann (EMBL Heidelberg)
+# Updated by: Vladislav Mogilev (University of Birmingham)
 easyblock = 'PythonBundle'
 
 name = 'JAX'
@@ -33,7 +34,7 @@ dependencies = [
     ('zlib', '1.2.13'),
 ]
 
-#Test commit hash
+# Test commit hash
 local_testhash = 'c8032a9904eeb2410995425f817929f507fe22d5'
 # Some tests require an isolated run:
 local_isolated_tests = [
@@ -55,16 +56,15 @@ local_test_exports = [
     "JAX_ENABLE_X64=true",
 
 ]
-#download tests
+# go to tests location
 local_test = ''.join(['pushd %(builddir)s && '])
-#local_test += ''.join(['wget -r https://github.com/jax-ml/jax/tree/%s/tests && ' % local_testhash])
+# local_test += ''.join(['wget -r https://github.com/jax-ml/jax/tree/%s/tests && ' % local_testhash])
 local_test += ''.join(['export %s;' % x for x in local_test_exports])
 # run all tests at once except for local_isolated_tests:
 local_test += "pytest -vv tests %s && " % ' '.join(['--deselect %s' % x for x in local_isolated_tests])
 # run remaining local_isolated_tests separately: 
 local_test += ' && '.join(['pytest -vv %s' % x for x in local_isolated_tests])
 local_test += '&& popd'
-#local_test += ' && '.join(['pytest -vv %s && popd' % x for x in local_isolated_tests])
 
 components = [
     ('tests', local_testhash[:8], {
@@ -77,7 +77,6 @@ components = [
                 'extract_cmd': 'tar -xf %s  --strip-components 1 "*/tests"'
             },
         ],
-#        'start_dir': '%(builddir)s',
         'checksums': [{'%(name)s-%(version)s': '1094581a30ec069965f4e3e67d60262570cc3dd016adc62073bc24347b14270c'}]
     }),
 ]
@@ -87,11 +86,12 @@ use_pip = True
 
 exts_list = [
     ('opt_einsum', '3.4.0', {
-        'source_tmpl': SOURCE_PY3_WHL, #'%(name)s-%(version)s-py%(pymajver)s-none-any.whl',
+        'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['69bb92469f86a1565195ece4ac0323943e83477171b91d24c35afe028a90d7cd'],
     }),
     ('ml_dtypes', '0.5.1', {
-        'source_tmpl': f'%(name)s-%(version)s-cp{_pyvers}-cp{_pyvers}-manylinux_2_17_%(arch)s.manylinux2014_%(arch)s.whl',
+        'source_tmpl':
+            f'%(name)s-%(version)s-cp{_pyvers}-cp{_pyvers}-manylinux_2_17_%(arch)s.manylinux2014_%(arch)s.whl',
         'checksums': ['c09526488c3a9e8b7a23a388d4974b670a9a3dd40c5c8a61db5593ce9b725bab'],
     }),
     ((name + 'lib'), version, {
@@ -101,24 +101,20 @@ exts_list = [
     (('%(namelower)s_cuda%(cudamajver)s_pjrt'), version, {
         'source_tmpl': '%(name)s-%(version)s-py%(pymajver)s-none-manylinux2014_%(arch)s.whl',
         'checksums': ['c5378306568ba0c81b230a779dd3194c9dd10339ab6360ae80928108d37e7f75'],
-        'skipsteps': ['sanitycheck'],
         'modulename': name.lower(),
+        'skipsteps': ['sanitycheck'],
         'sanity_check_commands': ['python -c "import jax._src.xla_bridge"']
     }),
     (('%(namelower)s_cuda%(cudamajver)s_plugin'), version, {
         'source_tmpl': f'%(name)s-%(version)s-cp{_pyvers}-cp{_pyvers}-manylinux2014_%(arch)s.whl',
         'checksums': ['aaa704a5ef547595d022db1c1e4878a0677116412a9360c115d67ff4b64e1596'],
-#        'runtest': local_test,
     }),
     (name, version, {
-        'source_tmpl': SOURCELOWER_PY3_WHL, #'%(namelower)s-%(version)s-py%(pymajver)s-none-any.whl',
+        'source_tmpl': SOURCELOWER_PY3_WHL,
         'checksums': ['1483dc237b4f47e41755d69429e8c3c138736716147cd43bb2b99b259d4e3c41'],
 #        'runtest': local_test,
 #        'testinstall': True,
     }),
-#    (name, version, {
-#        'runtest': local_test,
-#    }),
 ]
 
 sanity_pip_check = True
