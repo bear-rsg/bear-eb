@@ -1,0 +1,27 @@
+easyblock = 'Tarball'
+
+name = 'Xenium-Ranger'
+version = '3.1.1'
+
+homepage = 'https://www.10xgenomics.com/support/software/xenium-ranger/latest/getting-started'
+description = """The Xenium In Situ software suite is a set of software applications for analyzing and visualizing
+ in situ gene expression data produced by the Xenium Analyzer."""
+
+toolchain = SYSTEM
+
+download_instructions = """
+Download manually from https://www.10xgenomics.com/support/software/xenium-ranger/downloads
+"""
+sources = ['xeniumranger-%(version)s.tar.gz']
+checksums = ['44ad0a998d2fb7d0d2ba3a34f20bb95b79d8746d0cad98b66cbb8ea5a635794e']
+
+keepsymlinks = True
+
+sanity_check_paths = {
+    'files': ['bin/xeniumranger'],
+    'dirs': ['mro', 'external'],
+}
+
+sanity_check_commands = ['xeniumranger --help']
+
+moduleclass = 'bio'
