@@ -37,4 +37,6 @@ exts_list = [
     }),
 ]
 
+sanity_check_commands = ["python -c 'from visdom.server.build import download_scripts; download_scripts()'"]
+
 moduleclass = 'lib'
