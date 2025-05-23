@@ -11,8 +11,11 @@ description = """Graph realignment tools for structural variants.
 """
 
 toolchain = {'name': 'GCC', 'version': '11.3.0'}
-#toolchainopts = {'cstd': 'c++14', 'optarch': True}
-toolchainopts = {'extra_cxxflags': '-Wno-error=ignored-qualifiers -Wno-error=maybe-uninitialized -Wno-error=range-loop-construct -Wno-error=format= -Wno-format -Wno-error=deprecated-copy' }
+toolchainopts = {'extra_cxxflags': """-Wno-error=ignored-qualifiers \
+    -Wno-error=maybe-uninitialized \
+    -Wno-error=range-loop-construct \
+    -Wno-error=format \
+    -Wno-error=deprecated-copy """}
 
 github_account = 'Illumina'
 source_urls = [GITHUB_SOURCE]
@@ -35,9 +38,6 @@ checksums = [
     {'Paragraph-v2.4a_graphtoolsLimitsHeader.patch':
      '0dbe67f884d11d72e3912b98414af2539516a64fad9eba7c917cefa2234a4125'},
 ]
-
-#sources = ['%(version)s.tar.gz']
-#patches = ['boostStaticLibOFF.patch']
 
 builddependencies = [('CMake', '3.24.3')]
 dependencies = [
