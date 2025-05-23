@@ -45,8 +45,11 @@ dependencies = [
     ('Python', '3.10.4'),
     ('HTSlib', '1.16'),
     ('googletest', '1.11.0'),
+    ('Pysam', '0.20.0'),
 ]
 configopts = "-DGRAPHTOOLS_SOURCE_DIR=%(start_dir)s/external/graphtools-src"
+
+sanity_check_commands = [('multigrmpy.py', '-h'), ('multiparagraph.py', '-h')]
 
 sanity_check_paths = {
     'files': ['bin/paragraph'],
