@@ -6,7 +6,7 @@ version = '2.4a'
 
 homepage = "https://github.com/Illumina/paragraph"
 description = """Graph realignment tools for structural variants.
- Paragraph aims to facilitate known variants analysis by providing an accurate genotyper 
+ Paragraph aims to facilitate known variants analysis by providing an accurate genotyper
  for Structural Variations with short-read data.
 """
 
