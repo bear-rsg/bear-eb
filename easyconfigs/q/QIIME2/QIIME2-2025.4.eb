@@ -1,0 +1,35 @@
+# EasyBuild recipy for QIIME2
+# Author: Caspar van Leeuwen
+# SURFsara - The Netherlands
+# Updated by BEAR Apps Team, University of Birmingham
+
+easyblock = 'Conda'
+
+name = 'QIIME2'
+version = '2025.4'
+
+homepage = 'https://qiime2.org/'
+description = """QIIME is an open-source bioinformatics pipeline for performing microbiome analysis
+ from raw DNA sequencing data."""
+
+source_urls = ['https://raw.githubusercontent.com/qiime2/distributions/refs/heads/dev/%(version)s/amplicon/released/']
+sources = [{
+    'download_filename': 'qiime2-amplicon-ubuntu-latest-conda.yml',
+    'filename': 'qiime2-amplicon-ubuntu-%(version)s-conda.yml',
+}]
+checksums = ['f6a028954194fdad1f052224bbc8919a2affff2a10c71e61683e3077a5bdbcaf']
+
+toolchain = SYSTEM
+
+builddependencies = [('Miniforge3', '24.1.2-0')]
+
+environment_file = 'qiime2-amplicon-ubuntu-%(version)s-conda.yml'
+
+sanity_check_commands = ['qiime info']
+
+sanity_check_paths = {
+    'files': ["bin/qiime"],
+    'dirs': ["lib", "include"],
+}
+
+moduleclass = 'bio'
