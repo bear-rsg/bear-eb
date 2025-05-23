@@ -1,0 +1,108 @@
+diff -ru paragraph.orig/CMakeLists.txt paragraph/CMakeLists.txt
+--- paragraph.orig/CMakeLists.txt	2025-05-16 13:57:19.371745000 +0100
++++ paragraph/CMakeLists.txt	2025-05-21 12:57:56.973544000 +0100
+@@ -28,7 +28,10 @@
+ 
+ include(FindZLIB)
+ include(GetHtslib)
+-include(GetGoogleTest)
++#find_package(HTSlib REQUIRED)
++#include(GetGoogleTest)
++find_package(GTest CONFIG REQUIRED COMPONENTS GTest GMock)
++set(GTEST_BOTH_LIBRARIES ${GTEST_BOTH_LIBRARIES} GTest::gmock)
+ include(GetGraphTools)
+ include(GetSpdlog)
+ 
+@@ -48,9 +51,9 @@
+ 
+ find_package (Threads REQUIRED)
+ 
+-set(Boost_USE_STATIC_LIBS        ON)  # only find static libs
++set(Boost_USE_STATIC_LIBS        OFF)  # only find static libs
+ set(Boost_USE_MULTITHREADED      ON)
+-set(Boost_USE_STATIC_RUNTIME     ON)
++set(Boost_USE_STATIC_RUNTIME     OFF)
+ find_package(Boost 1.5 COMPONENTS iostreams program_options filesystem system REQUIRED)
+ 
+ include_directories(${ZLIB_INCLUDE_DIR})
+@@ -67,7 +70,7 @@
+ add_library(grm STATIC $<TARGET_OBJECTS:grmpy_common> $<TARGET_OBJECTS:external>)
+ set(GRM_LIBRARY grm)
+ 
+-set(GRM_EXTERNAL_LIBS ${HTSLIB_LIBRARY}
++set(GRM_EXTERNAL_LIBS ${HTSLIB_LIBRARY} ssl crypto
+                       ${GRAPHTOOLS_LIBRARY}
+                       ${CMAKE_THREAD_LIBS_INIT}
+                       ${Boost_LIBRARIES}
+diff -ru paragraph.orig/src/c++/test/CMakeLists.txt paragraph/src/c++/test/CMakeLists.txt
+--- paragraph.orig/src/c++/test/CMakeLists.txt	2025-05-16 13:59:45.444160640 +0100
++++ paragraph/src/c++/test/CMakeLists.txt	2025-05-23 11:44:27.144526493 +0100
+@@ -1,8 +1,8 @@
+ 
+-include_directories(${CMAKE_BINARY_DIR}/scratch/googletest-release-1.7.0/include)
++include_directories("$ENV{EBROOTGOOGLETEST}"/include)
+ 
+ file(GLOB TEST_SOURCES test_*.cpp test_*.c)
+ 
+ add_executable(test_grm ${TEST_SOURCES})
+-target_link_libraries(test_grm ${GRM_LIBRARY} ${GRM_EXTERNAL_LIBS} ${GTEST_LIBRARY})
++target_link_libraries(test_grm ${GRM_LIBRARY} ${GRM_EXTERNAL_LIBS} ${GTEST_BOTH_LIBRARIES})
+ SET(LINK_LIBRARIES test_grm)
+diff -ru paragraph.orig/src/c++/test-blackbox/CMakeLists.txt paragraph/src/c++/test-blackbox/CMakeLists.txt
+--- paragraph.orig/src/c++/test-blackbox/CMakeLists.txt	2025-05-16 13:59:45.439219023 +0100
++++ paragraph/src/c++/test-blackbox/CMakeLists.txt	2025-05-23 11:41:19.653107271 +0100
+@@ -1,6 +1,6 @@
+-include_directories(${CMAKE_BINARY_DIR}/scratch/googletest-release-1.7.0/include)
++include_directories("$ENV:{EBROOTGOOGLETEST}"/include)
+ 
+ file(GLOB TEST_SOURCES test_*.cpp test_*.c)
+ 
+ add_executable(test_blackbox ${TEST_SOURCES})
+-target_link_libraries(test_blackbox ${GRM_LIBRARY} ${GRM_EXTERNAL_LIBS} ${GTEST_LIBRARY})
++target_link_libraries(test_blackbox ${GRM_LIBRARY} ${GRM_EXTERNAL_LIBS} ${GTEST_BOTH_LIBRARIES})
+diff -ru paragraph.orig/src/c++/test-blackbox/test_multithreading.cpp paragraph/src/c++/test-blackbox/test_multithreading.cpp
+--- paragraph.orig/src/c++/test-blackbox/test_multithreading.cpp	2025-05-16 13:59:45.442106000 +0100
++++ paragraph/src/c++/test-blackbox/test_multithreading.cpp	2025-05-23 14:28:43.483132000 +0100
+@@ -36,7 +36,7 @@
+ 
+ using paragraph::alignAndDisambiguate;
+ 
+-auto compare_values = [](Json::Value const& lhs, Json::Value const& rhs) {
++auto static compare_values = [](Json::Value const& lhs, Json::Value const& rhs) {
+     for (auto const& name : lhs.getMemberNames())
+     {
+         if (name.find("FWD") != std::string::npos || name.find("REV") != std::string::npos)
+diff -ru paragraph.orig/src/c++/test-blackbox/test_paragraph.cpp paragraph/src/c++/test-blackbox/test_paragraph.cpp
+--- paragraph.orig/src/c++/test-blackbox/test_paragraph.cpp	2025-05-16 13:59:45.442717000 +0100
++++ paragraph/src/c++/test-blackbox/test_paragraph.cpp	2025-05-23 14:29:21.729353000 +0100
+@@ -44,7 +44,7 @@
+ 
+ using namespace paragraph;
+ 
+-auto compare_values = [](Json::Value const& lhs, Json::Value const& rhs) {
++auto static compare_values = [](Json::Value const& lhs, Json::Value const& rhs) {
+     for (auto const& name : lhs.getMemberNames())
+     {
+         // when the glitch in FWD/REV counting is solved, remove this condition
+diff -ru paragraph.orig/src/cmake/GetHtslib.cmake paragraph/src/cmake/GetHtslib.cmake
+--- paragraph.orig/src/cmake/GetHtslib.cmake	2025-05-16 13:59:45.466973158 +0100
++++ paragraph/src/cmake/GetHtslib.cmake	2025-05-20 18:40:50.698029054 +0100
+@@ -1,4 +1,4 @@
+-set(HTSLIB_INSTALL_PATH "$ENV{HTSLIB_INSTALL_PATH}" CACHE STRING "Specify a pre-built version of htslib (install prefix).")
++set(HTSLIB_INSTALL_PATH "$ENV{EBROOTHTSLIB}" CACHE STRING "Specify a pre-built version of htslib (install prefix).")
+ 
+ include(FindZLIB)
+ include(FindBZip2)
+@@ -44,9 +44,11 @@
+ include_directories(${LIBLZMA_INCLUDE_DIRS})
+ 
+ include_directories("${HTSLIB_INSTALL_PATH}/include")
++find_library(CURL_LIBRARY NAMES libcurl.so
++        HINTS "$ENV{EBROOTCURL}/lib" NO_DEFAULT_PATH)
+ find_library(HTSLIB_LIBRARY NAMES libhts.a
+         HINTS "${HTSLIB_INSTALL_PATH}/lib" NO_DEFAULT_PATH)
+-set(HTSLIB_LIBRARY ${HTSLIB_LIBRARY} ${LIBLZMA_LIBRARIES})
++set(HTSLIB_LIBRARY ${HTSLIB_LIBRARY} ${LIBLZMA_LIBRARIES} ${CURL_LIBRARY})
+ 
+ # install htslib
+ FILE(GLOB HTSLIB_LIBRARY_FILES "${HTSLIB_INSTALL_PATH}/lib/*.a" "${HTSLIB_INSTALL_PATH}/lib/*.dylib" "${HTSLIB_INSTALL_PATH}/lib/*.so")
