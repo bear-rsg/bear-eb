@@ -20,12 +20,6 @@ dependencies = [
     ('XZ', '5.2.5'),
 ]
 
-
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 # remove the strict requirements; important for exts in our python toolchain & for awscrt <v0.16
 local_preinstallopts = "sed -i '/^dep/,/^]/d' pyproject.toml && "
 

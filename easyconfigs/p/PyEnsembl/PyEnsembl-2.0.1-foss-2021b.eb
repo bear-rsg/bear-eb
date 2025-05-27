@@ -14,11 +14,6 @@ dependencies = [
     ('SciPy-bundle', '2021.10'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('progressbar33', '2.4', {
         'modulename': 'progressbar',

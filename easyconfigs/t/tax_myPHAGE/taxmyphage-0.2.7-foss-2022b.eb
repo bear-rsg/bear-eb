@@ -26,11 +26,6 @@ dependencies = [
     ('BLAST+', '2.14.0'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 local_taxmyphage_preinstallopts = "sed -i '/^biopython =/,/^zipp =/d' pyproject.toml && "
 
 exts_list = [

@@ -23,11 +23,6 @@ dependencies = [
     ('PyYAML', '6.0'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('importlib_resources', '6.1.1', {
         'checksums': ['3893a00122eafde6894c59914446a512f728a0c1a45f9bb9b63721b6bacf0b4a'],

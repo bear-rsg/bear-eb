@@ -22,11 +22,6 @@ dependencies = [
     ('PyQt5', '5.15.4'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('QtPy', '2.2.1', {
         'checksums': ['7d5231133b772e40b4ee514b6673aca558331e4b88ca038b26c9e16c5c95524f'],

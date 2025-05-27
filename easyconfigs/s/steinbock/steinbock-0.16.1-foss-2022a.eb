@@ -19,11 +19,6 @@ dependencies = [
     ('Cellpose', '2.2'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('anndata', '0.8.0', {
         'checksums': ['94d2cc6f76c0317c0ac28564e3092b313b7ad19c737d66701961f3e620b9066e'],

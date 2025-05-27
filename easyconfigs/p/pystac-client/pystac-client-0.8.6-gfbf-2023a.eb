@@ -19,11 +19,6 @@ dependencies = [
     ('Python-bundle-PyPI', '2023.06'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('rpds_py', '0.17.1', {
         'modulename': 'rpds',

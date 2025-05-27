@@ -21,11 +21,6 @@ dependencies = [
     ('SciPy-bundle', '2023.02'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/%(github_account)s/%(name)s/archive'],

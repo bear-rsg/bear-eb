@@ -24,11 +24,6 @@ dependencies = [
     ('PDAL', '2.5.5'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('mdurl', '0.1.2', {
         'checksums': ['bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba'],

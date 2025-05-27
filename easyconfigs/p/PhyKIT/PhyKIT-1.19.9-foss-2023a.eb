@@ -17,11 +17,6 @@ dependencies = [
     ('scikit-learn', '1.4.2'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 local_preinstallopts = "sed -i 's/>=1.11.3/>=1.11.1/' setup.py && "
 
 exts_list = [

@@ -27,11 +27,6 @@ dependencies = [
     ('DEXSeq', '1.50.0', '-R-%(rver)s'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('ncls', '0.0.68', {
         'checksums': ['81aaa5abb123bb21797ed2f8ef921e20222db14a3ecbc61ccf447532f2b7ba93'],

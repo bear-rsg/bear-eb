@@ -25,13 +25,7 @@ dependencies = [
     ('netCDF', '4.8.1'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 # newer version of netcdf4-python appears to fix module order load issues
-
 exts_list = [
     ('netCDF4', '1.6.5', {
         'modulename': 'netCDF4',

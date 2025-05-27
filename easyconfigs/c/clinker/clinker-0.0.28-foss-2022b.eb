@@ -16,11 +16,6 @@ dependencies = [
     ('gffutils', '0.12'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('disjoint_set', '0.7.4', {
         'checksums': ['ae8b04828b2dd5112399a5deebb3fc1b257bf52d95c5e3d0ac2952610a3f7ec5'],

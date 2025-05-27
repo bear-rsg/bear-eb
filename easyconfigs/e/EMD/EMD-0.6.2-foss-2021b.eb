@@ -21,11 +21,6 @@ dependencies = [
     ('numba', '0.54.1'),
 ]
 
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('array-api-compat', '1.4', {
         'source_tmpl': 'array_api_compat-%(version)s.tar.gz',
