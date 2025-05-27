@@ -31,7 +31,6 @@ dependencies = [
     ('tsne-cuda', '3.0.1', versionsuffix),
 ]
 
-use_pip = True
 
 # avoid hatchling requirement to install (compare genomepy-0.15.0-foss-2022a.eb)
 # (since installing it introduces conflicting version requirements with poetry included with Python)
@@ -53,7 +52,6 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 sanity_check_paths = {
     'files': [],

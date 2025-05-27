@@ -25,8 +25,5 @@ postinstallcmds = [
     'sed -i "s/__version__/version.version/" %(installdir)s/lib/python3.11/site-packages/ambuild/ab_util.py'
 ]
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 moduleclass = 'chem'

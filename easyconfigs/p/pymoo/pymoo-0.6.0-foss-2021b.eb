@@ -17,8 +17,6 @@ dependencies = [
     ('SciPy-bundle', '2021.10'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_list = [
     ('about-time', '3.1.1', {

@@ -20,9 +20,6 @@ source_urls = ['https://github.com/ajw2329/cds_insertion/archive']
 sources = ['%s.tar.gz' % local_commit_id]
 checksums = ['a3fa56f0b58a1e39f4211631bcf37d5e56302b5ac00919f29eeda2da99ac0fe9']
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 fix_python_shebang_for = ['lib/python3.11/site-packages/cds_insertion/cds_insertion.py']
 

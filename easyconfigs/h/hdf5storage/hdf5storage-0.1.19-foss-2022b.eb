@@ -22,7 +22,5 @@ dependencies = [
     ('h5py', '3.8.0'),
 ]
 
-use_pip = True
-download_dep_fail = True
 
 moduleclass = 'tools'

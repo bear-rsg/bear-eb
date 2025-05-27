@@ -23,7 +23,6 @@ dependencies = [
     ('tqdm', '4.64.0'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('regex', '2023.5.5', {
@@ -45,6 +44,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'math'

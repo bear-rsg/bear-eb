@@ -27,9 +27,6 @@ checksums = [
     {'modbampy-htslib-deflate.patch': 'e1343889617e0001af696cb38b9024773a7e7ff602a058540fd0fbfc7c5b1e60'},
 ]
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 options = {'modulename': 'modbampy'}
 sanity_check_commands = ['python -c "import modbampy"']

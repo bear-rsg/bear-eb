@@ -21,7 +21,6 @@ dependencies = [
     ('pydicom', '2.4.4'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('bz2file', '0.98', {
@@ -44,6 +43,5 @@ sanity_check_commands = [
     "parrec2nii --help",
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'vis'

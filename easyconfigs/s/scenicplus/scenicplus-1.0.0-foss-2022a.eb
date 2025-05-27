@@ -56,8 +56,6 @@ dependencies = [
     ('openpyxl', '3.0.10'),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 local_pygam_preinstallopts = 'sed -i \'s|numpy = "^1.24.2"|numpy = "^1.22.3"|\' pyproject.toml && '
 local_pygam_preinstallopts += 'sed -i \'s|scipy = "^1.10.1"|scipy = "^1.8.1"|\' pyproject.toml && '

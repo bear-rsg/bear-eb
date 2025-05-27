@@ -16,8 +16,6 @@ dependencies = [
     ('tornado', '6.3.2'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_list = [
     ('jupyter_core', '5.3.1', {

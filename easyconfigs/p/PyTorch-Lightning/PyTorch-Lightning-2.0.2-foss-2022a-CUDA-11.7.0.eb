@@ -21,7 +21,6 @@ dependencies = [
     ('tqdm', '4.64.0'),
 ]
 
-use_pip = True
 
 # dependencies from requirements/app/base.txt and requirements/pytorch/base.txt
 exts_list = [
@@ -137,6 +136,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'lib'

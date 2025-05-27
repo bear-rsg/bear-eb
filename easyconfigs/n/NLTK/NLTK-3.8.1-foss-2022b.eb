@@ -24,8 +24,6 @@ local_nltk_data_install = [
 ]
 modextravars = {'NLTK_DATA': local_nltk_data}
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     ('regex', '2023.6.3', {

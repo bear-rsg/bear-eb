@@ -150,7 +150,6 @@ postinstallcmds = [
     "cd %s/ &&pip install . --no-deps --ignore-installed --prefix=%%(installdir)s" % _srcdirname,
 ]
 
-sanity_pip_check = True
 
 sanity_check_paths = {
     'files': ['lib/librelion_gui_lib.%s' % SHLIB_EXT, 'lib/librelion_jaz_gpu_util.%s' % SHLIB_EXT],

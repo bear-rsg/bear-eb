@@ -17,8 +17,5 @@ source_urls = [PYPI_SOURCE]
 sources = [SOURCE_PY3_WHL]
 checksums = ['6f668e6a8ef1a8f4f71146c92b8710295d2de412138691ce7c3cdd46a102d876']
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 moduleclass = 'vis'

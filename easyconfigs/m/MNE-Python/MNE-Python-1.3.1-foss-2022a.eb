@@ -28,8 +28,6 @@ dependencies = [
     ('VTK', '9.2.2'),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     # pooch 1.7.0 is incompatible with our Python module's platformdirs version

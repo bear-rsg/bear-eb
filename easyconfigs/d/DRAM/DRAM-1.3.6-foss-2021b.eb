@@ -33,13 +33,6 @@ dependencies = [
     ('networkx', '2.6.3'),
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('et-xmlfile', '1.1.0', {
         'sources': [{'download_filename': 'et_xmlfile-1.1.0.tar.gz', 'filename': 'et-xmlfile-1.1.0.tar.gz'}],

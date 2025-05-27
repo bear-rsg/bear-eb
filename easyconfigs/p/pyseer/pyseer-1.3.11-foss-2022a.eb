@@ -24,7 +24,6 @@ dependencies = [
     ('tqdm', '4.64.0'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('glmnet-python', '1.0.2', {
@@ -49,6 +48,5 @@ sanity_check_commands = [
     'square_mash --help',
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'bio'

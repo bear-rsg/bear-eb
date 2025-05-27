@@ -20,8 +20,6 @@ dependencies = [
     ('SciPy-bundle', '2023.02'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_list = [
     ('mob_suite', version, {

@@ -22,9 +22,6 @@ dependencies = [
     ('SciPy-bundle', '2021.10'),  # numpy, scipy, pandas
 ]
 
-download_dep_fail = True
-use_pip = True
-sanity_pip_check = True
 sanity_check_paths = {
     'files': ['bin/DCC'],
     'dirs': ['lib/python%(pyshortver)s/site-packages'],

@@ -27,13 +27,6 @@ dependencies = [
     ('numba', '0.56.4'),
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('array_api_compat', '1.4', {
         'checksums': ['d49f00eb66b436cf3a6026d6f43c115d3e058a3a9936536b0bac33dd470e8b4d'],

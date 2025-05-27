@@ -19,8 +19,6 @@ dependencies = [
     ('SciPy-bundle', '2022.05'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_list = [
     (name, version, {

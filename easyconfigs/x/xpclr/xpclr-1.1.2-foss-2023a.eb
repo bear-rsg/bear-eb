@@ -20,9 +20,6 @@ source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
 checksums = ['241ddd6ff7b8f44421b8108afcf5725f93baca465bcf55c03bf0af50f7ddaa9b']
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 sanity_check_commands = [(name, '-h')]
 

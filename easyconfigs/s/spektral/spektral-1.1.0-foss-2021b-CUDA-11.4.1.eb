@@ -28,8 +28,5 @@ dependencies = [
     ('TensorFlow', '2.7.1', versionsuffix),
 ]
 
-download_dep_fail = True
-use_pip = True
-sanity_pip_check = True
 
 moduleclass = 'lib'

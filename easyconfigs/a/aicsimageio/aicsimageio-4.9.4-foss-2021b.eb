@@ -29,13 +29,6 @@ dependencies = [
     ('typing-extensions', '3.10.0.2'),
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 local_hatchling_preinstallopts = "sed -i 's|packaging>=21.3|packaging>=20.9|g' pyproject.toml && "
 local_hatchling_preinstallopts += "sed -i 's|pluggy>=1.0.0|pluggy>=0.13.1|g' pyproject.toml && "
 local_hatchling_preinstallopts += "sed -i 's|packaging>=21.3|packaging>=20.9|g' src/hatchling/ouroboros.py && "

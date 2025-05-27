@@ -16,13 +16,6 @@ dependencies = [
     ('IPython', '8.14.0'),
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('jsonpickle', '3.0.0', {
         'checksums': ['504586e5c0fd52fd76a56f86c36f8c4d29778bdef92dc06d38ca6e2e9fc4f090'],

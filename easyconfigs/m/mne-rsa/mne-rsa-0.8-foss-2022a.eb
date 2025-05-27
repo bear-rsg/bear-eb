@@ -21,9 +21,6 @@ dependencies = [
     ('NiBabel', '4.0.2'),
 ]
 
-use_pip = True
-download_dep_fail = True
-sanity_pip_check = True
 
 modloadmsg = """
 Use import mne_rsa

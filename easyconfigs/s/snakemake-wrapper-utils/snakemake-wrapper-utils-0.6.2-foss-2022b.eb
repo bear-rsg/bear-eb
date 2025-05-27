@@ -13,8 +13,6 @@ dependencies = [
     ('snakemake', '7.32.3'),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     (name, version, {

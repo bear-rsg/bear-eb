@@ -24,8 +24,6 @@ dependencies = [
     ('ASE', '3.23.0'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_list = [
     ('rmsd', '1.6.1', {

@@ -21,7 +21,6 @@ dependencies = [
     ('pydantic', '2.5.3'),
 ]
 
-use_pip = True
 
 local_annotated_types = """sed -i -e 's/^build-backend = .*/build-backend = "setuptools.build_meta"/g' """
 local_annotated_types += """-e 's/^requires = .*/requires = ["setuptools"]/g' """
@@ -54,7 +53,6 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 sanity_check_paths = {
     'files': [],

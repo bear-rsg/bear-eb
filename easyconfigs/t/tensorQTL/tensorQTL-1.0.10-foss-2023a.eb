@@ -23,8 +23,6 @@ dependencies = [
     ('xarray', '2023.9.0'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_list = [
     ('zstandard', '0.23.0', {

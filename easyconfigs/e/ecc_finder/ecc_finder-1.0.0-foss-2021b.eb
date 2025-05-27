@@ -42,8 +42,6 @@ preinstallopts = "sed -i '$a )' setup.py && "
 # consistent message in usage instructions
 preinstallopts += """sed -i 's/usage="python/usage="/' *.py && """
 
-download_dep_fail = True
-use_pip = True
 
 options = {'modulename': 'eccFinder_lib'}
 

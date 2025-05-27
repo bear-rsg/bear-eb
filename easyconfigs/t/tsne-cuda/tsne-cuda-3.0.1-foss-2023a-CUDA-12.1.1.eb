@@ -43,7 +43,6 @@ configopts += '-DBUILD_PYTHON=ON '
 configopts += '-DWITH_MKL=OFF '
 configopts += '-DWITH_ZMQ=ON '
 
-use_pip = True
 
 install_cmd = 'python -m pip install python/ --prefix=%(installdir)s '
 

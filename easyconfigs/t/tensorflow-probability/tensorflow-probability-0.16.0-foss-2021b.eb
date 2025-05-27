@@ -24,7 +24,6 @@ dependencies = [
     ('dm-tree', '0.1.6'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('cloudpickle', '2.2.0', {
@@ -41,6 +40,5 @@ exts_list = [
 
 sanity_check_commands = ["python -c 'import tensorflow; import tensorflow_probability'"]
 
-sanity_pip_check = True
 
 moduleclass = 'lib'

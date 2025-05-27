@@ -22,8 +22,5 @@ dependencies = [
     ('cads-api-client', '1.5.0'),
 ]
 
-download_dep_fail = True
-use_pip = True
-sanity_pip_check = True
 
 moduleclass = 'tools'

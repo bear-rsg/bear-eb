@@ -21,8 +21,6 @@ source_urls = [PYPI_SOURCE]
 sources = [SOURCE_TAR_GZ]
 checksums = ['1dc3ec45c15328577557908517254d8e4ba152416f0e6bbad39e965b86730e28']
 
-use_pip = True
-sanity_pip_check = True
 
 sanity_check_paths = {
     'files': ['bin/%(namelower)s'],

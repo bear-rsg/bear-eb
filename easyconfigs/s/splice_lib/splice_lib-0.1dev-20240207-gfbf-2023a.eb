@@ -19,9 +19,6 @@ source_urls = ['https://github.com/ajw2329/splice_lib/archive']
 sources = ['%s.tar.gz' % local_commit_id]
 checksums = ['44124d265a0d8eb0641736e948894afeac235113c883cf264794228dd2b79573']
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 sanity_check_paths = {
     'files': ['lib/python%(pyshortver)s/site-packages/splice_lib/splice_lib.py'],

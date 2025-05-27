@@ -19,8 +19,6 @@ dependencies = [
     ('VTK', '9.2.6'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_list = [
     ('scooby', '0.7.2', {

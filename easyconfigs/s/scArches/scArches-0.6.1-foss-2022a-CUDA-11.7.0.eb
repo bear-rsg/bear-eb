@@ -26,7 +26,6 @@ dependencies = [
     ('loompy', '3.0.7'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('gdown', '4.7.3', {
@@ -48,6 +47,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'bio'

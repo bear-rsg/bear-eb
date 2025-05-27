@@ -23,8 +23,6 @@ dependencies = [
     ('PyTorch', local_pt_version, local_cuda_suffix),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 _tv_preinstallopts = ' '.join([
     'sed -i "s/CMAKE_CXX_STANDARD 14/CMAKE_CXX_STANDARD 17/" CMakeLists.txt horovod/torch/CMakeLists.txt && ',

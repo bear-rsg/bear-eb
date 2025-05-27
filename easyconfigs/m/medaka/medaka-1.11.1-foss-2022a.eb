@@ -39,7 +39,6 @@ dependencies = [
     ('BCFtools', '1.15.1'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('pyspoa', '0.2.1', {
@@ -60,7 +59,6 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 sanity_check_paths = {
     'files': ['bin/medaka', 'bin/medaka_consensus', 'bin/medaka_version_report'],

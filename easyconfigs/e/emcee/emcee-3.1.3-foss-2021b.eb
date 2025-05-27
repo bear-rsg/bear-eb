@@ -22,9 +22,6 @@ dependencies = [
 
 installopts = " --no-deps  --ignore-installed "
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 sanity_check_commands = ["py.test $(dirname `python -c 'import %(name)s; print(%(name)s.__file__)'`)"]
 

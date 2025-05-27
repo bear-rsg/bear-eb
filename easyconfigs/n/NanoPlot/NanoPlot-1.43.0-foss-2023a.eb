@@ -28,8 +28,6 @@ dependencies = [
     ('Kaleido', '0.2.1'),
 ]
 
-download_dep_fail = True
-use_pip = True
 
 sanity_check_paths = {
     'files': ['bin/NanoPlot'],
@@ -38,6 +36,5 @@ sanity_check_paths = {
 
 sanity_check_commands = ["NanoPlot --help"]
 
-sanity_pip_check = True
 
 moduleclass = 'bio'

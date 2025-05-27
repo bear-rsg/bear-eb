@@ -25,13 +25,6 @@ dependencies = [
     ('Clang', '16.0.6'),  # needed for bindgen (sourmash rust dep)
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('sourmash_utils', '0.2', {
         'checksums': ['9fcf3332a545850e56543f7f6edf698071d2a7e454f8b62d1910fb76e5bee642'],

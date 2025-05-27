@@ -22,13 +22,6 @@ dependencies = [
     ('Ninja', '1.10.2'),
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('xmltodict', '0.13.0', {
         'checksums': ['341595a488e3e01a85a9d8911d8912fd922ede5fecc4dce437eb4b6c8d037e56'],

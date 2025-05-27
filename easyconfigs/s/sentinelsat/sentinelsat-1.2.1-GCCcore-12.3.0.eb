@@ -19,7 +19,6 @@ dependencies = [
     ('tqdm', '4.66.1'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('html2text', '2020.1.16', {
@@ -41,6 +40,5 @@ sanity_check_commands = [
     "sentinelsat --help",
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'geo'

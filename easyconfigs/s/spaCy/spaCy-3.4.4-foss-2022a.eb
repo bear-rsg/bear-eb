@@ -8,7 +8,6 @@ description = "Industrial-strength Natural Language Processing (NLP) in Python."
 
 toolchain = {'name': 'foss', 'version': '2022a'}
 
-use_pip = True
 
 dependencies = [
     ('Python', '3.10.4'),
@@ -85,6 +84,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'data'

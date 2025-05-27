@@ -15,7 +15,6 @@ dependencies = [
     ('pyproj', '3.6.0'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('xarray', '2024.7.0', {
@@ -28,6 +27,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'geo'

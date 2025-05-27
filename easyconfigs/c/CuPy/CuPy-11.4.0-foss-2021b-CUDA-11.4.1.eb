@@ -18,7 +18,6 @@ dependencies = [
     ('cuTENSOR', '1.6.1.5', versionsuffix, SYSTEM),
 ]
 
-use_pip = True
 
 exts_default_options = {'source_urls': [PYPI_LOWER_SOURCE]}
 
@@ -34,6 +33,5 @@ exts_list = [
 # the first part seems to segfault
 sanity_check_commands = ["LD_PRELOAD=$EBROOTCUDA/targets/*-linux/lib/stubs/libcuda.* python -c 'import cupy'"]
 
-sanity_pip_check = True
 
 moduleclass = 'lib'

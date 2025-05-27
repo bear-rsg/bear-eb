@@ -30,8 +30,6 @@ dependencies = [
     ('aiohttp', '3.8.5'),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     ('googledrivedownloader', '0.4', {

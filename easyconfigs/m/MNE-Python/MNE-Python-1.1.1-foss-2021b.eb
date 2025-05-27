@@ -28,8 +28,6 @@ dependencies = [
     ('VTK', '9.1.0'),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     ('pooch', '1.6.0', {

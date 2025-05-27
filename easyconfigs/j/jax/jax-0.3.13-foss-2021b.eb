@@ -41,7 +41,6 @@ local_tf_builddir = '%(builddir)s/' + local_tf_dir
 local_jax_prebuildopts = "sed -i -f jaxlib_local-tensorflow-repo.sed WORKSPACE && "
 local_jax_prebuildopts += "sed -i 's|EB_TF_REPOPATH|%s|' WORKSPACE && " % local_tf_builddir
 
-use_pip = True
 
 default_easyblock = 'PythonPackage'
 default_component_specs = {
@@ -111,6 +110,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'tools'

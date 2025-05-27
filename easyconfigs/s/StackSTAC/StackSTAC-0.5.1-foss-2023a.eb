@@ -34,13 +34,6 @@ dependencies = [
     ('JupyterNotebook', '7.0.2'),
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('jupyterlab_widgets', '3.0.9', {
         'checksums': ['6005a4e974c7beee84060fdfba341a3218495046de8ae3ec64888e5fe19fdb4c'],

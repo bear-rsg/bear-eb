@@ -17,13 +17,6 @@ dependencies = [
     ('SciPy-bundle', '2023.07'),
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('branca', '0.8.1', {
         'checksums': ['ac397c2d79bd13af0d04193b26d5ed17031d27609a7f1fab50c438b8ae712390'],

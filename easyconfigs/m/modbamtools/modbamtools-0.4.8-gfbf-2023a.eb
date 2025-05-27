@@ -22,13 +22,6 @@ dependencies = [
     ('modbam2bed', '0.5.3'),
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('click', '8.1.3', {
         'checksums': ['7682dc8afb30297001674575ea00d1814d808d6a36af415a82bd481d37ba7b8e'],

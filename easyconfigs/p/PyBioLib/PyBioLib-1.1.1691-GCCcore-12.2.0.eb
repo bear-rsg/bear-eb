@@ -22,7 +22,6 @@ dependencies = [
     ('PyYAML', '6.0'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('commonmark', '0.9.1', {
@@ -56,6 +55,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'tools'

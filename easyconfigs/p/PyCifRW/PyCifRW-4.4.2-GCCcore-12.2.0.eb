@@ -16,11 +16,8 @@ checksums = ['a1b6ca0098c9c986b80a50f6cf05122ad65434a18b97a1120f83304ba485acc7']
 builddependencies = [('binutils', '2.39')]
 dependencies = [('Python', '2.7.18', '-bare')]
 
-use_pip = True
-download_dep_fail = True
 
 options = {'modulename': 'CifFile'}
 
-sanity_pip_check = True
 
 moduleclass = 'lib'

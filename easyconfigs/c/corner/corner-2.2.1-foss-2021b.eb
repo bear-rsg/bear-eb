@@ -18,7 +18,5 @@ dependencies = [
     ('matplotlib', '3.4.3'),
 ]
 
-use_pip = True
-download_dep_fail = True
 
 moduleclass = 'vis'

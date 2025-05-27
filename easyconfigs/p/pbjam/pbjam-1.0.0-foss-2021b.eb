@@ -20,13 +20,6 @@ dependencies = [
     ('IPython', '7.26.0'),
 ]
 
-use_pip = True
-sanity_pip_check = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('nbsphinx', '0.8.12', {
         'checksums': ['76570416cdecbeb21dbf5c3d6aa204ced6c1dd7ebef4077b5c21b8c6ece9533f'],

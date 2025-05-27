@@ -20,13 +20,6 @@ dependencies = [
     ('ruamel.yaml', '0.17.21'),
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     ('attrs', '22.1.0', {
         'checksums': ['29adc2665447e5191d0e7c568fde78b21f9672d344281d0c6e1ab085429b22b6'],

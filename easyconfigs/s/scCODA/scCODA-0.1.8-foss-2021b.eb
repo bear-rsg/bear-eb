@@ -26,13 +26,6 @@ dependencies = [
     ('tensorflow-probability', '0.16.0'),
 ]
 
-sanity_pip_check = True
-use_pip = True
-
-exts_default_options = {
-    'source_urls': [PYPI_SOURCE],
-}
-
 exts_list = [
     (name, version, {
         'checksums': ['77fed7b07310855af6e6f664cceacd9fbdb6c57c14e36274b7b7e68f6db5ee0a'],
