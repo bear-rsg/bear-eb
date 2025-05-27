@@ -33,9 +33,6 @@ source_urls = [PYPI_SOURCE]
 sources = [SOURCE_TAR_GZ]
 checksums = ['de5d960a7a761225532e0f1959e5315ebeafc0cd43394732f103ca44b9837e84']
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 sanity_check_paths = {
     'files': [],

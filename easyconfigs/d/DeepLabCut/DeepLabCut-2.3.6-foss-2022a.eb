@@ -31,8 +31,6 @@ dependencies = [
     ('imgaug', '0.4.0'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_list = [
     ('dlclibrary', '0.0.4', {

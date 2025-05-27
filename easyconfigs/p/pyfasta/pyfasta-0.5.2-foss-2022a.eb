@@ -15,8 +15,6 @@ checksums = [
     {'pyfasta-0.5.2-resolve_deprecated.patch': 'ac89992a16c4c29af64ecc75e030bffc9062c06fc802ffe1ba6b520eb35250ff'},
 ]
 
-use_pip = True
-download_dep_fail = True
 
 dependencies = [
     ('Python', '3.10.4'),
@@ -29,6 +27,5 @@ sanity_check_paths = {
 }
 # sanity_check_commands = ['pyfasta extract --help']
 
-sanity_pip_check = True
 
 moduleclass = 'tools'

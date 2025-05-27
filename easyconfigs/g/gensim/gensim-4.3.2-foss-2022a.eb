@@ -14,7 +14,6 @@ dependencies = [
     ('SciPy-bundle', '2022.05'),  # for numpy, pandas
 ]
 
-use_pip = True
 
 exts_list = [
     ('smart_open', '6.4.0', {
@@ -25,6 +24,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'lib'

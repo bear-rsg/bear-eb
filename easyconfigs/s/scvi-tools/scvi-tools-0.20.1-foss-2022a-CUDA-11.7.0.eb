@@ -27,7 +27,6 @@ dependencies = [
     ('poetry', '1.2.2'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('docrep', '0.3.2', {
@@ -85,6 +84,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'bio'

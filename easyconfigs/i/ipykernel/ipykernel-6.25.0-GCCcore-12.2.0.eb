@@ -14,8 +14,6 @@ dependencies = [
     ('PyZMQ', '25.1.0')
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_list = [
     ('tornado', '6.3.2', {

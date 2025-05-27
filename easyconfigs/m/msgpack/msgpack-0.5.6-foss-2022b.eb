@@ -18,8 +18,5 @@ source_urls = [PYPI_SOURCE]
 sources = [SOURCE_TAR_GZ]
 checksums = ['0ee8c8c85aa651be3aa0cd005b5931769eaa658c948ce79428766f1bd46ae2c3']
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 moduleclass = 'tools'

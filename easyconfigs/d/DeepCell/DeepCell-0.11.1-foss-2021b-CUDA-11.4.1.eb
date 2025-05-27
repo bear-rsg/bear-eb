@@ -26,8 +26,6 @@ dependencies = [
     ('Graphviz', '2.50.0'),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     ('pydot', '1.4.2', {

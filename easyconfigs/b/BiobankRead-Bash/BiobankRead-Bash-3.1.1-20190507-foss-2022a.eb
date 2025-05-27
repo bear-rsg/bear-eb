@@ -24,8 +24,6 @@ dependencies = [
     ('Seaborn', '0.12.1'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 local_BiobankRead_preinstallopts = "sed -i 's/package_dir/# package_dir/' setup.py && "
 local_BiobankRead_preinstallopts += "sed -i 's/bs4/BeautifulSoup4/' setup.py && "

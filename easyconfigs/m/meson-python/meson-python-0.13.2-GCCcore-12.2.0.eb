@@ -17,7 +17,6 @@ dependencies = [
     ('Meson', '1.1.1'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('pyproject-metadata', '0.7.1', {
@@ -30,6 +29,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'tools'

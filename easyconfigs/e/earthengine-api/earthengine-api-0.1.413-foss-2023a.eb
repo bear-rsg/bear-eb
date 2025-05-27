@@ -15,7 +15,6 @@ dependencies = [
     ('gcsfs', '2023.12.2.post1'),
 ]
 
-use_pip = True
 
 exts_list = [
     ('uritemplate', '4.1.1', {
@@ -38,6 +37,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'geo'

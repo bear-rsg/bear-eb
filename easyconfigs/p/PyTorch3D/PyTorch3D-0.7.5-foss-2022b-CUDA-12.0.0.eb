@@ -20,8 +20,6 @@ dependencies = [
     ('torchvision', '0.16.0', '-CUDA-%(cudaver)s'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 exts_list = [
     ('portalocker', '2.7.0', {
         'checksums': ['032e81d534a88ec1736d03f780ba073f047a06c478b06e2937486f334e955c51'],

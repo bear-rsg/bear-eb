@@ -26,9 +26,6 @@ dependencies = [
 sources = [SOURCE_TAR_GZ]
 checksums = ['0640f3d73e7c320b5234b86f1b94d6315b3248e1b2715c01fe44fbd23ffb2370']
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 options = {'modulename': 'sequenza'}
 

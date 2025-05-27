@@ -27,8 +27,6 @@ dependencies = [
     ('DEXSeq', '1.50.0', '-R-%(rver)s'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_default_options = {
     'source_urls': [PYPI_SOURCE],

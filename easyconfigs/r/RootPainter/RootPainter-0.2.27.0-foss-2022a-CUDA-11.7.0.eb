@@ -22,8 +22,6 @@ dependencies = [
     ('torchvision', '0.15.2', versionsuffix),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     ('imagecodecs', '2023.3.16', {

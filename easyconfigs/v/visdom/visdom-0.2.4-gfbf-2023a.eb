@@ -18,8 +18,6 @@ dependencies = [
     ('tornado', '6.3.2'),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     ('jsonpointer', '2.3', {

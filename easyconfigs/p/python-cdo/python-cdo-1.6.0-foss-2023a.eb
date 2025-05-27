@@ -21,9 +21,6 @@ source_urls = ['https://pypi.python.org/packages/source/c/cdo']
 sources = ['cdo-%(version)s.tar.gz']
 checksums = ['6bdfc38b3ba00c5375aa97e2fd0431a4186953cba5156e60247a8ab6a0dd7f7e']
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 options = {'modulename': 'cdo'}
 

@@ -29,7 +29,6 @@ dependencies = [
     ('relion-blush_data', '1.0', '', SYSTEM),
 ]
 
-use_pip = True
 
 exts_list = [
     ('loguru', '0.7.0', {
@@ -57,7 +56,6 @@ fix_python_shebang_for = ['bin/command_line.py']
 
 postinstallcmds = ['mv %(installdir)s/bin/{command_line.py,relion_blush}']
 
-sanity_pip_check = True
 
 sanity_check_paths = {
     'files': [],

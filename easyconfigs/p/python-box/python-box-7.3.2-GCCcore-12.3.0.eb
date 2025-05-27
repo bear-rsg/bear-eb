@@ -21,8 +21,5 @@ checksums = ['028b9917129e67f311932d93347b8a4f1b500d7a5a2870ee3c035f4e7b19403b']
 
 options = {'modulename': 'box'}
 
-download_dep_fail = True
-sanity_pip_check = True
-use_pip = True
 
 moduleclass = 'lang'

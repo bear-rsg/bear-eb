@@ -54,8 +54,6 @@ modextravars = {
     'README_PATH': '%(installdir)s/umi-varcal-master/README.md',
 }
 
-download_dep_fail = True
-sanity_pip_check = True
 use_pip = False
 
 modloadmsg = """

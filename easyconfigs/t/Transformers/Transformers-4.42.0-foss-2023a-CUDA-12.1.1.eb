@@ -22,8 +22,6 @@ dependencies = [
     ('accelerate', '0.33.0', versionsuffix),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     ('regex', '2023.12.25', {

@@ -24,8 +24,6 @@ dependencies = [
     ('PDAL', '2.5.5'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_default_options = {
     'source_urls': [PYPI_SOURCE],
@@ -71,6 +69,5 @@ sanity_check_paths = {
 
 sanity_check_commands = ['python -c "import pdal"']
 
-sanity_pip_check = True
 
 moduleclass = 'data'

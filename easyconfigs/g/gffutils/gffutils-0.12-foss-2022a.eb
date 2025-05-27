@@ -16,8 +16,6 @@ dependencies = [
     ('pybedtools', '0.9.0'),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     ('argh', '0.28.1', {

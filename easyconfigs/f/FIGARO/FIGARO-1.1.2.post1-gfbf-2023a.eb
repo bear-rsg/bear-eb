@@ -25,9 +25,6 @@ unpack_options = "--strip-components=1 && touch %(namelower)s/__init__.py && ech
 unpack_options += """ && sed -i 'a__version__ = "%(version)s"' %(namelower)s/__init__.py"""
 unpack_options += " &&  touch DESCRIPTION.md && touch %(namelower)s/defaults/__init__.py"
 
-use_pip = True
-sanity_pip_check = True
-download_dep_fail = True
 
 sanity_check_paths = {
     'files': ['bin/figaro'],

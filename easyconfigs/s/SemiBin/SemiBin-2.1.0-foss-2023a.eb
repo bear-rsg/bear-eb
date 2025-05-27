@@ -27,7 +27,6 @@ dependencies = [
     ('SAMtools', '1.18'),
 ]
 
-use_pip = True
 
 exts_list = [
     (name, version, {
@@ -49,6 +48,5 @@ sanity_check_commands = [
     "SemiBin2 --help",
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'bio'

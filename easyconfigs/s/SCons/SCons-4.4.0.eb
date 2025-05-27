@@ -20,9 +20,6 @@ checksums = ['3d43b2303a924816ea0e1b345ff04c9b3e27b53eadf0f26012fc0c29b019685f']
 
 builddependencies = [('binutils', '2.38')]
 
-download_dep_fail = True
-use_pip = True
-sanity_pip_check = True
 
 sanity_check_paths = {
     'files': ['bin/scons', 'bin/sconsign'],

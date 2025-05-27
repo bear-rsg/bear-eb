@@ -22,8 +22,6 @@ dependencies = [
     ('modbam2bed', '0.5.3'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_default_options = {
     'source_urls': [PYPI_SOURCE],

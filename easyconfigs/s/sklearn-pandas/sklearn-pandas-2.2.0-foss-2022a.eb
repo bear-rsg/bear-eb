@@ -19,9 +19,6 @@ dependencies = [
     ('scikit-learn', '1.1.2'),
 ]
 
-use_pip = True
-download_dep_fail = True
 
-sanity_pip_check = True
 
 moduleclass = 'tools'

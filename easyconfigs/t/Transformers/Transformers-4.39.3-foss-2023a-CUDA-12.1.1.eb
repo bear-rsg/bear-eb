@@ -21,8 +21,6 @@ dependencies = [
     ('Safetensors', '0.4.3'),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     ('regex', '2023.12.25', {

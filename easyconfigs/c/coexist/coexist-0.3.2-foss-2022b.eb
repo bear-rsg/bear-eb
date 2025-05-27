@@ -18,8 +18,6 @@ dependencies = [
     ('tqdm', '4.64.1'),
 ]
 
-sanity_pip_check = True
-use_pip = True
 
 exts_list = [
     ('pyevtk', '1.6.0', {

@@ -17,9 +17,6 @@ dependencies = [
 sources = [SOURCE_TAR_GZ]
 checksums = ['b661700da9f8f1e931e52726e4fc643a565b9514f5883d41b773e3c37c9fa995']
 
-download_dep_fail = True
-use_pip = True
-sanity_pip_check = True
 
 options = {'modulename': '%(namelower)s'}
 

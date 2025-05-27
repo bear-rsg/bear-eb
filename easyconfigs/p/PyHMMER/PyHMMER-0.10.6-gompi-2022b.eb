@@ -25,7 +25,6 @@ dependencies = [
     ('psutil', '5.9.5')
 ]
 
-use_pip = True
 
 exts_list = [
     ('pyhmmer', version, {
@@ -38,6 +37,5 @@ sanity_check_paths = {
     'dirs': ['lib/python%(pyshortver)s/site-packages/%(namelower)s'],
 }
 
-sanity_pip_check = True
 
 moduleclass = 'bio'

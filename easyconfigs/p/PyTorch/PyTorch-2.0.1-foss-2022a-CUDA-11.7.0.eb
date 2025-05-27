@@ -32,8 +32,6 @@ dependencies = [
     ('NCCL', '2.12.12', '-CUDA-%(cudaver)s'),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_list = [
     ('lit', '16.0.5', {

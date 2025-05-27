@@ -20,8 +20,6 @@ dependencies = [
     ('IPython', '7.26.0'),
 ]
 
-use_pip = True
-sanity_pip_check = True
 
 exts_default_options = {
     'source_urls': [PYPI_SOURCE],

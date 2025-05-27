@@ -32,7 +32,6 @@ dependencies = [
     ('VTK', '9.2.6'),  # optional
 ]
 
-use_pip = True
 
 exts_list = [
     ('traitlets', '5.9.0', {
@@ -92,6 +91,5 @@ exts_list = [
     }),
 ]
 
-sanity_pip_check = True
 
 moduleclass = 'math'
