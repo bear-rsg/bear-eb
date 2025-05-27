@@ -17,8 +17,6 @@ dependencies = [
     ('SciPy-bundle', '2022.05'),
 ]
 
-
-
 options = {'modulename': 'adjustText'}
 
 moduleclass = 'tools'

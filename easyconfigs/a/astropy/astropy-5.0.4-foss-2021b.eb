@@ -16,8 +16,6 @@ dependencies = [
     ('SciPy-bundle', '2021.10'),
 ]
 
-
-
 exts_list = [
     ('pyerfa', '2.0.0.1', {
         'modulename': 'erfa',

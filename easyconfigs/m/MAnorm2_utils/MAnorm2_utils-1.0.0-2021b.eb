@@ -21,8 +21,6 @@ dependencies = [
 
 preconfigopts = 'rm -r MAnorm2_utils.egg-info dist build'
 
-
-
 options = {'modulename': '%(name)s'}
 
 moduleclass = 'bio'

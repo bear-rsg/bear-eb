@@ -30,8 +30,6 @@ dependencies = [
     ('Arrow', '14.0.1'),
 ]
 
-
-
 exts_list = [
     ('pandas', '2.1.1', {
         'checksums': ['fecb198dc389429be557cde50a2d46da8434a17fe37d7d41ff102e3987fd947b'],
