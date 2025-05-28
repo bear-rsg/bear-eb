@@ -41,7 +41,7 @@ prebuildopts += 'make configure %s && ' % _makevars
 
 buildopts = ' all %s ' % _makevars
 
-installopts = ' %s ' %_makevars
+installopts = ' %s ' % _makevars
 
 postinstallcmds = [
     'mkdir %(installdir)s/include && '
@@ -56,4 +56,3 @@ sanity_check_paths = {
 }
 
 moduleclass = 'lib'
-
