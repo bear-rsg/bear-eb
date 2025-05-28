@@ -1,0 +1,61 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+
+name = 'ioapi'
+_tag = '20200828'
+version = '3.2-%s' % _tag
+_cplmode = 'nocpl'
+versionsuffix = '-%s' % _cplmode
+
+homepage = "https://www.cmascenter.org/ioapi/"
+description = """The Models-3/EDSS Input/Output Applications Programming Interface (I/O API) provides the
+ environmental model developer with an easy-to-learn, easy-to-use programming library for data storage and
+ access, available from both Fortran and C. The same routines can be used for both file storage (using netCDF
+ files) and model coupling (using PVM mailboxes). It is the standard data access library for both the
+ NCSC/CMAS's EDSS project and EPA's Models-3, CMAQ, and SMOKE, as well as various other atmospheric and
+ hydrological modeling systems."""
+
+toolchain = {'name': 'gompi', 'version': '2023a'}
+
+source_urls = ['https://github.com/cjcoats/ioapi-3.2/archive']
+sources = ['%s.tar.gz' % _tag]
+checksums = ['889949c831fcc65b0dba7f48a364b0ab51e120336730d77f2e5270a1921805ed']
+
+dependencies = [
+    ('netCDF', '4.9.2'),
+    ('netCDF-Fortran', '4.6.1'),
+]
+
+skipsteps = ['configure']
+
+_BIN = 'Linux2_x86_64gfort10_medium'
+_makevars = 'BIN=%s CPLMODE=%s ' % (_BIN, _cplmode)
+_makevars += 'INSTALL=%(installdir)s LIBINST=%(installdir)s/lib BININST=%(installdir)s/bin'
+
+prebuildopts = 'cp Makefile{.template,} && '
+prebuildopts += 'cp ioapi/Makefile{.nocpl,} && '
+prebuildopts += 'sed -i s:"BASEDIR =.*":"BASEDIR = "%(builddir)s/%(name)s-%(version)s: ioapi/Makefile && '
+prebuildopts += 'cp m3tools/Makefile{.nocpl,} && '
+prebuildopts += 'sed -i s:"BASEDIR =.*":"BASEDIR = "%(builddir)s/%(name)s-%(version)s: m3tools/Makefile && '
+# disable OpenMP;
+# see https://github.com/USEPA/CMAQ/blob/main/DOCS/Users_Guide/Appendix/CMAQ_UG_appendixD_parallel_implementation.md
+prebuildopts += 'sed -i s:"OMPFLAGS.*=.*":"OMPFLAGS = # -fopenmp": ioapi/Makeinclude.%s && ' % _BIN
+prebuildopts += 'sed -i s:"OMPLIBS.*=.*":"OMPLIBS = # -fopenmp": ioapi/Makeinclude.%s && ' % _BIN
+buildopts = ' all %s ' % _makevars
+
+installopts = ' %s ' %_makevars
+
+postinstallcmds = [
+    'mkdir %(installdir)s/include && '
+    'cp %(builddir)s/%(name)s-%(version)s/ioapi/fixed_src/*.EXT %(installdir)s/include/ && '
+    'cp %(builddir)s/%(name)s-%(version)s/ioapi/*.h %(installdir)s/include/ && '
+    'ln -s %(installdir)s/lib/*.mod %(installdir)s/include/'
+]
+
+sanity_check_paths = {
+    'files': ['lib/libioapi.a'] + ['bin/%s' % x for x in ['airs2m3', 'gregdate', 'latlon', 'm3merge', 'projtool']],
+    'dirs': ['include'],
+}
+
+moduleclass = 'lib'
+
