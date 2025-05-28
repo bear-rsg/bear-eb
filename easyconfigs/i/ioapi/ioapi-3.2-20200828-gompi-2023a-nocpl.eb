@@ -32,15 +32,13 @@ _BIN = 'Linux2_x86_64gfort10_medium'
 _makevars = 'BIN=%s CPLMODE=%s ' % (_BIN, _cplmode)
 _makevars += 'INSTALL=%(installdir)s LIBINST=%(installdir)s/lib BININST=%(installdir)s/bin'
 
-prebuildopts = 'cp Makefile{.template,} && '
-prebuildopts += 'cp ioapi/Makefile{.nocpl,} && '
-prebuildopts += 'sed -i s:"BASEDIR =.*":"BASEDIR = "%(builddir)s/%(name)s-%(version)s: ioapi/Makefile && '
-prebuildopts += 'cp m3tools/Makefile{.nocpl,} && '
-prebuildopts += 'sed -i s:"BASEDIR =.*":"BASEDIR = "%(builddir)s/%(name)s-%(version)s: m3tools/Makefile && '
+prebuildopts = 'cp Makefile{.template,} && touch m3tools/Makefile ioapi/Makefile && '
 # disable OpenMP;
 # see https://github.com/USEPA/CMAQ/blob/main/DOCS/Users_Guide/Appendix/CMAQ_UG_appendixD_parallel_implementation.md
 prebuildopts += 'sed -i s:"OMPFLAGS.*=.*":"OMPFLAGS = # -fopenmp": ioapi/Makeinclude.%s && ' % _BIN
 prebuildopts += 'sed -i s:"OMPLIBS.*=.*":"OMPLIBS = # -fopenmp": ioapi/Makeinclude.%s && ' % _BIN
+prebuildopts += 'make configure %s && ' % _makevars
+
 buildopts = ' all %s ' % _makevars
 
 installopts = ' %s ' %_makevars
