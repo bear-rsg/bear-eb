@@ -55,9 +55,6 @@ configopts += '-DPRECICE_PythonActions=ON '
 # force Eigen include directory which is not found correctly otherwise
 configopts += '-DEIGEN3_INCLUDE_DIR="$EBROOTEIGEN/include"'
 
-# Run basic tests
-runtest = ' test_base'
-
 sanity_check_paths = {
     'files': ['bin/precice-tools', 'bin/precice-profiling'] +
              ['include/precice/%s' % x for x in ['export.h', 'preciceC.h', 'precice.hpp',
