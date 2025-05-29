@@ -56,10 +56,9 @@ configopts += '-DPRECICE_PythonActions=ON '
 configopts += '-DEIGEN3_INCLUDE_DIR="$EBROOTEIGEN/include"'
 
 sanity_check_paths = {
-    'files': ['bin/precice-tools', 'bin/precice-profiling'] +
-             ['include/precice/%s' % x for x in ['export.h', 'preciceC.h', 'precice.hpp',
-                                                 'Tooling.hpp', 'Version.h', 'Participant.hpp',
-                                                 'preciceFortran.hpp', 'span.hpp', 'Types.hpp']] +
+    'files': ['bin/binprecice'] +
+             ['include/precice/%s' % x for x in ['SolverInterfaceC.h', 'Version.h',
+                                                 'SolverInterfaceFortran.hpp', 'SolverInterface.hpp']] +
              ['lib/libprecice.%s' % SHLIB_EXT],
     'dirs': [],
 }
