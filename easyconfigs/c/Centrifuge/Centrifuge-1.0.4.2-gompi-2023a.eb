@@ -19,7 +19,7 @@ checksums = [
 
 dependencies = [
     ('ncbi-vdb', '3.0.10'),
-    ('sra-tools', '3.0.10'),
+    ('SRA-Toolkit', '3.0.10'),
 ]
 
 skipsteps = ['configure']
