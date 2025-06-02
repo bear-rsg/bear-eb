@@ -25,7 +25,8 @@ dependencies = [
 skipsteps = ['configure']
 
 buildopts = 'CC="$CC" CPP="$CXX" RELEASE_FLAGS="$CXXFLAGS" '
-buildopts += 'USE_SRA=1 NCBI_NGS_DIR=$EBROOTSRAMINTOOLS NCBI_VDB_DIR=$EBROOTNCBIMINVDB'
+buildopts += 'USE_SRA=1 NCBI_NGS_DIR=$EBROOTSRAMINTOOLKIT NCBI_VDB_DIR=$EBROOTNCBIMINVDB'
+#buildopts += 'USE_SRA=1 NCBI_NGS_DIR=$EBROOTSRAMINTOOLS NCBI_VDB_DIR=$EBROOTNCBIMINVDB'
 
 installopts = "prefix=%(installdir)s"
 
