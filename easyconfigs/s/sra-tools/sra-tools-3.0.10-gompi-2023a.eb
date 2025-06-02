@@ -4,7 +4,8 @@ name = 'sra-tools'
 version = '3.0.10'
 
 homepage = 'https://github.com/ncbi/sra-tools'
-description = """SRA Tools updated components moved from ncbi-vdb. The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for
+description = """SRA Tools updated components moved from ncbi-vdb.
+ The SRA Toolkit and SDK from NCBI is a collection of tools and libraries for
  using data in the INSDC Sequence Read Archives."""
 
 toolchain = {'name': 'gompi', 'version': '2023a'}
@@ -29,7 +30,8 @@ dependencies = [
 
 configopts = "-DHDF5_INCDIR=$EBROOTHDF5/include -DHDF5_LIBDIR=$EBROOTHDF5/lib "
 configopts += "-DXML2_INCDIR=$EBROOTLIBXML2/include -DXML2_LIBDIR=$EBROOTLIBXML2/lib "
-configopts += "-DVDB_INCDIR=$EBROOTNCBIMINVDB/include -DVDB_BINDIR=$EBROOTNCBIMINVDB/bin -DVDB_LIBDIR=$EBROOTNCBIMINVDB/lib"
+configopts += "-DVDB_INCDIR=$EBROOTNCBIMINVDB/include -DVDB_BINDIR=$EBROOTNCBIMINVDB/bin "
+configopts += "-DVDB_LIBDIR=$EBROOTNCBIMINVDB/lib"
 
 sanity_check_paths = {
     'files': ['include/ncbi-vdb/NGS.hpp'] +
