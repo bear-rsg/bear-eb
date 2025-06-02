@@ -1,0 +1,14 @@
+--- Makefile.orig	2025-05-30 13:40:27.087495000 +0100
++++ Makefile	2025-05-30 15:06:53.770829163 +0100
+@@ -97,9 +97,9 @@
+ SERACH_INC = 
+ ifeq (1,$(USE_SRA))
+ 	SRA_DEF = -DUSE_SRA
+-	SRA_LIB = -lncbi-ngs-c++-static -lngs-c++-static -lncbi-vdb-static -ldl
++	SRA_LIB = -lncbi-ngs-c++-static -lncbi-ngs-static -lngs-c++-static -lncbi-vdb-static -ldl
+ 	SEARCH_INC += -I$(NCBI_NGS_DIR)/include -I$(NCBI_VDB_DIR)/include
+-	SEARCH_LIBS += -L$(NCBI_NGS_DIR)/lib64 -L$(NCBI_VDB_DIR)/lib64
++	SEARCH_LIBS += -L$(NCBI_NGS_DIR)/lib -L$(NCBI_VDB_DIR)/lib
+ endif
+ 
+ LIBS = $(PTHREAD_LIB)
