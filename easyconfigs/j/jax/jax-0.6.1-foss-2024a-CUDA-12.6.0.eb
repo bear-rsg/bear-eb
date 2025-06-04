@@ -1,0 +1,55 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'jax'
+version = '0.6.1'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = "https://jax.readthedocs.io/"
+description = """Composable transformations of Python+NumPy programs:
+differentiate, vectorize, JIT to GPU/TPU, and more"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+builddependencies = [
+    ('hatchling', '1.24.2'),
+]
+
+dependencies = [
+    ('CUDA', '12.6.0', '', SYSTEM),
+    ('cuDNN', '9.8.0.87', versionsuffix, SYSTEM),
+    ('NCCL', '2.22.3', versionsuffix),
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+]
+
+exts_list = [
+    ('opt_einsum', '3.4.0', {
+        'checksums': ['96ca72f1b886d148241348783498194c577fa30a8faac108586b14f1ba4473ac'],
+    }),
+    ('ml_dtypes', '0.5.1', {
+        'source_tmpl': 'ml_dtypes-0.5.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl',
+        'checksums': ['ad4953c5eb9c25a56d11a913c2011d7e580a435ef5145f804d98efa14477d390'],
+    }),
+    (f'{name}_cuda12_plugin', version, {
+        'source_tmpl': f'jax_cuda12_plugin-{version}-cp312-cp312-manylinux2014_x86_64.whl',
+        'checksums': ['1885f15be38faecccfbf24b184ffdc1d0d363717eadd2534d5759c0d3d0af523'],
+    }),
+    (f'{name}_cuda12_pjrt', version, {
+        'source_tmpl': f'jax_cuda12_pjrt-{version}-py3-none-manylinux2014_x86_64.whl',
+        'checksums': ['4c97d10a5a9ac09fa001568cac3b715014e8dbbc2cd86763753f58e5a730c333'],
+        'modulename': 'jax_plugins',
+    }),
+    (f'{name}lib', version, {
+        'easyblock': 'PythonPackage',
+        'source_tmpl': f'jaxlib-{version}-cp312-cp312-manylinux2014_x86_64.whl',
+        'checksums': ['d039124468565bbf39363b1504c190e6719e6af89a7948dee256f1dee813bb94'],
+    }),
+    (name, version, {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'use_pip_extras': 'cuda12-local',
+        'checksums': ['69a4e4506caa5466702bdfd0d7a13d1f9b7281d473885721100a3087fcabf8f9'],
+    }),
+]
+
+moduleclass = 'ai'
