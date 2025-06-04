@@ -1,0 +1,62 @@
+easyblock = 'CMakeMake'
+
+name = 'TempestExtremes'
+version = '2.3.1'
+
+homepage = 'https://climate.ucdavis.edu/tempestextremes.php'
+description = """ TempestExtremes is a growing collection of detection and characterization algorithms
+ for large climate datasets, leveraging C++ for rapid throughput and a command line interface that maximizes
+ flexibility of each kernel. The tracking kernels in this package have been already used for tracking and
+ characterizing tropical cyclones (TCs), extratropical cyclones (ETCs), monsoonal depressions, atmospheric blocks,
+ atmospheric rivers, and mesoscale convective systems (MCSs). By considering multiple extremes within the same
+ framework, we can study the joint characteristics of extremes while minimizing the total data burden. """
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'pic': True, 'usempi': True}
+
+source_urls = ['https://github.com/ClimateGlobalChange/%(namelower)s/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['eff3564a99b0711335bd4f08e3a7dcec401c56d58fe6ef2d1ae778d7f7bf04e0']
+
+builddependencies = [
+    ('CMake', '3.26.3'),
+    ('binutils', '2.40'),
+]
+
+dependencies = [
+    ('HDF5', '1.14.0'),
+    ('netCDF', '4.9.2'),
+    ('netCDF-Fortran', '4.6.1'),
+]
+
+separate_build_dir = True
+
+preconfigopts = " && ".join([
+    "export NETCDF=$EBROOTNETCDFMINFORTRAN",
+    "export NETCDFF_DIR=$EBROOTNETCDFMINFORTRAN",
+    "",
+])
+
+configopts = '-DENABLE_MPI=ON'
+
+local_bins = [
+    'AccumulateData', 'AccumulateERA5Forecast', 'AutoCuratorTool', 'AvgVar', 'BlobStats', 'BlockingDevs', 'BlockingDFT',
+    'BlockingGHG', 'BlockingNormDevs', 'BlockingPV', 'BlockingThresh', 'Climatology', 'CombineBlobs', 'CompressBlobs',
+    'DailyAverage', 'DensityCalculations', 'DetectBlobs', 'DetectNodes', 'DetrendHeights', 'ExtractTimeStep',
+    'FourierFilter', 'GenerateConnectivityFile', 'GenerateNearestNeighborMap', 'HistogramNodes', 'IntegrateDimension',
+    'LagrangianParcelTracker', 'NodeFileCompose', 'NodeFileEditor', 'NodeFileFilter', 'PersistentBlobs',
+    'QuantileCalculator', 'ShapefileMask', 'Smooth61Day', 'SpineARs', 'SplitFile', 'StitchBlobs', 'StitchNodes',
+    'Var4Dto3D', 'VariableProcessor',
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in local_bins] + ['lib/libextremesbase.a', 'lib/libnetcdf_c++.a'],
+    'dirs': ['bin', 'lib'],
+}
+
+sanity_check_commands = [
+    'DetectNodes || true',
+    'StitchNodes || true',
+]
+
+moduleclass = 'geo'
