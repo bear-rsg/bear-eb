@@ -1,0 +1,55 @@
+easyblock = 'ConfigureMake'
+
+name = 'CNS'
+version = '1.21'
+
+homepage = 'http://cns-online.org'
+description = """Crystallography & NMR System (CNS) is the result of an international
+collaborative effort among several research groups. The program has been designed to
+provide a flexible multi-level hierachical approach for the most commonly used algorithms
+in macromolecular structure determination.
+"""
+
+toolchain = {'name': 'intel', 'version': '2023a'}
+
+sources = ['cns_solve_%(version)s_all_intel-mac_linux-mp.tar.gz']
+checksums = ['ae45ac6fb60130f3fd2ba0a76646392e5604586de21d71e17e4c3daf0a9ee163']
+
+download_instructions = f"""{name} requires completing this form: http://cns-online.org/cns_request/
+Then download the package to the appropiate source folder"
+Required download: {' '.join(sources)}"""
+
+dependencies = [
+    ('flex', '2.6.4'),
+]
+
+# csh is used by all of the install scripts
+osdependencies = ['tcsh']
+
+skipsteps = ['configure', 'build']
+
+preinstallopts = ([
+    "sed -i 's|_CNSsolve_location_|%(builddir)s/cns_solve_1.21|g' "
+    "%(builddir)s/cns_solve_1.21/cns_solve_env &&"
+])
+
+install_cmd = 'make install'
+
+local_targets = ['bin', 'source', 'utils']
+
+postinstallcmds = [
+    "cp -r %(builddir)s/cns_solve_1.21/intel-x86_64bit-linux/{0} %(installdir)s/".format(x)
+    for x in local_targets
+]
+
+postinstallcmds += [
+    "cp -r %(builddir)s/cns_solve_1.21/inputs %(installdir)s/",
+    "cp %(builddir)s/cns_solve_1.21/cns_solve_env %(installdir)s/"
+]
+
+sanity_check_paths = {
+    'files': ['cns_solve_env'],
+    'dirs': ['bin', 'source', 'utils', 'inputs'],
+}
+
+moduleclass = 'bio'
