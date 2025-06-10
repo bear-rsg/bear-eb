@@ -1,0 +1,59 @@
+easyblock = 'PythonBundle'
+
+name = 'nanomix'
+version = '0.2.0'
+
+homepage = 'https://github.com/Jonbroad15/nanomix'
+description = """Nanomix: Methylation Deconvolution of Nanopore Sequencing Data.
+ Methylation deconvolution is the process of determining the proportion of distinct cell types in a complex
+ (hetergeneic) mixture of cell or cell free DNA. This tool provides suitable models for performing deconvolution
+ on Nanopore sequencing data. In particular our new models account for the non-uniform coverage distribution and
+ high error rate in modified base calling. We also include more typical deconvolution models for deconvolution
+ of bisulfite sequencing data or bead chip arrays."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('matplotlib', '3.7.2'),
+    ('maturin', '1.4.0', '-Rust-1.75.0'),
+    ('protobuf-python', '4.24.0'),
+    ('PyYAML', '6.0'),
+]
+
+# crude fix for "ModuleNotFoundError: No module named '_nanomix'" error
+local_postinstallcmds = "cd %(installdir)s/lib/python%(pyshortver)s/site-packages/nanomix && "
+local_postinstallcmds += "mv nanomix.*.so _nanomix.so"
+
+exts_list = [
+    ('ray', '2.46.0', {
+        'source_tmpl': '%(name)s-%(version)s-cp311-cp311-manylinux2014_%(arch)s.whl',
+        'checksums': ['d4ddedc3f4d48df564bcee7b131c98c9f898fef0a57483f4ba335f47f951a62f'],
+    }),
+    ('pyrle', '0.0.42', {
+        'checksums': ['f0b1bb593947db965e229db6da3f2c29d0a52b535c2cca43f7cf6aed75f6f829'],
+    }),
+    ('sorted_nearest', '0.0.39', {
+        'checksums': ['16a51d5db87ae226b47ace43c176bb672477a1b7ba8052ea9291a6356c9c69b1'],
+    }),
+    ('ncls', '0.0.68', {
+        'checksums': ['81aaa5abb123bb21797ed2f8ef921e20222db14a3ecbc61ccf447532f2b7ba93'],
+    }),
+    ('natsort', '8.4.0', {
+        'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
+    }),
+    ('pyranges', '0.0.120', {
+        'checksums': ['44768a3c33e919369f2d16d4ba9f712e685e41259919f895dd9126fc8b2fbd4d'],
+    }),
+    (name, version, {
+        'postinstallcmds': ['cd %(installdir)s/lib/python%(pyshortver)s/site-packages/nanomix && mv nanomix.*.so _nanomix.so'],
+        'preinstallopts': """sed -i 's/~=/>=/g' pyproject.toml && echo 'proc-macro2 = "1.0.60"' >> Cargo.toml && """,
+        'checksums': ['adfd7a40a286cc93eba7f0bbffb433153b404ea488c703dd6bc375735bff9d53'],
+    }),
+]
+
+sanity_check_commands = ["nanomix --help"]
+
+moduleclass = 'bio'
