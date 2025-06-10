@@ -48,7 +48,9 @@ exts_list = [
         'checksums': ['44768a3c33e919369f2d16d4ba9f712e685e41259919f895dd9126fc8b2fbd4d'],
     }),
     (name, version, {
-        'postinstallcmds': ['cd %(installdir)s/lib/python%(pyshortver)s/site-packages/nanomix && mv nanomix.*.so _nanomix.so'],
+        'postinstallcmds': [
+            'cd %(installdir)s/lib/python%(pyshortver)s/site-packages/nanomix && mv nanomix.*.so _nanomix.so'
+        ],
         'preinstallopts': """sed -i 's/~=/>=/g' pyproject.toml && echo 'proc-macro2 = "1.0.60"' >> Cargo.toml && """,
         'checksums': ['adfd7a40a286cc93eba7f0bbffb433153b404ea488c703dd6bc375735bff9d53'],
     }),
