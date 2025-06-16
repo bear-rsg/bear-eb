@@ -16,6 +16,7 @@ dependencies = [
     ('DMRcaller', '1.36.0', versionsuffix),
     ('methylKit', '1.30.0', versionsuffix),
     ('qs', '0.27.2', versionsuffix),
+    ('inferCNV', '1.20.0', versionsuffix),
 ]
 
 moduleclass = 'bio'
