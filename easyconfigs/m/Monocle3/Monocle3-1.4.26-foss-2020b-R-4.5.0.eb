@@ -1,0 +1,55 @@
+easyblock = 'Bundle'
+
+name = 'Monocle3'
+version = '1.4.26'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://cole-trapnell-lab.github.io/monocle3/'
+description = """An analysis toolkit for single-cell RNA-seq."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-Bioconductor', '3.21', versionsuffix),
+]
+
+exts_defaultclass = 'RPackage'
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+exts_list = [
+    ('BPCells', '0.3.0', {
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/bnprks/BPCells/archive'],
+        'start_dir': 'r',
+        'checksums': ['231e91a3d60d2bc400324c5b60fb4644fda16261048d6b1a49bfac4aa269cd1f'],
+    }),
+    ('grr', '0.9.5', {
+        'checksums': ['292606de2983ac5840c90d3e0977441b482c9e73c1674b662f8b4fb8f3632b2b'],
+    }),
+    ('speedglm', '0.3-5', {
+        'checksums': ['f8663677c10ff324c5639402060ddd2b1a1e917445cb0f8f84e146b85e82bb4b'],
+    }),
+    (name, version, {
+        'modulename': '%(namelower)s',
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/cole-trapnell-lab/monocle3/archive'],
+        'checksums': ['b4b47e500ba99912bb4a66bf981b26e184c4b1ac91c03b0ba71eeacb1574d1a4'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['%(namelower)s'],
+}
+
+moduleclass = 'bio'
