@@ -1,0 +1,70 @@
+easyblock = 'Tarball'
+
+name = 'CESM'
+version = '2.1.5'
+_svnconf = 'ea002e626aee6bc6643e8ab5f998e5e4'
+_svn_ssldir = '~/.subversion/auth/svn.ssl.server'
+
+homepage = 'https://www.cesm.ucar.edu/models/cesm2/'
+description = """The Community Earth System Model (CESM) is a fully-coupled, global climate model that provides
+ state-of-the-art computer simulations of the Earth's past, present, and future climate states."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = ['https://github.com/ESCOMP/cesm/archive/']
+sources = [
+    'release-%(namelower)s%(version)s.tar.gz',
+    {'filename': 'bluebear_config_batch.xml', 'extract_cmd': 'cp %s .'},
+    {'filename': 'bluebear_config_compilers.xml', 'extract_cmd': 'cp %s .'},
+    {'filename': 'bluebear_config_machines.xml', 'extract_cmd': 'cp %s .'},
+    # svn SSL config file; generated with 'svn ls https://svn-ccsm-models.cgd.ucar.edu/ww3/release_tags'
+    {'filename': _svnconf, 'extract_cmd': 'cp %s .'},
+]
+checksums = [
+    {'release-cesm2.1.5.tar.gz': '4f0d89a12a06775dca95015d002921766b898bd64e3b66f11b2c671d102274fa'},
+    {'bluebear_config_batch.xml': 'e6734909a9c9edb47ae81868282a81ff634dc0fde36a7b6b8e85f894fecf5571'},
+    {'bluebear_config_compilers.xml': '840af4d92789edb4ddfd3d5fefd2c90ec0ee7b549f5cdfad533a02bfd40ef5eb'},
+    {'bluebear_config_machines.xml': 'cea44e81f72f498c89e6e3f070df04b343b363645af6a5c5b544fea346e977b1'},
+    {'ea002e626aee6bc6643e8ab5f998e5e4': '5e51905c9a484f9db6b8ae710fc8643d4fb19b5accafb9e7ee9a2db566d5f46d'},
+]
+
+dependencies = [
+    ('CMake', '3.26.3'),
+    ('Python', '3.11.3'),
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '5.36.1'),
+    ('XML-LibXML', '2.0209'),
+    ('ESMF', '8.6.0'),
+    ('netCDF', '4.9.2'),
+    ('netCDF-Fortran', '4.6.1'),
+    ('netCDF-C++4', '4.3.1'),
+    ('PnetCDF', '1.12.3'),
+    ('Subversion', '1.14.5'),
+    ('git', '2.41.0', '-nodocs'),
+    ('git-lfs', '3.6.1', '', SYSTEM),
+]
+
+start_dir = 'CESM-release-cesm%(version)s'
+
+# SSL certificate needs to be accepted before checkout_externals script is run
+preinstall_cmd = 'mkdir -p %s && ' % _svn_ssldir
+preinstall_cmd += 'cp %%(builddir)s/%s %s && ' % (_svnconf, _svn_ssldir)
+preinstall_cmd += './manage_externals/checkout_externals && '
+preinstall_cmd += 'rm %s/%s && ' % (_svn_ssldir, _svnconf)
+preinstall_cmd += 'cp %(builddir)s/bluebear_config_machines.xml cime/config/cesm/machines/config_machines.xml && '
+preinstall_cmd += 'cp %(builddir)s/bluebear_config_batch.xml cime/config/cesm/machines/config_batch.xml && '
+preinstall_cmd += 'cp %(builddir)s/bluebear_config_compilers.xml cime/config/cesm/machines/config_compilers.xml'
+
+sanity_check_paths = {
+    'files': ['Externals.cfg'],
+    'dirs': ['cime/scripts', 'components/cam', 'components/cice', 'components/cism', 'components/clm',
+             'components/mosart', 'components/pop', 'components/rtm', 'components/ww3']
+}
+
+modextrapaths = {'PATH': 'cime/scripts'}
+
+modloadmsg = """Make sure the $CESMDATAROOT, $DIN_LOC_ROOT and $CIME_OUTPUT_ROOT environment variables have been set
+before attempting to set up a case.
+"""
+
+moduleclass = 'geo'
