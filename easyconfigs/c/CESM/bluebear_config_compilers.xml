@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config_compilers version="2.0">
+<!--
+========================================================================
+This file defines compiler flags for building CESM.  General flags are listed first
+followed by flags specific to particular operating systems, followed by particular machines.
+
+More general flags are replaced by more specific flags.
+
+Attributes indicate that an if clause should be added to the Macros so that these flags are added
+only under the conditions described by the attribute(s).
+
+The env_mach_specific file may set environment variables or load modules which set environment variables
+which are then  used in the Makefile.   For example the NETCDF_PATH on many machines is set by a module.
+
+========================================================================
+Serial/MPI compiler specification
+========================================================================
+
+SCC   and  SFC specifies the serial compiler
+MPICC and  MPICC specifies the mpi compiler
+
+if $MPILIB is set to mpi-serial then
+CC = $SCC
+FC = $SFC
+MPICC = $SCC
+MPIFC = $SFC
+INC_MPI = $(CIMEROOT)/src/externals/mct/mpi-serial
+
+========================================================================
+Options for including C++ code in the build
+========================================================================
+
+SUPPORTS_CXX (TRUE/FALSE): Whether we have defined all the necessary
+settings for including C++ code in the build for this compiler (or
+this compiler/machine combination). See below for a description of the
+necessary settings.
+
+The following are required for a compiler to support the inclusion of
+C++ code:
+
+SCXX: serial C++ compiler
+
+MPICXX: mpi C++ compiler
+
+CXX_LINKER (CXX/FORTRAN): When C++ code is included in the build, do
+we use a C++ or Fortran linker?
+
+In addition, some compilers require additional libraries or link-time
+flags, specified via CXX_LIBS or CXX_LDFLAGS, as in the following
+examples:
+
+<CXX_LIBS> -L/path/to/directory -lfoo </CXX_LIBS>
+
+or
+
+<CXX_LDFLAGS> -cxxlib </CXX_LDFLAGS>
+
+Note that these libraries or LDFLAGS will be added on the link line,
+regardless of whether we are using a C++ or Fortran linker. For
+example, if CXX_LINKER=CXX, then the above CXX_LIBS line should
+specify extra libraries needed when linking C++ and fortran code using
+a C++ linker. If CXX_LINKER=FORTRAN, then the above CXX_LDFLAGS line
+should specify extra LDFLAGS needed when linking C++ and fortran code
+using a fortran linker.
+
+-->
+<!-- Define default values that can be overridden by specific
+     compilers -->
+<compiler>
+  <CPPDEFS>
+    <append MODEL="pop"> -D_USE_FLOW_CONTROL </append>
+  </CPPDEFS>
+  <SUPPORTS_CXX>FALSE</SUPPORTS_CXX>
+</compiler>
+
+<compiler COMPILER="gnu">
+  <CFLAGS>
+    <base> -std=gnu99 </base>
+    <append compile_threaded="true"> -fopenmp </append>
+    <append DEBUG="TRUE"> -g -Wall -Og -fbacktrace -ffpe-trap=invalid,zero,overflow -fcheck=bounds </append>
+    <append DEBUG="FALSE"> -O </append>
+  </CFLAGS>
+  <CPPDEFS>
+    <!-- http://gcc.gnu.org/onlinedocs/gfortran/ -->
+    <append> -DFORTRANUNDERSCORE -DNO_R16 -DCPRGNU</append>
+  </CPPDEFS>
+  <CXX_LINKER>FORTRAN</CXX_LINKER>
+  <FC_AUTO_R8>
+    <base> -fdefault-real-8 </base>
+  </FC_AUTO_R8>
+  <FFLAGS>
+    <!-- -ffree-line-length-none and -ffixed-line-length-none need to be in FFLAGS rather than in FIXEDFLAGS/FREEFLAGS
+       so that these are passed to cmake builds (cmake builds don't use FIXEDFLAGS and FREEFLAGS). -->
+    <base>  -fconvert=big-endian -ffree-line-length-none -ffixed-line-length-none </base>
+    <append compile_threaded="true"> -fopenmp </append>
+    <!-- Ideally, we would also have 'invalid' in the ffpe-trap list. But at
+         least with some versions of gfortran (confirmed with 5.4.0, 6.3.0 and
+         7.1.0), gfortran's isnan (which is called in cime via the
+         CPRGNU-specific shr_infnan_isnan) causes a floating point exception
+         when called on a signaling NaN. -->
+    <append DEBUG="TRUE"> -g -Wall -Og -fbacktrace -ffpe-trap=zero,overflow -fcheck=bounds </append>
+    <append DEBUG="FALSE"> -O </append>
+  </FFLAGS>
+  <FFLAGS_NOOPT>
+    <base> -O0 </base>
+  </FFLAGS_NOOPT>
+  <FIXEDFLAGS>
+    <base>  -ffixed-form </base>
+  </FIXEDFLAGS>
+  <FREEFLAGS>
+    <base> -ffree-form </base>
+  </FREEFLAGS>
+  <HAS_F2008_CONTIGUOUS>FALSE</HAS_F2008_CONTIGUOUS>
+  <LDFLAGS>
+    <append compile_threaded="true"> -fopenmp </append>
+  </LDFLAGS>
+  <MPICC> mpicc  </MPICC>
+  <MPICXX> mpicxx </MPICXX>
+  <MPIFC> mpif90 </MPIFC>
+  <SCC> gcc </SCC>
+  <SCXX> g++ </SCXX>
+  <SFC> gfortran </SFC>
+  <SUPPORTS_CXX>TRUE</SUPPORTS_CXX>
+</compiler>
+
+<compiler COMPILER="gnu" MACH="bluebear">
+  <FFLAGS>
+    <append> -fallow-argument-mismatch -fallow-invalid-boz </append>
+  </FFLAGS>
+  <SLIBS>
+    <append> -L$(NETCDF_PATH)/lib -lnetcdf -L$(NETCDF_FORTRAN_PATH)/lib -lnetcdff </append>
+  </SLIBS>
+</compiler>
+</config_compilers>

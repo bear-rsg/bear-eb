@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+
+<!--
+
+===============================================================
+COMPILER and COMPILERS
+===============================================================
+If a machine supports multiple compilers - then
+- the settings for COMPILERS should reflect the supported compilers
+as a comma separated string
+- the setting for COMPILER should be the default compiler
+(which is one of the values in COMPILERS)
+
+===============================================================
+MPILIB and MPILIBS
+===============================================================
+If a machine supports only one MPILIB is supported - then
+the setting for  MPILIB and MPILIBS should be blank ("")
+If a machine supports multiple mpi libraries (e.g. mpich and openmpi)
+- the settings for MPILIBS should reflect the supported mpi libraries
+as a comma separated string
+
+The default settings for COMPILERS and MPILIBS is blank (in config_machines.xml)
+
+Normally variable substitutions are not made until the case scripts are run, however variables
+of the form $ENV{VARIABLE_NAME} are substituted in create_newcase from the environment
+variable of the same name if it exists.
+
+===============================================================
+PROJECT_REQUIRED
+===============================================================
+A machine may need the PROJECT xml variable to be defined either because it is
+used in some paths, or because it is used to give an account number in the job
+submission script. If either of these are the case, then PROJECT_REQUIRED
+should be set to TRUE for the given machine.
+
+
+mpirun: the mpirun command that will be used to actually launch the model.
+The attributes used to choose the mpirun command are:
+
+mpilib: can either be 'default' the name of an mpi library, or a compiler name so one can choose the mpirun
+based on the mpi library in use.
+
+the 'executable' tag must have arguments required for the chosen mpirun, as well as the executable name.
+
+unit_testing: can be 'true' or 'false'.
+This allows using a different mpirun command to launch unit tests
+
+-->
+
+<config_machines version="2.0">
+  <machine MACH="bluebear">
+      <DESC> BlueBEAR supercomputer, University of Birmingham </DESC>
+      <OS>LINUX</OS>
+      <COMPILERS>gnu</COMPILERS>
+      <MPILIBS>openmpi</MPILIBS>
+      <CIME_OUTPUT_ROOT>$ENV{CIME_OUTPUT_ROOT}</CIME_OUTPUT_ROOT>
+      <DIN_LOC_ROOT>$ENV{DIN_LOC_ROOT}</DIN_LOC_ROOT>
+      <DIN_LOC_ROOT_CLMFORC>$DIN_LOC_ROOT</DIN_LOC_ROOT_CLMFORC>
+      <DOUT_S_ROOT>$CIME_OUTPUT_ROOT/archive/$CASE</DOUT_S_ROOT>
+      <BASELINE_ROOT>$CIME_OUTPUT_ROOT/cesm_baselines</BASELINE_ROOT>
+      <CCSM_CPRNC>$ENV{EBROOTCESM}/cime/tools/cprnc/cprnc</CCSM_CPRNC>
+      <GMAKE_J>8</GMAKE_J>
+      <BATCH_SYSTEM>slurm</BATCH_SYSTEM>
+      <SUPPORTED_BY>bear-rsg@contacts.bham.ac.uk</SUPPORTED_BY>
+      <MAX_TASKS_PER_NODE>112</MAX_TASKS_PER_NODE>
+      <MAX_MPITASKS_PER_NODE>112</MAX_MPITASKS_PER_NODE>
+      <PROJECT_REQUIRED>FALSE</PROJECT_REQUIRED>
+      <mpirun mpilib="openmpi">
+        <executable>mpirun</executable>
+        <arguments>
+            <arg name="num_tasks"> -np {{ total_tasks }}</arg>
+        </arguments>
+      </mpirun>
+      <module_system type="module" allow_error="true">
+      <init_path lang="perl">$LMOD_ROOT/$LMOD_VERSION/init/perl</init_path>
+      <init_path lang="python">$LMOD_ROOT/$LMOD_VERSION/init/env_modules_python.py</init_path>
+      <init_path lang="sh">$LMOD_ROOT/$LMOD_VERSION/init/sh</init_path>
+      <init_path lang="csh">$LMOD_ROOT/$LMOD_VERSION/init/csh</init_path>
+      <cmd_path lang="perl">$LMOD_ROOT/$LMOD_VERSION/libexec/lmod perl</cmd_path>
+      <cmd_path lang="python">$LMOD_ROOT/$LMOD_VERSION/libexec/lmod python</cmd_path>
+      <cmd_path lang="sh">module</cmd_path>
+      <cmd_path lang="csh">module</cmd_path>
+      <modules>
+          <command name="purge"/>
+      </modules>
+      <modules>
+          <command name="load">bluebear</command>
+      </modules>
+      <modules compiler="gnu">
+        <command name="load">CESM/2.1.5-foss-2023a</command>
+      </modules>
+    </module_system>
+    <environment_variables>
+      <env name="OMP_STACKSIZE">256M</env>
+      <env name="TMPDIR">/scratch/$USER</env>
+      <env name="NETCDF_PATH">$ENV{EBROOTNETCDF}</env>
+      <env name="NETCDF_FORTRAN_PATH">$ENV{EBROOTNETCDFMINFORTRAN}</env>
+      <env name="NETCDF_C_PATH">$ENV{EBROOTNETCDFMINCPLUSPLUS4}</env>
+      <env name="PNETCDF_PATH">$ENV{EBROOTPNETCDF}</env>
+      <env name="ESMF_LIBDIR">$ENV{EBROOTESMF}/lib</env>
+      <env name="CESMDATAROOT">$ENV{CESMDATAROOT}</env>
+    </environment_variables>
+  </machine>
+
+  <default_run_suffix>
+    <default_run_exe>${EXEROOT}/cesm.exe </default_run_exe>
+    <default_run_misc_suffix> >> cesm.log.$LID 2>&amp;1 </default_run_misc_suffix>
+  </default_run_suffix>
+
+</config_machines>
