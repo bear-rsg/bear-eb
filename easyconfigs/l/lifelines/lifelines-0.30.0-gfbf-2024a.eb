@@ -30,7 +30,7 @@ exts_list = [
         'checksums': ['6eb65bedd1903c5381d8f2ae7a55b6ba13cb77d57bbaf6e4278f3b2c38e3660e'],
     }),
     (name, version, {
-        'checksums': ['a82315a5daf2ad29eabefff38b8422364a8a721721136a501c30ff861cac8759'],
+        'checksums': ['f7f6f6275fcb167fe0f5b1ef98f868993f9c074cb74b1dd6e92736efa854be18'],
     }),
 ]
 
