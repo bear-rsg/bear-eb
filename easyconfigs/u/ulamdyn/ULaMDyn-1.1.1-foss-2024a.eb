@@ -44,6 +44,7 @@ exts_list = [
         'patches': ['remove_ulamdyn_requirements.patch'],
         'source_tmpl': '%(name)s-%(version)s.tar.gz',
         'source_urls': ['https://gitlab.com/maxjr82/%(name)s/-/archive/%(version)s/'],
+        'use_pip_extras': 'modin',
         'checksums': [
             {'ULaMDyn-1.1.1.tar.gz': 'c864d8bacae1a10781ca4686cb4a5f9b7c874431866f22758203c61f3aa4f6d2'},
             {'remove_ulamdyn_requirements.patch': '0e291823fb8aca98a14eb49c92378da9733cbe57ebc3df2923730f1e186b54d3'},
