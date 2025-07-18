@@ -1,0 +1,40 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'pRESTO'
+version = '0.7.4'
+
+homepage = "https://github.com/immcantation/presto"
+description = """pRESTO is a toolkit for processing raw reads from high-throughput sequencing
+of B cell and T cell repertoires."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/immcantation/%(namelower)s/archive']
+sources = ['%(version)s.tar.gz']
+checksums = ['6f74e50bdc20d789fb1ea8982277e4ba620342307eae5f32f8766b29846de224']
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('SciPy-bundle', '2024.05'),
+    ('Biopython', '1.84'),
+    ('USEARCH', '11.0.667-i86linux32', '', SYSTEM),  # required by ClusterSets and AssemblePairs-reference
+    ('BLAST+', '2.16.0'),  # required by AssemblePairs-reference
+    ('MUSCLE', '3.8.31'),  # v3 NOT the reworked v5 specifically required by AlignSets
+    ('CD-HIT', '4.8.1'),  # required by ClusterSets
+    ('VSEARCH', '2.30.0'),  # required by ClusterSets
+]
+
+local_presto_bins = ['AlignSets', 'AssemblePairs', 'BuildConsensus', 'ClusterSets', 'CollapseSeq', 'ConvertHeaders', ]
+local_presto_bins += ['EstimateError', 'FilterSeq', 'MaskPrimers', 'PairSeq', 'ParseHeaders', 'ParseLog', 'SplitSeq', ]
+local_presto_bins += ['UnifyHeaders']
+
+sanity_check_paths = {
+    'files': ['bin/%s.py' % x for x in local_presto_bins],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ['%%(installdir)s/bin/%s.py --version' % x for x in local_presto_bins]
+
+moduleclass = 'bio'
