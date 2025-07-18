@@ -1,0 +1,62 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'ULaMDyn'
+version = '1.1.1'
+
+homepage = "https://ulamdyn.com/"
+description = """ULaMDyn is a python package designed to provide a set of methods for the preprocessing, statistical,
+ and unsupervised learning analysis of molecular data sets generated from nonadiabatic dynamics simulations. The program
+ makes use of popular data analysis and machine learning libraries (accessible through the PyPI repository), as well
+ as domain-specific libraries."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('SciPy-bundle', '2024.05'),
+    ('scikit-learn', '1.5.2'),
+    ('h5py', '3.12.1'),
+    ('ASE', '3.24.0'),
+    ('tqdm', '4.66.5'),
+    ('pybind11', '2.12.0'),  # for dscribe
+    ('numba', '0.60.0'),  # for tslearn
+]
+
+exts_list = [
+    ('modin', '0.33.1', {
+        'checksums': ['852f2a65c346f9d17261e56ecc2e6652ddddeb9e648aecfff42e1007878d42b6'],
+    }),
+    ('tslearn', '0.6.3', {
+        'checksums': ['c855c0b784b42dc4c50f4eaf524ec7ed658037e86fc14af38ca3b66c75dd6adb'],
+    }),
+    ('sparse', '0.16.0', {
+        'checksums': ['26973e5dc80d54a37dfc2622ec554c5a3aa8396c4bafe7e9da59d2101b133588'],
+    }),
+    ('dscribe', '2.1.1', {
+        'checksums': ['444484b7070255257383d191936f8bb5e4b11c1ba8eb4ac22c7273e82f9c8bdd'],
+    }),
+    ('rmsd', '1.6.2', {
+        'checksums': ['139408251a988af49e33175238636dd2c6c9e84c477322d167dd57eac69dbada'],
+    }),
+    (name, version, {
+        'patches': ['remove_ulamdyn_requirements.patch'],
+        'source_tmpl': '%(name)s-%(version)s.tar.gz',
+        'source_urls': ['https://gitlab.com/maxjr82/%(name)s/-/archive/%(version)s/'],
+        'use_pip_extras': 'modin',
+        'checksums': [
+            {'ULaMDyn-1.1.1.tar.gz': 'c864d8bacae1a10781ca4686cb4a5f9b7c874431866f22758203c61f3aa4f6d2'},
+            {'remove_ulamdyn_requirements.patch': '0e291823fb8aca98a14eb49c92378da9733cbe57ebc3df2923730f1e186b54d3'},
+        ],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/run-ulamdyn'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["run-ulamdyn --help"]
+
+moduleclass = 'bio'
