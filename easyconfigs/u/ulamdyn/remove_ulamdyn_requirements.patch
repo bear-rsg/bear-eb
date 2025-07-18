@@ -1,0 +1,34 @@
+--- /rds/projects/b/branfosj-bear-apps/sources/u/ULaMDyn/extensions/ulamdyn-1.1.1-86d03e2f3a7cb1d96f70d3b4bbb34224b65487f0.orig/setup.py	2025-07-17 15:59:51.848986467 +0100
++++ /rds/projects/b/branfosj-bear-apps/sources/u/ULaMDyn/extensions/ulamdyn-1.1.1-86d03e2f3a7cb1d96f70d3b4bbb34224b65487f0/setup.py	2025-07-18 09:36:09.440589886 +0100
+@@ -33,21 +33,16 @@
+ DESCRIPTION = "Unsupervised learning analysis for molecular dynamics data"
+ NAME = "ulamdyn"
+ 
+-if os.path.exists("requirements.txt"):
+-    requirements = open("requirements.txt").read()
+-else:
+-    requirements = (
+-        [
+-            "numpy",
+-            "scipy",
+-            "h5py",
+-            "rmsd",
+-            "pandas",
+-            "scikit-learn",
+-            "tslearn",
+-            "joblib",
+-        ],
+-    )
++requirements = [
++    "numpy",
++    "scipy",
++    "h5py",
++    "rmsd",
++    "pandas",
++    "scikit-learn",
++    "tslearn",
++    "joblib",
++]
+ 
+ if os.path.exists("README.rst"):
+     long_description = open("README.rst").read()
