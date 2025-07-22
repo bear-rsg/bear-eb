@@ -941,9 +941,8 @@ checksums = [
     {'thiserror-2.0.12.tar.gz': '567b8a2dae586314f7be2a752ec7474332959c6460e02bde30d702a66d488708'},
     {'thiserror-impl-1.0.69.tar.gz': '4fee6c4efc90059e10f81e6d42c60a18f76588c3d74cb83a0b242a2b6c7504c1'},
     {'thiserror-impl-2.0.12.tar.gz': '7f7cf42b4507d8ea322120659672cf1b9dbb93f8f2d4ecfd6e51350ff5b17a1d'},
-    {'tikv-jemalloc-sys-0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7-c7991e5b.tar.xz':
-     '5179c0351d2e6ab3bd150ec69cc592e1bbaff61454dda7c40005ba051000eff0'},
-    {'tikv-jemallocator-0.6.0-c7991e5b.tar.xz': '5179c0351d2e6ab3bd150ec69cc592e1bbaff61454dda7c40005ba051000eff0'},
+    {'tikv-jemalloc-sys-0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7-c7991e5b.tar.xz': None},
+    {'tikv-jemallocator-0.6.0-c7991e5b.tar.xz': None},
     {'time-0.3.41.tar.gz': '8a7619e19bc266e0f9c5e6686659d394bc57973859340060a69221e57dbc0c40'},
     {'time-core-0.1.4.tar.gz': 'c9e9a38711f559d9e3ce1cdb06dd7c5b8ea546bc90052da6d06bb76da74bb07c'},
     {'time-macros-0.2.22.tar.gz': '3526739392ec93fd8b359c8e98514cb3e8e021beb4e5f597b00a0221f8ed8a49'},
