@@ -1,0 +1,29 @@
+easyblock = 'MakeCp'
+
+name = 'Dsuite'
+version = '20241219'
+local_commit = 'a547f99'
+
+homepage = 'https://github.com/millanek/Dsuite'
+description = "Fast calculation of the ABBA-BABA statistics across many populations/species"
+
+toolchain = {'name': 'intel-compilers', 'version': '2024.2.0'}
+
+source_urls = ['https://github.com/millanek/Dsuite/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+checksums = ['e7b910fb8e815709366041fcfe2ae4ca5606e67bf2e1414087a115622b5841c1']
+
+dependencies = [('zlib', '1.3.1')]
+
+buildopts = 'CXX="$CXX" CXXFLAGS="$CXXFLAGS"'
+
+files_to_copy = [(['Build/Dsuite'], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/Dsuite'],
+    'dirs': [],
+}
+
+sanity_check_commands = ["Dsuite --help"]
+
+moduleclass = 'bio'
