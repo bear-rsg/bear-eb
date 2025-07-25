@@ -1,0 +1,87 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'SeuratWrappers'
+version = '0.4.0-20241122'  # check DESCRIPTION for version
+versionsuffix = '-R-%(rver)s'
+local_biocver = '3.21'
+
+homepage = "https://cran.r-project.org/package=SeuratWrappers"
+description = """SeuratWrappers is a collection of community-provided methods and extensions for Seurat,
+ curated by the Satija Lab at NYGC. These methods comprise functionality not presently found in Seurat,
+ and are able to be updated much more frequently."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-Bioconductor', local_biocver, '-R-%(rver)s'),
+    ('R-bundle-CRAN', '2025.06'),
+    ('SeuratDisk', '20231104', '-R-%(rver)s'),
+    ('Monocle3', '1.4.26', '-R-%(rver)s'),  # extension integration
+    ('presto', '1.0.0-20240518', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/release/bioc/src/contrib/',  # current version of packages
+        'https://bioconductor.org/packages/%s/bioc/src/contrib/' % local_biocver,
+        'https://bioconductor.org/packages/%s/bioc/src/contrib/Archive/%%(name)s' % local_biocver,
+        'https://bioconductor.org/packages/%s/data/annotation/src/contrib/' % local_biocver,
+        'https://bioconductor.org/packages/%s/data/experiment/src/contrib/' % local_biocver,
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+
+exts_list = [
+    ('tricycle', '1.16.0', {
+        'checksums': ['78dc49d9405ff3754eb003d7df8308c1b01203ad245752dbb077259d89e71e69'],
+    }),
+    ('glmpca', '0.2.0', {
+        'checksums': ['048a9cdb303279275aa2b23bb01777dffdeaec0752709b382c2289f21e70b20b'],
+    }),
+    ('CoGAPS', '3.28.0', {
+        'checksums': ['7ac222c35ab670658b8c1a14d2aa03cac486d1ca171e33e08865cdc7af913745'],
+    }),
+    ('svMisc', '1.4.3', {
+        'checksums': ['737cf33092eb4027884c3e5e7835fef74b7d97bd4051afeb072a40d5d760586a'],
+    }),
+    ('fishpond', '2.14.0', {
+        'checksums': ['49a251f7cf0a51d778b9172357b41ba3128baba84ab4d18d0a8bab4266371790'],
+    }),
+    ('SeuratData', '0.2.2.9002-20250304', {
+        'sources': {
+            'filename': '%(name)s_%(version)s.tar.gz',
+            'git_config': {
+                'url': 'https://github.com/satijalab/',
+                'repo_name': 'seurat-data',
+                'commit': '83a3ff7'}},
+        'checksums': ['99f72ee2a26c40e5bdbeffd639978419130915a0c09e7a513764a34147bf41c8'],
+    }),
+    (name, version, {
+        'sources': {
+            'filename': '%(name)s_%(version)s.tar.gz',
+            'git_config': {
+                'url': 'https://github.com/satijalab/',
+                'repo_name': 'seurat-wrappers',
+                'commit': 'a1eb0d8'}},
+        'checksums': ['4a627ce165b2f185b039c08d35ef359f65f26e15ef2ebf80654e6c205346415d'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['SeuratWrappers/R/SeuratWrappers'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
