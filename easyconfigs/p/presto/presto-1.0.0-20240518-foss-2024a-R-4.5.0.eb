@@ -1,0 +1,29 @@
+easyblock = 'RPackage'
+
+name = 'presto'
+local_commit = '7636b3d'
+# see DESCRIPTION to determine version,
+# but also take date of last commit into account (since version isn't always bumped)
+version = '1.0.0-20240518'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://github.com/immunogenomics/presto'
+description = "Presto performs a fast Wilcoxon rank sum test and auROC analysis."
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/immunogenomics/presto/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+checksums = ['0a1c9e9e3c1566c5a66502d94cec05eec9c61d0bd3ca8bd64308e6e44b9653f3']
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-Bioconductor', '3.21', versionsuffix),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [name],
+}
+
+moduleclass = 'math'
