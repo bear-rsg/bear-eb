@@ -1,0 +1,36 @@
+# Modufication of ShengBTE-1.5.1-foss-2023a.eb easyconfig by Jasper Grimm (UoY)
+
+easyblock = 'MakeCp'
+
+name = 'FourPhonon'
+version = '1.2'
+
+homepage = ' https://github.com/FourPhonon/FourPhonon'
+description = "A solver for the Boltzmann transport equation for phonons."
+
+toolchain = {'name': 'intel', 'version': '2023a'}
+toolchainopts = {'openmp': True}
+
+github_account = 'FourPhonon'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['0537e0c5a378f1786bb3445c78c2fc4fe0393420c0ca4764e583b8c1f8c96c14']
+
+dependencies = [
+    ('spglib', '2.5.0'),
+]
+
+start_dir = 'Src'
+
+# strip "include arch.make" -- not needed as we already set necessary env vars
+prebuildopts = "sed -i 's/^include arch.make//' Makefile && "
+buildopts = '-j 1 LIBS="$LIBBLAS -lsymspg"'
+
+files_to_copy = [(['ShengBTE'], 'bin'), (['LICENSE', 'README.md'], 'share')]
+
+sanity_check_paths = {
+    'files': ['bin/ShengBTE'],
+    'dirs': ['share'],
+}
+
+moduleclass = 'phys'
