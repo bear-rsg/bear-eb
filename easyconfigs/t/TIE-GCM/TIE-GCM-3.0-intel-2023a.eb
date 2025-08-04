@@ -1,0 +1,71 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Tarball'
+
+name = 'TIE-GCM'
+version = '3.0'
+_release = 'MAGE_CCMC_1.0.2-rc1'
+
+homepage = "https://www.hao.ucar.edu/modeling/tgcm/tie.php"
+description = """The NCAR Thermosphere-Ionosphere-Electrodynamics General Circulation Model (TIE-GCM) is a
+ comprehensive, first-principles, three-dimensional, non-linear representation of the coupled thermosphere and
+ ionosphere system that includes a self-consistent solution of the middle and low-latitude dynamo field. The model
+ solves the three-dimensional momentum, energy and continuity equations for neutral and ion species at each time
+ step, using a semi-implicit, fourth-order, centered finite difference scheme on each pressure surface in a staggered
+ vertical grid. It can be run in either serial or parallel mode on a variety of platforms, including Linux
+ workstations and supercomputers."""
+
+toolchain = {'name': 'intel', 'version': '2023a'}
+
+source_urls = ['https://github.com/NCAR/tiegcm/archive']
+sources = ['%s.tar.gz' % _release]
+patches = [
+    ('tiegcm3.0_ifort.patch', 1),
+    ('tiegcm3.0_jobfile.patch', 1),
+    'tiegcm3.0_inputfile.patch',
+    'tiegcm3.0_system_options.patch',
+]
+checksums = [
+    {'MAGE_CCMC_1.0.2-rc1.tar.gz': '77c24b1c856ffddb08227e6ff5f9ffc96926c95bdf479990ca3764bf247d39e0'},
+    {'tiegcm3.0_ifort.patch': '8584843a51ac1ac6bda1f79b21f74d29743a2e130ae6149036d1850e48bf6880'},
+    {'tiegcm3.0_jobfile.patch': '3fff7777fe8f94baf73a58e42700d50851994d1ebf1311810d7d25b7b76bc890'},
+    {'tiegcm3.0_inputfile.patch': 'd671131724cb3d7abfe71c18d2cebee77b63087f9572c8e88ceefc2a487e7247'},
+    {'tiegcm3.0_system_options.patch': 'e73f62347a31ea8828a88c0d5e81f73f723cc9eb5be768af02b88ae2b101e207'},
+]
+
+dependencies = [
+    ('netCDF-Fortran', '4.6.1'),
+    ('ESMF', '8.6.0'),
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('xarray', '2023.9.0'),
+    ('netcdf4-python', '1.6.4'),
+]
+
+postinstallcmds = [
+    'cd %(installdir)s/tiegcmrun && '
+    'sed -i "s/linux/bluebear/" tiegcmrun.py output_solver.py',
+]
+
+sanity_check_paths = {
+    'files': ['scripts/Make.intel_bluebear'],
+    'dirs': [],
+}
+
+modextravars = {
+    # job files expect $TGCMROOT and $TGCMDATA to be set
+    'TGCMROOT': '$::env(EBROOTTIEMINGCM)',
+    'TGCMDATA': '$::env(BB_APPS_DATA)/TIE-GCM/3.0',
+    # tiegcmrun.py expects $TIEGCMHOME and $TIEGCMDATA to be set
+    'TIEGCMHOME': '$::env(EBROOTTIEMINGCM)',
+    'TIEGCMDATA': '$::env(BB_APPS_DATA)/TIE-GCM/3.0',
+    # BlueBEAR-specific environment variables
+    'TGCM_MAKEBLUEBEAR': 'Make.intel_bluebear',
+    'TGCM_BBSCRIPT': '$::env(EBROOTTIEMINGCM)/tiegcm-bluebear.job',
+}
+
+modextrapaths = {'PATH': 'tiegcmrun'}
+
+sanity_check_commands = ['tiegcmrun.py --help']
+
+moduleclass = 'geo'

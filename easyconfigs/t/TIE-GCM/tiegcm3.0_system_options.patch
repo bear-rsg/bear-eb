@@ -1,0 +1,14 @@
+diff -Nru tiegcm.orig/tiegcmrun/options_description.json tiegcm/tiegcmrun/options_description.json
+--- tiegcm.orig/tiegcmrun/options_description.json	2025-07-15 14:13:12.079245000 +0100
++++ tiegcm/tiegcmrun/options_description.json	2025-08-04 15:57:57.342633379 +0100
+@@ -12,8 +12,8 @@
+         "hpc_system": {
+             "LEVEL": "BENCH",
+             "prompt": "Name of HPC system",
+-            "default": "derecho",
+-            "valids": ["derecho", "pleiades","linux"],
++            "default": "bluebear",
++            "valids": ["bluebear"],
+             "description": null,
+             "warning": null
+         }

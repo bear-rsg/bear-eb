@@ -1,0 +1,11 @@
+--- scripts/tiegcm_default.inp.orig	2025-07-21 17:23:47.027765516 +0100
++++ scripts/tiegcm_default.inp	2025-07-21 17:24:56.431197199 +0100
+@@ -3,7 +3,7 @@
+  START_YEAR = 2002
+  START_DAY = 80
+  CALENDAR_ADVANCE = 1
+- SOURCE = '$TGCMDATA/tiegcm_2.5x0.25_z7_mareqx_smin_prim.nc'
++ SOURCE = '$TGCMDATA/tiegcm_res2.5_mareqx_smin_prim.nc'
+  SOURCE_START = 80 0 0 0
+  PRISTART = 80 0 0 0
+  PRISTOP = 81 0 0 0

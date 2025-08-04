@@ -1,0 +1,55 @@
+diff -Nru tiegcm.orig/scripts/Make.gfort_bluebear tiegcm/scripts/Make.gfort_bluebear
+--- tiegcm.orig/scripts/Make.gfort_bluebear	1970-01-01 01:00:00.000000000 +0100
++++ tiegcm/scripts/Make.gfort_bluebear	2025-07-16 11:48:46.907334706 +0100
+@@ -0,0 +1,51 @@
++#
++# Included makefile for GNU gfortran compiler on BlueBEAR:
++# BlueBEAR is using gfortran 12.3.0
++# See https://bear-apps.bham.ac.uk and https://docs.bear.bham.ac.uk
++#
++MPIF90 = mpifort
++MPIRUN = mpirun
++FFLAGS = -fdefault-real-8 -I${EBROOTNETCDFMINFORTRAN}/include -DGNU
++LDFLAGS = -L${EBROOTNETCDFMINFORTRAN}/lib
++#
++#FFLAGS += -mcmodel=medium
++#
++# DBGFLAGS are used by the Makefile only if the job script
++# has "set debug = true"
++#
++DBGFLAGS = -Og -fcheck=all,no-array-temps -fbacktrace
++DBGFLAGS += -Wall -Wextra
++DBGFLAGS += -Wpedantic -Wcharacter-truncation -Wconversion-extra
++DBGFLAGS += -Wfrontend-loop-interchange -Wimplicit-interface -Wimplicit-procedure
++DBGFLAGS += -Wuse-without-only -Walign-commons -Wrealloc-lhs -Wrealloc-lhs-all
++#
++# -ffpe-trap=invalid,zero,overflow traps all floating point exceptions.
++# The model is not guaranteed not to crash if this option is set.
++#
++#DBGFLAGS += -ffpe-trap=invalid,zero,overflow
++#
++# Makefile will use OPTIM = -g if set debug=TRUE in job script.
++OPTIM    = -O2
++HOST     = $(shell hostname)
++#
++# Library and Include file paths:
++#
++# ESMF lib on BlueBEAR:
++# (Makefile does "include $(ESMFMKFILE)")
++ESMFMKFILE = ${EBROOTESMF}/lib/esmf.mk
++#
++# Make machines.ini file for MPI execution:
++#
++prereq: machines.ini mpirun.command
++machines.ini: export HN=$(HOST)
++machines.ini: export NP=$(NPROC)
++machines.ini: FORCE
++	@echo "Making machines.ini.."
++	@echo `hostname` > machines.ini
++	@awk 'BEGIN{ for (i=2; i <= ENVIRON["NP"]; i++) print ENVIRON["HN"] }' >> machines.ini
++
++mpirun.command: FORCE
++	@echo "Making mpirun.command: MPIRUN=$(MPIRUN)"
++	@echo $(MPIRUN) > mpirun.command
++
++FORCE:

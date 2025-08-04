@@ -1,0 +1,51 @@
+diff -Nru tiegcm.orig/scripts/Make.intel_bluebear tiegcm/scripts/Make.intel_bluebear
+--- tiegcm.orig/scripts/Make.intel_bluebear	1970-01-01 01:00:00.000000000 +0100
++++ tiegcm/scripts/Make.intel_bluebear	2025-07-25 18:49:30.195967033 +0100
+@@ -0,0 +1,47 @@
++#
++# Included makefile for Intel ifort compiler on BlueBEAR.
++# See https://bear-apps.bham.ac.uk and https://docs.bear.bham.ac.uk.
++#
++MPIF90 = mpiifort
++MPIRUN = mpirun
++FFLAGS = -r8 -DINTEL
++#
++#FFLAGS += -mcmodel=medium
++#
++# DBGFLAGS are used by the Makefile only if the job script
++# has "set debug = true"
++#
++DBGFLAGS = -debug full,extended -traceback
++DBGFLAGS += -check all,noarg_temp_created -fp-stack-check
++DBGFLAGS += -warn all -nogen-interfaces
++#
++# -fpe-all=0 traps all floating point exceptions.
++# The model is not guaranteed not to crash if this option is set.
++#
++#DBGFLAGS += -fpe-all=0
++#
++# Makefile will use OPTIM = -g if set debug=TRUE in job script.
++OPTIM    = -O2
++HOST     = $(shell hostname)
++#
++# Library and Include file paths:
++#
++# ESMF lib:
++# (Makefile does "include $(ESMFMKFILE)")
++ESMFMKFILE = ${EBROOTESMF}/lib/esmf.mk
++#
++# Make machines.ini file for MPI execution:
++#
++prereq: machines.ini mpirun.command
++machines.ini: export HN=$(HOST)
++machines.ini: export NP=$(NPROC)
++machines.ini: FORCE
++	@echo "Making machines.ini.."
++	@echo `hostname` > machines.ini
++	@awk 'BEGIN{ for (i=2; i <= ENVIRON["NP"]; i++) print ENVIRON["HN"] }' >> machines.ini
++
++mpirun.command: FORCE
++	@echo "Making mpirun.command: MPIRUN=$(MPIRUN)"
++	@echo $(MPIRUN) > mpirun.command
++
++FORCE:
