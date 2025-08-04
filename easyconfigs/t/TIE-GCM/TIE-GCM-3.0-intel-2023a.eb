@@ -61,8 +61,8 @@ modextravars = {
     'TIEGCMHOME': '$::env(EBROOTTIEMINGCM)',
     'TIEGCMDATA': '$::env(BB_APPS_DATA)/TIE-GCM/3.0',
     # BlueBEAR-specific environment variables
-    'TGCM_MAKEBLUEBEAR': 'Make.intel_bluebear',
-    'TGCM_BBSCRIPT': '$::env(EBROOTTIEMINGCM)/tiegcm-bluebear.job',
+    'TIEGCM_MAKEBLUEBEAR': 'Make.intel_bluebear',
+    'TIEGCM_BBSCRIPT': '$::env(EBROOTTIEMINGCM)/tiegcm-bluebear.job',
 }
 
 modextrapaths = {'PATH': 'tiegcmrun'}
