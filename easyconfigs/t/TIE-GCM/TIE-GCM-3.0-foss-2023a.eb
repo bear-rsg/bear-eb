@@ -43,13 +43,14 @@ dependencies = [
 ]
 
 postinstallcmds = [
+    'cp scripts/tiegcm-bluebear.job %(installdir)s',
     'cd %(installdir)s/tiegcmrun && '
     'sed -i "s/Make.intel_linux/Make.gfort_bluebear/" tiegcmrun.py && '
     'sed -i "s/linux/bluebear/" tiegcmrun.py output_solver.py',
 ]
 
 sanity_check_paths = {
-    'files': ['scripts/Make.gfort_bluebear'],
+    'files': ['tiegcm-bluebear.job', 'scripts/Make.gfort_bluebear'],
     'dirs': [],
 }
 
