@@ -56,7 +56,7 @@ sanity_check_paths = {
 modextravars = {
     # job files expect $TGCMROOT and $TGCMDATA to be set
     'TGCMROOT': '$::env(EBROOTTIEMINGCM)',
-    'TGCMDATA': '$::env(BB_APPS_DATA)/TIE-GCM/3.0',
+    'TGCMDATA': '$::env(BB_APPS_DATA)/TIE_GCM/3.0',
     # tiegcmrun.py expects $TIEGCMHOME and $TIEGCMDATA to be set
     'TIEGCMHOME': '$::env(EBROOTTIEMINGCM)',
     'TIEGCMDATA': '$::env(BB_APPS_DATA)/TIE-GCM/3.0',
