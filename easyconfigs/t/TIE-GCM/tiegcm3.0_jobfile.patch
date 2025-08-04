@@ -4,7 +4,7 @@ diff -Nru tiegcm.orig/scripts/tiegcm-bluebear.job tiegcm/scripts/tiegcm-bluebear
 @@ -0,0 +1,356 @@
 +#!/bin/bash
 +#
-+# Job script to build and execute the model on a 64-bit Linux desktop machine.
++# Job script to build and execute the model on BlueBEAR.
 +#
 +# User should set shell variables below:
 +#
