@@ -12,7 +12,8 @@ It is based on the widely deployed GEOS (the engine of PostGIS) and JTS (from wh
 toolchain = {'name': 'gfbf', 'version': '2024a'}
 
 sources = [SOURCELOWER_TAR_GZ]
-checksums = []
+checksums = ['2cbe90e86fa8fc3ca8af6ffb00a77b246b918c7cf28677b7c21489b678f6b02e']
+
 builddependencies = [
     ('Cython', '3.0.10'),
 ]
