@@ -1,0 +1,96 @@
+easyblock = 'PythonBundle'
+
+name = 'PySAL'
+version = '25.7'
+
+homepage = 'http://pysal.org/pysal/'
+description = """
+PySAL is an open source cross-platform library for geospatial data science with an emphasis on
+geospatial vector data written in Python.
+"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+builddependencies = [
+    ('poetry', '1.8.3'),
+]
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('BeautifulSoup', '4.12.3'),
+    ('geopandas', '1.1.1'),
+    ('Shapely', '2.1.0'),
+    ('scikit-learn', '1.5.2'),
+    ('momepy', '0.10.0'),
+    ('rasterio', '1.4.3'),
+    ('statsmodels', '0.14.4'),
+    ('PuLP', '2.8.0'),
+    ('Seaborn', '0.13.2'),
+    ('Rtree', '1.4.0'),
+    ('sympy', '1.13.3'),
+]
+
+exts_list = [
+    ('esda', '2.7.1', {
+        'checksums': ['0cd5e87ae1f3dfd5b284131fc8eb7595ff0fa03ee590ab9be4a1df86853ea36d'],
+    }),
+    ('access', '1.1.9', {
+        'checksums': ['89d0043e3596854701b72c77dfedb677839a5b416a18362c222b7d321ad02138'],
+    }),
+    ('quantecon', '0.8.0', {
+        'checksums': ['f1b68b10974eda3ec386e151c1659a51d5e55d2b72677891f7b5ca019000fe58'],
+    }),
+    ('giddy', '2.3.6', {
+        'checksums': ['004ec587eb7b75d9f717efd9b018a9f95f55d30d9768e2bb9cdb86ae7bdb7592'],
+    }),
+    ('inequality', '1.1.2', {
+        'checksums': ['2010253c26cfe3745d36beb02aeff5503e1b21cb06e1d52aa7f13c37acd9adf1'],
+    }),
+    ('pointpats', '2.5.1', {
+        'checksums': ['1eedb30a17e59746ed9ac68283f419dee5a07c17cd53ed2bc2dadba2b77973ff'],
+    }),
+    ('deprecation', '2.1.0', {
+        'checksums': ['72b3bde64e5d778694b0cf68178aed03d15e15477116add3fb773e581f9518ff'],
+    }),
+    ('segregation', '2.5.2', {
+        'checksums': ['e2a2e580818032f7924b871ee43257cfc684572305df3a9f27ff6e1d647643c6'],
+    }),
+    ('spaghetti', '1.7.6', {
+        'checksums': ['c9beddbb3bf285e88745d36aee886c78ac6e6a416f0f9b1a441265c8c08f923d'],
+    }),
+    ('mgwr', '2.2.1', {
+        'checksums': ['8b00ba992fd85c9528327eae88e104e072939d0d5203b72c513ef29d5c400ff7'],
+    }),
+    ('spglm', '1.1.0', {
+        'checksums': ['20519dc38be9d660a28109bb1b89d1068454e79f6413bab2e3987db5bf959327'],
+    }),
+    ('spint', '1.0.7', {
+        'checksums': ['7ee6bfc725f8b507abd43f3d397bde8eaf6d85b8052f9ecb0c69f613bfeac4ca'],
+    }),
+    ('spreg', '1.8.3', {
+        'checksums': ['ef162161baf6aafd247233f68c479da777c4a3a360d6f768dae292bde3294131'],
+    }),
+    ('rasterstats', '0.20.0', {
+        'checksums': ['5b8ee775e815727767e0d359c03f3dd1c7840876d1d1d0c7a5a88ecf3e492938'],
+    }),
+    ('tobler', '0.12.1', {
+        'checksums': ['96a05c2bd69569c5fadb940f7ad242dd8a43d12c7818c7ab97534e46670677f1'],
+    }),
+    ('splot', '1.1.7', {
+        'checksums': ['6edcaee24cd417965c378c5bc87414d02806915950c138c1f6e40f1a1de5286b'],
+    }),
+    ('spopt', '0.7.0', {
+        'checksums': ['ed599b8c0e219682e48e85852b615dbc6f122ef2907d73c11894ad3ffdb39d47'],
+    }),
+    ('mapclassify', '2.10.0', {
+        'checksums': ['0d6736a08c0b1e10e6197224ef512951514204706514244bd01aea49fd1442b3'],
+    }),
+    ('urllib3', '1.26.16', {
+        'checksums': ['8f135f6502756bde6b2a9b28989df5fbe87c9970cecaa69041edcce7f0589b14'],
+    }),
+    ('pysal', version, {
+        'checksums': ['ca1452a1d57811cbc4708002a38ece6fe58b8597f966b310731e2e4014ddf21b'],
+    }),
+]
+
+moduleclass = 'geo'
