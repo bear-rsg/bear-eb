@@ -1,7 +1,7 @@
 diff -Nru tiegcm.orig/scripts/tiegcm-bluebear.job tiegcm/scripts/tiegcm-bluebear.job
 --- tiegcm.orig/scripts/tiegcm-bluebear.job	1970-01-01 01:00:00.000000000 +0100
 +++ tiegcm/scripts/tiegcm-bluebear.job	2025-07-15 15:07:39.921644650 +0100
-@@ -0,0 +1,356 @@
+@@ -0,0 +1,359 @@
 +#!/bin/bash
 +#
 +# Job script to build and execute the model on BlueBEAR.
@@ -317,6 +317,9 @@ diff -Nru tiegcm.orig/scripts/tiegcm-bluebear.job tiegcm/scripts/tiegcm-bluebear
 +if [[ $make == *"intel"* ]]
 +then
 +  compiler="intel"
++elif [[ $make == *"gfort"* ]]
++then
++  compiler="gfortran"
 +fi
 +echo "Compiler: $compiler"
 +#

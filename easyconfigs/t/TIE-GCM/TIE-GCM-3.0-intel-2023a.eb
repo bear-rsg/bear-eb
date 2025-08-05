@@ -27,13 +27,12 @@ patches = [
 checksums = [
     {'MAGE_CCMC_1.0.2-rc1.tar.gz': '77c24b1c856ffddb08227e6ff5f9ffc96926c95bdf479990ca3764bf247d39e0'},
     {'tiegcm3.0_ifort.patch': '8584843a51ac1ac6bda1f79b21f74d29743a2e130ae6149036d1850e48bf6880'},
-    {'tiegcm3.0_jobfile.patch': 'd456f492b720d8c0bbf080905a6e4e8bdbbcf8d3b74ac5cfeef7b4e2687962c1'},
+    {'tiegcm3.0_jobfile.patch': '62d8e7c53449a4531f54b6230ec9c26f0816889e5d80f486d69e19913c13c46b'},
     {'tiegcm3.0_inputfile.patch': 'd671131724cb3d7abfe71c18d2cebee77b63087f9572c8e88ceefc2a487e7247'},
     {'tiegcm3.0_system_options.patch': 'e73f62347a31ea8828a88c0d5e81f73f723cc9eb5be768af02b88ae2b101e207'},
 ]
 
 dependencies = [
-    ('netCDF-Fortran', '4.6.1'),
     ('ESMF', '8.6.0'),
     ('Python', '3.11.3'),
     ('Python-bundle-PyPI', '2023.06'),
@@ -59,7 +58,7 @@ modextravars = {
     'TGCMDATA': '$::env(BB_APPS_DATA)/TIE_GCM/3.0',
     # tiegcmrun.py expects $TIEGCMHOME and $TIEGCMDATA to be set
     'TIEGCMHOME': '$::env(EBROOTTIEMINGCM)',
-    'TIEGCMDATA': '$::env(BB_APPS_DATA)/TIE-GCM/3.0',
+    'TIEGCMDATA': '$::env(BB_APPS_DATA)/TIE_GCM/3.0',
     # BlueBEAR-specific environment variables
     'TIEGCM_MAKEBLUEBEAR': 'Make.intel_bluebear',
     'TIEGCM_BBSCRIPT': '$::env(EBROOTTIEMINGCM)/tiegcm-bluebear.job',
@@ -68,5 +67,9 @@ modextravars = {
 modextrapaths = {'PATH': 'tiegcmrun'}
 
 sanity_check_commands = ['tiegcmrun.py --help']
+
+modloadmsg = """If you encounter segmentation faults when running TIE-GCM, try setting
+'ulimit -s unlimited' before running it.
+"""
 
 moduleclass = 'geo'
