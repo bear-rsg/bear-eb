@@ -1,0 +1,35 @@
+easyblock = 'Tarball'
+
+name = 'M-Star_CFD'
+version = '3.10.32'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://mstarcfd.com'
+description = """The core fluid motion equations are implemented using the Large Eddy Simulation (LES) algorithm.
+ This accurately models turbulent fluid motion without resorting to low order turbulence models. Many fluid rheology
+ models are built in to model the actual viscosity/strain relationship of your system. This includes Newtonian,
+ non-Newtonian, and yield stress rheology models. You will then add on more physics such as solid particles, DEM,
+ scalar fields, chemical reactions, and other components.
+"""
+
+toolchain = {'name': 'gompi', 'version': '2022a'}
+
+source_urls = 'https://download.mstarcfd.com'
+sources = ['mstarcfd-solver-%(version)s-oracle7-cuda11.tar.gz']
+
+dependencies = [
+    ('CUDA', '11.7.0', '', SYSTEM),
+    ('NCCL', '2.12.12', versionsuffix),
+]
+
+postinstallcmds = [
+    "rm %(installdir)s/README-solver.txt",
+    "cp $EBROOTCUDA/./targets/*-linux/lib/stubs/libcuda.* %(installdir)s/lib && ls %(installdir)s/lib"
+]
+
+sanity_check_paths = {
+    'files': ['bin/mstar-cfd-mgpu', 'bin/mstar-cfd-mgpu-d'],
+    'dirs': ['bin', 'lib'],
+}
+
+moduleclass = 'tools'
