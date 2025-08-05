@@ -71,7 +71,7 @@ modextrapaths = {'PATH': 'tiegcmrun'}
 
 sanity_check_commands = ['tiegcmrun.py --help']
 
-modloadmsg = """If you encounter segmentation faults when running TIE-GCM, try setting
+modloadmsg = """If you encounter segmentation faults when running TIE-GCM, try executing
 'ulimit -s unlimited' before running it.
 """
 
