@@ -1,0 +1,75 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CmdCp'
+
+name = 'Thermo-Calc'
+version = '2025b'
+
+homepage = 'https://www.thermocalc.com'
+description = """The Thermo-Calc software is a sophisticated database and programming interface package used to
+ perform thermodynamic calculations. It can calculate complex homogeneous and heterogeneous phase equilibria, and then
+ plot the results as property diagrams and phase diagrams."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+# Install files provided by Met&Mat:
+# 1. Get the file titled e.g. 'Thermo-Calc-linux-2025.1.162371-212.run' from Met & Mat
+# 2. Tar this: "tar -cvz -f Thermo-Calc-0000b.tar.gz Thermo-Calc-linux-*.run"
+# 3. Copy the resulting file to the sources directory
+
+# Second source replaces Console.sh, which is unusually missing in 2025b
+sources = [
+    SOURCE_TAR_GZ,
+    {'filename': 'Thermo-Calc-2025b.Console.sh', 'extract_cmd': 'cp %s Console.sh'}
+]
+checksums = [
+    {'Thermo-Calc-2025b.tar.gz': 'afb71f768e6a551a82c8184eeac2ffe3c7d9f66538618b18a053564edc2ab33f'},
+    {'Thermo-Calc-2025b.Console.sh': 'd0903e0b1281401e8cac7d8ec816da3ed88e09491fbd8d23c98ce72606c63794'},
+]
+
+dependencies = [
+    ('libxslt', '1.1.42'),
+]
+
+buildininstalldir = True
+
+local_install_cmd = ' '.join([
+    "./%(name)s-linux*.run",
+    "--mode unattended",
+    "--enable-components thermo,databases,tcpython,tq",
+    "--license_server met-tc.bham.ac.uk",
+    "--installation_mode custom",
+    "--debuglevel 4",
+    "--icons 0",
+    "--prefix %(builddir)s"
+])
+
+cmds_map = [('.*', '%s' % local_install_cmd)]
+
+files_to_copy = []
+
+# Symlink for shared data. Note that the user building this app will need read access to the shared content.
+# Delete the *.run file after installation.
+postinstallcmds = [
+    'ln -s ${BB_APPS_DATA}/%(name)s/*/TT* %(installdir)s/data/',
+    'rm -f %(installdir)s/%(name)s-linux*.run',
+]
+
+sanity_check_paths = {
+    'files': ['Console.sh', '%(name)s.sh'],
+    'dirs': ['data/TTAL5'],
+}
+
+modaliases = {'tc': 'Console.sh'}
+
+modextrapaths = {
+    'LD_LIBRARY_PATH': './SDK/TQ',
+    'PATH': '',
+}
+
+modextravars = {
+    'LSHOST': 'met-tc.bham.ac.uk',
+    'TC25B_HOME': '%(installdir)s',  # Fix this for each version
+    'TCPATH': '%(installdir)s',  # Fix this for each version
+}
+
+moduleclass = 'cae'
