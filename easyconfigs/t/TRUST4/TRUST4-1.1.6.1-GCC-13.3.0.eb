@@ -35,12 +35,26 @@ fix_python_shebang_for = ['bin/*.py']
 github_account = 'liulab-dfci'
 postinstallcmds = ['chmod a+x %(installdir)s/bin/*']
 files_to_copy = [
-    (['run-%(namelower)s', '%(namelower)s', 'bam-extractor', 'fastq-extractor', 'annotator', 'BuildDatabaseFa.pl', 'BuildImgtAnnot.pl', 'BuildImgtVquestAnnot.pl', 'FilterAnnotatedAssembly.pl', 'trust-airr.pl', 'trust-barcoderep.pl', 'trust-simplerep.pl', 'trust-smartseq.pl'], 'bin'),
-    (['scripts/AddSequenceToCDR3File.pl', 'scripts/barcoderep-filter.py', 'scripts/GetFullLengthAssembly.pl', 'scripts/trust-barcoderep-to-10X.pl', 'scripts/trust-cluster.py', 'scripts/trust-stats.py'], 'bin'),
+    (['run-%(namelower)s', '%(namelower)s', 'bam-extractor', 'fastq-extractor', 'annotator', 'BuildDatabaseFa.pl',
+        'BuildImgtAnnot.pl', 'BuildImgtVquestAnnot.pl', 'FilterAnnotatedAssembly.pl', 'trust-airr.pl',
+        'trust-barcoderep.pl', 'trust-simplerep.pl', 'trust-smartseq.pl'], 'bin'),
+    (['scripts/AddSequenceToCDR3File.pl', 'scripts/barcoderep-filter.py', 'scripts/GetFullLengthAssembly.pl',
+        'scripts/trust-barcoderep-to-10X.pl', 'scripts/trust-cluster.py', 'scripts/trust-stats.py'], 'bin'),
 ]
 
 sanity_check_paths = {
-    'files': ['bin/run-%(namelower)s', 'bin/%(namelower)s', 'bin/bam-extractor', 'bin/fastq-extractor', 'bin/annotator', 'bin/BuildDatabaseFa.pl', 'bin/BuildImgtAnnot.pl', 'bin/BuildImgtVquestAnnot.pl', 'bin/FilterAnnotatedAssembly.pl', 'bin/trust-airr.pl', 'bin/trust-barcoderep.pl', 'bin/trust-simplerep.pl', 'bin/trust-smartseq.pl', 'bin/AddSequenceToCDR3File.pl', 'bin/barcoderep-filter.py', 'bin/GetFullLengthAssembly.pl', 'bin/trust-barcoderep-to-10X.pl', 'bin/trust-cluster.py', 'bin/trust-stats.py'],
+    'files': [
+        'bin/run-%(namelower)s', 'bin/%(namelower)s',
+        'bin/bam-extractor', 'bin/fastq-extractor', 'bin/annotator',
+        'bin/BuildDatabaseFa.pl',
+        'bin/BuildImgtAnnot.pl', 'bin/BuildImgtVquestAnnot.pl',
+        'bin/FilterAnnotatedAssembly.pl', 'bin/trust-airr.pl',
+        'bin/trust-barcoderep.pl', 'bin/trust-simplerep.pl',
+        'bin/trust-smartseq.pl', 'bin/AddSequenceToCDR3File.pl',
+        'bin/barcoderep-filter.py',
+        'bin/GetFullLengthAssembly.pl', 'bin/trust-barcoderep-to-10X.pl',
+        'bin/trust-cluster.py', 'bin/trust-stats.py'
+    ],
     'dirs': [],
 }
 
@@ -48,7 +62,9 @@ sanity_check_commands = [
     "run-%(namelower)s 2>&1 | grep '%(name)s v%(version)s'",
     "BuildDatabaseFa.pl 2>&1 | grep 'usage: perl BuildDatabaseFa.pl'",
     "trust-cluster.py 2>&1 | grep 'usage: a.py trust_cdr3.out'",
-    "cd %(builddir)s/%(name)s-%(version)s && run-%(namelower)s -b example/example.bam -f hg38_bcrtcr.fa --ref human_IMGT+C.fa && test -f example/TRUST_example_report.tsv",
+    """cd %(builddir)s/%(name)s-%(version)s \
+    && run-%(namelower)s -b example/example.bam -f hg38_bcrtcr.fa --ref human_IMGT+C.fa \
+    && test -f example/TRUST_example_report.tsv""",
 ]
 
 moduleclass = 'bio'
