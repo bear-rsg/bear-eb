@@ -15,8 +15,12 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 # 1. Get the file titled e.g. 'Thermo-Calc-linux-2025.1.162371-212.run' from Met & Mat
 # 2. Tar this: "tar -cvz -f Thermo-Calc-0000b.tar.gz Thermo-Calc-linux-*.run"
 # 3. Copy the resulting file to the sources directory
-sources = [SOURCE_TAR_GZ]
-checksums = ['afb71f768e6a551a82c8184eeac2ffe3c7d9f66538618b18a053564edc2ab33f']
+
+# Second source replaces Console.sh, which is unusually missing in 2025b
+sources = [
+    SOURCE_TAR_GZ,
+    {'filename': 'Thermo-Calc-2025b.Console.sh', 'extract_cmd': 'cp %s Console.sh'}
+]
 
 dependencies = [
     ('libxslt', '1.1.42'),
