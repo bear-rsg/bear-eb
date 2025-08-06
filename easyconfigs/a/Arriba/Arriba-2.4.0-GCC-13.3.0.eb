@@ -30,7 +30,7 @@ dependencies = [
 # make target with dynamically linked libraries is called bioconda, default is a statically linked binary
 build_cmd_targets = 'bioconda'
 # otherwise it fails to find sam.h
-buildopts = 'CPATH=${EBROOTHTSLIB}/include/htslib:CPATH'
+buildopts = 'CPATH=${EBROOTHTSLIB}/include/htslib:$CPATH'
 
 postinstallcmds = ['mkdir %(installdir)s/database']
 files_to_copy = ['%(namelower)s', 'documentation', 'download_references.sh', 'draw_fusions.R', 'LICENSE',
