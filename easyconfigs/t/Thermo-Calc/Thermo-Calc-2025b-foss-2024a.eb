@@ -26,8 +26,6 @@ dependencies = [
     ('libxslt', '1.1.42'),
 ]
 
-# Symlink for shared data. Note that the user building this app will need read access to the shared content
-postinstallcmds = ['ln -s ${BB_APPS_DATA}/%(name)s/*/TT* %(installdir)s/data/']
 buildininstalldir = True
 
 local_install_cmd = ' '.join([
@@ -42,6 +40,9 @@ local_install_cmd = ' '.join([
 ])
 
 cmds_map = [('.*', '%s' % local_install_cmd)]
+
+files_to_copy = []
+
 # Symlink for shared data. Note that the user building this app will need read access to the shared content.
 # Delete the *.run file after installation.
 postinstallcmds = [
@@ -53,6 +54,8 @@ sanity_check_paths = {
     'files': ['Console.sh', '%(name)s.sh'],
     'dirs': ['data/TTAL5'],
 }
+
+modaliases = {'tc': 'Console.sh'}
 
 modextrapaths = {
     'LD_LIBRARY_PATH': './SDK/TQ',
