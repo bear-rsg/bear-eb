@@ -29,11 +29,9 @@ dependencies = [
 # Symlink for shared data. Note that the user building this app will need read access to the shared content
 postinstallcmds = ['ln -s ${BB_APPS_DATA}/%(name)s/*/TT* %(installdir)s/data/']
 buildininstalldir = True
-modaliases = {'tc': 'Console.sh'}
-files_to_copy = []
 
 local_install_cmd = ' '.join([
-    "./%(name)s*.run",
+    "./%(name)s-linux*.run",
     "--mode unattended",
     "--enable-components thermo,databases,tcpython,tq",
     "--license_server met-tc.bham.ac.uk",
