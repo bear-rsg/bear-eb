@@ -21,6 +21,10 @@ sources = [
     SOURCE_TAR_GZ,
     {'filename': 'Thermo-Calc-2025b.Console.sh', 'extract_cmd': 'cp %s Console.sh'}
 ]
+checksums = [
+    {'Thermo-Calc-2025b.tar.gz': 'afb71f768e6a551a82c8184eeac2ffe3c7d9f66538618b18a053564edc2ab33f'},
+    {'Thermo-Calc-2025b.Console.sh': 'd0903e0b1281401e8cac7d8ec816da3ed88e09491fbd8d23c98ce72606c63794'},
+]
 
 dependencies = [
     ('libxslt', '1.1.42'),
