@@ -1,0 +1,32 @@
+#  Easyconfig originally authored by Jasper Grimm (UoY)
+#  Updated for 1.7.1 by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'longestrunsubsequence'
+version = '1.0.1'
+
+homepage = 'https://pypi.org/project/longestrunsubsequence/'
+description = """Implementation of a solver for the Longest Run Subsequence Problem. Given a
+ sequence as input, compute a longest subsequence such that there is at most one run for every
+ character.
+"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+builddependencies = [('binutils', '2.42')]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('PuLP', '2.8.0'),
+    # PuLP supports various solvers: Cbc, CPLEX, GLPK, Gurobi, Mosek
+    ('GLPK', '5.0'),
+]
+
+exts_list = [
+    (name, version, {
+        'use_pip_extras': 'ILP-acceleration',
+        'checksums': ['c49134880da428425de2150569b6e6f7049509b6693cef920c32fca7ddf5e03f'],
+    }),
+]
+
+moduleclass = 'bio'
