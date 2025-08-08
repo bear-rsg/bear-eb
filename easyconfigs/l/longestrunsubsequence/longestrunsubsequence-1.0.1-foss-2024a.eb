@@ -1,6 +1,6 @@
 #  Easyconfig originally authored by Jasper Grimm (UoY)
 #  Updated for 1.7.1 by the BEAR Software team at the University of Birmingham.
-easyblock = 'PythonBundle'
+easyblock = 'PythonPackage'
 
 name = 'longestrunsubsequence'
 version = '1.0.1'
@@ -13,6 +13,9 @@ description = """Implementation of a solver for the Longest Run Subsequence Prob
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
+sources = [SOURCE_TAR_GZ]
+checksums = ['c49134880da428425de2150569b6e6f7049509b6693cef920c32fca7ddf5e03f']
+
 builddependencies = [('binutils', '2.42')]
 
 dependencies = [
@@ -22,11 +25,15 @@ dependencies = [
     ('GLPK', '5.0'),
 ]
 
-exts_list = [
-    (name, version, {
-        'use_pip_extras': 'ILP-acceleration',
-        'checksums': ['c49134880da428425de2150569b6e6f7049509b6693cef920c32fca7ddf5e03f'],
-    }),
+use_pip_extras = 'ILP-acceleration'
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "python -c 'from longestrunsubsequence import lrs; print(lrs(\"ccbcbbbdaaddd\"))'"
 ]
 
 moduleclass = 'bio'
