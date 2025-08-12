@@ -1,0 +1,54 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+
+name = 'MPB'
+version = '1.12.0'
+
+homepage = 'https://mpb.readthedocs.io/en/latest/'
+description = """MPB is a free and open-source software package for computing
+ the band structures, or dispersion relations, and electromagnetic
+ modes of periodic dielectric structures, on both serial
+ and parallel computers. MPB is an acronym for MIT Photonic Bands."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'usempi': True, 'pic': True}
+
+source_urls = ['https://github.com/NanoComp/%(namelower)s/releases/download/v%(version)s/']
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['8d2b206254b217f66a53c1ad20cc0c369b93b0e71ee671d68e333a583eaaeda4']
+
+builddependencies = [('Autotools', '20220317')]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('HDF5', '1.14.0'),
+    ('libctl', '4.5.1'),
+    ('Guile', '3.0.9'),
+    ('libreadline', '8.2'),
+]
+
+_common_opts = '--with-pic --with-blas="$LIBBLAS" --with-lapack="$LIBLAPACK" '
+_common_opts += '--with-libctl=$EBROOTLIBCTL/share/libctl --with-hermitian-eps --enable-shared'
+
+configopts = [
+    _common_opts,
+    '%s --with-inv-symmetry' % _common_opts,
+    '%s --with-mpi' % _common_opts,
+    '%s --with-mpi --with-inv-symmetry' % _common_opts,
+]
+
+_binaries = ['bin/mpb%s' % x for x in ['', '-data', '-mpi', 'split', 'i', 'i-data', 'i-mpi', 'i-split']]
+
+_libs = ['lib/lib%s.%s' % (x, SHLIB_EXT) for x in ['mpb', 'mpb_mpi', 'mpbi', 'mpbi_mpi']]
+
+sanity_check_paths = {
+    'files': [_binaries, _libs],
+        #['bin/%s' % x for x in _binaries],
+        #['lib/%s' % x for x in _libs]
+    # ],
+    'dirs': ['include'],
+}
+
+sanity_check_commands = ['mpb --help']
+
+moduleclass = 'phys'
