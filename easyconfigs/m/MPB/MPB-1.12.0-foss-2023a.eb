@@ -43,9 +43,6 @@ _libs = ['lib/lib%s.%s' % (x, SHLIB_EXT) for x in ['mpb', 'mpb_mpi', 'mpbi', 'mp
 
 sanity_check_paths = {
     'files': [_binaries, _libs],
-        #['bin/%s' % x for x in _binaries],
-        #['lib/%s' % x for x in _libs]
-    # ],
     'dirs': ['include'],
 }
 
