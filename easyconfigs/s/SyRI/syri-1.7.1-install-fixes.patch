@@ -1,0 +1,27 @@
+diff -ruN syri-1.7.1.orig/pyproject.toml syri-1.7.1/pyproject.toml
+--- syri-1.7.1.orig/pyproject.toml	2025-08-12 13:33:40.820198444 +0100
++++ syri-1.7.1/pyproject.toml	2025-08-12 14:56:09.795886022 +0100
+@@ -11,11 +11,10 @@
+ description = "Synteny and rearrangement identifier between whole-genome assemblies"
+ readme = "README.md"
+ # Limit python version as pysam is not available for higher python versions
+-requires-python = ">=3.8, <3.12"
++requires-python = ">=3.8"
+ keywords = ["Structural Variation", "SV", "Pangenomics", "Bioinformatics"]
+ license = {text = "MIT"}
+ dependencies = [
+-	"Cython",
+ 	"numpy",
+ 	"pandas",
+ 	"scipy",
+diff -ruN syri-1.7.1.orig/setup.py syri-1.7.1/setup.py
+--- syri-1.7.1.orig/setup.py	2025-08-12 13:33:40.820904437 +0100
++++ syri-1.7.1/setup.py	2025-08-12 14:56:21.714418919 +0100
+@@ -22,7 +22,6 @@
+           for name in glob.iglob('syri/pyxFiles/*.pyx')]),
+       packages=["syri", "syri.scripts"],
+       include_dirs=[numpy.get_include()],
+-      # scripts=['bin/syri', 'bin/chroder'],
+       entry_points={"console_scripts": ["syri=syri.scripts.syri:main", "chroder=syri.scripts.chroder:main"]},
+       long_description=open('README.rst').read(),
+ )

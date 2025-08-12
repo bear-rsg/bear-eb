@@ -1,0 +1,50 @@
+#  Easyconfig originally authored by Jasper Grimm (UoY)
+#  Updated for 1.7.1 by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'SyRI'
+version = '1.7.1'
+
+homepage = "https://schneebergerlab.github.io/syri/"
+description = """Syri compares alignments between two chromosome-level assemblies and identifies
+ synteny and structural rearrangements."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/schneebergerlab/%(namelower)s/archive']
+sources = ['v%(version)s.tar.gz']
+patches = ['%(namelower)s-%(version)s-install-fixes.patch']
+checksums = [
+    {'v1.7.1.tar.gz': '37dc0ff99669e1111110843620719d88641075081c3104d37460525146f4705e'},
+    {'syri-1.7.1-install-fixes.patch': 'ed5c6b8479dc313d7418b75208edb3b2428c7bd60202beac68c51ae96d7e324c'},
+]
+
+builddependencies = [
+    ('Cython', '3.0.10'),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('python-igraph', '0.11.9'),
+    ('Pysam', '0.22.1'),
+    ('matplotlib', '3.9.2'),
+    ('PuLP', '2.8.0'),
+    # Optional, only required to use `chroder`:
+    ('longestrunsubsequence', '1.0.1'),
+]
+
+#  reganno isn't fully functional in v1.7.1 and isn't properly incorporated into the
+#  application build so it is not included here.
+
+local_bins = ['chroder', 'syri']
+
+sanity_check_commands = ["%s --help" % x for x in local_bins]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/'],
+}
+
+moduleclass = 'bio'
