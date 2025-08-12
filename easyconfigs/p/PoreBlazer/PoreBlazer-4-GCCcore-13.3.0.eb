@@ -1,0 +1,31 @@
+easyblock = "MakeCp"
+
+name = 'PoreBlazer'
+version = '4'
+local_commit = '32e5899'
+
+homepage = 'https://github.com/SarkisovGitHub/PoreBlazer'
+description = """Code to calculate structural properties of porous materials."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+github_account = 'SarkisovGitHub'
+source_urls = [GITHUB_SOURCE]
+sources = ['%s.tar.gz' % local_commit]
+checksums = ['6382c4cdf0f2ee260222186bc4018675bd05057f817b5510f698f73b40396b45']
+
+start_dir = 'src'
+
+prebuildopts = "cp Makefile_gfort Makefile && "
+
+files_to_copy = [
+    (['poreblazer.exe'], 'bin'),
+    'data'
+]
+
+sanity_check_paths = {
+    'files': ['bin/poreblazer.exe', 'data/MOFsubsetPB4.dat'],
+    'dirs': ['data']
+}
+
+moduleclass = 'chem'
