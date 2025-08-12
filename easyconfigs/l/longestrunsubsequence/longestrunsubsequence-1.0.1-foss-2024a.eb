@@ -1,5 +1,5 @@
 #  Easyconfig originally authored by Jasper Grimm (UoY)
-#  Updated for 1.7.1 by the BEAR Software team at the University of Birmingham.
+#  Updated by the BEAR Software team at the University of Birmingham.
 easyblock = 'PythonPackage'
 
 name = 'longestrunsubsequence'
