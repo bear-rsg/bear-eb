@@ -7,7 +7,7 @@ version = '3.0.2'
 homepage = "https://sharc-md.org/"
 description = """Surface Hopping including Arbitrary Couplings"""
 
-toolchain = {'name': 'foss', 'version': '2023a'}
+toolchain = {'name': 'intel', 'version': '2023a'}
 toolchainopts = {'optarch': False}
 
 source_urls = ['https://github.com/sharc-md/sharc/archive/']
@@ -24,14 +24,15 @@ dependencies = [
     ('matplotlib', '3.7.2'),
     ('h5py', '3.9.0'),
     ('PyYAML', '6.0'),
-    ('imkl', '2023.1.0'),
 ]
 
 skipsteps = ['configure', 'install']
 buildininstalldir = True
 
-prebuildopts = 'sed -i "s/USE_PYSHARC := false/USE_PYSHARC := true/" source/Makefile &&'
-prebuildopts += 'sed -i "s/-llapack//" source/Makefile && sed -i "s/-lblas/-lflexiblas/" source/Makefile &&'
+prebuildopts = 'sed -i "s/USE_PYSHARC := false/USE_PYSHARC := true/" source/Makefile && '
+prebuildopts += 'sed -i "s/USE_COMPILER := gnu/USE_COMPILER := intel/" source/Makefile && '
+prebuildopts += 'sed -i "s/USE_LIBS := gnu/USE_LIBS := mkl/" source/Makefile && '
+prebuildopts += 'unset LD &&'
 build_cmd = 'cd pysharc && make install && cd ../source && make install'
 parallel = False
 
