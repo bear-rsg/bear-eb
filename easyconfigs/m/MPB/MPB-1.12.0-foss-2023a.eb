@@ -37,12 +37,9 @@ configopts = [
     '%s --with-mpi --with-inv-symmetry' % _common_opts,
 ]
 
-_binaries = ['bin/mpb%s' % x for x in ['', '-data', '-mpi', 'split', 'i', 'i-data', 'i-mpi', 'i-split']]
-
-_libs = ['lib/lib%s.%s' % (x, SHLIB_EXT) for x in ['mpb', 'mpb_mpi', 'mpbi', 'mpbi_mpi']]
-
 sanity_check_paths = {
-    'files': [_binaries, _libs],
+    'files': ['bin/mpb%s' % x for x in ['', '-data', '-mpi', '-split', 'i', 'i-data', 'i-mpi', 'i-split']] +
+             ['lib/lib%s.%s' % (x, SHLIB_EXT) for x in ['mpb', 'mpb_mpi', 'mpbi', 'mpbi_mpi']],
     'dirs': ['include'],
 }
 
