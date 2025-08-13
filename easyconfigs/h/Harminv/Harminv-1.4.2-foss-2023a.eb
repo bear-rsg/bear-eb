@@ -22,7 +22,7 @@ builddependencies = [('pkgconf', '1.9.5')]
 configopts = '--with-pic --with-blas="$LIBBLAS" --with-lapack="$LIBLAPACK" --enable-shared'
 
 sanity_check_paths = {
-    'files': ['bin/%(namelower)s', 'lib/libharminv.a', 'lib/libharminv.%s' % SHLIB_EXT],
+    'files': ['bin/harminv', 'lib/libharminv.a', 'lib/libharminv.%s' % SHLIB_EXT],
     'dirs': ['include'],
 }
 
