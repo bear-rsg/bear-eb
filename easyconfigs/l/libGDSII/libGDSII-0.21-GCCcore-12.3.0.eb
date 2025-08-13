@@ -13,9 +13,7 @@ toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 source_urls = ['https://github.com/HomerReid/libGDSII/releases/download/v%(version)s/']
 sources = [SOURCELOWER_TAR_GZ]
 
-builddependencies = [
-    ('binutils', '2.40'),
-]
+builddependencies = [('binutils', '2.40')]
 
 sanity_check_paths = {
     'files': ['bin/GDSIIConvert', 'include/libGDSII.h', 'lib/libGDSII.a', 'lib/libGDSII.%s' % SHLIB_EXT],

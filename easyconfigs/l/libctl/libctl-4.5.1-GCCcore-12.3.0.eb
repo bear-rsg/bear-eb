@@ -18,6 +18,7 @@ builddependencies = [
     ('binutils', '2.40'),
     ('Autotools', '20220317'),  # required for libtool
 ]
+
 dependencies = [
     ('Guile', '3.0.9'),
 ]
