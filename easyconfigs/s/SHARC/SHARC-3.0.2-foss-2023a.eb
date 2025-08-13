@@ -31,7 +31,7 @@ skipsteps = ['configure', 'install']
 buildininstalldir = True
 
 prebuildopts = 'sed -i "s/USE_PYSHARC := false/USE_PYSHARC := true/" source/Makefile &&'
-prebuildopts = 'sed -i "s/-llapack//" source/Makefile && sed -i "s/-lblas/-lflexiblas/" source/Makefile &&'
+prebuildopts += 'sed -i "s/-llapack//" source/Makefile && sed -i "s/-lblas/-lflexiblas/" source/Makefile &&'
 build_cmd = 'cd pysharc && make install && cd ../source && make install'
 parallel = False
 
