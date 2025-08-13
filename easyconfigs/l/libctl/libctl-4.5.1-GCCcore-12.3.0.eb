@@ -27,7 +27,7 @@ configopts = "--with-pic --enable-shared"
 _libs = ['libctl', 'libctlgeom']
 
 sanity_check_paths = {
-    'files': ['lib/%s.a' % x for x in _libs] + 
+    'files': ['lib/%s.a' % x for x in _libs] +
              ['lib/%s.%s' % (x, SHLIB_EXT) for x in _libs] +
              ['bin/gen-ctl-io'],
     'dirs': ['include'],
