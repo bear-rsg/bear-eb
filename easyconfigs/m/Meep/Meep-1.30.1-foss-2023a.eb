@@ -38,7 +38,7 @@ configopts += '--with-libctl=${EBROOTLIBCTL}/share/libctl '
 configopts += '--enable-shared GUILE_CONFIG="$EBROOTGUILE/bin/guile -e main -s $EBROOTGUILE/bin/guile-config"'
 
 sanity_check_paths = {
-    'files': ['bin/%(namelower)s', 'lib/libmeep.so'],
+    'files': ['bin/%%(namelower)s', 'lib/lib%%(namelower)s.%s' % SHLIB_EXT],
     'dirs': ['include', 'lib/python%(pyshortver)s/site-packages/%(namelower)s'],
 }
 
