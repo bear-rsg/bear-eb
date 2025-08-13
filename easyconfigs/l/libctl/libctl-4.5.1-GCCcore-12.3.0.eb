@@ -1,0 +1,37 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+
+name = 'libctl'
+version = '4.5.1'
+
+homepage = 'https://libctl.readthedocs.io/en/latest/'
+description = "libctl is a free Guile-based library implementing flexible control files for scientific simulations."
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://github.com/NanoComp/%(name)s/releases/download/v%(version)s/']
+sources = [SOURCE_TAR_GZ]
+checksums = ['fcfeb2f13dda05b560f0ec6872757d9318fdfe8f4bc587eb2053a29ba328ae25']
+
+builddependencies = [
+    ('binutils', '2.40'),
+    ('Autotools', '20220317'),  # required for libtool
+]
+
+dependencies = [
+    ('Guile', '3.0.9'),
+]
+
+configopts = "--with-pic --enable-shared"
+
+_libs = ['libctl', 'libctlgeom']
+
+sanity_check_paths = {
+    'files': ['lib/%s.a' % x for x in _libs] +
+             ['lib/%s.%s' % (x, SHLIB_EXT) for x in _libs] +
+             ['bin/gen-ctl-io'],
+    'dirs': ['include'],
+}
+
+moduleclass = 'chem'
