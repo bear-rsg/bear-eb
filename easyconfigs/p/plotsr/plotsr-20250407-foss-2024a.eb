@@ -1,0 +1,34 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'plotsr'
+version = '20250407'
+local_commit = 'aca98a8'
+
+homepage = "https://schneebergerlab.org"
+description = """Plotsr generates high-quality visualisation of synteny and structural rearrangements
+ between multiple genomes. For this, it uses the genomic structural annotations between multiple
+ chromosome-level assemblies."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/schneebergerlab/%(name)s/archive']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}]
+checksums = ['9d6cbfeb8aea589851489c85acf216264789cbd205b689b18244dc7cadb253c9']
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('matplotlib', '3.9.2'),
+]
+
+preinstallopts = """sed -i 's|requires-python = ">=3.8, <3.12"|requires-python = ">=3.8"|' pyproject.toml && """
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["plotsr -h"]
+
+moduleclass = 'bio'
