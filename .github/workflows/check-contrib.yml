@@ -1,0 +1,83 @@
+name: check-contrib
+
+on: [push, pull_request]  # would you need to define PRs containing .eb files?
+
+permissions:
+  contents: read  # to fetch code (actions/checkout)
+
+jobs:
+  check-contrib:
+    name: Run EasyBuild check-contrib
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out source repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2  # shallow but deep enough to diff last commit; I don't want to have do to fetch-depth: 0 and get the full history
+
+      - name: Set up Python env
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      - name: Install EasyBuild and required deps
+        run: |
+          echo "Installing easybuild and pycodestyle"
+          pip install easybuild==4.9.4 pycodestyle
+
+          echo "Installing LMOD"
+          sudo apt-get install -y lua5.2 liblua5.2-dev lua-filesystem lua-posix tcl tcl-dev
+          sudo apt install -y curl
+          LMOD_VERSION=8.7.4
+          curl -OL https://github.com/surak/Lmod/releases/download/${LMOD_VERSION}/lmod_${LMOD_VERSION}_all.deb
+          sudo apt install -y ./lmod_${LMOD_VERSION}_all.deb
+
+          #  default install location via sudo apt goes to /usr/lmod
+          export PATH="/usr/lmod/$LMOD_VERSION/libexec:$PATH"
+          export MOD_INIT="/usr/lmod/$LMOD_VERSION/init/bash"
+
+          echo $MOD_INIT > "$GITHUB_WORKSPACE/mod_init"
+          echo $PATH > "$GITHUB_WORKSPACE/path"
+          source $(cat "$GITHUB_WORKSPACE/mod_init") ; type module
+          export EASYBUILD_MODULES_TOOL=Lmod
+
+          # Verify LMOD install
+          which lmod ; lmod --version
+
+      - name: Run --check-contrib
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+          LMOD_VERSION: 8.7.4
+          MOD_INIT: "/usr/lmod/$LMOD_VERSION/init/bash"
+
+        run: |
+          export PATH="/usr/lmod/$LMOD_VERSION/libexec:$PATH"
+          echo $MOD_INIT > "$GITHUB_WORKSPACE/mod_init"
+          echo $PATH > "$GITHUB_WORKSPACE/path"
+
+          echo "Fetching prior commit for diff"
+          git fetch origin "$BEFORE_SHA"
+
+          echo "Checking for modified .eb files"
+          CHANGED_EBS=$(git diff --name-only --diff-filter=d "$BEFORE_SHA" "$AFTER_SHA" -- '*.eb' || echo "")
+
+          if [ -z "$CHANGED_EBS" ]; then
+            echo "No .eb files changed. Skipping check-contrib."
+            exit 0
+          fi
+
+          echo "Files to check:"
+          printf '%s\n' "$CHANGED_EBS"
+
+          # check eb is available
+          eb --version; eb --show-config
+
+          for file in $CHANGED_EBS; do
+            echo "Checking $file"
+            eb "$file" --check-contrib || exit 1  # Fail fast on errors
+          done
