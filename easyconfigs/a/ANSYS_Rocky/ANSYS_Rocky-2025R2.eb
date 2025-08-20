@@ -1,0 +1,47 @@
+easyblock = 'CmdCp'
+
+name = 'ANSYS_Rocky'
+version = '2025R2'
+local_ansysver = 'v252'
+
+homepage = "https://www.ansys.com/en-gb/products/fluids/ansys-rocky"
+description = """Ansys Rocky is the industry-leading discrete element method (DEM)
+ software that quickly and accurately simulates particle flow behavior."""
+
+toolchain = SYSTEM
+
+download_instructions = """Login and download from https://download.ansys.com/currentReleases.
+Navigate to the "AddOn Packages" section and retrieve the "Main Package" download.
+"""
+
+sources = ["ROCKY_%(version)s_LINX64.tgz"]
+checksums = ['1dcc9857c136a1d506f4092813e8ac3f3080ca542516c9cb5c5246a10190da9c']
+
+dependencies = [
+    ('alsa-lib', '1.2.10'),
+    ('ANSYS', '2025R2'),
+    ('CUDA', '12.6.0'),  # Using CUDA version already available on BlueBEAR
+]
+
+cmds_map = [(
+    '.*',
+    "./INSTALL -silent -nochecks -install_dir %(installdir)s"
+)]
+
+skipsteps = ['install']  # the install step deletes the directory created by the above command
+files_to_copy = []
+
+postinstallcmds = [
+    "chmod +x %%(installdir)s/%s/rocky/Rocky*" % local_ansysver,
+]
+
+# Binaries are installed to the "rocky" subdirectory so add that to the PATH
+modextrapaths = {'PATH': '%s/rocky' % local_ansysver}
+
+sanity_check_paths = {
+    'files': ['%s/rocky/bin/%s' % (local_ansysver, x) for x in ['Rocky', 'RockySolver']]
+    + ['%s/rocky/bin/Rocky' % local_ansysver],
+    'dirs': ['%s/rocky/bin/%s' % (local_ansysver, x) for x in ['lib', 'share']],
+}
+
+moduleclass = 'tools'
