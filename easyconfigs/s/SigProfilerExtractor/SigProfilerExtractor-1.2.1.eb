@@ -21,13 +21,13 @@ builddependencies = [('Miniforge3', '24.1.2-0')]
 
 environment_file = '%(namelower)s-%(version)s+cpu.yml'
 
-#sanity_check_commands = ['python -c "from SigProfilerMatrixGenerator import install as genInstall"']
+# sanity_check_commands = ['python -c "from SigProfilerMatrixGenerator import install as genInstall"']
 sanity_check_commands = ['python  -c "from SigProfilerExtractor import sigpro ; help(sigpro.importdata)"']
-#sanity_check_commands = ['python  %(builddir)s/test.py']
+# sanity_check_commands = ['python  %(builddir)s/test.py']
 
 local_pkgs = [
-        'SigProfilerAssignment', 'SigProfilerPlotting',
-        'SigProfilerMatrixGenerator', 'SigProfilerExtractor'
+    'SigProfilerAssignment', 'SigProfilerPlotting',
+    'SigProfilerMatrixGenerator', 'SigProfilerExtractor'
 ]
 
 sanity_check_paths = {
