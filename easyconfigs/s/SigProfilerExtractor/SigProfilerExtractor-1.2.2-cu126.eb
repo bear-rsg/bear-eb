@@ -25,8 +25,8 @@ environment_file = '%(namelower)s-%(version)s+cu126.yml'
 sanity_check_commands = ['python  -c "from %(name)s import sigpro ; help(sigpro.importdata)"']
 
 local_pkgs = [
-        'SigProfilerAssignment', 'SigProfilerPlotting',
-        'SigProfilerMatrixGenerator', 'SigProfilerExtractor'
+    'SigProfilerAssignment', 'SigProfilerPlotting',
+    'SigProfilerMatrixGenerator', 'SigProfilerExtractor'
 ]
 
 sanity_check_paths = {
