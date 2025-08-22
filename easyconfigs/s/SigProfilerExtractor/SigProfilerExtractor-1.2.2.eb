@@ -5,7 +5,8 @@ version = '1.2.2'
 
 github_account = "AlexandrovLab"
 homepage = "https://github.com/%(github_account)s/%(name)s"
-description = """SigProfilerExtractor allows de novo extraction of mutational signatures from data generated in a matrix
+description = """
+SigProfilerExtractor allows de novo extraction of mutational signatures from data generated in a matrix
  format. The tool identifies the number of operative mutational signatures, their activities in each sample, and the
  probability for each signature to cause a specific mutation type in a cancer sample. The tool makes use of
  SigProfilerMatrixGenerator and SigProfilerPlotting. Detailed documentation can be found at:
@@ -24,8 +25,8 @@ environment_file = '%(namelower)s-%(version)s+cpu.yml'
 sanity_check_commands = ['python %(builddir)s/test.py']
 
 local_pkgs = [
-        'SigProfilerAssignment', 'SigProfilerPlotting',
-        'SigProfilerMatrixGenerator', 'SigProfilerExtractor'
+    'SigProfilerAssignment', 'SigProfilerPlotting',
+    'SigProfilerMatrixGenerator', 'SigProfilerExtractor'
 ]
 
 sanity_check_paths = {
