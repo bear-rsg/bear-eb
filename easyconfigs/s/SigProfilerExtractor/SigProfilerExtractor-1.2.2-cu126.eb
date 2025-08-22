@@ -1,0 +1,39 @@
+easyblock = 'Condain'
+
+name = 'SigProfilerExtractor'
+version = '1.2.2'
+versionsuffix = '-cu126'
+
+github_account = "AlexandrovLab"
+homepage = "https://github.com/%(github_account)s/%(name)s"
+description = """SigProfilerExtractor allows de novo extraction of mutational signatures from data generated in a matrix
+ format. The tool identifies the number of operative mutational signatures, their activities in each sample, and the
+ probability for each signature to cause a specific mutation type in a cancer sample. The tool makes use of
+ SigProfilerMatrixGenerator and SigProfilerPlotting. Detailed documentation can be found at:
+ https://osf.io/t6j7u/wiki/home/
+"""
+
+sources = ['%(namelower)s-%(version)s+cu126.yml']
+checksums = ['11b936c87a21ace7b9127ad6f0698bc561112fe1ff919b87e5e470feae89aa6d']
+
+toolchain = SYSTEM
+
+builddependencies = [('Miniforge3', '24.1.2-0')]
+
+environment_file = '%(namelower)s-%(version)s+cu126.yml'
+
+sanity_check_commands = ['python  -c "from %(name)s import sigpro ; help(sigpro.importdata)"']
+
+local_pkgs = [
+        'SigProfilerAssignment', 'SigProfilerPlotting',
+        'SigProfilerMatrixGenerator', 'SigProfilerExtractor'
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in local_pkgs],
+    'dirs': ['lib', 'include', 'conda-meta'],
+}
+
+postinstallcmds = ['wget https://raw.githubusercontent.com/%(github_account)s/%(name)s/refs/tags/v%(version)s/test.py']
+
+moduleclass = 'bio'
