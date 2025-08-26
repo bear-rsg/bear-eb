@@ -1,4 +1,4 @@
-easyblock = 'Condain'
+easyblock = 'Conda'
 
 name = 'SigProfilerExtractor'
 version = '1.2.2'
