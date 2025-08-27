@@ -1,0 +1,68 @@
+easyblock = 'MakeCp'
+
+name = 'SHAPEIT5'
+version = '5.1.1'
+versionsuffix = '-20240315'
+_commit_hash = 'c44cd04'
+
+github_account = 'odelaneau'
+homepage = 'https://odelaneau.github.io/shapeit5/'
+description = """
+Segmented HAPlotype Estimation and Imputation Tool
+ SHAPEIT5 is a fast and accurate method for estimation of haplotypes
+ (aka phasing) for SNP array and high coverage sequencing data.
+"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+sources = [
+    {
+        'filename': SOURCE_TAR_XZ,
+        'git_config': {
+            'url': 'https://github.com/%(github_account)s',
+            'repo_name': '%(namelower)s',
+            'commit': _commit_hash,
+            'recursive': True
+        }
+    },
+]
+checksums = ['ed8693325395cd009ac2c1cece4618b23a10b711a892a2b6c8cce341f5f4dec4']
+
+dependencies = [
+    ('zlib', '1.3.1'),
+    ('bzip2', '1.0.8'),
+    ('libdeflate', '1.20'),
+    ('XZ', '5.4.5'),
+    ('Boost', '1.85.0'),
+    ('HTSlib', '1.21'),
+]
+
+buildopts = 'HTSLIB_INC="$EBROOTHTSLIB/include" HTSLIB_LIB=-lhts'
+buildopts += ' BOOST_INC="$EBROOTBOOST/include" BOOST_LIB_IO=-lboost_iostreams BOOST_LIB_PO=-lboost_program_options'
+# buildopts += ' BOOST_LIB_SE=-lboost_serialisation'
+buildopts += f' COMMIT_VERS={_commit_hash} COMMIT_DATE={versionsuffix}'
+
+files_to_copy = [
+    (['phase_common/bin/phase_common'], 'bin'),
+    (['phase_rare/bin/phase_rare'], 'bin'),
+    (['switch/bin/switch'], 'bin'),
+    (['ligate/bin/ligate'], 'bin'),
+    (['simulate/bin/simulate'], 'bin'),
+    (['xcftools/bin/xcftools'], 'bin'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/phase_common'],
+    'dirs': ['bin'],
+}
+
+sanity_check_commands = [
+    'phase_common --help',
+    'phase_rare --help',
+    'switch --help',
+    'ligate --help',
+    'simulate --help',
+    'xcftools --help'
+]
+
+moduleclass = 'bio'
