@@ -60,14 +60,14 @@ sanity_check_paths = {
 }
 
 local_test = [
-        '%(builddir)s/%(namelower)s/test/scripts/phase.array.family',
-        '%(builddir)s/%(namelower)s/test/scripts/phase.array.haploid',
-        '%(builddir)s/%(namelower)s/test/scripts/phase.array.reference',
-        '%(builddir)s/%(namelower)s/test/scripts/phase.array.scaffold',
-        '%(builddir)s/%(namelower)s/test/scripts/phase.array.unrelated',
-        '%(builddir)s/%(namelower)s/test/scripts/phase.wgs.family',
-        '%(builddir)s/%(namelower)s/test/scripts/phase.wgs.haploid',
-        '%(builddir)s/%(namelower)s/test/scripts/phase.wgs.unrelated',
+    '%(builddir)s/%(namelower)s/test/scripts/phase.array.family',
+    '%(builddir)s/%(namelower)s/test/scripts/phase.array.haploid',
+    '%(builddir)s/%(namelower)s/test/scripts/phase.array.reference',
+    '%(builddir)s/%(namelower)s/test/scripts/phase.array.scaffold',
+    '%(builddir)s/%(namelower)s/test/scripts/phase.array.unrelated',
+    '%(builddir)s/%(namelower)s/test/scripts/phase.wgs.family',
+    '%(builddir)s/%(namelower)s/test/scripts/phase.wgs.haploid',
+    '%(builddir)s/%(namelower)s/test/scripts/phase.wgs.unrelated',
 ]
 
 sanity_check_commands = [
@@ -78,6 +78,6 @@ sanity_check_commands = [
     'simulate --help',
     'xcftools --help',
 ]
-sanity_check_commands += ['cd %(builddir)s/%(namelower)s/test &&' +'%s.sh' % x for x in local_test]
+sanity_check_commands += ['cd %(builddir)s/%(namelower)s/test &&' + '%s.sh' % x for x in local_test]
 
 moduleclass = 'bio'
