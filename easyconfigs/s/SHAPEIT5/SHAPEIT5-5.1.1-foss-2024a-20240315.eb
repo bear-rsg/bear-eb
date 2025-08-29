@@ -35,6 +35,7 @@ dependencies = [
     ('XZ', '5.4.5'),
     ('Boost', '1.85.0'),
     ('HTSlib', '1.21'),
+    ('BCFtools', '1.21'),
 ]
 
 buildopts = 'HTSLIB_INC="$EBROOTHTSLIB/include" HTSLIB_LIB=-lhts'
@@ -49,6 +50,8 @@ files_to_copy = [
     (['ligate/bin/ligate'], 'bin'),
     (['simulate/bin/simulate'], 'bin'),
     (['xcftools/bin/xcftools'], 'bin'),
+    'tasks',
+    'resources',
 ]
 
 sanity_check_paths = {
@@ -56,13 +59,25 @@ sanity_check_paths = {
     'dirs': ['bin'],
 }
 
+local_test = [
+        '%(builddir)s/%(namelower)s/test/scripts/phase.array.family',
+        '%(builddir)s/%(namelower)s/test/scripts/phase.array.haploid',
+        '%(builddir)s/%(namelower)s/test/scripts/phase.array.reference',
+        '%(builddir)s/%(namelower)s/test/scripts/phase.array.scaffold',
+        '%(builddir)s/%(namelower)s/test/scripts/phase.array.unrelated',
+        '%(builddir)s/%(namelower)s/test/scripts/phase.wgs.family',
+        '%(builddir)s/%(namelower)s/test/scripts/phase.wgs.haploid',
+        '%(builddir)s/%(namelower)s/test/scripts/phase.wgs.unrelated',
+]
+
 sanity_check_commands = [
     'phase_common --help',
     'phase_rare --help',
     'switch --help',
     'ligate --help',
     'simulate --help',
-    'xcftools --help'
+    'xcftools --help',
 ]
+sanity_check_commands += ['cd %(builddir)s/%(namelower)s/test &&' +'%s.sh' % x for x in local_test]
 
 moduleclass = 'bio'
