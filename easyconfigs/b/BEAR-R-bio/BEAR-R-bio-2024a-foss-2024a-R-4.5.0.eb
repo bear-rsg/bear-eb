@@ -13,6 +13,7 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 dependencies = [
     ('R', '4.5.0'),
     ('R-bundle-Bioconductor', '3.21', versionsuffix),
+    ('Monocle3', '1.4.26', versionsuffix),
 ]
 
 moduleclass = 'bio'
