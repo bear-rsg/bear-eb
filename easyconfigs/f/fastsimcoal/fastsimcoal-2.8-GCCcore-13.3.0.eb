@@ -1,0 +1,32 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Tarball'
+
+name = 'fastsimcoal'
+version = '2.8'
+
+homepage = 'https://cmpg.unibe.ch/software/fastsimcoal2'
+description = """While preserving all the simulation flexibility of simcoal2,
+fastsimcoal is now implemented under a faster continous-time sequential Markovian coalescent approximation,
+allowing it to efficiently generate genetic diversity for different types of markers along large genomic
+regions, for both present or ancient samples"""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+source_urls = ['https://cmpg.unibe.ch/software/fastsimcoal2/downloads/']
+sources = ['fsc28_linux64.zip']
+checksums = ['255cf7b8dfcbf149f7fd4d9551dbf6fb07871ce2c202ac6ca1e17221c5064acd']
+
+dependencies = []
+
+postinstallcmds = [
+    "mkdir -p %(installdir)s/bin",
+    "mv %(installdir)s/fsc28 %(installdir)s/bin/fsc28",
+    "chmod a+x %(installdir)s/bin/fsc28",
+]
+
+sanity_check_paths = {
+    'files': ['bin/fsc28'],
+    'dirs': ["bin"],
+}
+
+moduleclass = 'bio'
