@@ -1,0 +1,89 @@
+# This easyconfig was created by Simon Branford of the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+
+name = 'OpenMC'
+version = '0.15.2'
+
+homepage = "https://docs.openmc.org/"
+description = """OpenMC is a community-developed Monte Carlo neutron and photon transport simulation code. It is
+ capable of performing fixed source, k-eigenvalue, and subcritical multiplication calculations on models built using
+ either a constructive solid geometry or CAD representation. OpenMC supports both continuous-energy and multigroup
+ transport. The continuous-energy particle interaction data is based on a native HDF5 format that can be generated
+ from ACE files produced by NJOY. Parallelism is enabled via a hybrid MPI and OpenMP programming model."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+toolchainopts = {'usempi': True}
+
+sources = [
+    {
+        'filename': '%(name)s-v%(version)s.tar.gz',
+        'git_config': {
+            'url': 'https://github.com/openmc-dev/',
+            'repo_name': '%(namelower)s',
+            'tag': 'v%(version)s',
+            'recursive': True,
+        }
+    },
+]
+checksums = [None]
+
+builddependencies = [
+    ('CMake', '3.29.3'),
+    ('pybind11', '2.13.6'),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('h5py', '3.12.1'),
+    ('HDF5', '1.14.5'),
+    ('IPython', '8.28.0'),
+    ('lxml', '5.3.0'),
+    ('matplotlib', '3.9.2'),
+    ('SciPy-bundle', '2024.05'),
+    ('mcpl', '2.2.0'),
+    ('pugixml', '1.15'),
+    ('fmt', '11.0.2'),
+    ('Catch2', '3.8.0'),
+    ('xtensor', '0.25.0'),
+]
+
+configopts = '-DOPENMC_USE_MPI=ON -DOPENMC_USE_MCPL=ON'
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'sanity_pip_check': True,
+}
+exts_list = [
+    ('uncertainties', '3.2.3', {
+        'checksums': ['76a5653e686f617a42922d546a239e9efce72e6b35411b7750a1d12dcba03031'],
+    }),
+    ('endf', '0.1.9', {
+        'preinstallopts': 'sed -i "/license/d" pyproject.toml &&',
+        'checksums': ['37463da089fe051466ef7cef14fa6de8061a8e6bd6ea8b58714d91d7239963f9'],
+    }),
+    (name, version, {
+        'sources': ['%(name)s-v%(version)s.tar.gz'],
+        'checksums': ['8db0d33eea93a2d9523e66ddad93157eebc8c0d56ccdedeb77f6a2139b3a38af'],
+    }),
+]
+
+postinstallcmds = [
+    "cd %(installdir)s/lib/python%(pyshortver)s/site-packages/%(namelower)s/lib && "
+    "ln -s ../../../../libopenmc.so libopenmc.so"
+]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s', 'lib/lib%%(namelower)s.%s' % SHLIB_EXT],
+    'dirs': ['lib/python%(pyshortver)s/site-packages/%(namelower)s'],
+}
+
+sanity_check_commands = [
+    '%(namelower)s --help',
+    "python -c 'import openmc'",
+    "python -c 'import openmc.lib'"
+]
+
+moduleclass = 'phys'
