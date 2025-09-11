@@ -30,6 +30,7 @@ dependencies = [
     ('MAST', '1.26.0', versionsuffix),
     ('RUVSeq', '1.34.0', versionsuffix),
     ('digitalDLSorteR', '1.0.1', versionsuffix),
+    ('BAT', '2.9.5', versionsuffix),
 ]
 
 moduleclass = 'bio'
