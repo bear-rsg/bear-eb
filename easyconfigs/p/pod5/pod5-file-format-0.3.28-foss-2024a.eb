@@ -1,0 +1,67 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'pod5-file-format'
+version = '0.3.28'
+
+homepage = 'https://github.com/nanoporetech/pod5-file-format'
+description = """POD5 is a file format for storing nanopore dna data in an easily accessible way.
+ The format is able to be written in a streaming manner which allows a sequencing
+ instrument to directly write the format."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('SciPy-bundle', '2024.05'),
+    ('tqdm', '4.66.5'),
+    ('polars', '1.31.0'),
+    ('h5py', '3.12.1'),
+]
+
+exts_list = [
+    ('packaging', '25.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['29572ef2b1f17581046b3a2227d5c611fb25ec70ca1ba8554b24b0e69331a484'],
+    }),
+    ('vbz_h5py_plugin', '1.0.1', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['7b8f9bf250a3c072e36bb8a84beb035468bba0536e11a9086649188f075589b1'],
+    }),
+    ('iso8601', '2.1.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['aac4145c4dcb66ad8b648a02830f5e2ff6c24af20f4f482689be402db2429242'],
+    }),
+    ('more_itertools', '10.8.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['52d4362373dcf7c52546bc4af9a86ee7c4579df9a8dc268be0a2f949d376cc9b'],
+    }),
+    ('pyarrow', '18.0.0', {
+        'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux_2_17_%(arch)s.manylinux2014_%(arch)s.whl',
+        'checksums': ['8c70c1965cde991b711a98448ccda3486f2a336457cf4ec4dca257a926e149c9'],
+    }),
+    ('lib_pod5', version, {
+        'source_tmpl': '%(name)s-%(version)s-cp312-cp312-manylinux2014_%(arch)s.manylinux_2_17_%(arch)s.whl',
+        'checksums': ['717047ad508a5691bd969342812eabf04f3ea08fdb718abdba7ffbe3504f0062'],
+    }),
+    ('pod5', version, {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['721149a97c5c3396ff5014d37d67eb113d0089e70d1a0cdb40752c1aaa503f52'],
+    }),
+]
+
+local_test = [
+    'cd %(builddir)s ; wget https://github.com/nanoporetech/%(name)s/archive/refs/tags/%(version)s.tar.gz',
+    'cd %(builddir)s ; tar -zxvf %(version)s.tar.gz %(name)s-%(version)s/test_data',
+    'cd %(builddir)s ; POD5_DEBUG=1 pod5 inspect reads %(name)s-%(version)s/test_data/multi_fast5_zip_v0.pod5',
+]
+
+sanity_check_commands = local_test
+
+sanity_check_paths = {
+    'files': ['bin/pod5'],
+    'dirs': ['lib', 'bin'],
+}
+
+moduleclass = 'bio'
