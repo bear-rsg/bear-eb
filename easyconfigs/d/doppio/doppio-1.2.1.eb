@@ -1,0 +1,32 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham. 
+easyblock = 'PackedBinary'
+
+name = 'doppio'
+version = '1.2.1'
+
+homepage = 'https://www.ccpem.ac.uk/docs/doppio/index.html'
+description = """Doppio runs jobs using the CCP-EM Pipeliner which comes with job definitions to run various RELION, CCP-EM and other jobs."""
+
+toolchain = SYSTEM
+
+sources = ['%(name)s-linux-%(version)s.zip']
+checksums = ['a4dd2fa125557fafde0cb756e254893b4a00c1f6762449ed40bdb7ef1df6abd1']
+
+postinstallcmds = [
+#    Remove binaries for other platforms
+    'mv %(builddir)s/* %(installdir)s/*',
+    'mkdir -p %(installdir)s/bin',
+    'ln -s %(installdir)s/themes/doppio-web/doppio-web %(installdir)s/bin/',
+    'mkdir -p %(installdir)s/lib',
+    'ln -s %(installdir)s/themes/doppio-web/*.so.* %(installdir)s/lib/',
+    'mkdir -p %(installdir)s/lib/python3.9/site-packages',
+    'ln -s %(installdir)s/themes/doppio-web/*.dist-info %(installdir)s/lib/python3.9/site-packages',
+]
+
+sanity_check_paths = {
+    'files': ['bin/doppio-web'],
+    'dirs': ['lib'],
+}
+
+
+moduleclass = 'vis'
