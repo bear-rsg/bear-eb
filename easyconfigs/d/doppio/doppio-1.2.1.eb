@@ -14,7 +14,6 @@ sources = ['%(name)s-linux-%(version)s.zip']
 checksums = ['a4dd2fa125557fafde0cb756e254893b4a00c1f6762449ed40bdb7ef1df6abd1']
 
 postinstallcmds = [
-     #    Remove binaries for other platforms
     'mv %(builddir)s/* %(installdir)s/*',
     'mkdir -p %(installdir)s/bin',
     'ln -s %(installdir)s/themes/doppio-web/doppio-web %(installdir)s/bin/',
