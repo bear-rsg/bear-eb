@@ -1,0 +1,44 @@
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+# Author: Pablo Escobar Lopez
+# Swiss Institute of Bioinformatics
+# Biozentrum - University of Basel
+
+# Updated by
+# Author: Alex Salois
+# Research Cyberinfrastructure
+# Montana State University
+
+# Updated by
+# Author: James Carpenter
+# Research Software Group, University of Birmingham
+
+easyblock = "Tarball"
+
+name = 'BayesTraits'
+version = '5.0.2'
+versionsuffix = '-Linux'
+
+homepage = 'https://www.evolution.reading.ac.uk/SoftwareMain.html'
+description = """ BayesTraits is a computer package for performing analyses of trait
+ evolution among groups of species for which a phylogeny or sample of phylogenies is
+ available. This new package incoporates our earlier and separate programes Multistate,
+ Discrete and Continuous. BayesTraits can be applied to the analysis of traits that adopt
+ a finite number of discrete states, or to the analysis of continuously varying traits.
+ Hypotheses can be tested about models of evolution, about ancestral states and about
+ correlations among pairs of traits. """
+
+toolchain = SYSTEM
+
+source_urls = ['https://www.evolution.reading.ac.uk/BayesTraitsV%(version)s/Files/']
+sources = ['BayesTraitsV%(version)s%(versionsuffix)s.tar.gz']
+checksums = ['19330aa169ac8b6927ae3400d78b3effb2448b1bf2c257e930818574eba72443']
+
+sanity_check_paths = {
+    'files': ['BayesTraitsV%(version_major)s', 'Artiodactyl.trees', 'Bird.trees', 'Mammal.trees',
+              'Marsupials.trees', 'NortheastBantu.trees', 'Primates.trees'],
+    'dirs': [],
+}
+
+modextrapaths = {'PATH': ''}
+
+moduleclass = 'bio'
