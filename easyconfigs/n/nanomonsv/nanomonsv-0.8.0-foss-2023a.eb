@@ -1,0 +1,26 @@
+easyblock = 'PythonBundle'
+
+name = 'nanomonsv'
+version = '0.8.0'
+
+homepage = 'https://github.com/friend1ws/nanomonsv '
+description = """nanomonsv is a software for detecting somatic structural variations from paired (tumor and matched
+ control) cancer genome sequence data."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('python-parasail', '1.3.4'),
+    ('Pysam', '0.22.0'),
+    ('h5py', '3.9.0'),
+]
+
+exts_list = [
+    (name, version, {
+        'checksums': ['5bc10b38f1f0cb695f5b25bd0f7c3145295f718b087b5660932328006fc11b15'],
+    }),
+]
+
+moduleclass = 'bio'
