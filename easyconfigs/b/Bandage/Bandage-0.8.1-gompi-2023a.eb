@@ -1,0 +1,32 @@
+easyblock = 'Binary'
+
+name = 'Bandage'
+version = '0.8.1'
+
+homepage = 'https://rrwick.github.io/Bandage'
+description = """Bandage is a program for visualising de novo assembly graphs. By displaying connections which are not
+ present in the contigs file, Bandage opens up new possibilities for analysing de novo assemblies."""
+
+toolchain = {'name': 'gompi', 'version': '2023a'}
+
+# New Linux binaries are in Ubuntu bundle formats (e.g. AppImage)
+# Using a slightly older release as per the recommendation on the GitHub page
+# https://github.com/rrwick/Bandage/releases/tag/v0.9.0
+source_urls = ['https://github.com/rrwick/Bandage/releases/download/v%(version)s']
+sources = ['Bandage_Ubuntu_dynamic_v0_8_1.zip']
+
+extract_sources = True
+
+dependencies = [
+    ('BLAST+', '2.14.1'),
+    ('Qt5', '5.15.10'),
+]
+
+postinstallcmds = ['rm %(installdir)s/dependencies']
+
+sanity_check_paths = {
+    'files': ['Bandage'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
