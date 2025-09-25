@@ -14,6 +14,7 @@ toolchain = {'name': 'gompi', 'version': '2023a'}
 # https://github.com/rrwick/Bandage/releases/tag/v0.9.0
 source_urls = ['https://github.com/rrwick/Bandage/releases/download/v%(version)s']
 sources = ['Bandage_Ubuntu_dynamic_v0_8_1.zip']
+checksums = ['2e8332e59b95438040a1b0ad29b3730ac63d7c638c635aeddde4789bf7a3116c']
 
 extract_sources = True
 
