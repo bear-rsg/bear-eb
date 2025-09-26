@@ -1,0 +1,34 @@
+easyblock = 'PackedBinary'
+
+name = 'ARACNe-AP'
+version = '20180412'
+local_commit = '30967ea'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://github.com/califano-lab/ARACNe-AP'
+description = "Network Reverse Engineering through AP inference of Mutual Information"
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/califano-lab/ARACNe-AP/archive/']
+sources = [{'download_filename': '%s.tar.gz' % local_commit, 'filename': SOURCE_TAR_GZ}]
+checksums = ['43794e368f5a6b4e52583f01dc69c253063b51a586d49b386fce44e5c351cd38']
+
+builddependencies = [
+    ('ant', '1.10.14', '-Java-%(javaver)s'),
+]
+
+dependencies = [
+    ('Java', '11'),
+]
+
+install_cmd = "cd %(builddir)s/%(name)s* && ant main && cp -r dist/aracne.jar ./bin ./test %(installdir)s"
+
+sanity_check_paths = {
+    'files': ['aracne.jar'],
+    'dirs': ['bin'],
+}
+
+modloadmsg = "To use ARACNe-AP, run 'java -jar ${EBROOTARACNEMINAP}/aracne.jar ...command-options'\n"
+
+moduleclass = 'bio'
