@@ -1,0 +1,75 @@
+diff -ruN CellBender.orig/cellbender/remove_background/checkpoint.py CellBender/cellbender/remove_background/checkpoint.py
+--- CellBender.orig/cellbender/remove_background/checkpoint.py	2025-09-29 12:08:55.207814000 +0100
++++ CellBender/cellbender/remove_background/checkpoint.py	2025-09-29 13:57:55.293652182 +0100
+@@ -13,12 +13,11 @@
+ import tarfile
+ import glob
+ import random
+-import pickle
++import pickle, dill
+ import tempfile
+ import shutil
+ import traceback
+ 
+-
+ logger = logging.getLogger('cellbender')
+ 
+ USE_PYRO = True
+@@ -112,8 +111,8 @@
+ 
+             file_list = save_random_state(filebase=filebase)
+ 
+-            torch.save(model_obj, filebase + '_model.torch')
+-            torch.save(scheduler, filebase + '_optim.torch')
++            torch.save(model_obj.state_dict(), filebase + '_model.torch', pickle_module=dill)
++            torch.save(scheduler, filebase + '_optim.torch', pickle_module=dill)
+             scheduler.save(filebase + '_optim.pyro')  # use PyroOptim method
+             pyro.get_param_store().save(filebase + '_params.pyro')
+             file_list = file_list + [filebase + '_model.torch',
+@@ -125,13 +124,13 @@
+                 # train_loader_file = save_dataloader_state(filebase=filebase,
+                 #                                           data_loader_state=train_loader.get_state(),
+                 #                                           name='train')
+-                torch.save(train_loader, filebase + '_train.loaderstate')
++                torch.save(train_loader, filebase + '_train.loaderstate', pickle_module=dill)
+                 file_list.append(filebase + '_train.loaderstate')
+             if test_loader is not None:
+                 # test_loader_file = save_dataloader_state(filebase=filebase,
+                 #                                          data_loader_state=test_loader.get_state(),
+                 #                                          name='test')
+-                torch.save(test_loader, filebase + '_test.loaderstate')
++                torch.save(test_loader, filebase + '_test.loaderstate', pickle_module=dill)
+                 file_list.append(filebase + '_test.loaderstate')
+ 
+             np.save(filebase + '_args.npy', args)
+@@ -218,13 +217,14 @@
+ 
+         # Load the saved model.
+         if 'model' in to_load:
+-            model_obj = torch.load(filebase + '_model.torch', **load_kwargs)
++            model_obj = load_state_dict(torch.load(filebase + '_model.torch', pickle_module=dill, **load_kwargs))
++            model_obj.eval()
+             logger.debug('Model loaded from ' + filebase + '_model.torch')
+             out.update({'model': model_obj})
+ 
+         # Load the saved optimizer.
+         if 'optim' in to_load:
+-            scheduler = torch.load(filebase + '_optim.torch', **load_kwargs)
++            scheduler = torch.load(filebase + '_optim.torch', pickle_module=dill, **load_kwargs)
+             scheduler.load(filebase + '_optim.pyro', **load_kwargs)  # use PyroOptim method
+             logger.debug('Optimizer loaded from ' + filebase + '_optim.*')
+             out.update({'optim': scheduler})
+@@ -241,11 +241,11 @@
+             train_loader = None
+             test_loader = None
+             if os.path.exists(filebase + '_train.loaderstate'):
+-                train_loader = torch.load(filebase + '_train.loaderstate', **load_kwargs)
++                train_loader = torch.load(filebase + '_train.loaderstate', pickle_module=dill, **load_kwargs)
+                 logger.debug('Train loader loaded from ' + filebase + '_train.loaderstate')
+                 out.update({'train_loader': train_loader})
+             if os.path.exists(filebase + '_test.loaderstate'):
+-                test_loader = torch.load(filebase + '_test.loaderstate', **load_kwargs)
++                test_loader = torch.load(filebase + '_test.loaderstate', pickle_module=dill, **load_kwargs)
+                 logger.debug('Test loader loaded from ' + filebase + '_test.loaderstate')
+                 out.update({'test_loader': test_loader})
+ 
