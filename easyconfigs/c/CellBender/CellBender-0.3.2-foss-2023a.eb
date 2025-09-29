@@ -20,6 +20,7 @@ dependencies = [
     ('loompy', '3.0.7'),
     ('PyTables', '3.8.0'),
     ('Qtconsole', '5.5.1'),
+    ('dill', '0.3.7'),
 ]
 
 exts_list = [
