@@ -22,7 +22,6 @@ dependencies = [
     ('loompy', '3.0.7'),
     ('PyTables', '3.8.0'),
     ('Qtconsole', '5.5.1'),
-    ('dill', '0.3.7'),
 ]
 
 exts_list = [
@@ -51,7 +50,7 @@ exts_list = [
         'checksums': ['309d33409fcc92ffdad25f0bcdf9a4a9daa61b6f341177570fdac03de5352485'],
     }),
     (name, version, {
-        'patches': ['%(name)s-%(version)s_checkpointing_fix_dill.patch',
+        'patches': ['0001-fix-checkpoint.py-allow-torch-checkpoint-save-closes.patch',
                     '%(name)s-%(version)s_nbconvert_jinja2_classic.patch'],
         'sources': [{
             'filename': '%(name)s-%(version)s.tar.gz',
@@ -63,8 +62,8 @@ exts_list = [
         }],
         'checksums': [
             {'%(name)s-%(version)s.tar.gz': '19824b3f9706d991084c79b840fdc63c9c31c7bd7e2c345e2b57e02e4c1fb8ce'},
-            {'%(name)s-%(version)s_checkpointing_fix_dill.patch':
-             'fbcb49eac0a7f8432ef96fd48294ff4bfd1cf0252f41e8cd68dfa82e985fa369'},
+            {'0001-fix-checkpoint.py-allow-torch-checkpoint-save-closes.patch':
+             '8cdc41c4b7024fb9a869fe5421bfffd98a4078f43092308c80bb58cbeee1e680'},
             {'%(name)s-%(version)s_nbconvert_jinja2_classic.patch':
              'ad2402363ac0f2827b77f22295f426e95030ecd6a9b66a6acc735aa1aa4821c1'},
         ],
