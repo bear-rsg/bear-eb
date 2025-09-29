@@ -66,6 +66,7 @@ exts_list = [
              'ad2402363ac0f2827b77f22295f426e95030ecd6a9b66a6acc735aa1aa4821c1'},
         ],
     }),
+]
 local_testfile = [
     "https://raw.githubusercontent.com/broadinstitute/",
     "CellBender/refs/heads/master/examples/",
