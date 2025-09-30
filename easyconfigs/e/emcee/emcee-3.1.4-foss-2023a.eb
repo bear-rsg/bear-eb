@@ -1,0 +1,27 @@
+easyblock = 'PythonPackage'
+
+name = 'emcee'
+version = '3.1.4'
+
+homepage = 'https://dfm.io/emcee'
+description = """Emcee is an extensible, pure-Python implementation of
+Goodman & Weare's Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler.
+It's designed for Bayesian parameter estimation and it's really sweet! """
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['8e0e19dc8bcef9c6d02f860bef8ddc6c876b8878a6ce666943e2c5cfd9317fed']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('h5py', '3.9.0'),  # Only needed for tests + optional HDF5 writing output
+]
+
+installopts = " --no-deps  --ignore-installed "
+
+sanity_check_commands = ["py.test $(dirname `python -c 'import %(name)s; print(%(name)s.__file__)'`)"]
+
+moduleclass = 'astro'
