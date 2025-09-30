@@ -39,7 +39,7 @@ exts_list = [
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['a6afa9a4ff4d149a0771ff8b8c881a7a73b3835f9add0606696d6e9d98ac1cd0'],
     }),
-    ('jupyter', '1.1.1', {
+    ('jupyter', '1.0.0', {
         'source_tmpl': SOURCE_WHL,
         'checksums': ['7a59533c22af65439b24bbe60373a4e95af8f16ac65a6c00820ad378e3f7cc83'],
     }),
