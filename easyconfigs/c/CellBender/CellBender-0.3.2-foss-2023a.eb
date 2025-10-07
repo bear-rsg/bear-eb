@@ -41,11 +41,11 @@ exts_list = [
     }),
     ('jupyter', '1.0.0', {
         'source_tmpl': SOURCE_WHL,
-        'checksums': ['7a59533c22af65439b24bbe60373a4e95af8f16ac65a6c00820ad378e3f7cc83'],
+        'checksums': ['5b290f93b98ffbc21c0c7e749f054b3267782166d72fa5e3ed1ed4eaf34a2b78'],
     }),
     ('jupyter_console', '6.6.3', {
         'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['5b290f93b98ffbc21c0c7e749f054b3267782166d72fa5e3ed1ed4eaf34a2b78'],
+        'checksums': ['309d33409fcc92ffdad25f0bcdf9a4a9daa61b6f341177570fdac03de5352485'],
     }),
     (name, version, {
         'patches': ['0001-fix-checkpoint.py-allow-torch-checkpoint-save-closes.patch',
