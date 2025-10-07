@@ -1,0 +1,34 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'MakeCp'
+name = 'DMACRYS'
+version = '2.3.1.1'
+
+homepage = "https://gitlab.com/mol-cspy/dmacrys/"
+description = """ An energy minimisation package to simulate rigid molecules with multipoles.
+ Models crystals of rigid organic molecules using anisotropic atom-atom intermolecular potentials,
+ of the type defined in the book “The Theory of Intermolecular Forces”
+ by AJ Stone (Oxford University Press, 2013 2nd edition).
+ 
+ For the online manual for DMACRYS, visit this web site:
+ https://www.chem.ucl.ac.uk/cposs/dmacrys/index.html
+ https://www.chem.ucl.ac.uk/cposs/dmacrys/manuals/dmacrys.pdf"""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://gitlab.com/mol-cspy/%(namelower)s/-/archive/origin/%(version)s/']
+sources = ['%(namelower)s-origin-%(version)s.tar.bz2']
+checksums = ['54a6a1638f57e5e9d52933121a98a5cfaac54193fa818b37c3b3a0e18f7cf104']
+
+builddependencies = [('intel-compilers', '2023.1.0', '', SYSTEM)] #, ('Doxygen', '1.11.0')]
+
+files_to_copy = [(['*.out'], 'bin')]
+
+sanity_check_paths = {
+    'files': [f'bin/%(namelower)s{v}.out' for v in ('','O0')],
+    'dirs': ['bin'],
+}
+postinstallcmds = ['ln -s %(installdir)s/bin/%(namelower)s.out %(installdir)s/bin/%(namelower)s']
+
+modextravars = {'NO_STOP_MESSAGE': '1'}
+
+moduleclass = 'chem'

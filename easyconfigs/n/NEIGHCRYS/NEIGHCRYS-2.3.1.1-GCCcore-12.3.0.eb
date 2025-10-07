@@ -1,0 +1,30 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'MakeCp'
+name = 'NEIGHCRYS'
+version = '2.3.1.1'
+
+homepage = "https://gitlab.com/mol-cspy/neighcrys"
+description = """A utility program for setting up input files for DMACRYS, which models crystals of rigid organic
+ molecules using anisotropic atom-atom intermolecular potentials, of the type defined in the book “The Theory of
+ Intermolecular Forces” by AJ Stone (Oxford University Press, 2013 2nd edition).
+ For the online manual for DMACRYS, visit this web site:
+ https://www.chem.ucl.ac.uk/cposs/dmacrys/index.html
+ https://www.chem.ucl.ac.uk/cposs/dmacrys/manuals/neighcrys.pdf"""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+source_urls = ['https://gitlab.com/mol-cspy/%(namelower)s/-/archive/origin/%(version)s/']
+sources = ['%(namelower)s-origin-%(version)s.tar.bz2']
+checksums = ['e6f9ea79eb99a75fc246f367f79404232b70aef9794bea2298f533792c30f341']
+
+builddependencies = [('intel-compilers', '2023.1.0', '', SYSTEM)] #, ('Doxygen', '1.11.0')]
+
+files_to_copy = [(['*.out'], 'bin')]#, local_file[0:]]
+
+sanity_check_paths = {
+    'files': [f'bin/%(namelower)s{v}.out' for v in ('','O0')],
+    'dirs': ['bin'],
+}
+postinstallcmds = ['ln -s %(installdir)s/bin/%(namelower)s.out %(installdir)s/bin/%(namelower)s']
+
+moduleclass = 'chem'
