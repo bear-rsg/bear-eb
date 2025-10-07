@@ -45,7 +45,7 @@ exts_list = [
     }),
     ('jupyter_console', '6.6.3', {
         'source_tmpl': SOURCE_PY3_WHL,
-        'checksums': ['309d33409fcc92ffdad25f0bcdf9a4a9daa61b6f341177570fdac03de5352485'],
+        'checksums': ['5b290f93b98ffbc21c0c7e749f054b3267782166d72fa5e3ed1ed4eaf34a2b78'],
     }),
     (name, version, {
         'patches': ['0001-fix-checkpoint.py-allow-torch-checkpoint-save-closes.patch',
