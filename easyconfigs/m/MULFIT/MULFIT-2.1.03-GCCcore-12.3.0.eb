@@ -1,0 +1,39 @@
+easyblock = 'MakeCp'
+
+name = 'MULFIT'
+version = '2.1.03'
+
+homepage = 'https://gitlab.com/anthonyjs/gdma'
+description = """
+The GDMA program carries out Distributed Multipole Analysis of wavefunctions
+calculated by the Gaussian system of programs or the Psi4 package, using the
+formatted checkpoint files that they can produce. The result is a set of
+multipole moments at sites defined by the user (usually at the positions of the
+atomic nuclei) which, given an accurate wavefunction, provide an accurate
+description of the electrostatic field of the molecule."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+sources = [{
+    'source_urls': ['https://gitlab.com/anthonyjs/gdma/-/raw/master/'],
+    'download_filename': '%(namelower)s-%(version_major_minor)s.tgz',
+    'filename': SOURCE_TGZ,
+}]
+patches = ['%(name)s-%(version)s_test.patch']
+checksums = [
+    {'MULFIT-2.1.03.tgz': 'f4f1c1956f8a658dea886ce1c954f5f2b29a157bc5aa98023bdd5511c57a65a0'},
+    {'MULFIT-2.1.03_test.patch': 'fa4182659922e0e242d81ba179cca811bf9a97f0c4aa22f649958f5e49a7d4ff'},
+]
+
+files_to_copy = [(['src/%(namelower)s'], 'bin')]
+
+runtest = ['test']
+
+sanity_check_paths = {
+    'files': ['bin/mulfit'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['echo|%(namelower)s']
+
+moduleclass = 'chem'
