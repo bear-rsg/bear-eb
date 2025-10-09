@@ -7,7 +7,7 @@ versionsuffix = '-Columbus7'
 local_commit_id = '433e6e16'
 
 homepage = "https://gitlab.com/columbus-program-system/OpenMolcas"
-description = """OpenMolcas for Columbus 7."""
+description = """OpenMolcas is a quantum chemistry software package."""
 
 toolchain = {'name': 'iimkl', 'version': '2023a'}
 
