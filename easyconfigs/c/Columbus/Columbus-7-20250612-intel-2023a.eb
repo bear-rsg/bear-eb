@@ -41,31 +41,40 @@ buildininstalldir = True
 
 skipsteps = ['configure', 'build']
 
-preinstallopts = 'sed -i s:MPI_MAINDIR.*:"MPI_MAINDIR $EBROOTINTELMINCOMPILERS/mpi/latest": install.config && '
-preinstallopts += 'sed -i s:MPI_LIBS.*:"MPI_LIBS $EBROOTINTELMINCOMPILERS/mpi/latest/lib/release/libmpi.so": install.config && '
-preinstallopts += 'sed -i s:MPI_STARTUP.*:"MPI_STARTUP $EBROOTIMPI/mpi/latest/bin/mpirun -np _NPROC_ _EXE_ _EXEOPTS_": install.config && '
-preinstallopts += 'sed -i s:BLASLIBRARY.*:"BLASLIBRARY -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_sequential -lmkl_blacs_intelmpi_ilp64 -lmkl_core -lpthread -L$EBROOTINTELMINCOMPILERS/compiler/latest/linux/compiler/lib/intel64_lin -liomp5": install.config && '
-preinstallopts += 'sed -i s:LAPACKLIBRARY.*:"LAPACKLIBRARY -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_scalapack_ilp64 -lmkl_sequential -lmkl_blacs_intelmpi_ilp64 -lmkl_core -lpthread -L$EBROOTINTELMINCOMPILERS/compiler/latest/linux/compiler/lib/intel64_lin -liomp5": install.config && '
-preinstallopts += 'sed -i s:MPI_CC.*:"MPI_CC $EBROOTIMPI/mpi/latest/bin/mpicc": install.config && '
-preinstallopts += 'sed -i s:MPI_LD.*:"MPI_LD $EBROOTIMPI/mpi/latest/bin/mpiifort -Wl,-z,muldefs": install.config && '
-preinstallopts += 'sed -i s:MPI_FC.*:"MPI_FC $EBROOTIMPI/mpi/latest/bin/mpiifort -Wl,-z,muldefs": install.config && '
-preinstallopts += 'echo MOLCAS $EBROOTOPENMOLCAS >> install.config && '
-preinstallopts += 'echo "PERL /usr/bin/env perl" >> install.config && '
-preinstallopts += 'echo DALTON Columbus/source/dalton >> install.config && '
-preinstallopts += 'echo DALTON2 Columbus/source/dalton2 >> install.config && '
-preinstallopts += 'echo COLUMBUS Columbus >> install.config && '
-preinstallopts += 'ln -s ${EBROOTGLOBALARRAYS}/lib/libga.a Columbus/libga.a && '
-preinstallopts += 'ln -s ${EBROOTGLOBALARRAYS}/lib/libarmci.a Columbus/libarmci.a && '
-preinstallopts += 'chmod 554 install.automatic Columbus/colinstall.sh Columbus/xupdate '
-preinstallopts += 'TOOLS/CPAN/filepp-1.3.0/configure && '
+preinstallopts = ' && '.join([
+    'sed -i s:MPI_MAINDIR.*:"MPI_MAINDIR $EBROOTINTELMINCOMPILERS/mpi/latest": install.config',
+    'sed -i s:MPI_LIBS.*:"MPI_LIBS $EBROOTINTELMINCOMPILERS/mpi/latest/lib/release/libmpi.so": install.config',
+    'sed -i s:MPI_STARTUP.*:"MPI_STARTUP $EBROOTIMPI/mpi/latest/bin/mpirun -np _NPROC_ _EXE_ _EXEOPTS_": install.config',
+    'sed -i s:BLASLIBRARY.*:"BLASLIBRARY -L$MKLROOT/lib/intel64 -lmkl_intel_ilp64 -lmkl_sequential '
+    '-lmkl_blacs_intelmpi_ilp64 -lmkl_core -lpthread '
+    '-L$EBROOTINTELMINCOMPILERS/compiler/latest/linux/compiler/lib/intel64_lin -liomp5": install.config',
+    'sed -i s:LAPACKLIBRARY.*:"LAPACKLIBRARY -L$MKLROOT/lib/intel64 -lmkl_intel_ilp64 -lmkl_scalapack_ilp64 '
+    '-lmkl_sequential -lmkl_blacs_intelmpi_ilp64 -lmkl_core -lpthread '
+    '-L$EBROOTINTELMINCOMPILERS/compiler/latest/linux/compiler/lib/intel64_lin -liomp5": install.config',
+    'sed -i s:MPI_CC.*:"MPI_CC $EBROOTIMPI/mpi/latest/bin/mpicc": install.config',
+    'sed -i s:MPI_LD.*:"MPI_LD $EBROOTIMPI/mpi/latest/bin/mpiifort -Wl,-z,muldefs": install.config',
+    'sed -i s:MPI_FC.*:"MPI_FC $EBROOTIMPI/mpi/latest/bin/mpiifort -Wl,-z,muldefs": install.config',
+    'echo MOLCAS $EBROOTOPENMOLCAS >> install.config',
+    'echo "PERL /usr/bin/env perl" >> install.config',
+    'echo DALTON Columbus/source/dalton >> install.config',
+    'echo DALTON2 Columbus/source/dalton2 >> install.config',
+    'echo COLUMBUS Columbus >> install.config',
+    'ln -s $EBROOTGLOBALARRAYS/lib/libga.a Columbus/libga.a',
+    'ln -s $EBROOTGLOBALARRAYS/lib/libarmci.a Columbus/libarmci.a',
+    'chmod 554 install.automatic Columbus/colinstall.sh Columbus/xupdate TOOLS/CPAN/filepp-1.3.0/configure',
+    ''
+])
 
-install_cmd = './install.automatic cpan && '
-# standard installation is needed for certain libraries that are used in the parallel installation
-install_cmd += './install.automatic standard grad && '
-install_cmd += './install.automatic -p linux64.ifc parallel'
+install_cmd = ' && '.join([
+    './install.automatic cpan',
+    # standard installation is needed for certain libraries that are used in the parallel installation
+    './install.automatic standard grad',
+    './install.automatic -p linux64.ifc parallel',
+])
 
 modextravars = {
-    'COLUMBUS': '%(installdir)s/Columbus'}
+    'COLUMBUS': '%(installdir)s/Columbus'
+}
 
 modextrapaths = {
     'PATH': ['', 'Columbus'],
