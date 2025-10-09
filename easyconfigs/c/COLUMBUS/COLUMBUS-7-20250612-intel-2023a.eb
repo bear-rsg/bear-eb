@@ -22,8 +22,8 @@ sources = [{
 }]
 patches = ['columbus-7-linux64-ifc.patch']
 checksums = [
-    {'Columbus-7-20250612.tar.xz': '3fc5ccca9341d021d95359b0553903eb4a9399b0b1a6e74087007bc3712376b8'},
-    {'columbus-7-linux64-ifc.patch': '436a1d7aabf288754452be2c404a324f49f7e61a0f82e0ebd43eba3e60cfa334'},
+    {'COLUMBUS-7-20250612.tar.xz': '3fc5ccca9341d021d95359b0553903eb4a9399b0b1a6e74087007bc3712376b8'},
+    {'columbus-7-linux64-ifc.patch': '27a7a3132d46f077ab9bd2446adee1000a6bffa2d924e736756f82184182cc76'},
 ]
 
 unpack_options = '--strip-components=1'
@@ -51,7 +51,7 @@ preinstallopts = ' && '.join([
     'sed -i s:LAPACKLIBRARY.*:"LAPACKLIBRARY -L$MKLROOT/lib/intel64 -lmkl_intel_ilp64 -lmkl_scalapack_ilp64 '
     '-lmkl_sequential -lmkl_blacs_intelmpi_ilp64 -lmkl_core -lpthread '
     '-L$EBROOTINTELMINCOMPILERS/compiler/latest/linux/compiler/lib/intel64_lin -liomp5": install.config',
-    'sed -i s:MPI_CC.*:"MPI_CC $EBROOTIMPI/mpi/latest/bin/mpicc": install.config',
+    'sed -i s:MPI_CC.*:"MPI_CC $EBROOTIMPI/mpi/latest/bin/mpiicc": install.config',
     'sed -i s:MPI_LD.*:"MPI_LD $EBROOTIMPI/mpi/latest/bin/mpiifort -Wl,-z,muldefs": install.config',
     'sed -i s:MPI_FC.*:"MPI_FC $EBROOTIMPI/mpi/latest/bin/mpiifort -Wl,-z,muldefs": install.config',
     'echo MOLCAS $EBROOTOPENMOLCAS >> install.config',
