@@ -1,0 +1,28 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PerlBundle'
+
+name = 'Curses'
+version = '1.45'
+
+homepage = 'https://metacpan.org/pod/Curses'
+description = "Curses - terminal screen handling and optimization."
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+builddependencies = [('binutils', '2.40')]
+
+dependencies = [
+    ('Perl', '5.36.1'),
+]
+
+exts_default_options = {
+    'source_urls': ['https://cpan.metacpan.org/authors/id/G/GI/GIRAFFED/'],
+}
+
+exts_list = [
+    (name, version, {
+        'checksums': ['84221e0013a2d64a0bae6a32bb44b1ae5734d2cb0465fb89af3e3abd6e05aeb2'],
+    }),
+]
+
+moduleclass = 'lib'

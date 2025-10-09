@@ -1,0 +1,94 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+
+name = 'Columbus'
+version = '7-20250612'
+local_commit_id = '5ecefa67'
+
+homepage = "https://columbus-program-system.gitlab.io/columbus"
+description = """COLUMBUS is a collection of programs for high-level ab initio molecular electronic
+ structure calculation."""
+
+toolchain = {'name': 'intel', 'version': '2023a'}
+toolchainopts = {'usempi': True}
+
+sources = [{
+    'git_config': {
+        'url': 'https://gitlab.com/columbus-program-system',
+        'repo_name': 'Columbus',
+        'commit': local_commit_id,
+    },
+    'filename': SOURCE_TAR_XZ,
+}]
+patches = ['columbus-7-linux64-ifc.patch']
+checksums = [
+    {'Columbus-7-20250612.tar.xz': '3fc5ccca9341d021d95359b0553903eb4a9399b0b1a6e74087007bc3712376b8'},
+    {'columbus-7-linux64-ifc.patch': '436a1d7aabf288754452be2c404a324f49f7e61a0f82e0ebd43eba3e60cfa334'},
+]
+
+unpack_options = '--strip-components=1'
+
+dependencies = [
+    ('OpenMolcas', '20210409', '-Columbus7'),
+    ('GlobalArrays', '5.8.2'),
+    ('Perl', '5.36.1'),
+    ('Perl-bundle-CPAN', '5.36.1'),
+    ('Curses', '1.45'),
+    ('Devel-PPPort', '3.68'),
+]
+
+buildininstalldir = True
+
+skipsteps = ['configure', 'build']
+
+preinstallopts = 'sed -i s:MPI_MAINDIR.*:"MPI_MAINDIR $EBROOTINTELMINCOMPILERS/mpi/latest": install.config && '
+preinstallopts += 'sed -i s:MPI_LIBS.*:"MPI_LIBS $EBROOTINTELMINCOMPILERS/mpi/latest/lib/release/libmpi.so": install.config && '
+preinstallopts += 'sed -i s:MPI_STARTUP.*:"MPI_STARTUP $EBROOTIMPI/mpi/latest/bin/mpirun -np _NPROC_ _EXE_ _EXEOPTS_": install.config && '
+preinstallopts += 'sed -i s:BLASLIBRARY.*:"BLASLIBRARY -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_sequential -lmkl_blacs_intelmpi_ilp64 -lmkl_core -lpthread -L$EBROOTINTELMINCOMPILERS/compiler/latest/linux/compiler/lib/intel64_lin -liomp5": install.config && '
+preinstallopts += 'sed -i s:LAPACKLIBRARY.*:"LAPACKLIBRARY -L${MKLROOT}/lib/intel64 -lmkl_intel_ilp64 -lmkl_scalapack_ilp64 -lmkl_sequential -lmkl_blacs_intelmpi_ilp64 -lmkl_core -lpthread -L$EBROOTINTELMINCOMPILERS/compiler/latest/linux/compiler/lib/intel64_lin -liomp5": install.config && '
+preinstallopts += 'sed -i s:MPI_CC.*:"MPI_CC $EBROOTIMPI/mpi/latest/bin/mpicc": install.config && '
+preinstallopts += 'sed -i s:MPI_LD.*:"MPI_LD $EBROOTIMPI/mpi/latest/bin/mpiifort -Wl,-z,muldefs": install.config && '
+preinstallopts += 'sed -i s:MPI_FC.*:"MPI_FC $EBROOTIMPI/mpi/latest/bin/mpiifort -Wl,-z,muldefs": install.config && '
+preinstallopts += 'echo MOLCAS $EBROOTOPENMOLCAS >> install.config && '
+preinstallopts += 'echo "PERL /usr/bin/env perl" >> install.config && '
+preinstallopts += 'echo DALTON Columbus/source/dalton >> install.config && '
+preinstallopts += 'echo DALTON2 Columbus/source/dalton2 >> install.config && '
+preinstallopts += 'echo COLUMBUS Columbus >> install.config && '
+preinstallopts += 'ln -s ${EBROOTGLOBALARRAYS}/lib/libga.a Columbus/libga.a && '
+preinstallopts += 'ln -s ${EBROOTGLOBALARRAYS}/lib/libarmci.a Columbus/libarmci.a && '
+preinstallopts += 'chmod 554 install.automatic Columbus/colinstall.sh Columbus/xupdate '
+preinstallopts += 'TOOLS/CPAN/filepp-1.3.0/configure && '
+
+install_cmd = './install.automatic cpan && '
+# standard installation is needed for certain libraries that are used in the parallel installation
+install_cmd += './install.automatic standard grad && '
+install_cmd += './install.automatic -p linux64.ifc parallel'
+
+modextravars = {
+    'COLUMBUS': '%(installdir)s/Columbus'}
+
+modextrapaths = {
+    'PATH': ['', 'Columbus'],
+    'LD_LIBRARY_PATH': 'Columbus',
+    'PERL5LIB': ['TOOLS/CPAN/perlmenu.v4.0', 'TOOLS/CPAN/filepp-1.3.0', 'Columbus/perlscripts']
+}
+
+fix_perl_shebang_for = [
+    'Columbus/*.perl', 'Columbus/runc_*', 'Columbus/licplot', 'Columbus/EXAMPLES/MOLCAS/HF_gradient/INPUTS/runc',
+    'Columbus/*/*.pl*', 'Columbus/*/*/*.pl*', 'Columbus/*/*/*/*.pl', 'Columbus/*/*/*/help',
+    'Columbus/*/*/*/clmep', 'Columbus/*/*/*/*/*/*.pl', 'Columbus/*/*/*/*/*/*/*.pl', 'Columbus/*/*/*xyz*',
+    'Columbus/perlscripts/pscript',
+    'TOOLS/*/*.pl', 'TOOLS/*/*/*.pl', 'TOOLS/*/*/*/*.pl', 'TOOLS/*/*/*.PL',
+    'TOOLS/CPAN/filepp-1.3.0/INSTALL', 'TOOLS/CPAN/filepp-1.3.0/temp', 'TOOLS/CPAN/Devel-PPPort-3.19/soak',
+    'TOOLS/CPAN/Devel-PPPort-3.19/devel/scanprov', 'TOOLS/CPAN/Devel-PPPort-3.19/devel/mktodo',
+    'TOOLS/CPAN/Devel-PPPort-3.19/devel/regenerate', 'TOOLS/CPAN/Curses/demo*', 'TOOLS/CPAN/Curses/gdc',
+    'TOOLS/CPAN/TOOLSinstall.cpan*',
+]
+
+sanity_check_paths = {
+    'files': ['Columbus/%s' % x for x in ['libdalton2.a', 'libmolcas_col.a', 'colinp', 'gaunder', 'runc']] +
+             ['filepp'],
+    'dirs': ['TOOLS/CPAN'],
+}
+
+moduleclass = 'chem'
