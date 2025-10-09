@@ -1,7 +1,7 @@
 # This easyconfig was created by the BEAR Software team at the University of Birmingham.
 easyblock = 'ConfigureMake'
 
-name = 'Columbus'
+name = 'COLUMBUS'
 version = '7-20250612'
 local_commit_id = '5ecefa67'
 
