@@ -1,0 +1,47 @@
+diff -Nru columbus-v7.2.2.orig/Columbus/machine.cfg/linux64.ifc columbus-v7.2.2/Columbus/machine.cfg/linux64.ifc
+--- columbus-v7.2.2.orig/Columbus/machine.cfg/linux64.ifc	2025-10-07 22:08:34.109911673 +0100
++++ columbus-v7.2.2/Columbus/machine.cfg/linux64.ifc	2025-10-07 22:19:03.329104343 +0100
+@@ -1,12 +1,12 @@
+-FORTRAN=ifort -c   -nowarn  -mkl=sequential
++FORTRAN=mpiifort -c   -nowarn  -qmkl=sequential
+ FFLAGS= -i8 -O2
+ FFLAGSCARE= -i8 -O0 -g -noautomatic
+ FFLAGS2= -i8 -O2 -noautomatic 
+ CFLAGS= -DLINUX -DBIT64 -DINT64
+-CXX=icpc -c
+-CC=gcc -c -O $(CFLAGS)
+-CCMOLDEN=gcc -c -DDOBACK -DHASTIMER -DCOLOR_OFFSET=0.0
+-LOADER=ifort -z muldefs
++CXX=icpx -c
++CC=icx -c -O $(CFLAGS)
++CCMOLDEN=icx -c -DDOBACK -DHASTIMER -DCOLOR_OFFSET=0.0
++LOADER=mpiifort -z muldefs
+ MOLDENLIBS= -L/usr/X11R6/lib -lX11 -lm
+ AR=ar rv
+ ARX=ar x
+@@ -19,7 +19,7 @@
+ SPEC=$(COLUMBUS)/special/UNIX
+ KOPC=$(SPEC)/fdate.c $(SPEC)/fwtime.c $(SPEC)/hostnm.c \
+ $(SPEC)/flushstdout.c $(SPEC)/fsize.c $(SPEC)/getputvec.c $(SPEC)/workdir.c
+-CDEF=icc  -c  -DFLUSH -DINT64 -DEXTNAME  -I$(SPEC)
++CDEF=icx  -c  -DFLUSH -DINT64 -DEXTNAME  -I$(SPEC)
+ YES=1
+ FIXED=-fixed
+ FREE=-free
+@@ -28,14 +28,14 @@
+ # not yet determined where exactly
+ OBJECTSCAREFREE=   ciudg_loop.o    potentialmodfree.o potenrg.o
+ BLASCONVERSION=StoDblas
+-KEYWORDS=jsc:unix:linux:milstd1753:bit64:format:blas2:blas3:pipemode:f90:f95:int64:molcas_int64:noenvsupport:shavittgraph:ga50:molcas_label10 
++KEYWORDS=jsc:unix:linux:milstd1753:bit64:format:blas2:blas3:pipemode:f90:f95:int64:molcas_int64:noenvsupport:shavittgraph:ga53:molcas_label10 
+ # Starting with about MOLCAS 7.7 the internal representation of some character items has changed
+ # In this case molcas_label10 /MOLCAS_LABEL10 must be set.
+ # Otherwise an error message such as Unique basis set names incorrect record length specified occurs
+ # NOCHECK4X: switch off 4-external density matrix element initialization
+ #            causes difficulties when using parallel code but seems to have no impact on the computed density matrix elements
+ #            needs to be understood in detail
+-DKEYWORDS=-DJSC -DUNIX -DLINUX -DMILSTD1753 -DBIT64 -DFORMATDOLLAR -DBLAS2 -DBLAS3 -DPIPEMODE -DF90 -DF95 -DINT64 -DMOLCAS_INT64 -DNOENVSUPPORT -DGA50 -DMOLCAS_LABEL10 
++DKEYWORDS=-DJSC -DUNIX -DLINUX -DMILSTD1753 -DBIT64 -DFORMATDOLLAR -DBLAS2 -DBLAS3 -DPIPEMODE -DF90 -DF95 -DINT64 -DMOLCAS_INT64 -DNOENVSUPPORT -DGA53 -DMOLCAS_LABEL10 
+ DALTON2CPP=-DRCLU4 -DVAR_IFC -DSYS_LINUX -D_FILE_OFFSET_BITS=64 -DVAR_MFDS -DIMPLICIT_NONE
+ MOLCASFF=$(FFLAGS)
+ PARALLELKEYS=parallel:mpi
