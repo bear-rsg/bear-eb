@@ -1,0 +1,11 @@
+diff -ruN CellBender.orig/cellbender/remove_background/report.py CellBender/cellbender/remove_background/report.py
+--- CellBender.orig/cellbender/remove_background/report.py	2025-09-29 12:08:55.371123000 +0100
++++ CellBender/cellbender/remove_background/report.py	2025-09-29 16:29:04.962381532 +0100
+@@ -39,6 +39,7 @@
+     f'jupyter nbconvert ' \
+     f'--to html ' \
+     f'--TemplateExporter.exclude_input=True ' \
++    f'--template=classic ' \
+     f'{file}'
+ 
+ 
