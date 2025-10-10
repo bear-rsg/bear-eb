@@ -12,9 +12,9 @@ diff -Nru columbus-v7.2.2.orig/Columbus/machine.cfg/linux64.ifc columbus-v7.2.2/
 -CC=gcc -c -O $(CFLAGS)
 -CCMOLDEN=gcc -c -DDOBACK -DHASTIMER -DCOLOR_OFFSET=0.0
 -LOADER=ifort -z muldefs
-+CXX=icpx -c
-+CC=icx -c -O $(CFLAGS)
-+CCMOLDEN=icx -c -DDOBACK -DHASTIMER -DCOLOR_OFFSET=0.0
++CXX=mpiicpc -c
++CC=mpiicc -c -O $(CFLAGS)
++CCMOLDEN=mpiicpc -c -DDOBACK -DHASTIMER -DCOLOR_OFFSET=0.0
 +LOADER=mpiifort -z muldefs
  MOLDENLIBS= -L/usr/X11R6/lib -lX11 -lm
  AR=ar rv
@@ -24,7 +24,7 @@ diff -Nru columbus-v7.2.2.orig/Columbus/machine.cfg/linux64.ifc columbus-v7.2.2/
  KOPC=$(SPEC)/fdate.c $(SPEC)/fwtime.c $(SPEC)/hostnm.c \
  $(SPEC)/flushstdout.c $(SPEC)/fsize.c $(SPEC)/getputvec.c $(SPEC)/workdir.c
 -CDEF=icc  -c  -DFLUSH -DINT64 -DEXTNAME  -I$(SPEC)
-+CDEF=icx  -c  -DFLUSH -DINT64 -DEXTNAME  -I$(SPEC)
++CDEF=mpiicc  -c  -DFLUSH -DINT64 -DEXTNAME  -I$(SPEC)
  YES=1
  FIXED=-fixed
  FREE=-free

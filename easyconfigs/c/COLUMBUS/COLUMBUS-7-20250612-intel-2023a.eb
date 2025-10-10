@@ -23,7 +23,7 @@ sources = [{
 patches = ['columbus-7-linux64-ifc.patch']
 checksums = [
     {'COLUMBUS-7-20250612.tar.xz': '3fc5ccca9341d021d95359b0553903eb4a9399b0b1a6e74087007bc3712376b8'},
-    {'columbus-7-linux64-ifc.patch': '27a7a3132d46f077ab9bd2446adee1000a6bffa2d924e736756f82184182cc76'},
+    {'columbus-7-linux64-ifc.patch': '4a1f5a2628667899223f5ca616c749f2438f08a3ffdcfa612b8b06a834fa2bdf'},
 ]
 
 unpack_options = '--strip-components=1'
@@ -99,5 +99,7 @@ sanity_check_paths = {
              ['filepp'],
     'dirs': ['TOOLS/CPAN'],
 }
+
+sanity_check_commands = ['filepp -h']
 
 moduleclass = 'chem'
