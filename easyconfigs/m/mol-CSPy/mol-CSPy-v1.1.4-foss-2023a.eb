@@ -1,0 +1,70 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'mol-CSPy'
+version = 'v1.1.4'
+
+homepage = "https://gitlab.com/mol-cspy/mol-cspy/"
+description = """the Day group crystal structure prediction software library and programs."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('Cython', '3.0.8'),
+#    ('pytest', '7.4.2'),
+]
+dependencies = [
+    ('Python', '3.11.3'),
+    ('ULaMDyn', '1.1.1'),
+    ('NEIGHCRYS', '2.3.1.1'),
+    ('DMACRYS', '2.3.1.1'),
+    ('GDMA', '2.3.3_20230603'),
+    ('MOLPAK', '26oct2010'),
+    ('MULFIT', '2.1.03'),
+    ('Seaborn', '0.13.2'),
+    ('mpi4py', '3.1.4'),
+    ('dask', '2023.12.1'),
+    ('spglib', '2.5.0'),
+    ('Rtree', '1.2.0'),
+    ('paramiko', '3.2.0'),
+    ('SQLite', '3.42.0'),
+    ('pymatgen', '2023.12.18'),
+    ('sympy', '1.12'),
+    ('networkx', '3.1'),
+    ('RDKit', '2024.03.3'),
+    ('HDBSCAN', '0.8.38.post1'),
+]
+
+#source_urls = ['https://gitlab.com/mol-cspy/%(namelower)s/-/archive/%(version)s/']
+#sources = [SOURCELOWER_TAR_BZ2]
+
+exts_list = [
+    ('setuptools', '59.8.0', {
+        'checksums': ['09980778aa734c3037a47997f28d6db5ab18bdf2af0e49f719bfc53967fd2e82'],
+    }),
+    (name, version, {
+#        'patches': ['%(name)s-%(version)s_setuptools.patch'],
+        'source_urls': 'https://gitlab.com/mol-cspy/%(namelower)s/-/archive/%(version)s/',
+        'sources': SOURCELOWER_TAR_BZ2,
+#        'use_pip': True,
+#        'use_pip_editable': True,
+#        'buildininstalldir': True,
+        'prebuildopts': 'python -m pip install --prefix=%(builddir)s -e . && python setup.py build_ext --inplace && ',
+        'buildcmd': 'python setup.py bdist_wheel',
+        #'runtest': 'pytest -vv -n %(parallel)s --external-binaries',
+        'checksums': [
+            {'mol-cspy-v1.1.4.tar.bz2': '2a2dc072aa5fb2a1343d9fb253a8a0b138c31e864699babd017e117f62860a18'},
+#            {'mol-CSPy-v1.1.4_setuptools.patch': 'b5f1d43f10661aeea0586fae8748569ba41b4035cc326ff20991dcb248a366f6'},
+        ],
+    }),
+]
+
+#    - apt-get update && apt-get install -y build-essential gfortran libopenmpi-dev libspatialindex-dev python3-dev gcc
+#    - apt-get clean
+#    - pip install -U pip setuptools==59.8.0 cython numpy pytest mock importlib-metadata
+#    - pip install -e .
+#    - python setup.py build_ext --inplace
+#    - pytest -v
+#    - python setup.py bdist_wheel
+
+moduleclass = 'chem'

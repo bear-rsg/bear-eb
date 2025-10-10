@@ -7,10 +7,12 @@ homepage = "https://gitlab.com/mol-cspy/neighcrys"
 description = """A utility program for setting up input files for DMACRYS, which models crystals of rigid organic
  molecules using anisotropic atom-atom intermolecular potentials, of the type defined in the book “The Theory of
  Intermolecular Forces” by AJ Stone (Oxford University Press, 2013 2nd edition).
- For the online manual for DMACRYS, visit this web site:
- https://www.chem.ucl.ac.uk/cposs/dmacrys/index.html
- https://www.chem.ucl.ac.uk/cposs/dmacrys/manuals/neighcrys.pdf"""
+"""
 
+docurls = [
+    'https://www.chem.ucl.ac.uk/cposs/dmacrys/index.html',
+    'https://www.chem.ucl.ac.uk/cposs/dmacrys/manuals/neighcrys.pdf',
+]
 toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 source_urls = ['https://gitlab.com/mol-cspy/%(namelower)s/-/archive/origin/%(version)s/']

@@ -8,11 +8,11 @@ description = """ An energy minimisation package to simulate rigid molecules wit
  Models crystals of rigid organic molecules using anisotropic atom-atom intermolecular potentials,
  of the type defined in the book “The Theory of Intermolecular Forces”
  by AJ Stone (Oxford University Press, 2013 2nd edition).
- 
- For the online manual for DMACRYS, visit this web site:
- https://www.chem.ucl.ac.uk/cposs/dmacrys/index.html
- https://www.chem.ucl.ac.uk/cposs/dmacrys/manuals/dmacrys.pdf"""
-
+"""
+docurls = [
+    'https://www.chem.ucl.ac.uk/cposs/dmacrys/index.html',
+    'https://www.chem.ucl.ac.uk/cposs/dmacrys/manuals/dmacrys.pdf',
+]
 toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 source_urls = ['https://gitlab.com/mol-cspy/%(namelower)s/-/archive/origin/%(version)s/']

@@ -22,7 +22,7 @@ MOLPAK (MOLecular PAcKing) is a program for the prediction of
 toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
 sources = [{
-    #   'source_urls': [SOURCEFORGE_SOURCE], #TOFIX:Documentation has below address but EB in fact does append version var
+    # 'source_urls': [SOURCEFORGE_SOURCE], #TOFIX:Documentation has below address but EB in fact does append version var
     'source_urls': ['https://download.sourceforge.net/%(namelower)s'],
     'download_filename': 'PREDICTIONS.tar.gz',
     'filename': SOURCE_TAR_GZ,
@@ -43,21 +43,21 @@ unpack_opts = '--strip-components=1'
 buildininstalldir = True
 
 prebuildopts = ' && '.join([
-        'cp new-U/* UTILITIES/.',
-        'chmod +x PMIN/compile-all',
-        'chmod +x MOLPAK/compile-all',
-        'chmod +x UTILITIES/compile-all',
-        'chmod +x compile-all rename-dir.com',
-        '',
+    'cp new-U/* UTILITIES/.',
+    'chmod +x PMIN/compile-all',
+    'chmod +x MOLPAK/compile-all',
+    'chmod +x UTILITIES/compile-all',
+    'chmod +x compile-all rename-dir.com',
+    '',
 ])
 maxparallel = 1
 
 build_cmd = ' && '. join([
-        'pushd PMIN && ./compile-all && popd',
-        'pushd MOLPAK && ./compile-all && popd',
-        'pushd UTILITIES && ./compile-all && popd',
-        './compile-all',
-        './rename-dir.com',
+    'pushd PMIN && ./compile-all && popd',
+    'pushd MOLPAK && ./compile-all && popd',
+    'pushd UTILITIES && ./compile-all && popd',
+    './compile-all',
+    './rename-dir.com',
 ])
 files_to_copy = [
     (['%(name)s/%(namelower)s_09.exe'], 'bin'),
@@ -72,12 +72,12 @@ sanity_check_paths = {
 sanity_check_commands = ['%(namelower)s_09.exe']
 
 modaliases = {
-        'transform': '%(installdir)s/UTILITIES/transform.exe',
-        'prepare-files': '%(installdir)s/UTILITIES/prepare-files.exe',
-        'make-files': '%(installdir)s/UTILITIES/make-files.com',
-        'chem3d': '%(installdir)s/UTILITIES/chem3d.exe',
-        'summarize': '%(installdir)s/UTILITIES/summarize_tab.com',
-        'resort-summarize': '%(installdir)s/UTILITIES/resort-summarize.com',
+    'transform': '%(installdir)s/UTILITIES/transform.exe',
+    'prepare-files': '%(installdir)s/UTILITIES/prepare-files.exe',
+    'make-files': '%(installdir)s/UTILITIES/make-files.com',
+    'chem3d': '%(installdir)s/UTILITIES/chem3d.exe',
+    'summarize': '%(installdir)s/UTILITIES/summarize_tab.com',
+    'resort-summarize': '%(installdir)s/UTILITIES/resort-summarize.com',
 }
 
 moduleclass = 'chem'

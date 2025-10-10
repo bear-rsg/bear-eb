@@ -3,15 +3,14 @@ easyblock = 'MakeCp'
 name = 'MULFIT'
 version = '2.1.03'
 
-homepage = 'https://gitlab.com/anthonyjs/gdma'
+homepage = 'https://wiki.ph.qmul.ac.uk/ccmmp/AJMPublic/camcasp/multipoles#Using_MULFIT_to_transform_multipoles'
 description = """
-The GDMA program carries out Distributed Multipole Analysis of wavefunctions
-calculated by the Gaussian system of programs or the Psi4 package, using the
-formatted checkpoint files that they can produce. The result is a set of
-multipole moments at sites defined by the user (usually at the positions of the
-atomic nuclei) which, given an accurate wavefunction, provide an accurate
-description of the electrostatic field of the molecule."""
+This program is the realisation of a method for calculating electrostatic potential-fitted charges
+ (Ferenczy 1991, Chipot et al. 1993, Winn et al. 1997, Ferenczy et al. 1997). In addition to the fit of charges
+ to potentials, higher rank moments and the derivatives of the potential can also be involved in the calculation.
+"""
 
+docurls = ['https://wiki.ph.qmul.ac.uk/ccmmp/AJMPublic/camcasp/multipoles/mulfit?action=AttachFile&do=view&target=mulfit.pdf']
 toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 sources = [{
