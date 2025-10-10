@@ -1,0 +1,83 @@
+easyblock = 'MakeCp'
+
+name = 'MOLPAK'
+version = '26oct2010'
+
+homepage = 'https://sourceforge.net/projects/molpak/'
+description = """
+MOLPAK (MOLecular PAcKing) is a program for the prediction of
+ crystal structures used in both energetic materials and
+ pharmaceutical design. The MOLPAK package, as currently
+ distributed, includes the MOLPAK code, PMIN code, Utilities
+ programs, an interface program and a users guide document.
+ (a) The MOLPAK code is the main program.
+ (b) The PMIN code is used to refine the parameters of the
+ crystal structures, as predicted from MOLPAK.
+ (c) The Utilities programs are for preparing the input files
+ and summarizing the final results from MOLPAK/PMIN.
+ (d) The interface program is for preparing to perform PMIN on
+ the MOLPAK-predicted crystal structures
+"""
+
+toolchain = {'name': 'GCC', 'version': '12.3.0'}
+
+sources = [{
+    #   'source_urls': [SOURCEFORGE_SOURCE], #TOFIX:Documentation has below address but EB in fact does append version var
+    'source_urls': ['https://download.sourceforge.net/%(namelower)s'],
+    'download_filename': 'PREDICTIONS.tar.gz',
+    'filename': SOURCE_TAR_GZ,
+}]
+patches = [
+    '%(name)s_gfortran.patch',
+    '%(name)s_pmin_arraybounds.patch',
+    '%(name)s_utils.patch'
+]
+checksums = [
+    {'MOLPAK-26oct2010.tar.gz': 'c04895c67b12f736e77692370ebe33d56e15851486d02828b1f779b372332eba'},
+    {'MOLPAK_gfortran.patch': 'e96b71d8161d0ff17c99125f22712ab800d2e98ef96993f537479deb9116f1ff'},
+    {'MOLPAK_pmin_arraybounds.patch': '739bbed8370f79af99b97c3d04e1ca12840e92c0ecba5b3450e098363cc24af5'},
+    {'MOLPAK_utils.patch': '16714a414d853910a509b8c3290cb14215c25d4bb9f4114edbcf272ad97cd3c6'},
+]
+
+unpack_opts = '--strip-components=1'
+buildininstalldir = True
+
+prebuildopts = ' && '.join([
+        'cp new-U/* UTILITIES/.',
+        'chmod +x PMIN/compile-all',
+        'chmod +x MOLPAK/compile-all',
+        'chmod +x UTILITIES/compile-all',
+        'chmod +x compile-all rename-dir.com',
+        '',
+])
+maxparallel = 1
+
+build_cmd = ' && '. join([
+        'pushd PMIN && ./compile-all && popd',
+        'pushd MOLPAK && ./compile-all && popd',
+        'pushd UTILITIES && ./compile-all && popd',
+        './compile-all',
+        './rename-dir.com',
+])
+files_to_copy = [
+    (['%(name)s/%(namelower)s_09.exe'], 'bin'),
+    (['PMIN/pmin.exe'], 'bin'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/molpak_09.exe', 'bin/pmin.exe'],
+    'dirs': ['UTILITIES'],
+}
+
+sanity_check_commands = ['%(namelower)s_09.exe']
+
+modaliases = {
+        'transform': '%(installdir)s/UTILITIES/transform.exe',
+        'prepare-files': '%(installdir)s/UTILITIES/prepare-files.exe',
+        'make-files': '%(installdir)s/UTILITIES/make-files.com',
+        'chem3d': '%(installdir)s/UTILITIES/chem3d.exe',
+        'summarize': '%(installdir)s/UTILITIES/summarize_tab.com',
+        'resort-summarize': '%(installdir)s/UTILITIES/resort-summarize.com',
+}
+
+moduleclass = 'chem'
