@@ -44,7 +44,8 @@ skipsteps = ['configure', 'build']
 preinstallopts = ' && '.join([
     'sed -i s:MPI_MAINDIR.*:"MPI_MAINDIR $EBROOTINTELMINCOMPILERS/mpi/latest": install.config',
     'sed -i s:MPI_LIBS.*:"MPI_LIBS $EBROOTINTELMINCOMPILERS/mpi/latest/lib/release/libmpi.so": install.config',
-    'sed -i s:MPI_STARTUP.*:"MPI_STARTUP $EBROOTIMPI/mpi/latest/bin/mpirun -np _NPROC_ _EXE_ _EXEOPTS_": install.config',
+    'sed -i s:MPI_STARTUP.*:"MPI_STARTUP $EBROOTIMPI/mpi/latest/bin/mpirun -np _NPROC_ _EXE_ _EXEOPTS_": '
+    'install.config',
     'sed -i s:BLASLIBRARY.*:"BLASLIBRARY -L$MKLROOT/lib/intel64 -lmkl_intel_ilp64 -lmkl_sequential '
     '-lmkl_blacs_intelmpi_ilp64 -lmkl_core -lpthread '
     '-L$EBROOTINTELMINCOMPILERS/compiler/latest/linux/compiler/lib/intel64_lin -liomp5": install.config',
