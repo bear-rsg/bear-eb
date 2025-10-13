@@ -1,0 +1,21 @@
+diff -ruN mol-cspy.orig/cspy/util/__init__.py mol-cspy.edit/cspy/util/__init__.py
+--- mol-cspy.orig/cspy/util/__init__.py	2025-10-13 17:51:20.075063647 +0100
++++ mol-cspy.edit/cspy/util/__init__.py	2025-10-14 00:27:58.794407449 +0100
+@@ -37,7 +37,7 @@
+     {'test': {'test_val': 5}, 'other': 3}
+     """
+     for key, val in dict_from.items():
+-        if isinstance(val, collections.Mapping):
++        if isinstance(val, collections.abc.Mapping):
+             dict_to[key] = recursive_dict_update(dict_to.get(key, {}), val)
+         else:
+             dict_to[key] = val
+@@ -60,7 +60,7 @@
+     levels = key.split(sep)
+     level_key = levels[0]
+     if level_key in root:
+-        if isinstance(root[level_key], collections.MutableMapping):
++        if isinstance(root[level_key], collections.abc.MutableMapping):
+             nested_dict_delete(root[level_key], sep.join(levels[1:]), sep=sep)
+             if not root[level_key]:
+                 del root[level_key]

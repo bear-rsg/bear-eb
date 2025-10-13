@@ -1,0 +1,20 @@
+--- mol-cspy.orig/setup.py	2025-10-13 17:51:21.871146000 +0100
++++ mol-cspy/setup.py	2025-10-13 19:09:14.110285000 +0100
+@@ -1,6 +1,7 @@
+ from setuptools.extension import Extension as Ext
+ from setuptools import find_namespace_packages
+-from numpy.distutils.core import setup, Extension as NumpyExt
++from numpy.distutils.core import setup
++from numpy.distutils.extension import Extension as NumpyExt
+ from numpy import get_include
+ 
+ 
+@@ -88,7 +89,7 @@
+ 
+ setup(
+     name="cspy",
+-    version="1.1.1",
++    version="1.1.4",
+     description="Crystal structure prediction using python",
+     url="https://gitlab.com/mol-cspy/mol-cspy",
+     keywords=[
