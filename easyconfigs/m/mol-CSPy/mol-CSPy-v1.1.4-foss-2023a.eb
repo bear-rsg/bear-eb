@@ -11,7 +11,7 @@ toolchain = {'name': 'foss', 'version': '2023a'}
 
 builddependencies = [
     ('Cython', '3.0.8'),
-#    ('pytest', '7.4.2'),
+    ('pytest', '7.4.2'),
 ]
 dependencies = [
     ('Python', '3.11.3'),
@@ -35,20 +35,7 @@ dependencies = [
     ('HDBSCAN', '0.8.38.post1'),
 ]
 
-#source_urls = ['https://gitlab.com/mol-cspy/%(namelower)s/-/archive/%(version)s/']
-#sources = [SOURCELOWER_TAR_BZ2]
-#patches = ['mol-CSPy-v1.1.4_setuptools.patch']
-#checksums = [
-#    {'mol-cspy-v1.1.4.tar.bz2': '2a2dc072aa5fb2a1343d9fb253a8a0b138c31e864699babd017e117f62860a18'},
-#    {'mol-CSPy-v1.1.4_setuptools.patch': 'd2f424c2c3783ba809373d99ea88f5b3a5a66e9b3db2058ad300ff637242ac32'},
-#]
-#
-#preinstallopts = 'touch cspy/deprecated/__init__.py && '
-
 exts_list = [
-#    ('setuptools', '59.8.0', {
-#        'checksums': ['09980778aa734c3037a47997f28d6db5ab18bdf2af0e49f719bfc53967fd2e82'],
-#    }),
     ('prompt_toolkit', '3.0.52', {
         'source_tmpl': SOURCE_PY3_WHL,
         'checksums': ['9aac639a3bbd33284347de5ad8d68ecc044b91a762dc39b7c21095fcd6a19955'],
@@ -98,17 +85,20 @@ exts_list = [
         'source_urls': 'https://gitlab.com/mol-cspy/%(namelower)s/-/archive/%(version)s/',
         'sources': SOURCELOWER_TAR_BZ2,
         'preinstallopts': 'touch cspy/deprecated/__init__.py && ',
-#        'prebuildopts': 'python -m pip install --prefix=%(builddir)s -e . && python setup.py build_ext --inplace && ',
-#        'buildcmd': 'python setup.py bdist_wheel',
-        #'runtest': 'pytest -vv -n %(parallel)s --external-binaries',
+        'runtest': 'pytest -vv -n %(parallel)s --external-binaries',
         'modulename': 'cspy',
         'checksums': [
             {'mol-cspy-v1.1.4.tar.bz2': '2a2dc072aa5fb2a1343d9fb253a8a0b138c31e864699babd017e117f62860a18'},
             {'mol-CSPy-v1.1.4_setuptools.patch': 'd2f424c2c3783ba809373d99ea88f5b3a5a66e9b3db2058ad300ff637242ac32'},
-            {'mol-CSPy-v1.1.4_py11compat_collections.patch': 
+            {'mol-CSPy-v1.1.4_py11compat_collections.patch':
                 '517f5507b13c32e76038442b5d9b664ec3e23fd8157c348f418cd97c0181cb65'},
         ],
     }),
 ]
+
+sanity_check_paths = {
+    'files': ['bin/cspy-setup'],
+    'dirs': ['lib'],
+}
 
 moduleclass = 'chem'

@@ -10,7 +10,9 @@ This program is the realisation of a method for calculating electrostatic potent
  to potentials, higher rank moments and the derivatives of the potential can also be involved in the calculation.
 """
 
-docurls = ['https://wiki.ph.qmul.ac.uk/ccmmp/AJMPublic/camcasp/multipoles/mulfit?action=AttachFile&do=view&target=mulfit.pdf']
+docurls = [
+    'https://wiki.ph.qmul.ac.uk/ccmmp/AJMPublic/camcasp/multipoles/mulfit?action=AttachFile&do=view&target=mulfit.pdf'
+]
 toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 sources = [{

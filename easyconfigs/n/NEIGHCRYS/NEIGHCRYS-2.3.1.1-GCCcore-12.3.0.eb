@@ -19,14 +19,15 @@ source_urls = ['https://gitlab.com/mol-cspy/%(namelower)s/-/archive/origin/%(ver
 sources = ['%(namelower)s-origin-%(version)s.tar.bz2']
 checksums = ['e6f9ea79eb99a75fc246f367f79404232b70aef9794bea2298f533792c30f341']
 
-builddependencies = [('intel-compilers', '2023.1.0', '', SYSTEM)] #, ('Doxygen', '1.11.0')]
+builddependencies = [('intel-compilers', '2023.1.0', '', SYSTEM)]
 
-files_to_copy = [(['*.out'], 'bin')]#, local_file[0:]]
+files_to_copy = [(['*.out'], 'bin')]
 
 sanity_check_paths = {
-    'files': [f'bin/%(namelower)s{v}.out' for v in ('','O0')],
+    'files': [f'bin/%(namelower)s{v}.out' for v in ('', 'O0')],
     'dirs': ['bin'],
 }
+
 postinstallcmds = ['ln -s %(installdir)s/bin/%(namelower)s.out %(installdir)s/bin/%(namelower)s']
 
 moduleclass = 'chem'
