@@ -1,0 +1,49 @@
+# Author: Pavel Grochal (INUITS)
+# Updated: Denis Kristak, Pavel Tománek (INUITS)
+# License: GPLv2
+
+easyblock = 'PythonBundle'
+
+name = 'rpy2'
+version = '3.6.4'
+
+homepage = 'https://rpy2.github.io'
+description = """rpy2 is an interface to R running embedded in a Python process."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('SciPy-bundle', '2024.05'),
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+    ('IPython', '8.28.0'),
+    ('cffi', '1.16.0'),
+]
+
+exts_list = [
+    ('packaging', '24.2', {
+        'checksums': ['c228a6dc5e932d346bc5739379109d49e8853dd8223571c7c5b55260edc0b97f'],
+    }),
+    # Newer setuptools required for: ValueError: invalid pyproject.toml config: `project.license`
+    ('setuptools', '77.0.3', {
+        'checksums': ['583b361c8da8de57403743e756609670de6fb2345920e36dc5c2d914c319c945'],
+    }),
+    ('tzlocal', '5.3.1', {
+        'checksums': ['cceffc7edecefea1f595541dbd6e990cb1ea3d19bf01b2809f362a03dd7921fd'],
+    }),
+    ('rpy2_rinterface', '3.6.3', {
+        'modulename': 'rpy2.rinterface',
+        'checksums': ['477bc2f51d007ad1b8567c5d4ba1af0f59951686ee7f10576a06d0834de5776f'],
+    }),
+    ('rpy2_robjects', '3.6.3', {
+        'modulename': 'rpy2.robjects',
+        'checksums': ['731aa1a4905c4b25c0564d72cbfd85f9230102f989e7a22515885e91d4df3d40'],
+    }),
+    (name, version, {
+        'checksums': ['a24e8dda5c5ff8cbd2b8ebd1ccf6f1a5a0a576623700cf91e2cce98d41a79fd3'],
+    }),
+]
+
+moduleclass = 'tools'
