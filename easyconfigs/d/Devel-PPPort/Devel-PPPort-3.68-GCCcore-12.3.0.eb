@@ -1,0 +1,29 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PerlBundle'
+
+name = 'Devel-PPPort'
+version = '3.68'
+
+homepage = 'https://metacpan.org/pod/Curses'
+description = "Devel::PPPort - Perl/Pollution/Portability."
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+builddependencies = [('binutils', '2.40')]
+
+dependencies = [
+    ('Perl', '5.36.1'),
+]
+
+exts_default_options = {
+    'modulename': 'Devel::PPPort',
+    'source_urls': ['https://cpan.metacpan.org/authors/id/A/AT/ATOOMIC/'],
+}
+
+exts_list = [
+    (name, version, {
+        'checksums': ['5290d5bb84cde9e9e61113a20c67b5d47267eb8e65a119a8a248cc96aac0badb'],
+    }),
+]
+
+moduleclass = 'lib'

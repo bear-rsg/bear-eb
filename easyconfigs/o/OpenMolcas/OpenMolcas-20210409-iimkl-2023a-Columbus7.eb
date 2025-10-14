@@ -1,0 +1,49 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+
+name = 'OpenMolcas'
+version = '20210409'
+versionsuffix = '-Columbus7'
+local_commit_id = '433e6e16'
+
+homepage = "https://gitlab.com/columbus-program-system/OpenMolcas"
+description = """OpenMolcas is a quantum chemistry software package."""
+
+toolchain = {'name': 'iimkl', 'version': '2023a'}
+
+sources = [{
+    'git_config': {
+        'url': 'https://gitlab.com/columbus-program-system/',
+        'repo_name': 'OpenMolcas',
+        'commit': local_commit_id,
+    },
+    'filename': SOURCE_TAR_XZ,
+}]
+checksums = ['74ece7a76daf36cd65ea2538b2c85f6bfc84dde5096c0f97dcc8ce4d332a53d8']
+
+builddependencies = [('CMake', '3.26.3')]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+]
+
+configopts = '-DCMAKE_C_COMPILER_ID=Intel -DLINALG=MKL -DMKLROOT=$MKLROOT'
+
+modextravars = {
+    'MOLCAS': '%(installdir)s',
+    'MOLCAS_DRIVER': '%(installdir)s/sbin/pymolcas',
+    'MOLCAS_SOURCE': '%(installdir)s'
+}
+
+fix_python_shebang_for = ['sbin/*']
+
+sanity_check_paths = {
+    'files': ['bin/dynamix.exe', 'bin/mpprop.exe', 'lib/libmolcas.a',
+              'sbin/help_basis', 'sbin/pymolcas'],
+    'dirs': ['data/', 'basis_library/'],
+}
+
+sanity_check_commands = ['pymolcas -h']
+
+moduleclass = 'chem'
