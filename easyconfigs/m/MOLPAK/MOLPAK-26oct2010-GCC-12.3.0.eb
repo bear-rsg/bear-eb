@@ -52,7 +52,7 @@ prebuildopts = ' && '.join([
 ])
 maxparallel = 1
 
-build_cmd = ' && '. join([
+build_cmd = ' && '.join([
     'pushd PMIN && ./compile-all && popd',
     'pushd MOLPAK && ./compile-all && popd',
     'pushd UTILITIES && ./compile-all && popd',
