@@ -34,9 +34,9 @@ patches = [
 ]
 checksums = [
     {'MOLPAK-26oct2010.tar.gz': 'c04895c67b12f736e77692370ebe33d56e15851486d02828b1f779b372332eba'},
-    {'MOLPAK_gfortran.patch': 'e96b71d8161d0ff17c99125f22712ab800d2e98ef96993f537479deb9116f1ff'},
-    {'MOLPAK_pmin_arraybounds.patch': '739bbed8370f79af99b97c3d04e1ca12840e92c0ecba5b3450e098363cc24af5'},
-    {'MOLPAK_utils.patch': '16714a414d853910a509b8c3290cb14215c25d4bb9f4114edbcf272ad97cd3c6'},
+    {'MOLPAK_gfortran.patch': '6c6d660f2baa6c73360ef483eabaf2571b6cd5f4331eaf3736b704051681c32c'},
+    {'MOLPAK_pmin_arraybounds.patch': 'd10afd52c3ecba389da6dccf435023c342718b5e4f2baaf4e1287ce152f0d3d1'},
+    {'MOLPAK_utils.patch': 'c03d6877d9e7615220a55cebd0af24900064b8c3616883493a0e56e68983bd19'},
 ]
 
 unpack_opts = '--strip-components=1'
