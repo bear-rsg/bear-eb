@@ -39,8 +39,6 @@ exts_list = [
     }),
 ]
 
-postinstallcmds = ['chmod +x %(installdir)s/%(namelower)s']
-
 sanity_check_commands = ['vep --help']
 
 moduleclass = 'bio'
