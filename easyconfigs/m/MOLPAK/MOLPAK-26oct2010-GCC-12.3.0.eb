@@ -22,8 +22,10 @@ MOLPAK (MOLecular PAcKing) is a program for the prediction of
 toolchain = {'name': 'GCC', 'version': '12.3.0'}
 
 sources = [{
-    # 'source_urls': [SOURCEFORGE_SOURCE], #TOFIX:Documentation has below address but EB in fact does append version var
-    'source_urls': ['https://download.sourceforge.net/%(namelower)s'],
+    # https://sourceforge.net/projects/molpak/files/latest/download
+    # 'source_urls': [SOURCEFORGE_SOURCE], #TOFIX:Docs state a URL below but in fact postfixes it with version var
+    # 'source_urls': ['https://download.sourceforge.net/%(namelower)s'], # this in turn resolves further to one below
+    'source_urls': ['https://downloads.sourceforge.net/project/molpak/Molpak'],
     'download_filename': 'PREDICTIONS.tar.gz',
     'filename': SOURCE_TAR_GZ,
 }]
