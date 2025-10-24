@@ -17,47 +17,36 @@ dependencies = [
     ('ESMF', version),
 ]
 
-# downloads of data files from data.earthsystemmodeling.org are failing at the
-# time of writting, switch to github.com:
-_switch_data_url_regex = r"s/^\(DATA_URL.*earthsystemmodeling.org\)/# \1/;s/# \(DATA_URL.*github.com\)/\1/"
-#_switch_data_url_regex = r"s/^\(DATA_URL.*earthsystemmodeling.org\)/# \1/;s/#.*\(http.*github.com/\)/\1/"
-
-#_pre_test_cmds = [
-#    "sed -i '%s' src/esmpy/util/cache_data.py" % _switch_data_url_regex,
-#    "unset ESMPY_DATA_DIR",
-#    "export ESMPY_DATA_NEW_DIR=/tmp",
-#    "",
-#]
-_dataurlsed = " ".join([
-	"sed -ie 's/^\(DATA_URL.*earthsystemmodeling.org\)/#\1/'",
-	"-e 's|# \(DATA_URL.*github.com\)|DATA_URL = %(builddir)s/esmf-test-data-%(version)s/|'",
-	"src/esmpy/util/cache_data.py",
-])
 _pre_test_cmds = ' && '.join([
-#	_dataurlsed,
 	"unset ESMPY_DATA_DIR",
-    	"export ESMPY_DATA_NEW_DIR=%(installdir)s/esmf-test-data-%(version)s",
+    "export ESMPY_DATA_NEW_DIR=%(installdir)s/%(name)s-%(version)s",
 	''
 ])
+
+# downloads of data files from data.earthsystemmodeling.org
+import os
+_ddir = '%(installdir)s/%(name)s-%(version)s' 
+os.makedirs("%s" % _ddir, exist_ok=True)
+
 components = [
 	('esmf-test-data', version, {
 		'easyblock': 'Binary',
 		'source_urls': ['https://esmfweb.cgd.ucar.edu/download/data/'],
-#		'start_dir': '%(installdir)s'
 		'sources': [ 
-			{'extract_cmd': 'cp %s .', 'download_filename': 'aggregAtlanticESTOFS.nc', 'filename': 'aggregAtlanticESTOFS.nc'},
-			{'extract_cmd': 'cp %s .', 'download_filename': 'GRIDSPEC_ACCESS1.nc', 'filename': 'GRIDSPEC_ACCESS1.nc'},
-			{'extract_cmd': 'cp %s .', 'download_filename': 'll1deg_grid.nc', 'filename': 'll1deg_grid.nc'},
-			{'extract_cmd': 'cp %s .', 'download_filename': 'll2.5deg_grid.nc', 'filename': 'll2.5deg_grid.nc'},
-			{'extract_cmd': 'cp %s .', 'download_filename': 'mpas_uniform_10242_dual_counterclockwise.nc',
+			{'extract_cmd': f'cp %s {_ddir}',
+                'download_filename': 'aggregAtlanticESTOFS.nc', 'filename': 'aggregAtlanticESTOFS.nc'},
+			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'GRIDSPEC_ACCESS1.nc', 'filename': 'GRIDSPEC_ACCESS1.nc'},
+			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'll1deg_grid.nc', 'filename': 'll1deg_grid.nc'},
+			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'll2.5deg_grid.nc', 'filename': 'll2.5deg_grid.nc'},
+			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'mpas_uniform_10242_dual_counterclockwise.nc',
 				'filename': 'mpas_uniform_10242_dual_counterclockwise.nc'},
-			{'extract_cmd': 'cp %s .', 'download_filename': 'so_Omon_GISS-E2.nc', 'filename': 'so_Omon_GISS-E2.nc'},
-			{'extract_cmd': 'cp %s .', 'download_filename': 'T42_grid.nc', 'filename': 'T42_grid.nc'},
-			{'extract_cmd': 'cp %s .', 'download_filename': 'ne4np4-pentagons.nc', 'filename': 'ne4np4-pentagons.nc'},
-			{'extract_cmd': 'cp %s .', 'download_filename': 'ne4np4-esmf.nc', 'filename': 'ne4np4-esmf.nc'},
-			{'extract_cmd': 'cp %s .', 'download_filename': 'ne30np4-t2.nc', 'filename': 'ne30np4-t2.nc'},
-			{'extract_cmd': 'cp %s .', 'download_filename': 'll2.5deg_grid.nc', 'filename': 'll2.5deg_grid.nc'},
-			{'extract_cmd': 'cp %s .', 'download_filename': 'gridspec1Dcoords.nc', 'filename': 'gridspec1Dcoords.nc'},
+			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'so_Omon_GISS-E2.nc', 'filename': 'so_Omon_GISS-E2.nc'},
+			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'T42_grid.nc', 'filename': 'T42_grid.nc'},
+			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'ne4np4-pentagons.nc', 'filename': 'ne4np4-pentagons.nc'},
+			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'ne4np4-esmf.nc', 'filename': 'ne4np4-esmf.nc'},
+			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'ne30np4-t2.nc', 'filename': 'ne30np4-t2.nc'},
+			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'll2.5deg_grid.nc', 'filename': 'll2.5deg_grid.nc'},
+			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'gridspec1Dcoords.nc', 'filename': 'gridspec1Dcoords.nc'},
 		],
 		'checksums': [
 			{'aggregAtlanticESTOFS.nc': 'a586c4669951ede99b90db1c6ace25fea5a1e9746c9c9b8f6e4babb2f5260ed1'},
@@ -74,9 +63,6 @@ components = [
 			{'ll2.5deg_grid.nc': 'f677e985b8827209830223709c8529ef4b88dde3d46d6a1abffa6a0d5213935b'},
 			{'gridspec1Dcoords.nc': '9f6f1511b60af59cd6709fc6dee49d13dc23c6d1761ed2fd702d4627f09f8ee1'},
 		],
-		'preinstallopts': 'mkdir -p %(installdir)s/%(name)s-%(version)s && ',
-#		'postinstallcmds': 'for f in *.nc; do mv $f %(name)s-%(version)s/$(echo $f|cut -d"-" -f4)',
-		'postinstallcmds': 'for f in *.nc; do cp $f %(installdir)s/%(name)s-%(version)s/. ; done',
 	}),
 ]
 exts_list = [
@@ -99,6 +85,6 @@ exts_list = [
 
 # set data directory to a user-writable directory
 # default: %(installdir)s/lib/python%(pyshortver)s/site-packages/esmpy/data
-modextravars = {'ESMPY_DATA_DIR': '%(installdir)s/esmf-test-data-%(version)s'}
+modextravars = {'ESMPY_DATA_DIR': '/dev/shm/$USER/%(name)s-%(version)s-data'}
 
 moduleclass = 'geo'

@@ -10,6 +10,7 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 
 builddependencies = [
     ('pytest', '8.3.3'),
+    ('Cython', '3.0.10'),
 ]
 dependencies = [
     ('Python', '3.12.3'),
@@ -23,20 +24,20 @@ dependencies = [
 
 
 exts_list = [
-    ('cftime', '1.6.2', {
-        'checksums': ['8614c00fb8a5046de304fdd86dbd224f99408185d7b245ac6628d0276596e6d2'],
+    ('cftime', '1.6.4.post1', {
+        'checksums': ['50ac76cc9f10ab7bd46e44a71c51a6927051b499b4407df4f29ab13d741b942f'],
     }),
-    ('cf_xarray', '0.9.3', {
-        'checksums': ['5012444078964ef931cdc71d559f58488edd5fa9a175fbec326f9356e481b2cf'],
+    ('cf_xarray', '0.10.9', {
+        'checksums': ['36e829c63e42496e892b52faf1c5d6a9936857df3b3ad2f4fd86e06a17e6ec33'],
     }),
-    ('sparse', '0.14.0', {
-        'checksums': ['5f5827a37f6cd6f6730a541f994c95c60a3ae2329e01f4ba21ced5339aea0098'],
+    ('sparse', '0.17.0', {
+        'checksums': ['6b1ad51a810c5be40b6f95e28513ec810fe1c785923bd83b2e4839a751df4bf7'],
     }),
-    ('xesmf', '0.8.6', {
+    ('%(namelower)s', version, {
         'runtest': 'pytest',
         'testinstall': True,
         'testopts': "-v --pyargs xesmf",
-        'checksums': ['61c54f0db19fe4871623791db50b1ae589ea1a834d0df461cb58ffbd10d875de'],
+        'checksums': ['6f924cfd16e40e9adaad80af26fd1f26e509e66b177ea80ae45c3ef1ed56f5fd'],
     }),
 ]
 
