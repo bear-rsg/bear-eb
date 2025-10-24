@@ -1,0 +1,44 @@
+easyblock = 'PythonBundle'
+
+name = 'xESMF'
+version = '0.8.10'
+
+homepage = 'https://xesmf.readthedocs.io'
+description = "xESMF: Universal Regridder for Geospatial Data"
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+builddependencies = [
+    ('pytest', '8.3.3'),
+    ('Cython', '3.0.10'),
+]
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('ESMPy', '8.8.0'),
+    ('numba', '0.60.0'),
+    ('Shapely', '2.1.0'),
+    ('xarray', '2024.11.0'),
+    ('dask', '2024.9.1'),
+]
+
+
+exts_list = [
+    ('cftime', '1.6.4.post1', {
+        'checksums': ['50ac76cc9f10ab7bd46e44a71c51a6927051b499b4407df4f29ab13d741b942f'],
+    }),
+    ('cf_xarray', '0.10.9', {
+        'checksums': ['36e829c63e42496e892b52faf1c5d6a9936857df3b3ad2f4fd86e06a17e6ec33'],
+    }),
+    ('sparse', '0.17.0', {
+        'checksums': ['6b1ad51a810c5be40b6f95e28513ec810fe1c785923bd83b2e4839a751df4bf7'],
+    }),
+    ('%(namelower)s', version, {
+        'runtest': 'pytest',
+        'testinstall': True,
+        'testopts': "-v --pyargs xesmf",
+        'checksums': ['6f924cfd16e40e9adaad80af26fd1f26e509e66b177ea80ae45c3ef1ed56f5fd'],
+    }),
+]
+
+moduleclass = 'geo'
