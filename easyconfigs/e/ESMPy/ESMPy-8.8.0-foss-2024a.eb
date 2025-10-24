@@ -1,3 +1,4 @@
+import os
 easyblock = 'PythonBundle'
 
 name = 'ESMPy'
@@ -18,52 +19,62 @@ dependencies = [
 ]
 
 _pre_test_cmds = ' && '.join([
-	"unset ESMPY_DATA_DIR",
+    "unset ESMPY_DATA_DIR",
     "export ESMPY_DATA_NEW_DIR=%(installdir)s/%(name)s-%(version)s",
-	''
+    ''
 ])
 
 # downloads of data files from data.earthsystemmodeling.org
-import os
-_ddir = '%(installdir)s/%(name)s-%(version)s' 
+_ddir = '%(installdir)s/%(name)s-%(version)s'
 os.makedirs("%s" % _ddir, exist_ok=True)
 
 components = [
-	('esmf-test-data', version, {
-		'easyblock': 'Binary',
-		'source_urls': ['https://esmfweb.cgd.ucar.edu/download/data/'],
-		'sources': [ 
-			{'extract_cmd': f'cp %s {_ddir}',
+    ('esmf-test-data', version, {
+        'easyblock': 'Binary',
+        'source_urls': ['https://esmfweb.cgd.ucar.edu/download/data/'],
+        'sources': [
+            {'extract_cmd': f'cp %s {_ddir}',
                 'download_filename': 'aggregAtlanticESTOFS.nc', 'filename': 'aggregAtlanticESTOFS.nc'},
-			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'GRIDSPEC_ACCESS1.nc', 'filename': 'GRIDSPEC_ACCESS1.nc'},
-			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'll1deg_grid.nc', 'filename': 'll1deg_grid.nc'},
-			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'll2.5deg_grid.nc', 'filename': 'll2.5deg_grid.nc'},
-			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'mpas_uniform_10242_dual_counterclockwise.nc',
-				'filename': 'mpas_uniform_10242_dual_counterclockwise.nc'},
-			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'so_Omon_GISS-E2.nc', 'filename': 'so_Omon_GISS-E2.nc'},
-			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'T42_grid.nc', 'filename': 'T42_grid.nc'},
-			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'ne4np4-pentagons.nc', 'filename': 'ne4np4-pentagons.nc'},
-			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'ne4np4-esmf.nc', 'filename': 'ne4np4-esmf.nc'},
-			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'ne30np4-t2.nc', 'filename': 'ne30np4-t2.nc'},
-			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'll2.5deg_grid.nc', 'filename': 'll2.5deg_grid.nc'},
-			{'extract_cmd': f'cp %s {_ddir}', 'download_filename': 'gridspec1Dcoords.nc', 'filename': 'gridspec1Dcoords.nc'},
-		],
-		'checksums': [
-			{'aggregAtlanticESTOFS.nc': 'a586c4669951ede99b90db1c6ace25fea5a1e9746c9c9b8f6e4babb2f5260ed1'},
-			{'GRIDSPEC_ACCESS1.nc': 'efe0c2e93814a6601370adb695d51cd2e809fb21a4ca9e938d46dd909a988291'},
-			{'ll1deg_grid.nc': 'cc4bbb0021ec748ebd3dacd0256f206f89660cb40e40326d653fdc8eb8c288f1'},
-			{'ll2.5deg_grid.nc': 'f677e985b8827209830223709c8529ef4b88dde3d46d6a1abffa6a0d5213935b'},
-			{'mpas_uniform_10242_dual_counterclockwise.nc':
-				 'ba08a128057625683ee7f724ea56bd34ab11953a3b0a06316bd64f4c7fed1a2e'},
-			{'so_Omon_GISS-E2.nc': '5ef1eae6b8a3bc6f0cb4bb495df306671fb58a8c8c51eb2dc422b9da14125af5'},
-			{'T42_grid.nc': 'b7630bec03fa1b5f83dd0177a54634272846e268647c7405ccd1efb51da4f191'},
-			{'ne4np4-pentagons.nc': '57eeef0cca36a249a86edcf9f65dc94cc9a8f1b48a639e251be4ffb0098a8269'},
-			{'ne4np4-esmf.nc': '69e86d610345fce11241fa620426790c50f5850b6614bd650da82931a2f0396f'},
-			{'ne30np4-t2.nc': '6264ffcbef835b77f12afa2eb8ae79131dadb9065fdf3d8b8e174db87e5bf3f5'},
-			{'ll2.5deg_grid.nc': 'f677e985b8827209830223709c8529ef4b88dde3d46d6a1abffa6a0d5213935b'},
-			{'gridspec1Dcoords.nc': '9f6f1511b60af59cd6709fc6dee49d13dc23c6d1761ed2fd702d4627f09f8ee1'},
-		],
-	}),
+            {'extract_cmd': f'cp %s {_ddir}', 'download_filename':
+                'GRIDSPEC_ACCESS1.nc', 'filename': 'GRIDSPEC_ACCESS1.nc'},
+            {'extract_cmd': f'cp %s {_ddir}', 'download_filename':
+                'll1deg_grid.nc', 'filename': 'll1deg_grid.nc'},
+            {'extract_cmd': f'cp %s {_ddir}', 'download_filename':
+                'll2.5deg_grid.nc', 'filename': 'll2.5deg_grid.nc'},
+            {'extract_cmd': f'cp %s {_ddir}', 'download_filename':
+                'mpas_uniform_10242_dual_counterclockwise.nc',
+                'filename': 'mpas_uniform_10242_dual_counterclockwise.nc'},
+            {'extract_cmd': f'cp %s {_ddir}', 'download_filename':
+                'so_Omon_GISS-E2.nc', 'filename': 'so_Omon_GISS-E2.nc'},
+            {'extract_cmd': f'cp %s {_ddir}', 'download_filename':
+                'T42_grid.nc', 'filename': 'T42_grid.nc'},
+            {'extract_cmd': f'cp %s {_ddir}', 'download_filename':
+                'ne4np4-pentagons.nc', 'filename': 'ne4np4-pentagons.nc'},
+            {'extract_cmd': f'cp %s {_ddir}', 'download_filename':
+                'ne4np4-esmf.nc', 'filename': 'ne4np4-esmf.nc'},
+            {'extract_cmd': f'cp %s {_ddir}', 'download_filename':
+                'ne30np4-t2.nc', 'filename': 'ne30np4-t2.nc'},
+            {'extract_cmd': f'cp %s {_ddir}', 'download_filename':
+                'll2.5deg_grid.nc', 'filename': 'll2.5deg_grid.nc'},
+            {'extract_cmd': f'cp %s {_ddir}', 'download_filename':
+                'gridspec1Dcoords.nc', 'filename': 'gridspec1Dcoords.nc'},
+        ],
+        'checksums': [
+            {'aggregAtlanticESTOFS.nc': 'a586c4669951ede99b90db1c6ace25fea5a1e9746c9c9b8f6e4babb2f5260ed1'},
+            {'GRIDSPEC_ACCESS1.nc': 'efe0c2e93814a6601370adb695d51cd2e809fb21a4ca9e938d46dd909a988291'},
+            {'ll1deg_grid.nc': 'cc4bbb0021ec748ebd3dacd0256f206f89660cb40e40326d653fdc8eb8c288f1'},
+            {'ll2.5deg_grid.nc': 'f677e985b8827209830223709c8529ef4b88dde3d46d6a1abffa6a0d5213935b'},
+            {'mpas_uniform_10242_dual_counterclockwise.nc':
+                'ba08a128057625683ee7f724ea56bd34ab11953a3b0a06316bd64f4c7fed1a2e'},
+            {'so_Omon_GISS-E2.nc': '5ef1eae6b8a3bc6f0cb4bb495df306671fb58a8c8c51eb2dc422b9da14125af5'},
+            {'T42_grid.nc': 'b7630bec03fa1b5f83dd0177a54634272846e268647c7405ccd1efb51da4f191'},
+            {'ne4np4-pentagons.nc': '57eeef0cca36a249a86edcf9f65dc94cc9a8f1b48a639e251be4ffb0098a8269'},
+            {'ne4np4-esmf.nc': '69e86d610345fce11241fa620426790c50f5850b6614bd650da82931a2f0396f'},
+            {'ne30np4-t2.nc': '6264ffcbef835b77f12afa2eb8ae79131dadb9065fdf3d8b8e174db87e5bf3f5'},
+            {'ll2.5deg_grid.nc': 'f677e985b8827209830223709c8529ef4b88dde3d46d6a1abffa6a0d5213935b'},
+            {'gridspec1Dcoords.nc': '9f6f1511b60af59cd6709fc6dee49d13dc23c6d1761ed2fd702d4627f09f8ee1'},
+        ],
+    }),
 ]
 exts_list = [
     ('esmpy', version, {
