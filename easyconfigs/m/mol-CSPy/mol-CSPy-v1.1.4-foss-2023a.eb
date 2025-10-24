@@ -42,7 +42,7 @@ local_skiptest = [
     'cspy/executable/tests/test_neighcrys.py', # NeighcrysTestCase::test_neighcrys - assert False
     'cspy/minimize/test_minimize.py', # DmacrysMinimizerTestCase::test_dmacrys_minimize - ValueError: operands could not be broadcast together with
     'cspy/sample/mc/test_mc.py', #test_volume - ValueError: operands could not be broadcast together with shapes (6,) (0,)
-    'cspy/ml/distance/test_cdtw.py', # Ext has cdtw dynamic .so 
+    'cspy/ml/distance/test_cdtw.py', # 
     'cspy/sample/test_sobol_threads.py', # 
 ]
 local_ignoretest = ' --ignore='.join(local_skiptest)
