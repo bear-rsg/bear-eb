@@ -28,6 +28,8 @@ dependencies = [
 
 skipsteps = ['configure']
 
+prebuildopts = 'sed -i "s/-O3/-O2/" obj/platforms/linux_x86_64_gfortran10.mk &&'
+
 buildopts = "COMMS_ARCH=mpi castep tools utilities ARCH=linux_x86_64_gfortran10 "
 buildopts += "FFT=fftw3 FFTLIBDIR=${EBROOTFFTW}/lib MATHLIBS=flexiblas MATHLIBDIR=${EBROOTFLEXIBLAS}"
 
