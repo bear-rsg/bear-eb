@@ -1,0 +1,48 @@
+easyblock = 'ConfigureMake'
+
+name = 'librsvg'
+version = '2.60.0'
+
+homepage = 'https://wiki.gnome.org/Projects/LibRsvg'
+description = "Librsvg is a library to render SVG files using cairo."
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+source_urls = ['https://download.gnome.org/sources/%(name)s/%(version_major_minor)s/']
+sources = [SOURCE_TAR_XZ]
+checksums = ['0b6ffccdf6e70afc9876882f5d2ce9ffcf2c713cbaaf1ad90170daa752e1eec3']
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('pkgconf', '2.2.0'),
+    ('Rust', '1.86.0'),
+    ('cargo-c', '0.10.14'),
+    ('Meson', '1.4.0'),
+]
+dependencies = [
+    ('cairo', '1.18.0'),
+    ('freetype', '2.13.2'),
+    ('Gdk-Pixbuf', '2.42.11'),
+    ('HarfBuzz', '9.0.0'),
+    ('Pango', '1.54.0'),
+    ('GObject-Introspection', '1.80.1'),
+]
+
+# don't GdkPixbuf loader (which gets added to the Gdk-Pixbuf installation directory)
+#configopts = '--disable-pixbuf-loader'
+preconfigopts = ' mkdir %(builddir)s/build && '
+configure_cmd = 'meson setup %(builddir)s/build'
+configopts = ' -Ddocs=enabled -Dintrospection=enabled -Dpixbuf=enabled -Dpixbuf-loader=disabled -Ddocs=disabled'
+build_cmd = 'meson compile -C %(builddir)s/build' 
+install_cmd = 'meson install -C %(builddir)s/build' # --destdir=%(installdir)s'
+
+
+sanity_check_paths = {
+#    'files': ['bin/rsvg-convert', 'lib/%(name)s-%(version_major)s.a', 'lib/%(name)s-%(version_major)s.so', 'lib/pkgconfig/%(name)s-%(version_major)s.0.pc'],
+    'files': ['bin/rsvg-convert', 'lib/%(name)s-%(version_major)s.so', 'lib/pkgconfig/%(name)s-%(version_major)s.0.pc'],
+    'dirs': ['include/%(name)s-%(version_major)s.0/%(name)s', 'share'],
+}
+
+sanity_check_commands = ['rsvg-convert --help']
+
+moduleclass = 'lib'

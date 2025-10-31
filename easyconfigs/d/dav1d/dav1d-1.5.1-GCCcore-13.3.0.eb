@@ -1,0 +1,37 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+name = 'dav1d'
+version = '1.5.1'
+versionsuffix = ''
+
+homepage = "https://code.videolan.org/videolan/dav1d"
+description = """dav1d is an AV1 cross-platform decoder, open-source, and focused on speed and correctness.
+ It is now battle-tested and production-ready and can be used everywhere.
+ The goal of this project is to provide a decoder for most platforms, and achieve
+ the highest speed possible to overcome the temporary lack of AV1 hardware decoder.
+ It supports all features from AV1, including all subsampling and bit-depth parameters.
+ In the future, this project will host simple tools or simple wrappings (like, for example, an MFT transform).
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+source_urls = ['https://code.videolan.org/videolan/%(name)s/-/archive/%(version)s']
+sources = [SOURCE_TAR_BZ]
+
+builddependencies = [
+    ('Ninja', '1.12.1'),
+    ('NASM', '2.16.03'),
+    ('Meson', '1.4.0'),
+]
+dependencies = []
+
+preconfigopts = ' mkdir %(builddir)s/build && cd $_'
+configure_cmd = 'meson setup .. --default-library=static'
+build_cmd = 'ninja'
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [],
+}
+
+moduleclass = 'lib'
