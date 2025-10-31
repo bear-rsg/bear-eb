@@ -1,0 +1,70 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'SBGNview'
+version = '1.22.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://bioconductor.org/packages/release/bioc/html/SBGNview.html"
+description = """"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-Bioconductor', '3.21', '-R-%(rver)s'),
+    ('librsvg', '2.60.0'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.21/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.21/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.21/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.21/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+#https://bioconductor.org/packages/3.21/bioc/src/contrib/GenomeInfoDb_1.44.3.tar.gz
+# Order is important!
+exts_list = [
+    ('GenomeInfoDb', '1.44.3', {
+        'checksums': ['15c1fc068e32c9d654816b892f210ac53b8f97d3c8e23069a4343a0f56c9337c'],
+    }),
+    ('matrixStats', '1.5.0', {
+        'checksums': ['12996c5f3e6fc202a43e1087f16a71b7fa93d7e908f512542c7ee89cf95dcc15'],
+    }),
+    ('gage', '2.58.0', {
+        'checksums': ['b97960ed7a3aef8e1a9c4d887d965ea03c54635ac63c383ac747737ae328cc3a'],
+    }),
+    ('rsvg', '2.7.0', {
+        'checksums': ['714a106ac5d4266ee2caa8f74c8e04111de9e2b7b77680ca41008ef628045751'],
+    }),
+    ('igraph', '2.2.1', {
+        'checksums': ['14ab70a615b6cd9b75a67560ed3d36fc4d1ab635765530cd9cf80e39a0c14996'],
+    }),
+    ('BiocVersion', '3.21.1', {
+        'checksums': ['985c60dee9c83394f71417daefabe167f948d145b4da9496ab0425f4e8666ef7'],
+    }),
+    (name + '.data', version, {
+        'checksums': ['b87d10de24c5bfad5313d857ef269c67a0dc758b53158eff2fb35bde10c230e7'],
+    }),
+    (name, version, {
+        'checksums': ['c06b6e10ce84a510e9cd50afe73f5469d9be14ab363043401c181c035045b81a'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['SBGNview/R/SBGNview'],
+    'dirs': [],
+}
+
+moduleclass = 'vis'
