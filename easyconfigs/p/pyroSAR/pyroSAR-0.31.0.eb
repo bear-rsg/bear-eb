@@ -4,8 +4,8 @@ name = 'pyroSAR'
 version = '0.32.0'
 
 homepage = 'https://pyrosar.readthedocs.io'
-description = """The pyroSAR package aims at providing a complete solution for the scalable organization and 
-processing of SAR satellite data."""
+description = """The pyroSAR package aims at providing a complete solution for the scalable organization and
+ processing of SAR satellite data."""
 
 toolchain = SYSTEM
 
