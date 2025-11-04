@@ -2,7 +2,6 @@
 easyblock = 'ConfigureMake'
 name = 'dav1d'
 version = '1.5.1'
-versionsuffix = ''
 
 homepage = "https://code.videolan.org/videolan/dav1d"
 description = """dav1d is an AV1 cross-platform decoder, open-source, and focused on speed and correctness.
@@ -16,22 +15,27 @@ description = """dav1d is an AV1 cross-platform decoder, open-source, and focuse
 toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
 source_urls = ['https://code.videolan.org/videolan/%(name)s/-/archive/%(version)s']
-sources = [SOURCE_TAR_BZ]
+sources = [SOURCE_TAR_BZ2]
+checksums = ['4eddffd108f098e307b93c9da57b6125224dc5877b1b3d157b31be6ae8f1f093']
 
 builddependencies = [
     ('Ninja', '1.12.1'),
     ('NASM', '2.16.03'),
     ('Meson', '1.4.0'),
 ]
-dependencies = []
 
-preconfigopts = ' mkdir %(builddir)s/build && cd $_'
-configure_cmd = 'meson setup .. --default-library=static'
-build_cmd = 'ninja'
+preconfigopts = ' mkdir %(start_dir)s/build && cd $_ && '
+configure_cmd = 'meson setup .. --default-library=both'
+build_cmd = 'meson compile -C %(start_dir)s/build'
+install_cmd = 'meson install -C %(start_dir)s/build'
 
 sanity_check_paths = {
-    'files': [],
-    'dirs': [],
+    'files': [
+        ['bin/%(name)s', 'include/%(name)s/common.h'],
+        ['lib/lib%s.%s' % (name, s) for s in ['a', SHLIB_EXT]],
+        ['lib/pkgconfig/%(name)s.pc']
+    ],
+    'dirs': ['bin', 'include/%(name)s', 'lib', 'lib/pkgconfig'],
 }
 
 moduleclass = 'lib'

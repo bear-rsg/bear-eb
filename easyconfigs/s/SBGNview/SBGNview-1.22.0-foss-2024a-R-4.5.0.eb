@@ -34,19 +34,19 @@ exts_default_options = {
 #https://bioconductor.org/packages/3.21/bioc/src/contrib/GenomeInfoDb_1.44.3.tar.gz
 # Order is important!
 exts_list = [
-    ('GenomeInfoDb', '1.44.3', {
-        'checksums': ['15c1fc068e32c9d654816b892f210ac53b8f97d3c8e23069a4343a0f56c9337c'],
-    }),
+#    ('GenomeInfoDb', '1.44.0', {
+#        'checksums': ['c8b446ececbafda8c7013d9856a767bbc0719df49bf5966907f56ab6c4166e67'],
+#    }),
     ('gage', '2.58.0', {
         'checksums': ['b97960ed7a3aef8e1a9c4d887d965ea03c54635ac63c383ac747737ae328cc3a'],
     }),
     ('rsvg', '2.7.0', {
         'checksums': ['714a106ac5d4266ee2caa8f74c8e04111de9e2b7b77680ca41008ef628045751'],
     }),
-    ('igraph', '2.2.1', {
-        'checksums': ['14ab70a615b6cd9b75a67560ed3d36fc4d1ab635765530cd9cf80e39a0c14996'],
-    }),
-    (name + '.data', version, {
+#    ('igraph', '2.1.4', {
+#        'checksums': ['fdced402c9d2e355fd1a5cbd640639fdc97efe50f5b69e9f321a03785a7ab3ed'],
+#    }),
+    ('SBGNview.data', version, {
         'checksums': ['b87d10de24c5bfad5313d857ef269c67a0dc758b53158eff2fb35bde10c230e7'],
     }),
     (name, version, {
