@@ -33,12 +33,13 @@ preconfigopts = ' mkdir %(builddir)s/build && '
 configure_cmd = 'meson setup %(builddir)s/build --default-library=both'
 # don't GdkPixbuf loader (which gets added to the Gdk-Pixbuf installation directory)
 configopts = ' -Ddocs=enabled -Dintrospection=enabled -Dpixbuf=enabled -Dpixbuf-loader=disabled -Ddocs=disabled'
-build_cmd = 'meson compile -C %(builddir)s/build' 
-install_cmd = 'meson install -C %(builddir)s/build' # --destdir=%(installdir)s'
+build_cmd = 'meson compile -C %(builddir)s/build'
+install_cmd = 'meson install -C %(builddir)s/build'
 
 
 sanity_check_paths = {
-    'files': ['bin/rsvg-convert', 'lib/%(name)s-%(version_major)s.a', 'lib/%(name)s-%(version_major)s.so', 'lib/pkgconfig/%(name)s-%(version_major)s.0.pc'],
+    'files': ['bin/rsvg-convert', 'lib/%(name)s-%(version_major)s.a',
+              'lib/%(name)s-%(version_major)s.so', 'lib/pkgconfig/%(name)s-%(version_major)s.0.pc'],
     'dirs': ['include/%(name)s-%(version_major)s.0/%(name)s', 'share'],
 }
 
