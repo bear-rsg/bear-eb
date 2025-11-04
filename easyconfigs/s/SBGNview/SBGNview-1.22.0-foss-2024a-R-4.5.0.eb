@@ -37,9 +37,6 @@ exts_list = [
     ('GenomeInfoDb', '1.44.3', {
         'checksums': ['15c1fc068e32c9d654816b892f210ac53b8f97d3c8e23069a4343a0f56c9337c'],
     }),
-    ('matrixStats', '1.5.0', {
-        'checksums': ['12996c5f3e6fc202a43e1087f16a71b7fa93d7e908f512542c7ee89cf95dcc15'],
-    }),
     ('gage', '2.58.0', {
         'checksums': ['b97960ed7a3aef8e1a9c4d887d965ea03c54635ac63c383ac747737ae328cc3a'],
     }),
