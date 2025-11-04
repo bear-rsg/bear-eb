@@ -1,0 +1,27 @@
+easyblock = 'PythonBundle'
+
+name = 'scikit-learn-extra'
+version = '0.3.0'
+
+homepage = 'https://scikit-learn-extra.readthedocs.io/en/stable/index.html'
+description = """scikit-learn-extra is a Python module for machine learning that extends scikit-learn. It includes
+ algorithms that are useful but do not satisfy the scikit-learn inclusion criteria, for instance due to their novelty
+ or lower citation number."""
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('scikit-learn', '1.4.2'),
+]
+
+exts_list = [
+    (name, version, {
+        'modulename': 'sklearn_extra',
+        'checksums': ['7912d43384470d77609e53819d0291967f21010e5c3a3847f9026fc02f9c7893'],
+    }),
+]
+
+moduleclass = 'data'
