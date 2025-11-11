@@ -58,7 +58,7 @@ checksums = [
 dependencies = [
     ('CUDA', '12.6.0', '', SYSTEM),
     ('Java', '17', '', SYSTEM),
-    ('beagle-lib', '4.0.1'),  # optional but recommended by developers
+    ('beagle-lib', '4.0.1', versionsuffix),  # optional but recommended by developers
     ('GTK3', '3.24.42'),  # optional for GUI tools
 ]
 
