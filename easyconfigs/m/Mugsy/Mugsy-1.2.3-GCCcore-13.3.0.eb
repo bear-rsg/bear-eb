@@ -7,13 +7,18 @@ version = '1.2.3'
 homepage = "https://mugsy.sourceforge.net"
 description = """Mugsy is a multiple whole genome aligner. Mugsy uses Nucmer for pairwise alignment, a custom graph
  based segmentation procedure for identifying collinear regions, and the segment-based progressive multiple alignment
-  strategy from Seqan::TCoffee. Mugsy accepts draft genomes in the form of multi-FASTA files and does not require a reference genome."""
+ strategy from Seqan::TCoffee. Mugsy accepts draft genomes in the form of multi-FASTA files and does not require a
+ reference genome."""
 
 toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
 source_urls = ['https://sourceforge.net/projects/%(namelower)s/files', 'download']
 sources = ['%(namelower)s_x86-64-v1r2.3.tgz']
-checksums = ['9ed73ae72058868ca0582e4d096ebffc51faf4c56016996c194aa1a358cf1de0']
+patches = ['%(namelower)s-1.2.3-deprecated-syntax.patch']
+checksums = [
+    {'mugsy_x86-64-v1r2.3.tgz': '9ed73ae72058868ca0582e4d096ebffc51faf4c56016996c194aa1a358cf1de0'},
+    {'mugsy-1.2.3-deprecated-syntax.patch': 'e667808b1813e8dd660f684342c38dd9d24169f1e70477418630cd618750468a'},
+]
 
 dependencies = [
     ('Perl', '5.38.2'),
@@ -26,11 +31,13 @@ modextrapaths = {
 
 modextravars = {'MUGSY_INSTALL': '%(installdir)s'}
 
-fix_perl_shebang_for = ['*.pl', 'mugsy', 'MUMmer3.20/mummerplot', 'MUMmer3.20/nucmer']
+fix_perl_shebang_for = ['*.pl', '%(namelower)s', 'MUMmer3.20/mummerplot', 'MUMmer3.20/nucmer']
 
 sanity_check_paths = {
-    'files': ['mugsy'],
+    'files': ['%(namelower)s'],
     'dirs': [],
 }
+
+sanity_check_cmds = ['mummerplot -h']
 
 moduleclass = 'bio'
