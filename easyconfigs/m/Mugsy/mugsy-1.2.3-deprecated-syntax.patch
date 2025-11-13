@@ -1,0 +1,57 @@
+diff -Nru mugsy_x86-64-v1r2.3.orig/MUMmer3.20/mummerplot mugsy_x86-64-v1r2.3/MUMmer3.20/mummerplot
+--- mugsy_x86-64-v1r2.3.orig/MUMmer3.20/mummerplot	2025-11-13 19:40:16.873352000 +0000
++++ mugsy_x86-64-v1r2.3/MUMmer3.20/mummerplot	2025-11-13 19:42:24.864599485 +0000
+@@ -881,7 +881,7 @@
+         my ($refoff, $reflen, $refdir);
+         my ($qryoff, $qrylen, $qrydir);
+ 
+-        if ( defined (%$rref) ) {
++        if ( %$rref ) {
+             #-- skip reference sequence or set atts from hash
+             if ( !exists ($rref->{$idR}) ) { next; }
+             else { ($refoff, $reflen, $refdir) = @{$rref->{$idR}}; }
+@@ -891,7 +891,7 @@
+             ($refoff, $reflen, $refdir) = (0, $lenR, 1);
+         }
+ 
+-        if ( defined (%$qref) ) {
++        if ( %$qref ) {
+             #-- skip query sequence or set atts from hash
+             if ( !exists ($qref->{$idQ}) ) { next; }
+             else { ($qryoff, $qrylen, $qrydir) = @{$qref->{$idQ}}; }
+@@ -978,7 +978,7 @@
+             my ($refoff, $reflen, $refdir);
+             my ($qryoff, $qrylen, $qrydir);
+             
+-            if ( defined (%$rref) ) {
++            if ( %$rref ) {
+                 #-- skip reference sequence or set atts from hash
+                 if ( !exists ($rref->{$idR}) ) { next; }
+                 else { ($refoff, $reflen, $refdir) = @{$rref->{$idR}}; }
+@@ -988,7 +988,7 @@
+                 ($refoff, $reflen, $refdir) = (0, $lenR, 1);
+             }
+             
+-            if ( defined (%$qref) ) {
++            if ( %$qref ) {
+                 #-- skip query sequence or set atts from hash
+                 if ( !exists ($qref->{$idQ}) ) { next; }
+                 else { ($qryoff, $qrylen, $qrydir) = @{$qref->{$idQ}}; }
+@@ -1031,7 +1031,7 @@
+     }
+ 
+ 
+-    if ( !defined (%$rref) ) {
++    if ( !%$rref ) {
+         if ( $ismultiref ) {
+             print STDERR
+                 "WARNING: Multiple ref sequences overlaid, try -R or -r\n";
+@@ -1041,7 +1041,7 @@
+         }
+     }
+ 
+-    if ( !defined (%$qref) ) {
++    if ( !%$qref ) {
+         if ( $ismultiqry && !$OPT_coverage ) {
+             print STDERR
+                 "WARNING: Multiple qry sequences overlaid, try -Q, -q or -c\n";
