@@ -5,7 +5,7 @@ name = 'curatedMetagenomicData'
 version = '3.16.1'
 versionsuffix = '-R-%(rver)s'
 
-homepage = "https://www.bioconductor.org/packages/release/data/experiment/html/curatedMetagenomicData.html"
+homepage = "https://github.com/waldronlab/curatedMetagenomicData"
 description = """The curatedMetagenomicData package provides standardized, curated human microbiome
  data for novel analyses."""
 
