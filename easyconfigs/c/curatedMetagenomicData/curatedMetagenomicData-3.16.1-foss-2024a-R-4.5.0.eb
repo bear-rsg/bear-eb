@@ -1,0 +1,50 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'curatedMetagenomicData'
+version = '3.16.1'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=curatedMetaGenomicData"
+description = """The curatedMetagenomicData package provides standardized, curated human microbiome
+ data for novel analyses."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+    ('R-bundle-Bioconductor', '3.21', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://bioconductor.org/packages/3.21/bioc/src/contrib/',
+        'https://bioconductor.org/packages/3.21/bioc/src/contrib/Archive/%(name)s',
+        'https://bioconductor.org/packages/3.21/data/annotation/src/contrib/',
+        'https://bioconductor.org/packages/3.21/data/experiment/src/contrib/',
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'checksums': ['fc44f68f5521c747835f68b809c1b4417f85d9ad8c8e38dcb3dea7ab9ff56bec'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['curatedMetagenomicData/R/curatedMetagenomicData'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
