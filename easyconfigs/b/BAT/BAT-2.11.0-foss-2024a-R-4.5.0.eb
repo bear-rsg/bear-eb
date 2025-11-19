@@ -33,6 +33,12 @@ exts_default_options = {
 
 # Order is important!
 exts_list = [
+    ('PlotTools', '0.3.1', {
+        'checksums': ['00a07943335b436cef88d119843f40ff7a57bf387cf68e9a70e24f109925c0dd'],
+    }),
+    ('TreeTools', '2.0.0', {
+        'checksums': ['b50f59c522364a995548743001e794680f9a1607f34c07ebbb308c6a82d23848'],
+    }),
     ('nls2', '0.3-4', {
         'checksums': ['c8a6f7fd12b50aa6eeb2b565f94de7aaaa59aa18eabc72c4185124a1b4399297'],
     }),
