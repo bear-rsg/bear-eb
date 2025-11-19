@@ -1,0 +1,53 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'betapart'
+version = '1.6.1'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=betapart"
+description = """Functions to compute pair-wise dissimilarities (distance matrices) and multiple-site dissimilarities,
+ separating the turnover and nestedness-resultant components of taxonomic (incidence and abundance based),
+ functional and phylogenetic beta diversity."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+    ('GMP', '6.3.0')
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('picante', '1.8.2', {
+        'checksums': ['56565ca7f7c37f49c961372a816724967c21a4f5025cd69b8b671122bfdc4aa7'],
+    }),
+    ('rcdd', '1.6', {
+        'checksums': ['9f8acd8cad398369e93067196baa26d2d3109ce8d34daa1436f7bed42473db75'],
+    }),
+    (name, version, {
+        'checksums': ['b0c7ddc93d5b4be46d932f77affebbd65fe9916c0a324fd8da6b02fd10b97ecf'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'

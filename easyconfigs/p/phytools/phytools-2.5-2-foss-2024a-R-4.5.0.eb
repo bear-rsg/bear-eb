@@ -1,0 +1,48 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'phytools'
+version = '2.5-2'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://cran.r-project.org/package=phytools'
+description = """A wide range of methods for phylogenetic analysis - concentrated in phylogenetic comparative biology,
+ but also including numerous techniques for visualizing, analyzing, manipulating, reading or writing, and even inferring
+ phylogenetic trees."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = (
+    "R -q --no-save",
+    'library(%(ext_name)s)',
+)
+
+exts_default_options = {
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',
+        'https://cran.r-project.org/src/contrib/',
+        'https://cran.freestatistics.org/src/contrib'
+    ],
+}
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'checksums': ['3c4facf55d3fffe97b9453bac3f6d398abed8b5896bc2b83bf6811957be27f01'],
+    })]
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+moduleclass = 'bio'

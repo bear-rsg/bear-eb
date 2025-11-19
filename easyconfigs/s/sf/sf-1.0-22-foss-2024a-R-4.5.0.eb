@@ -1,0 +1,49 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'sf'
+version = '1.0-22'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=betapart"
+description = """Functions to compute pair-wise dissimilarities (distance matrices) and multiple-site dissimilarities,
+ separating the turnover and nestedness-resultant components of taxonomic (incidence and abundance based),
+ functional and phylogenetic beta diversity."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('magrittr', '2.0.4', {
+        'checksums': ['6aba790c40de70d8fb4d2db4bebb377418971761b0da7df2141b5d4ad95981f3'],
+    }),
+    (name, version, {
+        'checksums': ['fca4eec1d9e2240478a423673275da332c0b64f683fcc6b232033adc33e44b43'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
