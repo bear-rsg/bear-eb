@@ -6,7 +6,26 @@ version = '1.22.0'
 versionsuffix = '-R-%(rver)s'
 
 homepage = "https://bioconductor.org/packages/release/bioc/html/SBGNview.html"
-description = """"""
+description = """SBGNview greatly extends the Pathview project by supporting
+ multiple major pathway databases beyond KEGG. \n
+Pathview has been widely used in omics studies and data analyses,
+ and has become the leading tool in its category.It maps, integrates and visualizes
+  a wide range of data onto KEGG pathway graphs.\n
+Key features:\n
+\tPathway diagram and definition by the widely adopted SBGN standard formats;\n
+\tSupports multiple major pathway databases beyond KEGG (Reactome, MetaCyc,
+ SMPDB, PANTHER, METACROP etc) and user defined pathways;\n
+\tCovers 5,200 reference pathways and over 3,000 species by default;\n
+\tExtensive graphics controls, including glyph and edge attributes,
+ graph layout and sub-pathway highlight;\n
+\tSBGN pathway data manipulation, processing, extraction and analysis.\n
+"""
+citing = """Dong X, Vegesna K, Brouwer C, Luo W. SBGNview: towards data analysis, integration
+ and visualization on all pathways. Bioinformatics, 2022, 38(5):1473–1476, doi: 10.1093/bioinformatics/btab793 \n
+Luo W, Brouwer C. Pathview: an R/Biocondutor package for pathway-based data integration and visualization.
+ Bioinformatics, 2013, 29(14):1830-1831, doi: 10.1093/bioinformatics/btt285
+"""
+docurls = ['https://sbgn.github.io/']
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
