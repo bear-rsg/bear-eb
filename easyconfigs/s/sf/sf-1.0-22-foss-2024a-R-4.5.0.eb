@@ -12,7 +12,7 @@ description = """A package that provides simple features access for R.\n
  (Pebesma and Bivand 2005; Bivand et al. 2013), rgdal (Bivand et al. 2017) and rgeos (Bivand and Rundel 2017).
 """
 citing = """Edzer Pebesma, 2018. Simple Features for R: Standardized Support
- for Spatial Vector Data. The R Journal 10:1, 439-446.\n 
+ for Spatial Vector Data. The R Journal 10:1, 439-446.\n
 Pebesma, E.; Bivand, R. (2023).
   Spatial Data Science: With Applications in R (1st ed.). 314 pages. Chapman and Hall/CRC.
   <doi.org/10.1201/9780429459016>"""
