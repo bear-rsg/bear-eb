@@ -1,0 +1,45 @@
+easyblock = 'ConfigureMake'
+
+name = 'git-annex'
+version = '10.20250929'
+
+homepage = 'https://git-annex.branchable.com'
+description = """git-annex allows managing large files with git, without storing the file contents in git. It can sync,
+backup, and archive your data, offline and online. Checksums and encryption keep your data safe and secure. Bring the
+power and distributed nature of git to bear on your large files with git-annex."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+# Cloning from git://git-annex.branchable.com doesn't work due to BlueBEAR's firewall restrictions.
+# Using recommended download link instead, as per https://git-annex.branchable.com/download/
+source_urls = ['https://hackage.haskell.org/package/git-annex-%(version)s/']
+sources = ['%(name)s-%(version)s.tar.gz']
+
+builddependencies = [
+    ('binutils', '2.42'),
+]
+
+dependencies = [
+    ('GHC', '9.10.1', '-x86_64', SYSTEM),
+    ('Stack', '3.5.1', '', SYSTEM),
+    ('git', '2.45.1'),
+    ('libnsl', '2.0.1'),
+]
+
+# prebuildopts = "export STACK_ROOT=$(mktemp -d) && stack setup && stack build && "
+# prebuildopts = "export STACK_ROOT=$(mktemp -d) && stack build && "
+# buildopts = "install-bins BUILDER=stack PREFIX=%(builddir)s"
+
+prebuildopts = "export STACK_ROOT=$(mktemp -d) && "
+build_cmd = "stack"
+buildopts = "build . --copy-bins --local-bin-path=%(installdir)s/bin"
+skipsteps = ['configure', 'install']
+
+sanity_check_paths = {
+    'files': ['bin/git-annex', 'bin/git-annex-shell'],  # git-annex-shell is failing to be installed
+    'dirs': [],
+}
+
+sanity_check_commands = ['git-annex version']
+
+moduleclass = 'tools'
