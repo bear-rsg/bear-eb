@@ -1,0 +1,23 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'sklvq'
+version = '0.1.2'
+
+homepage = "https://github.com/rickvanveen/sklvq"
+description = """A collection of Learning Vector Quantization algorithms compatible with scikit-learn"""
+docurls = ['https://sklvq.readthedocs.io/en/stable/']
+
+toolchain = {'name': 'gfbf', 'version': '2023a'}
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('scikit-learn', '1.4.2'),
+]
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['f3e9eabcf4359ed83a7b2ecf9dd6fd1e21ea777b8291700fe0718ac82664fa5e']
+
+moduleclass = 'data'
