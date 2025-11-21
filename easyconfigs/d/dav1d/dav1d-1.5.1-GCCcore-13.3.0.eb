@@ -1,0 +1,41 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+name = 'dav1d'
+version = '1.5.1'
+
+homepage = "https://code.videolan.org/videolan/dav1d"
+description = """dav1d is an AV1 cross-platform decoder, open-source, and focused on speed and correctness.
+ It is now battle-tested and production-ready and can be used everywhere.
+ The goal of this project is to provide a decoder for most platforms, and achieve
+ the highest speed possible to overcome the temporary lack of AV1 hardware decoder.
+ It supports all features from AV1, including all subsampling and bit-depth parameters.
+ In the future, this project will host simple tools or simple wrappings (like, for example, an MFT transform).
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+source_urls = ['https://code.videolan.org/videolan/%(name)s/-/archive/%(version)s']
+sources = [SOURCE_TAR_BZ2]
+checksums = ['4eddffd108f098e307b93c9da57b6125224dc5877b1b3d157b31be6ae8f1f093']
+
+builddependencies = [
+    ('Ninja', '1.12.1'),
+    ('NASM', '2.16.03'),
+    ('Meson', '1.4.0'),
+]
+
+preconfigopts = ' mkdir %(start_dir)s/build && cd $_ && '
+configure_cmd = 'meson setup .. --default-library=both'
+build_cmd = 'meson compile -C %(start_dir)s/build'
+install_cmd = 'meson install -C %(start_dir)s/build'
+
+sanity_check_paths = {
+    'files': [
+        ['bin/%(name)s', 'include/%(name)s/common.h'],
+        ['lib/lib%s.%s' % (name, s) for s in ['a', SHLIB_EXT]],
+        ['lib/pkgconfig/%(name)s.pc']
+    ],
+    'dirs': ['bin', 'include/%(name)s', 'lib', 'lib/pkgconfig'],
+}
+
+moduleclass = 'lib'
