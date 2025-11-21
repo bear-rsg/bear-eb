@@ -1,0 +1,57 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'BAT'
+version = '2.11.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=BAT"
+description = """Includes algorithms to assess alpha and beta diversity in all their dimensions
+ (taxonomic, phylogenetic and functional). It allows performing a number of analyses based on species
+ identities/abundances, phylogenetic/functional distances, trees, convex-hulls or kernel density
+ n-dimensional hypervolumes depicting species relationships."""
+citing = """Cardoso et al. (2015) <doi:10.1111/2041-210X.12310>"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('hypervolume', '3.1.6', versionsuffix),
+    ('phytools', '2.5-2', versionsuffix),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+# Order is important!
+exts_list = [
+    ('PlotTools', '0.3.1', {
+        'checksums': ['00a07943335b436cef88d119843f40ff7a57bf387cf68e9a70e24f109925c0dd'],
+    }),
+    ('TreeTools', '2.0.0', {
+        'checksums': ['b50f59c522364a995548743001e794680f9a1607f34c07ebbb308c6a82d23848'],
+    }),
+    ('nls2', '0.3-4', {
+        'checksums': ['c8a6f7fd12b50aa6eeb2b565f94de7aaaa59aa18eabc72c4185124a1b4399297'],
+    }),
+    (name, version, {
+        'checksums': ['143dcc416858cf597d775e99857a45ea09c265ad977df8d9b828a7ed6d8b1be2'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+moduleclass = 'geo'
