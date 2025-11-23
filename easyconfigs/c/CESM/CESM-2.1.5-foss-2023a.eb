@@ -24,7 +24,7 @@ checksums = [
     {'release-cesm2.1.5.tar.gz': '4f0d89a12a06775dca95015d002921766b898bd64e3b66f11b2c671d102274fa'},
     {'bluebear_config_batch.xml': 'e6734909a9c9edb47ae81868282a81ff634dc0fde36a7b6b8e85f894fecf5571'},
     {'bluebear_config_compilers.xml': '840af4d92789edb4ddfd3d5fefd2c90ec0ee7b549f5cdfad533a02bfd40ef5eb'},
-    {'bluebear_config_machines.xml': 'cea44e81f72f498c89e6e3f070df04b343b363645af6a5c5b544fea346e977b1'},
+    {'bluebear_config_machines.xml': '658ccafdd0abd6efcdefc1acb405154bd262bd84fb964285686f6349a785854a'},
     {'ea002e626aee6bc6643e8ab5f998e5e4': '5e51905c9a484f9db6b8ae710fc8643d4fb19b5accafb9e7ee9a2db566d5f46d'},
 ]
 

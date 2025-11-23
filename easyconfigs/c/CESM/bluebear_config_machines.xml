@@ -87,6 +87,9 @@ This allows using a different mpirun command to launch unit tests
       <modules>
           <command name="load">bluebear</command>
       </modules>
+      <modules>
+        <command name="load">bear-apps/2023a</command>
+      </modules>
       <modules compiler="gnu">
         <command name="load">CESM/2.1.5-foss-2023a</command>
       </modules>
