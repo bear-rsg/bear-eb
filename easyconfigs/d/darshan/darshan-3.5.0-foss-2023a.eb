@@ -1,0 +1,42 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+name = 'darshan'
+version = '3.5.0'
+
+homepage = "https://darshan.readthedocs.io"
+description = """Darshan is a lightweight I/O characterization tool that transparently captures I/O access pattern
+ information from HPC applications. Darshan can be used to tune applications for increased scientific productivity or
+ to gain insight into trends in large-scale computing systems."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'usempi': True}
+
+source_urls = ['https://github.com/darshan-hpc/darshan/archive']
+sources = ['%(version)s.tar.gz']
+checksums = ['76eac5a3ff556476ef8df53aa61851756bf6dcab59f5b92bb307abfdcbcd7f36']
+
+builddependencies = [('Autotools', '20220317')]
+
+dependencies = [
+    ('zlib', '1.2.13'),
+    ('Perl', '5.36.1'),
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+]
+
+preconfigopts = 'autoreconf -i && '
+configopts = '--with-log-path=/darshan-logs --with-jobid-env=SLURM_JOBID CC=mpicc'
+
+sanity_check_paths = {
+    'files': ['lib/libdarshan%s.so' % x for x in ['', '-util']] +
+             ['bin/darshan-%s' % x for x in ['analyzer', 'config', 'convert', 'diff', 'dxt-parser',
+              'job-summary.pl', 'merge', 'mk-log-dirs.pl', 'parser', 'summary-per-file.sh']],
+    'dirs': ['include'],
+}
+
+fix_perl_shebang_for = ['bin/darshan-mk-log-dirs.pl']
+
+sanity_check_commands = ['darshan-config --help', 'darshan-analyzer --version']
+
+moduleclass = 'tools'
