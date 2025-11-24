@@ -154,7 +154,7 @@ class EB_OpenFOAM(EasyBlock):
         toolBinPath += [file.path for file in os.scandir(os.path.join(openfoam_installdir, "wmake", "scripts"))]
         for path, _, files in os.walk(openfoam_installdir):
             for fil in files:
-                if fil in ('Allwmake','Allwclean', 'Allclean'):
+                if fil in ('Allwmake', 'Allwclean', 'Allclean'):
                     toolBinPath += [os.path.join(path, fil)]
         for fil in toolBinPath:
             adjust_permissions(fil, stat.S_IXOTH, add=True, recursive=False, onlyfiles=True)
