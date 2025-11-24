@@ -1,8 +1,3 @@
-This patch removes all need for the ThirdParty files of OpenFOAM:
-we use EB dependencies for everything. It adjusts the paths, variables, etc
-We also let the install dir, compiler, etc be set by EB.
-Aligned hunks by Leon Kos and updated by Simon Branford (University of Birmingham).
-Based on patch for OpenFOAM 5.0 and 4.1 by Kenneth Hoste (HPC-UGent) and Ward Poelmans <wpoely86@gmail.com>
 diff --git a/applications/utilities/postProcessing/graphics/PVReaders/Allwmake b/applications/utilities/postProcessing/graphics/PVReaders/Allwmake
 index 1deca76ee0..bb09628dac 100755
 --- a/applications/utilities/postProcessing/graphics/PVReaders/Allwmake
@@ -31,10 +26,19 @@ index e199b3f331..5328d4880c 100644
  
  INCLUDE(GNUInstallDirs)
 diff --git a/etc/bashrc b/etc/bashrc
-index e77c0a8626..77467c06e2 100644
+index ec78044398..77467c06e2 100644
 --- a/etc/bashrc
 +++ b/etc/bashrc
-@@ -44,12 +44,13 @@ export WM_PROJECT_VERSION=13
+@@ -33,7 +33,7 @@
+ 
+ export WM_PROJECT=OpenFOAM
+ export WM_THIRD_PARTY=ThirdParty
+-export WM_PROJECT_VERSION=dev
++export WM_PROJECT_VERSION=13
+ 
+ ################################################################################
+ # USER EDITABLE PART: Changes made here may be lost with the next upgrade
+@@ -44,12 +44,13 @@ export WM_PROJECT_VERSION=dev
  #
  [ "$BASH" ] && bashrcFile=${BASH_SOURCE}
  [ "$ZSH_NAME" ] && bashrcFile=$0
@@ -161,10 +165,10 @@ index f71d7cfd2d..3acdca2904 100644
      export FOAM_MPI=dummy
      ;;
 diff --git a/etc/config.sh/paraview b/etc/config.sh/paraview
-index 5cac9f8b4e..2ff12de312 100644
+index fc456c3474..1dfbe52f22 100644
 --- a/etc/config.sh/paraview
 +++ b/etc/config.sh/paraview
-@@ -47,108 +47,115 @@ fi
+@@ -47,108 +47,117 @@ fi
  unset cmakeDir
  
  # Set up the paraview environment
@@ -175,7 +179,7 @@ index 5cac9f8b4e..2ff12de312 100644
 -system)
 -
 -    # Look for a paraview installation
--    if pvserverExe=$(which pvserver 2> /dev/null)
+-    if pvserverExe=$(which pvdataserver 2> /dev/null)
 -    then
 -        paraviewBinDir=$(dirname $pvserverExe)
 -        paraviewBinDir=$(cd $paraviewBinDir && pwd -P)
@@ -190,7 +194,7 @@ index 5cac9f8b4e..2ff12de312 100644
 -                                  grep -o "/.*/libpqCore-pv.*.so" | \
 -                                  xargs dirname)
 -        export ParaView_VERSION=$(unset LD_LIBRARY_PATH && \
--                                  pvserver --version 2> /dev/null | \
+-                                  pvdataserver --version 2> /dev/null | \
 -                                  awk '{print $NF}')
 -        export ParaView_MAJOR=${ParaView_VERSION%.*}
 -        export ParaView_INCLUDE_DIR=$ParaView_DIR/include/paraview-$ParaView_MAJOR
@@ -277,7 +281,7 @@ index 5cac9f8b4e..2ff12de312 100644
 +#system)
 +#
 +#    # Look for a paraview installation
-+#    if pvserverExe=$(which pvserver 2> /dev/null)
++#    if pvserverExe=$(which pvdataserver 2> /dev/null)
 +#    then
 +#        paraviewBinDir=$(dirname $pvserverExe)
 +#        paraviewBinDir=$(cd $paraviewBinDir && pwd -P)
@@ -292,7 +296,7 @@ index 5cac9f8b4e..2ff12de312 100644
 +#                                  grep -o "/.*/libpqCore-pv.*.so" | \
 +#                                  xargs dirname)
 +#        export ParaView_VERSION=$(unset LD_LIBRARY_PATH && \
-+#                                  pvserver --version 2> /dev/null | \
++#                                  pvdataserver --version 2> /dev/null | \
 +#                                  awk '{print $NF}')
 +#        export ParaView_MAJOR=${ParaView_VERSION%.*}
 +#        export ParaView_INCLUDE_DIR=$ParaView_DIR/include/paraview-$ParaView_MAJOR
@@ -370,8 +374,10 @@ index 5cac9f8b4e..2ff12de312 100644
 +#
 +#    unset paraviewDir
 +#    ;;
-+set (PARAVIEW_QT_MAJOR_VERSION,6)
++#
 +#esac
++
++set (PARAVIEW_QT_MAJOR_VERSION,6)
 +export ParaView_VERSION=$EBVERSIONPARAVIEW
 +export ParaView_MAJOR=${ParaView_VERSION%.*}
 +export ParaView_DIR=$EBROOTPARAVIEW
