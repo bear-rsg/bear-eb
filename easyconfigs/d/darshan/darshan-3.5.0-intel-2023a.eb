@@ -8,7 +8,7 @@ description = """Darshan is a lightweight I/O characterization tool that transpa
  information from HPC applications. Darshan can be used to tune applications for increased scientific productivity or
  to gain insight into trends in large-scale computing systems."""
 
-toolchain = {'name': 'foss', 'version': '2023a'}
+toolchain = {'name': 'intel', 'version': '2023a'}
 toolchainopts = {'usempi': True}
 
 source_urls = ['https://github.com/darshan-hpc/darshan/archive']
