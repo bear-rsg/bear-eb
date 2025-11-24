@@ -1,6 +1,6 @@
 name = 'OpenFOAM'
 version = '13'
-versionsuffix = '20250911'
+versionsuffix = '-20251009'
 
 homepage = 'https://www.openfoam.org/'
 description = """OpenFOAM is a free, open source CFD software package.
@@ -11,12 +11,12 @@ description = """OpenFOAM is a free, open source CFD software package.
 toolchain = {'name': 'foss', 'version': '2024a'}
 toolchainopts = {'vectorize': False}
 
-source_urls = ['https://github.com/%(name)s/%(name)s-%(version_major)s/archive']
-sources = ['%(versionsuffix)s.tar.gz']
+source_urls = ['https://github.com/%(name)s/%(name)s-dev/archive']
+sources = ['%s.tar.gz' % versionsuffix[1:]]
 patches = ['%(name)s-%(version)s-ThirdParty.patch']
 checksums = [
-    {'version-13.tar.gz': '9969d7f09411d72450855f855f2f37760ff147e3f137fd7063ce6bc26d629632'},
-    {'OpenFOAM-13-ThirdParty.patch': '99f25bbd5ca2c51c892a478ccde44c99780af185f8144748bfed0ed5170d0a29'},
+    {'20251009.tar.gz': 'a908741c02f2dbdb53476211611b22beaf8e077d63fee672ca927ecb90dd68ad'},
+    {'OpenFOAM-13-ThirdParty.patch': 'cfbb9dd56e7231a7bb00f1a63e9bedbb9583e4983caf5af74d34c1d8cd2e8fdc'},
 ]
 
 builddependencies = [
