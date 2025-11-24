@@ -13,7 +13,6 @@ toolchainopts = {'vectorize': False}
 
 source_urls = ['https://github.com/%(name)s/%(name)s-%(version_major)s/archive']
 sources = ['%(versionsuffix)s.tar.gz']
-#https://github.com/OpenFOAM/OpenFOAM-dev/archive/refs/tags/20251009.tar.gz
 patches = ['%(name)s-%(version)s-ThirdParty.patch']
 checksums = [
     {'version-13.tar.gz': '9969d7f09411d72450855f855f2f37760ff147e3f137fd7063ce6bc26d629632'},
