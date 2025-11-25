@@ -7,6 +7,7 @@ easyblock = 'MakeCp'
 
 name = 'VASP'
 version = '6.5.1'
+versionsuffix = '-Wannier90'
 
 homepage = 'http://www.vasp.at'
 description = """The Vienna Ab initio Simulation Package (VASP) is a
