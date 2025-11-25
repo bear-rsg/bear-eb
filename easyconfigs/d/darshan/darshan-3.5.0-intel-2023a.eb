@@ -19,6 +19,7 @@ builddependencies = [('Autotools', '20220317')]
 
 dependencies = [
     ('zlib', '1.2.13'),
+    ('bzip2', '1.0.8'),
     ('Perl', '5.36.1'),
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
