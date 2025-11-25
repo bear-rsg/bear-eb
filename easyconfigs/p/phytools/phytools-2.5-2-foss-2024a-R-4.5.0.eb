@@ -45,4 +45,4 @@ sanity_check_paths = {
 
 modextrapaths = {'R_LIBS_SITE': ''}
 
-moduleclass = 'bio'
+moduleclass = 'geo'
