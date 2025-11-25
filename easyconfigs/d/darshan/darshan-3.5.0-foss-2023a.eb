@@ -30,7 +30,7 @@ dependencies = [
 
 preconfigopts = 'autoreconf -i && '
 configopts = '--enable-hdf5-mod --with-hdf5=${EBROOTHDF5} '
-configopts += '--disable-lustre-mod --with-zlib=${EBROOTZLIB} '
+configopts += '--disable-lustre-mod --with-zlib=${EBROOTZLIB} --with-bzlib=${EBROOTBZIP2} '
 configopts += '--enable-pnetcdf-mod --with-pnetcdf=${EBROOTPNETCDF} '
 configopts += '--with-log-path-by-env=DARSHAN_LOGPATH,SLURM_SUBMIT_DIR '
 configopts += '--with-jobid-env=SLURM_JOBID --with-username-env=SLURM_JOB_USER CC=mpicc'
