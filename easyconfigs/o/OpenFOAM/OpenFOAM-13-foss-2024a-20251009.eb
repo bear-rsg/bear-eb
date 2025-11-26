@@ -1,0 +1,39 @@
+name = 'OpenFOAM'
+version = '13'
+versionsuffix = '-20251009'
+
+homepage = 'https://www.openfoam.org/'
+description = """OpenFOAM is a free, open source CFD software package.
+ OpenFOAM has an extensive range of features to solve anything from complex fluid flows
+ involving chemical reactions, turbulence and heat transfer,
+ to solid dynamics and electromagnetics."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+toolchainopts = {'vectorize': False}
+
+source_urls = ['https://github.com/%(name)s/%(name)s-dev/archive']
+sources = ['%s.tar.gz' % versionsuffix[1:]]
+patches = ['%(name)s-%(version)s-ThirdParty.patch']
+checksums = [
+    {'20251009.tar.gz': 'a908741c02f2dbdb53476211611b22beaf8e077d63fee672ca927ecb90dd68ad'},
+    {'OpenFOAM-13-ThirdParty.patch': 'cfbb9dd56e7231a7bb00f1a63e9bedbb9583e4983caf5af74d34c1d8cd2e8fdc'},
+]
+
+builddependencies = [
+    ('Bison', '3.8.2'),
+    ('CMake', '3.31.8'),
+    ('flex', '2.6.4'),
+]
+dependencies = [
+    ('ncurses', '6.5'),
+    # OpenFOAM requires 64 bit METIS using 32 bit indexes (array indexes)
+    ('METIS', '5.1.0'),
+    ('SCOTCH', '7.0.6'),
+    ('CGAL', '5.6.1'),
+    ('ParaView', '5.13.2'),
+    ('gnuplot', '6.0.1'),
+    ('Zoltan', '3.901'),
+]
+
+
+moduleclass = 'cae'
