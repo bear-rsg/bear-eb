@@ -29,10 +29,13 @@ docurls = ['https://sbgn.github.io/']
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
+builddependencies = [('pkgconf', '2.2.0')]
+
 dependencies = [
     ('R', '4.5.0'),
     ('R-bundle-Bioconductor', '3.21', '-R-%(rver)s'),
     ('librsvg', '2.60.0'),
+    ('dav1d', '1.5.1'),
 ]
 
 exts_defaultclass = 'RPackage'
