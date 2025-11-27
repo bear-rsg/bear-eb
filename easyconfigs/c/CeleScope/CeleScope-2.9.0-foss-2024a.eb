@@ -1,0 +1,59 @@
+easyblock = 'PythonBundle'
+
+name = 'CeleScope'
+version = '2.9.0'
+
+homepage = 'https://github.com/singleron-RD/CeleScope/blob/master/doc/user_guide.md'
+description = """ Dask natively scales Python. Dask provides advanced parallelism for analytics,
+enabling performance at scale for the tools you love."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+# builddependencies = [
+#     # ('hatchling', '1.24.2'),  # not sure if required
+# ]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('SciPy-bundle', '2024.05'),
+    ('matplotlib', '3.9.2'),
+    ('plotly.py', '5.24.1'),
+    ('Pysam', '0.22.1'),
+    ('scikit-learn', '1.5.2'),
+    # ('scanpy', '0.10.1'),  # needs building
+    ('statsmodels', '0.14.4'),
+    ('python-igraph', '0.11.9'),
+    ('Biopython', '1.84'),
+    ('Kaleido', '0.2.1'),
+    ('cutadapt', '5.1'),
+    ('leidenalg', '0.10.2'),
+    ('Cython', '3.0.10'),
+    ('anndata', '0.10.9'),
+]
+
+exts_list = [
+    ('mizani', '0.13.5', {
+    }),
+    ('plotnine', '0.14.6', {
+        'source_tmpl': SOURCE_PY3_WHL,
+    }),
+    ('xopen', '2.0.2', {
+        'source_tmpl': SOURCE_PY3_WHL,
+        'checksums': ['74e7f7fb7e7f42bd843c798595fa5a52086d7d1bf3de0e8513c6615516431313'],
+    }),
+    ('%(namelower)s', version, {
+        # unpin dep versions in requirements
+        'preinstallopts': "cp celescope.egg-info/requires.txt ./requirements.txt && "
+                          "sed -i 's/==/>=/g' requirements.txt &&",
+    }),
+]
+
+# sanity_check_paths = {
+#     'files': ['bin/dask-%s' % x for x in ['scheduler', 'ssh', 'worker']],
+#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
+# }
+
+# sanity_check_commands = ["dask-scheduler --help"]
+
+moduleclass = 'data'
