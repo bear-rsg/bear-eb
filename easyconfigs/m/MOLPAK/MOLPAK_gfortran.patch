@@ -1,0 +1,99 @@
+diff -ruN PREDICTIONS.orig/compile-all PREDICTIONS/compile-all
+--- PREDICTIONS.orig/compile-all	2025-10-10 10:57:19.115781989 +0100
++++ PREDICTIONS/compile-all	2025-10-10 11:36:02.046020616 +0100
+@@ -1 +1 @@
+-lf95 -O -o rename-dir.exe rename-dir.f90
++gfortran -O -o rename-dir.exe rename-dir.f90
+diff -ruN PREDICTIONS.orig/MOLPAK/compile-all PREDICTIONS/MOLPAK/compile-all
+--- PREDICTIONS.orig/MOLPAK/compile-all	2025-10-10 10:57:19.277751315 +0100
++++ PREDICTIONS/MOLPAK/compile-all	2025-10-10 14:39:46.261026293 +0100
+@@ -1,16 +1,16 @@
+ rm -f *.o
+-lf95 -c molpakCommonMod.f90
+-lf95 -c z*.f90
+-lf95 -c exchange.f90
+-lf95 -c wmin.f90
+-lf95 -c setcharge.f90
+-lf95 -c seek*.f90
+-lf95 -c page.f90
+-lf95 -c f*.f90
+-lf95 -c minhi.f90
+-lf95 -c enantio.f90
+-lf95 -c molpak.f90 
+-lf95 -O -o molpak_09.exe *.o
++gfortran -std=legacy  -c molpakCommonMod.f90
++gfortran -std=legacy  -c z*.f90
++gfortran -std=legacy  -c exchange.f90
++gfortran -std=legacy  -c wmin.f90
++gfortran -std=legacy  -c setcharge.f90
++gfortran -std=legacy  -c seek*.f90
++gfortran -std=legacy  -c page.f90
++gfortran -std=legacy  -c f*.f90
++gfortran -std=legacy  -c minhi.f90
++gfortran -std=legacy  -c enantio.f90
++gfortran -std=legacy  -c molpak.f90 
++gfortran -std=legacy  -O -o molpak_09.exe *.o
+ echo " executable molpak_09.exe created "
+ 
+ 
+diff -ruN PREDICTIONS.orig/PMIN/compile-all PREDICTIONS/PMIN/compile-all
+--- PREDICTIONS.orig/PMIN/compile-all	2025-10-10 10:57:19.125140936 +0100
++++ PREDICTIONS/PMIN/compile-all	2025-10-10 14:25:55.054352592 +0100
+@@ -1,10 +1,10 @@
+ rm -f *.o
+ rm -f *.mod
+ rm -f pmin.exe
+-lf95 -c f77kinds.f90
+-lf95 -O -c *module.f90 f77kinds.o
+-lf95 -O -c pmin_26oct10.f90
+-lf95 -O -o pmin.exe *.o
++gfortran -std=legacy -c f77kinds.f90
++gfortran -std=legacy  -c *module.f90 f77kinds.o
++gfortran -std=legacy  -c pmin_26oct10.f90
++gfortran -std=legacy  -o pmin.exe *.o
+ echo "-----"
+ echo "** new pmin.exe created with pmin_26oct10.f90 **"
+ echo "-----"
+diff -ruN PREDICTIONS.orig/UTILITIES/compile-all PREDICTIONS/UTILITIES/compile-all
+--- PREDICTIONS.orig/UTILITIES/compile-all	2025-10-10 10:57:19.301269958 +0100
++++ PREDICTIONS/UTILITIES/compile-all	2025-10-10 14:42:18.445452404 +0100
+@@ -1,22 +1,22 @@
+ rm *.o
+ rm *.exe
+-lf95 -c make_filesCommonMod.f90
+-lf95 -o make_files.exe make_files.f90 make_filesCommonMod.o
+-lf95 -o make-molpak-com-find.exe make-molpak-com-find.f90
+-lf95 -o min-vol-search.exe min-vol-search.f90
+-lf95 -o summarize_tab.exe summarize_tab.f90
+-lf95 -o table-1.exe table-1.f90
+-lf95 -o table-2.exe table-2.f90
+-lf95 -o volume-additivity-densities-4.exe volume-additivity-densities-4.f
+-lf95 -o atom_code-vol-additivity.exe atom_code-vol-additivity.f
+-lf95 -o resort-summarize-tab.exe resort-summarize-tab.f90
+-lf95 -c nbsLatticeMod.f90
+-lf95 -o nbslattice.exe nbslattice.f90 nbsLatticeMod.o
+-lf95 -c prepare_files_module.f90
+-lf95 -o prepare-files.exe prepare_files.f90 prepare_files_module.o
+-lf95 -c transformCommonMod.f90
+-lf95 -o transform.exe transform.f transformCommonMod.o
+-lf95 -o chem3d.exe chem3d.f90
++gfortran -std=legacy -c make_filesCommonMod.f90
++gfortran -std=legacy -o make_files.exe make_files.f90 make_filesCommonMod.o
++gfortran -std=legacy -o make-molpak-com-find.exe make-molpak-com-find.f90
++gfortran -std=legacy -o min-vol-search.exe min-vol-search.f90
++gfortran -std=legacy -o summarize_tab.exe summarize_tab.f90
++gfortran -std=legacy -o table-1.exe table-1.f90
++gfortran -std=legacy -o table-2.exe table-2.f90
++gfortran -std=legacy -o volume-additivity-densities-4.exe volume-additivity-densities-4.f
++gfortran -std=legacy -o atom_code-vol-additivity.exe atom_code-vol-additivity.f
++gfortran -std=legacy -o resort-summarize-tab.exe resort-summarize-tab.f90
++gfortran -std=legacy -c nbsLatticeMod.f90
++gfortran -std=legacy -o nbslattice.exe nbslattice.f90 nbsLatticeMod.o
++gfortran -std=legacy -c prepare_files_module.f90
++gfortran -std=legacy -o prepare-files.exe prepare_files.f90 prepare_files_module.o
++gfortran -std=legacy -c transformCommonMod.f90
++gfortran -std=legacy -o transform.exe transform.f transformCommonMod.o
++gfortran -std=legacy -o chem3d.exe chem3d.f90
+ 
+ 
+ 

@@ -1,0 +1,80 @@
+diff -ruN PREDICTIONS.orig/UTILITIES/transform.f PREDICTIONS/UTILITIES/transform.f
+--- PREDICTIONS.orig/UTILITIES/transform.f	2025-10-10 10:57:19.313389000 +0100
++++ PREDICTIONS/UTILITIES/transform.f	2025-10-10 15:09:26.867480341 +0100
+@@ -5007,9 +5007,9 @@
+      X          PIPE*1, SIGNAL2*5
+       DIMENSION XYZ(3,100)
+       DATA BLANK /'          '/,
+-     X     BSLASH /Z"5C"/,                            ! BSLASH = \
++     X     BSLASH /'\'/,         ! BSLASH = \
+      X     PIPE /'|'/,                                ! PIPE = |
+-     X     SIGNAL(1:2), SIGNAL(3:5) /Z"5C5C",'0,1'/,  ! SIGNAL = \\0,1
++     X     SIGNAL(1:2), SIGNAL(3:5) /'\\','0,1'/,  ! SIGNAL = \\0,1
+      X     SIGNAL2 /'||0,1'/                          ! SIGNAL2 = ||0,1    
+ C
+       PRINT 9
+--- PREDICTIONS.orig/UTILITIES/atom_code-vol-additivity.f	2025-10-10 10:57:19.311746000 +0100
++++ PREDICTIONS/UTILITIES/atom_code-vol-additivity.f	2025-10-15 15:56:51.964003072 +0100
+@@ -758,47 +758,47 @@
+            DO 1351 I=1,6                                 ! 2/22/05
+               IF (NCA(I) .EQ. 0) GO TO 1351              ! 4/20/00
+               J = IPOS + I     ! position in ATYPE       ! 4/20/00
+-              ATYPE(J:J) = ACHAR(O'060' + NCA(I))        ! 4/20/00
++              ATYPE(J:J) = ACHAR(INT(O'060') + NCA(I))        ! 4/20/00
+ 1351       CONTINUE                                      ! 4/20/00
+         IPOS = 7                 ! N                     ! 2/22/05
+            DO 1352 I=1,4                                 ! 4/20/00
+               IF (NNL(I) .EQ. 0) GO TO 1352              ! 4/20/00
+               J = IPOS + I     ! position in ATYPE       ! 4/20/00
+-              ATYPE(J:J) = ACHAR(O'060' + NNL(I))        ! 4/20/00
++              ATYPE(J:J) = ACHAR(INT(O'060') + NNL(I))        ! 4/20/00
+ 1352       CONTINUE                                      ! 4/20/00
+         IPOS = 11                ! O                     ! 2/22/05
+            DO 1353 I=1,2                                 ! 4/20/00
+               IF (NOL(I) .EQ. 0) GO TO 1353              ! 4/20/00
+               J = IPOS + I     ! position in ATYPE       ! 4/20/00
+-              ATYPE(J:J) = ACHAR(O'060' + NOL(I))        ! 4/20/00
++              ATYPE(J:J) = ACHAR(INT(O'060') + NOL(I))        ! 4/20/00
+ 1353       CONTINUE                                      ! 4/20/00
+         IPOS = 13                ! S                     ! 2/22/05
+            DO 1354 I=1,6                                 ! 5/3/00
+               IF (NSU(I) .EQ. 0) GO TO 1354              ! 5/3/00
+               J = IPOS + I     ! position in ATYPE       ! 5/3/00
+-              ATYPE(J:J) = ACHAR(O'060' + NSU(I))        ! 5/3/00
++              ATYPE(J:J) = ACHAR(INT(O'060') + NSU(I))        ! 5/3/00
+ 1354       CONTINUE                                      ! 5/3/00
+         IPOS = 19                ! P                     ! 2/22/05
+            DO 1356 I=1,6                                 ! 2/22/05
+               IF (NPH(I) .EQ. 0) GO TO 1356              ! 5/3/00
+               J = IPOS + I     ! position in ATYPE       ! 5/3/00
+-              ATYPE(J:J) = ACHAR(O'060' + NPH(I))        ! 5/3/00
++              ATYPE(J:J) = ACHAR(INT(O'060') + NPH(I))        ! 5/3/00
+ 1356       CONTINUE                                      ! 5/3/00
+         IPOS = 25                ! B                     ! 2/22/05
+            DO 1358 I=1,4  ! 1-4 = 3-6 in terms of connectivity ! 2/22/05
+               IF (NB(I) .EQ. 0) GO TO 1358               ! 2/23/05
+               J = IPOS + I     ! position in ATYPE       ! 5/3/00
+-              ATYPE(J:J) = ACHAR(O'060' + NB(I))         ! 2/23/05
++              ATYPE(J:J) = ACHAR(INT(O'060') + NB(I))         ! 2/23/05
+ 1358       CONTINUE                                      ! 2/22/05
+-        IF (N_HY .NE. 0) ATYPE(30:30) = ACHAR(O'060' + N_HY) ! 2/25/05
+-        IF (NFL .NE. 0) ATYPE(31:31) = ACHAR(O'060' + NFL)   ! 2/25/05
+-        IF (NCL .NE. 0) ATYPE(32:32) = ACHAR(O'060' + NCL)   ! 2/25/05
+-        IF (NBR .NE. 0) ATYPE(33:33) = ACHAR(O'060' + NBR)   ! 2/25/05
+-        IF (NI .NE. 0) ATYPE(34:34) = ACHAR(O'060' + NI)     ! 2/25/05
+-1297    if (nclm .ne. 0) atype(35:35) = achar(O'060' + nclm) ! 6/12/05
+-        if (nbrm .ne. 0) atype(36:36) = achar(O'060' + nbrm) ! 2/25/05
+-        if (nim .ne. 0) atype(37:37) = achar(O'060' + nim)   ! 2/25/05
+-1296    if (nclo4 .ne. 0) atype(38:38) = achar(O'060' + nclo4) ! 6/12/05
++        IF (N_HY .NE. 0) ATYPE(30:30) = ACHAR(INT(O'060') + N_HY) ! 2/25/05
++        IF (NFL .NE. 0) ATYPE(31:31) = ACHAR(INT(O'060') + NFL)   ! 2/25/05
++        IF (NCL .NE. 0) ATYPE(32:32) = ACHAR(INT(O'060') + NCL)   ! 2/25/05
++        IF (NBR .NE. 0) ATYPE(33:33) = ACHAR(INT(O'060') + NBR)   ! 2/25/05
++        IF (NI .NE. 0) ATYPE(34:34) = ACHAR(INT(O'060') + NI)     ! 2/25/05
++1297    if (nclm .ne. 0) atype(35:35) = achar(INT(O'060') + nclm) ! 6/12/05
++        if (nbrm .ne. 0) atype(36:36) = achar(INT(O'060') + nbrm) ! 2/25/05
++        if (nim .ne. 0) atype(37:37) = achar(INT(O'060') + nim)   ! 2/25/05
++1296    if (nclo4 .ne. 0) atype(38:38) = achar(INT(O'060') + nclo4) ! 6/12/05
+       RETURN                                             ! 4/20/00
+ C----Problem section
+ 102   WRITE (6,1400) K, NAME(K), NUM_ATOM, NAME(NUM_ATOM) ! 4/20/00

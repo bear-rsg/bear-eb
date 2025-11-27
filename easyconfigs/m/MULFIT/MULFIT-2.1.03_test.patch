@@ -1,0 +1,13 @@
+--- Makefile.orig	2025-10-09 16:25:35.237936652 +0100
++++ Makefile	2025-10-09 16:25:48.116599060 +0100
+@@ -62,8 +62,8 @@
+ 
+ test: mulfit test/Formamide.data force
+ 	cd test; ../mulfit < Formamide.data > Formamide.out
+-	@cd test; xxdiff Formamide.check Formamide.out
+-#	@cd test; diff Formamide.out Formamide.check && echo "Test successful" || echo "Test failed -- check Formamide.out"
++#	@cd test; xxdiff Formamide.check Formamide.out
++	@cd test; diff Formamide.out Formamide.check && echo "Test successful" || echo "Test failed -- check Formamide.out"
+ 
+ tarfile:
+ 	ln -sf ../mulfit mulfit-${VERSION}

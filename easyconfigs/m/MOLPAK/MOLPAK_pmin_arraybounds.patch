@@ -1,0 +1,34 @@
+diff -ruN PREDICTIONS.orig/PMIN/pmin_26oct10.f90 PREDICTIONS/PMIN/pmin_26oct10.f90
+--- PREDICTIONS.orig/PMIN/pmin_26oct10.f90	2025-10-10 10:57:19.121525000 +0100
++++ PREDICTIONS/PMIN/pmin_26oct10.f90	2025-10-10 13:36:32.380742250 +0100
+@@ -80,7 +80,7 @@
+       INTEGER , DIMENSION(4) :: k11
+       INTEGER , DIMENSION(NMOLD,MATM) :: k1atom
+       CHARACTER(80) :: line
+-      INTEGER , DIMENSION(100) :: listatm
++      INTEGER , DIMENSION(MATM) :: listatm
+       LOGICAL :: l_allow_change = .TRUE.
+       INTEGER , DIMENSION(20) :: nsym1
+       REAL :: REAL
+@@ -3785,8 +3785,8 @@
+ ! Dummy arguments
+ !
+       INTEGER :: Ic , Id , N
+-      REAL*8 , DIMENSION(Id,1) :: A
+-      REAL*8 , DIMENSION(1) :: D , E
++      REAL*8 , DIMENSION(Id,N) :: A
++      REAL*8 , DIMENSION(N) :: D , E
+       INTENT (IN) Id , N
+       INTENT (OUT) Ic
+       INTENT (INOUT) A , D , E
+@@ -3802,9 +3802,7 @@
+ !
+       Ic = 0
+       tol = 16.D0**(-14)
+-      DO i = 2 , N
+-         E(i-1) = E(i)
+-      ENDDO
++      E(1:N-1) = E(2:N)
+       E(N) = 0.0D0
+       f = 0.0D0
+       b = 0.0D0
