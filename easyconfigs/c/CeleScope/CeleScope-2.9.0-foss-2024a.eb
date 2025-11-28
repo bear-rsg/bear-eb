@@ -46,11 +46,14 @@ exts_list = [
     }),
 ]
 
-# sanity_check_paths = {
-#     'files': ['bin/dask-%s' % x for x in ['scheduler', 'ssh', 'worker']],
-#     'dirs': ['lib/python%(pyshortver)s/site-packages'],
-# }
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['celescope', 'multi_rna', 'multi_vdj']],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
 
-# sanity_check_commands = ["dask-scheduler --help"]
+sanity_check_commands = [
+    "celescope --help",
+    "multi_rna --help",
+]
 
 moduleclass = 'data'
