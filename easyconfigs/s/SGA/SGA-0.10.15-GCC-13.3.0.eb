@@ -44,10 +44,7 @@ preconfigopts = './autogen.sh && '
 configopts = ' --with-sparsehash=$EBROOTSPARSEHASH --with-bamtools=$EBROOTBAMTOOLS'
 configopts += ' --with-jemalloc=$EBROOTJEMALLOC'
 
-local_subprogs = [
-    '', 'preprocess', 'preqc', 'index', 'merge',
-    'overlap', 'correct', 'graph-diff'
-]
+local_subprogs = ['', 'preprocess', 'preqc', 'index', 'merge', 'overlap', 'correct', 'graph-diff']
 sanity_check_commands = [*[f'%(namelower)s {x} --help' for x in local_subprogs]]
 sanity_check_paths = {
     'files': ['bin/%(namelower)s'],
