@@ -9,10 +9,6 @@ enabling performance at scale for the tools you love."""
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
-# builddependencies = [
-#     # ('hatchling', '1.24.2'),  # not sure if required
-# ]
-
 dependencies = [
     ('Python', '3.12.3'),
     ('Python-bundle-PyPI', '2024.06'),
