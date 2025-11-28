@@ -34,18 +34,19 @@ dependencies = [
 
 exts_list = [
     ('mizani', '0.13.5', {
+        'checksums': ['99c3306fc3217d3840dfd3468feadd9a7664935a07ae4f7e8b3889e46b48ac73'],
     }),
     ('plotnine', '0.14.6', {
-        'source_tmpl': SOURCE_PY3_WHL,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['45d66970a8dbc679258cc9f03ef046c26c985df7723ba0417297d18dcca9f1fd'],
     }),
     ('xopen', '2.0.2', {
-        'source_tmpl': SOURCE_PY3_WHL,
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
         'checksums': ['74e7f7fb7e7f42bd843c798595fa5a52086d7d1bf3de0e8513c6615516431313'],
     }),
     ('%(namelower)s', version, {
-        # unpin dep versions in requirements
-        'preinstallopts': "cp celescope.egg-info/requires.txt ./requirements.txt && "
-                          "sed -i 's/==/>=/g' requirements.txt &&",
+        'preinstallopts': "cp celescope.egg-info/requires.txt ./requirements.txt && sed -i 's/==/>=/g' requirements.txt &&",
+        'checksums': ['5a173c2b4c1f411369f8d4149fbb0639ec3d554207b5fc646e1cd1bf12729492'],
     }),
 ]
 
