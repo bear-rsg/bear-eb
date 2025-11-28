@@ -1,0 +1,61 @@
+easyblock = 'PythonBundle'
+
+name = 'CeleScope'
+version = '2.9.0'
+
+homepage = 'https://github.com/singleron-RD/CeleScope/blob/master/doc/user_guide.md'
+description = """CeleScope is a collection of bioinfomatics analysis pipelines to process single cell sequencing data
+ generated with Singleron products. These pipelines take paired-end FASTQ files as input and generate output files which
+ can be used for downstream data analysis as well as a summary of QC criteria."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('SciPy-bundle', '2024.05'),
+    ('matplotlib', '3.9.2'),
+    ('plotly.py', '5.24.1'),
+    ('Pysam', '0.22.1'),
+    ('scikit-learn', '1.5.2'),
+    ('scanpy', '1.9.8'),
+    ('statsmodels', '0.14.4'),
+    ('python-igraph', '0.11.9'),
+    ('Biopython', '1.84'),
+    ('Kaleido', '0.2.1'),
+    ('cutadapt', '5.1'),
+    ('leidenalg', '0.10.2'),
+    ('Cython', '3.0.10'),
+    ('anndata', '0.10.9'),
+]
+
+exts_list = [
+    ('mizani', '0.13.5', {
+        'checksums': ['99c3306fc3217d3840dfd3468feadd9a7664935a07ae4f7e8b3889e46b48ac73'],
+    }),
+    ('plotnine', '0.14.6', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['45d66970a8dbc679258cc9f03ef046c26c985df7723ba0417297d18dcca9f1fd'],
+    }),
+    ('xopen', '2.0.2', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['74e7f7fb7e7f42bd843c798595fa5a52086d7d1bf3de0e8513c6615516431313'],
+    }),
+    ('%(namelower)s', version, {
+        'preinstallopts': "cp celescope.egg-info/requires.txt ./requirements.txt && "
+                          "sed -i 's/==/>=/g' requirements.txt &&",
+        'checksums': ['5a173c2b4c1f411369f8d4149fbb0639ec3d554207b5fc646e1cd1bf12729492'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['celescope', 'multi_rna', 'multi_vdj']],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "celescope --help",
+    "multi_rna --help",
+]
+
+moduleclass = 'data'
