@@ -1,0 +1,54 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+name = 'SGA'
+version = '0.10.15'
+versionsuffix = ''
+
+homepage = "https://github.com/jts/sga"
+description = """SGA is a de novo assembler for DNA sequence reads.
+ It is based on Gene Myers' string graph
+ formulation of assembly and uses the FM-index/Burrows-Wheeler transform to efficiently
+ find overlaps between sequence reads.
+"""
+citing = 'https://genome.cshlp.org/content/22/3/549'
+
+toolchain = {'name': 'GCC', 'version': '13.3.0'}
+toolchainopts = { 'cstd': 'c++11' }
+
+github_account = 'jts'
+source_urls = [GITHUB_LOWER_SOURCE]
+sources = ['v%(version)s.tar.gz']
+patches = [
+    '%(name)s-%(version)s_sparsehash.patch',
+    '%(name)s-%(version)s_229293b2c.patch',
+]
+checksums = [
+    {'v0.10.15.tar.gz': '1b18996e6ec47985bc4889a8cbc3cd4dd3a8c7d385ae9f450bd474e36342558b'},
+    {'SGA-0.10.15_sparsehash.patch': '27f7f78346e553bdd4cbfc8eeb8d619db674ffa5b172c827929f89213c91e47d'},
+    {'SGA-0.10.15_229293b2c.patch': '73d7e66ccd07e01d0a47a3e2efeb5fe32e7a8d6b784e1606a3223515f2d42112'},
+]
+
+builddependencies = [('Autotools', '20231222')]
+dependencies = [
+    ('sparsehash', '2.0.4')
+    ,('BamTools', '2.5.2')
+    ,('SAMtools', '1.21')
+    ,('jemalloc', '5.3.0')
+    ,('zlib', '1.3.1')
+    ,('Pysam', '0.22.1')
+    ,('ruffus', '2.8.4')
+]
+
+start_dir = 'src'
+preconfigopts = './autogen.sh && '
+configopts = ' --with-sparsehash=$EBROOTSPARSEHASH --with-bamtools=$EBROOTBAMTOOLS'
+configopts += ' --with-jemalloc=$EBROOTJEMALLOC'
+
+local_subprogs = ['', 'preprocess', 'preqc', 'index', 'merge', 'overlap', 'correct', 'graph-diff'] #, 'sga preqc', 'sga preprocess']
+sanity_check_commands = [*[f'%(namelower)s {x} --help' for x in local_subprogs]]
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': ['bin'],
+}
+
+moduleclass = 'bio'
