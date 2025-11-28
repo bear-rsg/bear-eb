@@ -1,0 +1,82 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+name = 'darshan'
+version = '3.5.0'
+
+homepage = "https://darshan.readthedocs.io"
+description = """Darshan is a lightweight I/O characterization tool that transparently captures I/O access pattern
+ information from HPC applications. Darshan can be used to tune applications for increased scientific productivity or
+ to gain insight into trends in large-scale computing systems."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+toolchainopts = {'usempi': True}
+
+builddependencies = [
+    ('Autotools', '20220317'),
+    ('hatchling', '1.18.0'),
+]
+
+dependencies = [
+    ('zlib', '1.2.13'),
+    ('bzip2', '1.0.8'),
+    ('Perl', '5.36.1'),
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('HDF5', '1.14.0'),
+    ('PnetCDF', '1.12.3'),
+    ('Seaborn', '0.13.2'),
+    ('Mako', '1.2.4'),
+    ('cffi', '1.15.1'),
+]
+
+components = [
+    (name, version, {
+        'easyblock': 'ConfigureMake',
+        'source_urls': ['https://github.com/darshan-hpc/darshan/archive'],
+        'sources': ['%(version)s.tar.gz'],
+        'start_dir': '%(name)s-%(version)s',
+        'preconfigopts': 'autoreconf -i && ',
+        'configopts': ' '.join([
+            '--enable-hdf5-mod --with-hdf5=${EBROOTHDF5}',
+            '--disable-lustre-mod --with-zlib=${EBROOTZLIB} --with-bzlib=${EBROOTBZIP2}',
+            '--enable-pnetcdf-mod --with-pnetcdf=${EBROOTPNETCDF}',
+            '--with-log-path-by-env=DARSHAN_LOGPATH',
+            '--with-jobid-env=SLURM_JOBID --with-username-env=SLURM_JOB_USER',
+        ]),
+    }),
+]
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {'source_urls': [PYPI_SOURCE]}
+
+exts_list = [
+    ('humanize', '4.14.0', {
+        'source_tmpl': '%(name)s-%(version)s-py3-none-any.whl',
+        'checksums': ['d57701248d040ad456092820e6fde56c930f17749956ac47f4f655c0c547bfff'],
+    }),
+    (name, version, {
+        'checksums': ['4b2214bd715d261a7d37e54a5aedd6b38b9990aaee61bb55d741cb795b728020'],
+    }),
+]
+
+fix_perl_shebang_for = ['bin/darshan-mk-log-dirs.pl']
+
+modextravars = {
+    'DARSHAN_PREFIX': '%(installdir)s',
+    'DARSHAN_LOGPATH': 'darshan_logs'
+}
+
+sanity_check_paths = {
+    'files': ['lib/libdarshan%s.so' % x for x in ['', '-util']] +
+             ['bin/darshan-%s' % x for x in ['analyzer', 'config', 'convert', 'diff', 'dxt-parser',
+              'job-summary.pl', 'merge', 'mk-log-dirs.pl', 'parser', 'summary-per-file.sh']],
+    'dirs': ['include', 'lib/python%(pyshortver)s/site-packages/%(name)s'],
+}
+
+sanity_check_commands = ['darshan-config --help', 'darshan-analyzer --version']
+
+modloadmsg = """\n\nLog files will be saved inside the 'darshan_logs' directory (if it exists) inside your current
+working directory.\n\nIn order to change this, modify the value of the DARSHAN_LOGPATH environment variable.\n\n"""
+
+moduleclass = 'tools'
