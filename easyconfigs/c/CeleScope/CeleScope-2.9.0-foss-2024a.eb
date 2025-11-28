@@ -41,7 +41,8 @@ exts_list = [
         'checksums': ['74e7f7fb7e7f42bd843c798595fa5a52086d7d1bf3de0e8513c6615516431313'],
     }),
     ('%(namelower)s', version, {
-        'preinstallopts': "cp celescope.egg-info/requires.txt ./requirements.txt && sed -i 's/==/>=/g' requirements.txt &&",
+        'preinstallopts': "cp celescope.egg-info/requires.txt ./requirements.txt && "
+                          "sed -i 's/==/>=/g' requirements.txt &&",
         'checksums': ['5a173c2b4c1f411369f8d4149fbb0639ec3d554207b5fc646e1cd1bf12729492'],
     }),
 ]
