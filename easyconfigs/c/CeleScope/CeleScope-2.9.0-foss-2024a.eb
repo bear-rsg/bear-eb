@@ -4,8 +4,9 @@ name = 'CeleScope'
 version = '2.9.0'
 
 homepage = 'https://github.com/singleron-RD/CeleScope/blob/master/doc/user_guide.md'
-description = """ Dask natively scales Python. Dask provides advanced parallelism for analytics,
-enabling performance at scale for the tools you love."""
+description = """CeleScope is a collection of bioinfomatics analysis pipelines to process single cell sequencing data
+ generated with Singleron products. These pipelines take paired-end FASTQ files as input and generate output files which
+ can be used for downstream data analysis as well as a summary of QC criteria."""
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
