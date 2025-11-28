@@ -21,7 +21,7 @@ dependencies = [
     ('plotly.py', '5.24.1'),
     ('Pysam', '0.22.1'),
     ('scikit-learn', '1.5.2'),
-    # ('scanpy', '0.10.1'),  # needs building
+    ('scanpy', '1.9.8'),
     ('statsmodels', '0.14.4'),
     ('python-igraph', '0.11.9'),
     ('Biopython', '1.84'),
