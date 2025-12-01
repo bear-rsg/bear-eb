@@ -1,0 +1,98 @@
+diff --git b/src/Algorithm/GapFillProcess.cpp a/src/Algorithm/GapFillProcess.cpp
+index 5a22136..7885c76 100644
+--- b/src/Algorithm/GapFillProcess.cpp
++++ a/src/Algorithm/GapFillProcess.cpp
+@@ -233,7 +233,7 @@ GapFillReturnCode GapFillProcess::selectGapSequence(int estimatedSize, const Str
+ 
+     for(size_t i = 0; i < sequences.size(); ++i)
+     {
+-        int diff = abs(sequences[i].size() - estimatedSize);
++        int diff = abs((int)sequences[i].size() - estimatedSize);
+         //printf("ES: %d S: %zu D: %d\n", estimatedSize, sequences[i].size(), diff);
+ 
+         if(diff < selectedSizeDiff)
+diff --git b/src/README a/src/README
+index aff8a25..3d268b3 100644
+--- b/src/README
++++ a/src/README
+@@ -12,7 +12,7 @@ http://bioinformatics.oxfordjournals.org/cgi/content/abstract/26/12/i367
+ Compiling SGA
+ 
+ SGA dependencies:
+-    -google sparse hash library (http://code.google.com/p/google-sparsehash/)
++    -google sparse hash library (https://github.com/sparsehash/sparsehash)
+     -the bamtools library (https://github.com/pezmaster31/bamtools)
+     -zlib (http://www.zlib.net/)
+     -(optional but suggested) the jemalloc memory allocator (http://www.canonware.com/jemalloc/download.html)
+diff --git b/src/Util/VariantIndex.cpp a/src/Util/VariantIndex.cpp
+index 09b9c71..bfe9f84 100644
+--- b/src/Util/VariantIndex.cpp
++++ a/src/Util/VariantIndex.cpp
+@@ -86,7 +86,7 @@ VariantRecordVector VariantIndex::getNearVariants(const std::string& reference,
+         for(size_t vi = 0; vi < bucket.size(); ++vi)
+         {
+             const VariantRecord& record = m_records[bucket[vi]];
+-            if(abs(record.position - position) < distance)
++            if(abs((int)record.position - position) < distance)
+                 out.push_back(record);
+         }
+     }
+diff --git b/src/bin/sga-align a/src/bin/sga-align
+index d8fcd3d..9e174fd 100755
+--- b/src/bin/sga-align
++++ a/src/bin/sga-align
+@@ -49,9 +49,9 @@ def runMerge(inFiles, outFile):
+     runCmd(cmd)
+ 
+ def runSort(inFile, outFile):
+-
++    global threads
+     (outPrefix, fileExtension) = os.path.splitext(outFile)
+-    cmd = "samtools sort %s %s" % (inFile, outPrefix)
++    cmd = "samtools sort -@ %d %s -o %s.bam" % (threads, inFile, outPrefix)
+     runCmd(cmd)
+     
+     #cmd = "samtools index %s" % (outFile)
+diff --git b/src/bin/sga-astat.py a/src/bin/sga-astat.py
+index 819b6a2..92875e3 100755
+--- b/src/bin/sga-astat.py
++++ a/src/bin/sga-astat.py
+@@ -150,6 +150,8 @@ if genomeSize == 0:
+                 bootstrapReads += cd.n
+ 
+         # Estimate arrival rate based on unique contigs
++        if bootstrapLen == 0 or bootstrapReads == 0:
++            continue  # failed 
+         arrivalRate = float(bootstrapReads) / float(bootstrapLen)
+         genomeSize = int(totalReads / arrivalRate)
+         sys.stderr.write('Iteration ' + str(i) + ' arrival rate: ' + str(arrivalRate) + '\n');
+@@ -180,5 +182,4 @@ for cd in contigData:
+             sumRepeat += cd.len
+ 
+ sys.stderr.write('Sum unique bases in contigs >= %d bp in length: %d\n' % (minLength, sumUnique))
+-sys.stderr.write('Sum repeat bases in contigs >= %d bp in length: %d\n' % (minLength, sumRepeat))
+-
++sys.stderr.write('Sum repeat bases in contigs >= %d bp in length: %d\n' % (minLength, sumRepeat))
+\ No newline at end of file
+diff --git b/src/bin/sga-bam2de.pl a/src/bin/sga-bam2de.pl
+index 569ab16..b0f6f58 100755
+--- b/src/bin/sga-bam2de.pl
++++ a/src/bin/sga-bam2de.pl
+@@ -9,7 +9,7 @@ my $minLength = 200;
+ my $prefix = "";
+ my $numThreads = 1;
+ my $mind = -99; # minimum gap size to pass to abyss
+-my $mina = 100; # minimum alignment length to pass to abyss
++my $mina = 30; # minimum alignment length to pass to abyss
+ 
+ # Filter the abyss distance est histogram to remove insert sizes
+ # with fewer than hist_min data points
+@@ -62,7 +62,7 @@ runCmd($cmd);
+ runCmd("awk \'\$2 >= $hist_min\' $prefix.tmp.hist > $prefix.hist");
+ 
+ # sort 
+-$cmd = "samtools sort -\@$numThreads $prefix.diffcontigs.bam -o $prefix.diffcontigs.sorted.bam";
++$cmd = "samtools sort -\@$numThreads -o $prefix.diffcontigs.sorted.bam $prefix.diffcontigs.bam";
+ runCmd($cmd);
+ 
+ # distance est
