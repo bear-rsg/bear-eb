@@ -1,0 +1,38 @@
+easyblock = 'Binary'
+
+name = 'DuckDB'
+version = '1.4.2'
+versionsuffix = '-linux-amd64'
+
+homepage = 'https://duckdb.org'
+description = """DuckDB is a fast in-process database system."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://install.duckdb.org/v%(version)s/']
+sources = [{
+    'filename': '%(namelower)s_cli%(versionsuffix)s.gz',
+    'extract_cmd': 'gunzip -c %s > %(namelower)s'
+}]
+
+checksums = ['5da662bdc18b397276dd0898a5d20eabe72eb68797009f584a7818b9cd39210d']
+
+extract_sources = True
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/bin',
+    'mv %(installdir)s/%(namelower)s %(installdir)s/bin/',
+    'chmod 755 %(installdir)s/bin/%(namelower)s',
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    "duckdb -version",
+    "duckdb -help || true",
+]
+
+moduleclass = 'data'
