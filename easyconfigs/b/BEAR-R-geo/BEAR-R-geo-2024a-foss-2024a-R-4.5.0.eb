@@ -12,6 +12,7 @@ toolchain = {'name': 'foss', 'version': '2024a'}
 
 dependencies = [
     ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
     ('sf', '1.0-22', versionsuffix),
     ('BAT', '2.11.0', versionsuffix),
     ('betapart', '1.6.1', versionsuffix),
