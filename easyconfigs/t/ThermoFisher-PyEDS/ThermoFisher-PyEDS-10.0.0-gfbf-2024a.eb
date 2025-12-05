@@ -31,7 +31,7 @@ source_urls = ['https://github.com/%(github_account)s/pyeds/archive']
 sources = ['v%(version)s.tar.gz']
 checksums = ['d89ff5bab8d30f43865e1f1cf309a4404a76f3cdce5e615e34929c86f773fa79']
 
-options = { 'modulename': False }
+options = {'modulename': False}
 sanity_check_commands = [('python -c "import pyeds"')]
 
 moduleclass = 'data'
