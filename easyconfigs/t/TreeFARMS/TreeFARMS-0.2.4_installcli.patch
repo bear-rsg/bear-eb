@@ -1,0 +1,56 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d272cc3..de32f8f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -26,6 +26,8 @@ else()
+     set(CMAKE_CXX_FLAGS                 "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+     set(CMAKE_CXX_FLAGS_DEBUG           "${CMAKE_CXX_FLAGS_DEBUG} -O0 -DDEBUG")
+     set(CMAKE_CXX_FLAGS_RELEASE         "${CMAKE_CXX_FLAGS_RELEASE}")
++    add_compile_definitions(_VERSION_="${_VERSION_}" BUILD_HOST="${BUILD_HOST}" BUILD_DATE="${BUILD_DATE}" BUILD_GIT_REV="${BUILD_GIT_REV}")
++    add_definitions("${BUILDFLAGS}")
+ endif()
+ 
+ #
+@@ -77,6 +79,11 @@ find_package(Threads REQUIRED)
+ target_link_libraries(${TARGET_CLI} PRIVATE Threads::Threads)
+ target_link_libraries(${TARGET_TESTS} PRIVATE Threads::Threads)
+ 
++install(TARGETS ${TARGET_CLI} RUNTIME DESTINATION bin)
++#install(TARGETS ${TARGET_TESTS} RUNTIME DESTINATION ${EBINSTDIR}/bin)
++install(DIRECTORY ${CMAKE_SOURCE_DIR}/experiments/ DESTINATION experiments)
++install(FILES README_PyPI.md LICENSE DESTINATION .)
++
+ # Target: TREEFARMS Python Module
+ if (SKBUILD)
+     message(STATUS "TREEFARMS is built using scikit-build. Will build the Python module.")
+diff --git a/setup.py b/setup.py
+index 09e61d5..444d4e2 100644
+--- a/setup.py
++++ b/setup.py
+@@ -6,7 +6,14 @@ import distro
+ from setuptools import find_packages
+ from skbuild import setup
+ 
+-cmake_args = []
++cmake_args = ['-D_VERSION_:STRING=version',
++    '-DEBINSTDIR:PATH=installdir',
++    '-DBUILD_DATE:STRING=builddate',
++    '-DBUILD_HOST:STRING=buildhost',
++    '-DBUILD_GIT_REV:STRING=buildgitrev',
++    '-DCMAKE_BUILD_TYPE:STRING=buildtype',
++    '-DBUILDFLAGS=buildflags',
++]
+ 
+ if platform.system() == "Windows" or (platform.system() == "Linux" and distro.id() == "centos"):
+     assert "VCPKG_INSTALLATION_ROOT" in os.environ, \
+diff --git a/test/test.cpp b/test/test.cpp
+index 179f419..486792d 100644
+--- a/test/test.cpp
++++ b/test/test.cpp
+@@ -29,4 +29,4 @@ int main() {
+         std::cout << "\033[1;31m" << failures << " Tests Failed" << "\033[0m" << std::endl;
+         return 1;
+     }
+-}
+\ No newline at end of file
++}

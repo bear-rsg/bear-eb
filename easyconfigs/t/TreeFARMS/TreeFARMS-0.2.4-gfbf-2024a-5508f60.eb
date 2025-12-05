@@ -1,0 +1,94 @@
+easyblock = 'PythonBundle'
+
+name = 'TreeFARMS'
+version = '0.2.4'
+_commit = '5508f60'
+versionsuffix = '-%s' % _commit
+
+homepage = 'https://github.com/ubc-systopia/treeFarms'
+description = """
+Implementation of Trees FAst RashoMon Sets.
+"""
+
+toolchain = {'name': 'gfbf', 'version': '2024a'}
+
+builddependencies = [
+    ('CMake', '3.31.8'),
+    ('pkg-config', '0.29.2'),
+    ('Ninja', '1.12.1'),
+    ('scikit-build', '0.17.6'),
+    ('patchelf', '0.18.0'),
+    ('tbb', '2021.13.0'),
+    ('GMP', '6.3.0'),
+    ('nodejs', '20.13.1'),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('IPython', '8.28.0'),
+    ('SciPy-bundle', '2024.05'),
+    ('scikit-learn', '1.5.2'),
+    ('matplotlib', '3.9.2'),
+    ('tqdm', '4.66.5'),
+    ('gmpy2', '2.2.0'),
+]
+_date = 'date +%d%m%Y'
+_host = 'uname -s'
+_buildtype = 'Release'
+# _buildtype = 'Debug'
+# _buildflags = '-Wall -Wextra -pedantic -fno-canonical-system-headers'
+_localcmakesed = ' '.join([
+    f'BUILDDATE=$({_date})',
+    f'BUILDHOST=$({_host}) &&',
+    "sed -i -e '9s/version/%s/'" % version,
+    "-e '10s|installdir|%(installdir)s|'",
+    '-e "11s/builddate/$BUILDDATE/"',
+    '-e "12s/buildhost/$BUILDHOST/"',
+    "-e '13s/buildgitrev/%s/'" % _commit,
+    "-e '14s/buildtype/%s/'" % _buildtype,
+    "-e '15s/buildflags/%s/'" % _buildflags,
+    'setup.py',
+    '&& '
+])
+
+exts_defaultclass = 'PythonPackage'
+exts_default_options = {
+    'source_urls': [PYPI_SOURCE],
+    'download_dep_fail': True,
+    'sanity_pip_check': True,
+}
+exts_list = [
+    ('editables', '0.2'),
+    ('timbertrek', '0.1.7', {
+        'checksums': ['83f558ecfb4d8b11a79525cc7846b185803a707455566e638f15dfd26de3084b'],
+    }),
+    ('treefarms', version, {
+        'patches': [f'{name}-%(version)s_installcli.patch'],
+        'preinstallopts':  _localcmakesed,
+        'postinstallcmds': ["mv %(installdir)s/lib/python%(pyshortver)s/site-packages/" \
+                            "%(name)s/{bin,experiments,README_PyPI.md,LICENSE} %(installdir)s"],
+        'sources': [{    
+            'git_config': {
+                'url': 'https://github.com/%(github_account)s',
+                'repo_name': '%(name)s', # 'TreeFarms',
+                'commit': '%s' % _commit,
+            },
+            'filename': SOURCE_TAR_XZ,
+        }],
+        'checksums': ['fc98ef8bee3cfee0e7338f62e8f41747bccad4294c7c978054961265d3d7aa5a'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s', f'lib/python%(pyshortver)s/site-packages/%(namelower)s/libgosdt.abi3.{SHLIB_EXT}'],
+    'dirs': ['experiments', 'lib/python%(pyshortver)s/site-packages'],
+}
+sanity_check_commands = [
+    "%(namelower)s ",
+    "python -c 'import %(namelower)s'",
+    "cd %(installdir)s; python  lib/python%(pyshortver)s/site-packages/%(namelower)s/example.py",
+]
+
+modextrapaths = {'PYTHONPATH': 'lib/python%(pyshortver)s/site-packages'}
+
+moduleclass = 'dataset'
