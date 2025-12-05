@@ -1,0 +1,37 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'ThermoFisher-PyEDS'
+version = '10.0.0'
+
+homepage = "https://github.com/thermofisherlsms/pyeds"
+description = """
+The PyEDS is a Python library providing collection of utilities to conveniently access and display results
+ from Thermo Discoverer software like Compound Discoverer or Proteome Discoverer.
+ Although the data are stored in open format already (SQLite database),
+ reading complex hierarchies is still not a trivial task and requires certain knowledge of internal mechanisms.
+ Using PyEDS, all the hard work is done automatically,
+ so you can focus more on your research instead of how to read the data.
+
+The PyEDS library provides several tools to read data (pyeds.EDS),
+ displaying tables metadata (pyeds.Summary) as well as displaying actual data in nicely formatted tables
+ (pyeds.Review). In addition, a set of utilities is now available
+ to simplify custom scripting nodes (pyeds.scripting).
+"""
+
+toolchain = {'name': 'gfbf', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+]
+
+github_account = 'thermofisherlsms'
+source_urls = ['https://github.com/%(github_account)s/pyeds/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['d89ff5bab8d30f43865e1f1cf309a4404a76f3cdce5e615e34929c86f773fa79']
+
+options = { 'modulename': False }
+sanity_check_commands = [('python -c "import pyeds"')]
+
+moduleclass = 'data'
