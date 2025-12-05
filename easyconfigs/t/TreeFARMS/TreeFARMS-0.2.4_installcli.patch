@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index d272cc3..de32f8f 100644
+index d272cc3..1d22d1e 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -26,6 +26,8 @@ else()
@@ -16,7 +16,7 @@ index d272cc3..de32f8f 100644
  target_link_libraries(${TARGET_TESTS} PRIVATE Threads::Threads)
  
 +install(TARGETS ${TARGET_CLI} RUNTIME DESTINATION bin)
-+#install(TARGETS ${TARGET_TESTS} RUNTIME DESTINATION ${EBINSTDIR}/bin)
++#install(TARGETS ${TARGET_TESTS} RUNTIME DESTINATION bin)
 +install(DIRECTORY ${CMAKE_SOURCE_DIR}/experiments/ DESTINATION experiments)
 +install(FILES README_PyPI.md LICENSE DESTINATION .)
 +
@@ -24,16 +24,15 @@ index d272cc3..de32f8f 100644
  if (SKBUILD)
      message(STATUS "TREEFARMS is built using scikit-build. Will build the Python module.")
 diff --git a/setup.py b/setup.py
-index 09e61d5..444d4e2 100644
+index 09e61d5..1dc55a3 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -6,7 +6,14 @@ import distro
+@@ -6,7 +6,13 @@ import distro
  from setuptools import find_packages
  from skbuild import setup
  
 -cmake_args = []
 +cmake_args = ['-D_VERSION_:STRING=version',
-+    '-DEBINSTDIR:PATH=installdir',
 +    '-DBUILD_DATE:STRING=builddate',
 +    '-DBUILD_HOST:STRING=buildhost',
 +    '-DBUILD_GIT_REV:STRING=buildgitrev',
@@ -43,14 +42,3 @@ index 09e61d5..444d4e2 100644
  
  if platform.system() == "Windows" or (platform.system() == "Linux" and distro.id() == "centos"):
      assert "VCPKG_INSTALLATION_ROOT" in os.environ, \
-diff --git a/test/test.cpp b/test/test.cpp
-index 179f419..486792d 100644
---- a/test/test.cpp
-+++ b/test/test.cpp
-@@ -29,4 +29,4 @@ int main() {
-         std::cout << "\033[1;31m" << failures << " Tests Failed" << "\033[0m" << std::endl;
-         return 1;
-     }
--}
-\ No newline at end of file
-+}

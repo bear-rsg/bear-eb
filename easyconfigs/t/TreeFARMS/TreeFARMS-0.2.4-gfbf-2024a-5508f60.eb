@@ -40,12 +40,11 @@ _localcmakesed = ' '.join([
     f'BUILDDATE=$({_date})',
     f'BUILDHOST=$({_host}) &&',
     "sed -i -e '9s/version/%s/'" % version,
-    "-e '10s|installdir|%(installdir)s|'",
-    '-e "11s/builddate/$BUILDDATE/"',
-    '-e "12s/buildhost/$BUILDHOST/"',
-    "-e '13s/buildgitrev/%s/'" % _commit,
-    "-e '14s/buildtype/%s/'" % _buildtype,
-    "-e '15s/buildflags/%s/'" % _buildflags,
+    '-e "10s/builddate/$BUILDDATE/"',
+    '-e "11s/buildhost/$BUILDHOST/"',
+    "-e '12s/buildgitrev/%s/'" % _commit,
+    "-e '13s/buildtype/%s/'" % _buildtype,
+    "-e '14s/buildflags/%s/'" % _buildflags,
     'setup.py',
     '&& '
 ])
@@ -76,7 +75,10 @@ exts_list = [
             },
             'filename': SOURCE_TAR_XZ,
         }],
-        'checksums': ['fc98ef8bee3cfee0e7338f62e8f41747bccad4294c7c978054961265d3d7aa5a'],
+        'checksums': [
+            {'treefarms-0.2.4.tar.xz': 'fc98ef8bee3cfee0e7338f62e8f41747bccad4294c7c978054961265d3d7aa5a'},
+            {'TreeFARMS-0.2.4_installcli.patch': '31a62927f5c0c47f8bc3eff3a2d23609e555ac93a8ee0519e0190dcf5f992661'},
+        ],
     }),
 ]
 
