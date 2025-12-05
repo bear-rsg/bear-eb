@@ -35,8 +35,7 @@ dependencies = [
 _date = 'date +%d%m%Y'
 _host = 'uname -s'
 _buildtype = 'Release'
-# _buildtype = 'Debug'
-# _buildflags = '-Wall -Wextra -pedantic -fno-canonical-system-headers'
+_buildflags = '-O3'
 _localcmakesed = ' '.join([
     f'BUILDDATE=$({_date})',
     f'BUILDHOST=$({_host}) &&',
@@ -58,19 +57,21 @@ exts_default_options = {
     'sanity_pip_check': True,
 }
 exts_list = [
-    ('editables', '0.2'),
+    ('editables', '0.2', {
+        'checksums': ['6918f16225258f24ef9800c2327e14eded42ddac344e77982380749464024f35'],
+    }),
     ('timbertrek', '0.1.7', {
         'checksums': ['83f558ecfb4d8b11a79525cc7846b185803a707455566e638f15dfd26de3084b'],
     }),
     ('treefarms', version, {
         'patches': [f'{name}-%(version)s_installcli.patch'],
         'preinstallopts':  _localcmakesed,
-        'postinstallcmds': ["mv %(installdir)s/lib/python%(pyshortver)s/site-packages/" \
+        'postinstallcmds': ["mv %(installdir)s/lib/python%(pyshortver)s/site-packages/\\"
                             "%(name)s/{bin,experiments,README_PyPI.md,LICENSE} %(installdir)s"],
-        'sources': [{    
+        'sources': [{
             'git_config': {
                 'url': 'https://github.com/%(github_account)s',
-                'repo_name': '%(name)s', # 'TreeFarms',
+                'repo_name': '%(name)s',
                 'commit': '%s' % _commit,
             },
             'filename': SOURCE_TAR_XZ,
