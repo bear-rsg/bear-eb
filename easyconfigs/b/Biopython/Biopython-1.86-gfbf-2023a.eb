@@ -23,7 +23,6 @@ checksums = ['93a50b586a4d2cec68ab2f99d03ef583c5761d8fba5535cb8e81da781d0d92ff']
 dependencies = [
     ('Python', '3.11.3'),
     ('SciPy-bundle', '2023.07'),
-    ('hmmlearn', '0.3.0'),
 ]
 
 # Run only tests that don't require internet connection
