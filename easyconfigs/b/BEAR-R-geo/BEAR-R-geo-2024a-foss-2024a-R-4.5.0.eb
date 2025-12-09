@@ -17,6 +17,7 @@ dependencies = [
     ('BAT', '2.11.0', versionsuffix),
     ('betapart', '1.6.1', versionsuffix),
     ('FD', '1.0-12.3', versionsuffix),
+    ('RangeShiftR', '1.1.2', versionsuffix),
 ]
 
 moduleclass = 'geo'
