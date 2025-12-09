@@ -31,7 +31,6 @@ exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
 # Order is important!
 exts_list = [
     (name, version, {
-        # 'extract_cmd': "tar --strip-components=1 -xf %s",
         'start_dir': '%(name)s',
         'github_account': 'RangeShifter',
         'source_tmpl': 'v%(version)s.tar.gz',
