@@ -1,0 +1,47 @@
+easyblock = 'MakeCp'
+
+name = 'VASP'
+version = '6.5.1'
+
+homepage = 'https://www.vasp.at'
+description = """The Vienna Ab initio Simulation Package (VASP) is a computer program for atomic scale
+materials modelling, e.g. electronic structure calculations and quantum-mechanical molecular dynamics,
+from first principles."""
+
+toolchain = {'name': 'nvofbf', 'version': '2024.11'}
+toolchainopts = {'openmp': True}
+
+download_instructions = """Vasp is proprietary software, see http://www.vasp.at/index.php/faqs
+ on how to get access to the code."""
+
+sources = ['%(namelower)s.%(version)s.tgz']
+checksums = ['a53fd9dd2a66472a4aa30074dbda44634fc663ea2628377fc01d870e37136f61']
+
+prebuildopts = 'cp arch/makefile.include.nvhpc_omp_acc ./makefile.include && '
+prebuildopts += 'sed -i "s/cc60,cc70,cc80,cuda11.8/cc80,cuda12.6/" makefile.include && '
+prebuildopts += 'sed -i "s|Mscalapack|L${EBROOTSCALAPACK}/lib -lscalapack|" makefile.include && '
+
+# Makefile uses LIBS as a list of folders
+prebuildopts += 'unset LIBS && '
+
+local_targets = ['std', 'gam', 'ncl']
+
+buildopts = '%s ' % ' '.join(local_targets)
+buildopts += 'DEPS=1 '  # required for VASP parallel builds
+buildopts += 'FFTW_ROOT="${EBROOTFFTW}" '
+buildopts += 'QD="${EBROOTNVHPC}/Linux_x86_64/24.11/compilers/extras/qd" '
+
+local_test_skip = 'HEG_333_LW'
+pretestopts = 'export VASP_TESTSUITE_SKIP_TESTS="%s" && ' % local_test_skip
+runtest = 'test'
+
+files_to_copy = [(['bin/vasp_' + x for x in local_targets], 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/vasp_' + x for x in local_targets],
+    'dirs': []
+}
+
+moduleclass = 'phys'
+
+local_bham_group = "p-vasp6"
