@@ -35,10 +35,8 @@ sanity_check_paths = {
              'lib/python%(pyshortver)s/site-packages/BioSQL']
 }
 
-#extra check to ensure numpy dependency is available
-# Deprecated in release 1.82, and removed in release 1.86. Consider using hmmlearn (https://pypi.org/project/hmmlearn/) instead.
-#sanity_check_commands = ["python -c 'import Bio.MarkovModel'"]
-sanity_check_commands = ["python -c 'import Bio.HMM'"]
+# extra check to ensure numpy dependency is available
+sanity_check_commands = ["python -c 'import Bio.Align'"]
 
 options = {'modulename': 'Bio'}
 
