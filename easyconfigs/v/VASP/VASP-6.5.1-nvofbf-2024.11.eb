@@ -26,7 +26,8 @@ checksums = [
     {'vasp.6.5.1.tgz': 'a53fd9dd2a66472a4aa30074dbda44634fc663ea2628377fc01d870e37136f61'},
     {'vdw_kernel.bindat.6.5.1.gz': '650c6a194ab077676a834902ef68e2f4fe426be813ef12b3963c4198d3324f86'},
     {'VASP-6.5.1_external_vdwkernel.patch': '1533ab6e045e4028f9e7d0de6b026654b9079569be81353bb460991657e48f0c'},
-    {'VASP-6.5.1_enable_hdf5_wannier90_nvhpc.patch': '89eef2573d55f711a3f8f2a08878725a5cd1aa5a8d1ce294c36f8f4c11e766c5'},
+    {'VASP-6.5.1_enable_hdf5_wannier90_nvhpc.patch':
+     '89eef2573d55f711a3f8f2a08878725a5cd1aa5a8d1ce294c36f8f4c11e766c5'},
 ]
 
 dependencies = [
