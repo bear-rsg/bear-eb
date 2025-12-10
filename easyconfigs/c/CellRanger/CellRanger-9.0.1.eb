@@ -16,9 +16,10 @@ Download manually from https://www.10xgenomics.com/support/software/cell-ranger/
 """
 
 sources = [SOURCELOWER_TAR_GZ]
-
+patches = ['cellranger_slurm_template.patch']
 checksums = [
     {'cellranger-9.0.1.tar.gz': 'd4c5c0138e00dc8d84547402d79cee534a3d3099fd7c2671262e9d3af64ae11a'},
+    {'cellranger_slurm_template.patch': 'd19a51e9496968c977753fea97a29dffafc7162c9b5c275adf463c7ca7177ec6'},
 ]
 
 keepsymlinks = True
