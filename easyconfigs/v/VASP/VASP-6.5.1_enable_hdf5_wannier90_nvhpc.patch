@@ -1,0 +1,31 @@
+--- arch/makefile.include.nvhpc_omp_acc.orig	2025-12-09 15:49:51.261642000 +0000
++++ arch/makefile.include.nvhpc_omp_acc	2025-12-09 15:50:33.251181000 +0000
+@@ -94,19 +94,19 @@
+ 
+ # Use cusolvermp (optional)
+ # supported as of NVHPC-SDK 24.1 (and needs CUDA-11.8)
+-#CPP_OPTIONS+= -DCUSOLVERMP -DCUBLASMP
+-#LLIBS      += -cudalib=cusolvermp,cublasmp -lnvhpcwrapcal
++CPP_OPTIONS+= -DCUSOLVERMP -DCUBLASMP
++LLIBS      += -cudalib=cusolvermp,cublasmp -lnvhpcwrapcal
+ 
+ # HDF5-support (optional but strongly recommended, and mandatory for some features)
+-#CPP_OPTIONS+= -DVASP_HDF5
+-#HDF5_ROOT  ?= /path/to/your/hdf5/installation
+-#LLIBS      += -L$(HDF5_ROOT)/lib -lhdf5_fortran
+-#INCS       += -I$(HDF5_ROOT)/include
++CPP_OPTIONS+= -DVASP_HDF5
++HDF5_ROOT  ?= /path/to/your/hdf5/installation
++LLIBS      += -L$(HDF5_ROOT)/lib -lhdf5_fortran
++INCS       += -I$(HDF5_ROOT)/include
+ 
+ # For the VASP-2-Wannier90 interface (optional)
+-#CPP_OPTIONS    += -DVASP2WANNIER90
+-#WANNIER90_ROOT ?= /path/to/your/wannier90/installation
+-#LLIBS          += -L$(WANNIER90_ROOT)/lib -lwannier
++CPP_OPTIONS    += -DVASP2WANNIER90
++WANNIER90_ROOT ?= /path/to/your/wannier90/installation
++LLIBS          += -L$(WANNIER90_ROOT)/lib -lwannier
+ 
+ # For the fftlib library (hardly any benefit for the OpenACC GPU port)
+ #CPP_OPTIONS+= -Dsysv

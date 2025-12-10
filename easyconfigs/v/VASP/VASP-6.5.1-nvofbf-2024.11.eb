@@ -14,8 +14,26 @@ toolchainopts = {'openmp': True}
 download_instructions = """Vasp is proprietary software, see http://www.vasp.at/index.php/faqs
  on how to get access to the code."""
 
-sources = ['%(namelower)s.%(version)s.tgz']
-checksums = ['a53fd9dd2a66472a4aa30074dbda44634fc663ea2628377fc01d870e37136f61']
+sources = [
+    '%(namelower)s.%(version)s.tgz',
+    {'filename': 'vdw_kernel.bindat.%(version)s.gz', 'extract_cmd': 'gunzip -c %s > vdw_kernel.bindat'},
+]
+patches = [
+    'VASP-6.5.1_external_vdwkernel.patch',
+    'VASP-6.5.1_enable_hdf5_wannier90_nvhpc.patch',
+]
+checksums = [
+    {'vasp.6.5.1.tgz': 'a53fd9dd2a66472a4aa30074dbda44634fc663ea2628377fc01d870e37136f61'},
+    {'vdw_kernel.bindat.6.5.1.gz': '650c6a194ab077676a834902ef68e2f4fe426be813ef12b3963c4198d3324f86'},
+    {'VASP-6.5.1_external_vdwkernel.patch': '1533ab6e045e4028f9e7d0de6b026654b9079569be81353bb460991657e48f0c'},
+    {'VASP-6.5.1_enable_hdf5_wannier90_nvhpc.patch':
+     '89eef2573d55f711a3f8f2a08878725a5cd1aa5a8d1ce294c36f8f4c11e766c5'},
+]
+
+dependencies = [
+    ('HDF5', '1.14.0'),
+    ('Wannier90', '3.1.0'),
+]
 
 prebuildopts = 'cp arch/makefile.include.nvhpc_omp_acc ./makefile.include && '
 prebuildopts += 'sed -i "s/cc60,cc70,cc80,cuda11.8/cc80,cuda12.6/" makefile.include && '
@@ -30,6 +48,8 @@ buildopts = '%s ' % ' '.join(local_targets)
 buildopts += 'DEPS=1 '  # required for VASP parallel builds
 buildopts += 'FFTW_ROOT="${EBROOTFFTW}" '
 buildopts += 'QD="${EBROOTNVHPC}/Linux_x86_64/24.11/compilers/extras/qd" '
+buildopts += 'HDF5_ROOT="${EBROOTHDF5}" '
+buildopts += 'WANNIER90_ROOT="${EBROOTWANNIER90}" '
 
 local_test_skip = 'HEG_333_LW'
 pretestopts = 'export VASP_TESTSUITE_SKIP_TESTS="%s" && ' % local_test_skip
