@@ -34,7 +34,8 @@ configopts = ' '.join([
 ])
 
 sanity_check_paths = {
-    'files': ['bin/ipopt', 'lib/libipopt.%s' % SHLIB_EXT, 'lib/libsipopt.so', 'lib/libipoptamplinterface.%s' % SHLIB_EXT],
+    'files': ['bin/ipopt', 'lib/libipopt.%s' % SHLIB_EXT,
+              'lib/libsipopt.so', 'lib/libipoptamplinterface.%s' % SHLIB_EXT],
     'dirs': ['include/coin-or', 'lib/pkgconfig'],
 }
 
