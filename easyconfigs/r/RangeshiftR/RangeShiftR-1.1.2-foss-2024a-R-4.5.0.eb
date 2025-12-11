@@ -1,0 +1,49 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'RangeShiftR'
+version = '1.1.2'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://github.com/RangeShifter/RangeShiftR-pkg"
+description = """
+RangeShifter is a spatially-explicit, individual-based simulation platform that allows modelling species'
+ range dynamics,
+ such as expansion and shifting, and patch connectivity by linking complex local population dynamics and dispersal
+ behaviour, while also taking into account inter-individual variability and evolutionary processes.
+ RangeShifter is highly flexible in terms of the spatial resolution and extent, and regarding the complexity
+ of the considered ecological processes. Due to its modular structure, the level of detail in demographic and dispersal
+ processes can be easily adapted to different research questions and available data.
+"""
+usage = ''.join(['https://raw.githubusercontent.com/RangeShifter/',
+                 'RangeShifter-software-and-documentation/master/RangeShifter_v2.0_UserManual.pdf'])
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+
+# Order is important!
+exts_list = [
+    (name, version, {
+        'start_dir': '%(name)s',
+        'github_account': 'RangeShifter',
+        'source_tmpl': 'v%(version)s.tar.gz',
+        'source_urls': ['https://github.com/%(github_account)s/%(name)s-pkg/archive/refs/tags'],
+        'checksums': ['f289b3e1c326d00cbab8baf0cc8558759267ab9a2f0dce4bc6931d384abc52b9'],
+    }),
+]
+
+modextrapaths = {'R_LIBS': ''}
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+moduleclass = 'geo'
