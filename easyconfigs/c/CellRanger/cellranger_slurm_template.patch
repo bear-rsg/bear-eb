@@ -1,0 +1,14 @@
+--- cellranger-9.0.1/external/martian/jobmanagers/slurm.template.example.old	2025-12-10 10:25:26.951909960 +0000
++++ cellranger-9.0.1/external/martian/jobmanagers/slurm.template.example	2025-12-10 10:28:29.268387701 +0000
+@@ -34,4 +34,11 @@
+ #SBATCH -o __MRO_STDOUT__
+ #SBATCH -e __MRO_STDERR__
+ 
++module purge
++module load bluebear
++module load bear-apps/2023a
++module load CellRanger/9.0.1
++
++source $EBROOTCELLRANGER/sourceme.bash
++
+ __MRO_CMD__
