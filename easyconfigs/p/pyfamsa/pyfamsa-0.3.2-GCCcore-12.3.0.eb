@@ -17,9 +17,7 @@ toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
 
 builddependencies = [
     ('Cython', '3.0.8'),
-    ('scikit-build', '0.17.6'),
-#    ('hatchling', '1.18.0'), # Due to pathspec 
-#    ('setuptools-rust', '1.6.0'), # Due to semantic-version 
+    ('scikit-build-core', '0.9.3'),
     ('Python-bundle-PyPI', '2023.06'),
 ]
 dependencies = [('Python', '3.11.3')]

@@ -11,7 +11,7 @@ description = """Tiberius is a deep learning-based ab initio gene structure pred
  while matching the accuracy of tool that use extrinsic evidence."""
 docurls = 'https://github.com/Gaius-Augustus/Tiberius/blob/main/docs/training_large_data.md'
 citing = """Gabriel, Lars, et al. "Tiberius: End-to-End Deep Learning with an HMM for Gene Prediction." 2024,
-https://academic.oup.com/bioinformatics/article/40/12/btae685/7903281 
+https://academic.oup.com/bioinformatics/article/40/12/btae685/7903281
  https://www.biorxiv.org/content/early/2024/07/23/2024.07.21.604459
 """
 toolchain = {'name': 'foss', 'version': '2023a'}
