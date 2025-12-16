@@ -4,7 +4,7 @@ easyblock = 'PythonPackage'
 name = 'logomaker'
 version = '0.8.7'
 
-homepage = ""
+homepage = "https://github.com/jbkinney/logomaker"
 description = """Software for the visualization of sequence-function relationships."""
 docurls = 'https://logomaker.readthedocs.io/'
 

@@ -18,7 +18,7 @@ dependencies = [
     ('Seaborn', '0.13.2'),
     ('networkx', '3.1'),
     ('imageio', '2.33.1'),
-    ('pyfamsa', '0.3.2'),
+    ('pyfamsa', '0.6.0'),
     ('TensorFlow', '2.15.1'),
     ('logomaker', '0.8.7'),
     ('SentencePiece', '0.2.0'),
@@ -27,6 +27,7 @@ dependencies = [
 
 source_urls = [PYPI_SOURCE]
 sources = [SOURCELOWER_TAR_GZ]
+checksums = ['a86b0f269837cdffa2bf71d4e5995c89663b840eb0947414000ac86c199008b9']
 
 options = {'modulename': name}
 moduleclass = 'bio'
