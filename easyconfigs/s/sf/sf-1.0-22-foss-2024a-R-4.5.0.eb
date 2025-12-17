@@ -1,0 +1,61 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'sf'
+version = '1.0-22'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://r-spatial.github.io/sf/"
+description = """A package that provides simple features access for R.\n
+ The sf (Pebesma 2018) package is an R package for reading, writing, handling, and manipulating simple features in R,
+ reimplementing the vector (points, lines, polygons) data handling functionality of packages sp
+ (Pebesma and Bivand 2005; Bivand et al. 2013), rgdal (Bivand et al. 2017) and rgeos (Bivand and Rundel 2017).
+"""
+citing = """Edzer Pebesma, 2018. Simple Features for R: Standardized Support
+ for Spatial Vector Data. The R Journal 10:1, 439-446.\n
+Pebesma, E.; Bivand, R. (2023).
+  Spatial Data Science: With Applications in R (1st ed.). 314 pages. Chapman and Hall/CRC.
+  <doi.org/10.1201/9780429459016>"""
+
+docurls = [
+    'https://journal.r-project.org/archive/2018/RJ-2018-009/index.html',
+    'https://r-spatial.org/book/',
+]
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('magrittr', '2.0.4', {
+        'checksums': ['6aba790c40de70d8fb4d2db4bebb377418971761b0da7df2141b5d4ad95981f3'],
+    }),
+    (name, version, {
+        'checksums': ['fca4eec1d9e2240478a423673275da332c0b64f683fcc6b232033adc33e44b43'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+moduleclass = 'tools'

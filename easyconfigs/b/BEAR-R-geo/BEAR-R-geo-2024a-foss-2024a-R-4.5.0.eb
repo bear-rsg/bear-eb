@@ -1,0 +1,23 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'BEAR-R-geo'
+version = '2024a'
+versionsuffix = '-R-%(rver)s'
+
+homepage = ""
+description = """This module provides access to several R geo libraries."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+    ('sf', '1.0-22', versionsuffix),
+    ('BAT', '2.11.0', versionsuffix),
+    ('betapart', '1.6.1', versionsuffix),
+    ('FD', '1.0-12.3', versionsuffix),
+    ('RangeShiftR', '1.1.2', versionsuffix),
+]
+
+moduleclass = 'geo'
