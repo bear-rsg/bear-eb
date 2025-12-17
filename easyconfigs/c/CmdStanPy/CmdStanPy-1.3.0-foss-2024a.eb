@@ -1,0 +1,39 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'CmdStanPy'
+version = '1.3.0'
+
+homepage = "https://mc-stan.org/"
+description = """CmdStanPy is a lightweight pure-Python interface to CmdStan which provides access
+ to the Stan compiler and all inference algorithms."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('tqdm', '4.66.5'),
+    ('CmdStan', '2.37.0'),
+    ('xarray', '2024.11.0'),  # for [all]
+    ('polars', '1.31.0'),  # for [all]
+]
+
+exts_list = [
+    ('stanio', '0.5.1', {
+        'checksums': ['348d52f947dec431e118f4b601c4c5296929b86401d4d4dd5aa9373b0d4ae4ac'],
+    }),
+    ('cmdstanpy', version, {
+        'use_pip_extras': 'all',
+        'checksums': ['60b10d110993bd8345735994786b2b17782fdc5530a6adbc0cd8ec836d82c2b9'],
+    }),
+]
+
+modloadmsg = """
+Set environment variable CMDSTAN to the location of the CmdStan installation.
+
+Example:
+  export CMDSTAN=/path/to/cmdstan/installation
+"""
+
+moduleclass = 'tools'
