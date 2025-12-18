@@ -18,7 +18,10 @@ download_instructions = f'Download {sources[0]} from mathworks.com'
 java_options = '-Xmx2048m'
 
 osdependencies = [('p7zip-plugins', 'p7zip-full')]  # for extracting iso-files
-dependencies = [('MathWorksServiceHost', '2025.10.0.2')]
+dependencies = [
+    ('MathWorksServiceHost', '2025.10.0.2'),
+    ('alsa-lib', '1.2.10'),  # libasound.so.2 is required for various elements of MATLAB
+]
 
 # Use EB_MATLAB_KEY environment variable or uncomment and modify license key
 # key = '00000-00000-00000-00000-00000-00000-00000-00000-00000-00000-00000-00000'
