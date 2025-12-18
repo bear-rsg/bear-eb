@@ -47,6 +47,7 @@ osdependencies = [('p7zip-plugins', 'p7zip-full')]  # for extracting iso-files
 
 modextravars = {
     'KMP_AFFINITY': 'disabled',
+    'FI_PROVIDER': 'verbs',
     'ANSYS252_DIR': '%(installdir)s/v252/ansys',  # Required for ANSYS_Rocky coupling
     'AWP_ROOT252': '%(installdir)s/v252',  # Required for ANSYS_Rocky coupling
 }

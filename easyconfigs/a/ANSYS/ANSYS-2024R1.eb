@@ -31,7 +31,7 @@ osdependencies = [('p7zip-plugins', 'p7zip-full')]  # for extracting iso-files
 # # "System.DllNotFoundException: Ans.QT.dll":
 # osdependencies = ['libxslt']
 
-modextravars = {'KMP_AFFINITY': 'disabled'}
+modextravars = {'KMP_AFFINITY': 'disabled', 'FI_PROVIDER': 'verbs'}
 
 modtclfooter = """unsetenv UCX_NET_DEVICES
 unsetenv I_MPI_HYDRA_BOOTSTRAP_EXEC_EXTRA_ARGS"""
