@@ -22,7 +22,7 @@ builddependencies = [('hatchling', '1.18.0')]
 dependencies = [
     ('Python', '3.11.3'),
     ('CUDA', '12.1.1', '', SYSTEM),
-    ('learnMSA', '2.0.10', versionsiffix),
+    ('learnMSA', '2.0.10', versionsuffix),
     ('SciPy-bundle', '2023.07'),
 ]
 source_urls = [GITHUB_SOURCE]
