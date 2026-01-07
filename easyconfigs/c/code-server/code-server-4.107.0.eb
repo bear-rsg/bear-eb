@@ -1,0 +1,13 @@
+name = 'code-server'
+version = '4.107.0'
+
+homepage = 'https://github.com/coder/code-server'
+description = """Run VS Code on any machine anywhere and access it in the browser."""
+
+toolchain = SYSTEM
+
+source_urls = ['https://github.com/coder/code-server/releases/download/v%(version)s/']
+sources = ['code-server-%(version)s-linux-%(mapped_arch)s.tar.gz']
+checksums = ['4fa96bb9b21f7e2c91c06bc1e72b79d6bebc86924a61b14633b88e297731ce24']
+
+moduleclass = 'tools'
