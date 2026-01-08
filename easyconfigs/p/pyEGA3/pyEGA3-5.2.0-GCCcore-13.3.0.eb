@@ -1,0 +1,46 @@
+easyblock = 'PythonBundle'
+
+name = 'pyEGA3'
+version = '5.2.0'
+
+homepage = 'https://github.com/EGA-archive/ega-download-client'
+description = """ A basic Python-based EGA download client """
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('hatchling', '1.24.2'),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('tqdm', '4.66.5'),
+    ('Python-bundle-PyPI', '2024.06'),
+]
+
+exts_list = [
+    ('humanize', '4.9.0', {
+        'checksums': ['582a265c931c683a7e9b8ed9559089dea7edcf6cc95be39a3cbc2c5d5ac2bcfa'],
+    }),
+    ('htsget', '0.2.6', {
+        'checksums': ['84816534e2740d3bcc4fb44a6d703b387b8a392209be098752466c35ff253884'],
+    }),
+    ('urllib3', '1.26.18', {
+        'checksums': ['f8ecc1bba5667413457c529ab955bf8c67b45db799d159066261719e328580a0'],
+    }),
+    (name, version, {
+        'preinstallopts': "sed -i 's/==/>=/g' setup.py && ",
+        'sources': ['%(namelower)s-%(version)s.tar.gz'],
+        'checksums': ['95539b8e153f2311d89a6905723598013fd12a9d0784a911ed1b550a4094bad1'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/pyega3'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages']
+}
+
+sanity_check_commands = ["pyega3 -h"]
+
+moduleclass = 'bio'
