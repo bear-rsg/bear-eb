@@ -1,0 +1,26 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'scoring-matrices'
+version = '0.2.2'
+
+homepage = "https://github.com/althonos/scoring-matrices"
+description = """Dependency free, Cython-compatible scoring matrices to use with biological sequences.
+ Scoring Matrices are matrices used to score the matches and mismatches between two characters are the same position in
+ a sequence alignment. Some of these matrices are derived from substitution matrices, which uses evolutionary modeling.
+"""
+docurls = 'https://scoring-matrices.readthedocs.io/en/stable/'
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+
+builddependencies = [
+    ('Cython', '3.0.8'),
+    ('scikit-build', '0.17.6'),
+    ('hatchling', '1.18.0'),
+]
+dependencies = [('Python', '3.11.3')]
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+
+moduleclass = 'bio'
