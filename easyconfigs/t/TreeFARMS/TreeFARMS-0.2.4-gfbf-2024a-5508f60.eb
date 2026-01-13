@@ -14,13 +14,8 @@ toolchain = {'name': 'gfbf', 'version': '2024a'}
 
 builddependencies = [
     ('CMake', '3.31.8'),
-    ('pkg-config', '0.29.2'),
-    ('Ninja', '1.12.1'),
     ('scikit-build', '0.17.6'),
-    ('patchelf', '0.18.0'),
-    ('tbb', '2021.13.0'),
-    ('GMP', '6.3.0'),
-    ('nodejs', '20.13.1'),
+    ('tbb', '2021.13.0')
 ]
 
 dependencies = [
