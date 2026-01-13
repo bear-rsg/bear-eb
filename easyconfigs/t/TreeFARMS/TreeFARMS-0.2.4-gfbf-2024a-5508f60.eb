@@ -15,7 +15,6 @@ toolchain = {'name': 'gfbf', 'version': '2024a'}
 builddependencies = [
     ('CMake', '3.31.8'),
     ('scikit-build', '0.17.6'),
-    ('tbb', '2021.13.0')
 ]
 
 dependencies = [
@@ -25,6 +24,8 @@ dependencies = [
     ('scikit-learn', '1.5.2'),
     ('matplotlib', '3.9.2'),
     ('tqdm', '4.66.5'),
+    ('tbb', '2021.13.0')
+    ('GMP', '6.3.0'),
     ('gmpy2', '2.2.0'),
 ]
 _date = 'date +%d%m%Y'
