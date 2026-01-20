@@ -1,0 +1,45 @@
+easyblock = 'EB_CST'
+
+name = 'CST-Studio-Suite'
+version = '2026.SP2'
+versionsuffix = '-Java-17'
+
+homepage = 'https://www.3ds.com/products-services/simulia/products/cst-studio-suite/'
+description = """CST Studio Suite is a high-performance 3D EM analysis software package for designing, analyzing and
+ optimizing electromagnetic (EM) components and systems."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+sources = [
+    'CST_S2_2026/CST_S2_2026.CST_S2_2026.SIMULIA_CST_Studio_Suite.Linux64.tar',
+    'CST_S2_2026/CST_S2_2026_SP2.SPK_SIMULIA_CST_Studio_Suite.Linux64.tar.gz',
+]
+checksums = [
+    {'CST_S2_2026.CST_S2_2026.SIMULIA_CST_Studio_Suite.Linux64.tar':
+     'cebb1366154b7100b6c6b709b1d1ff6f6a7f2f2d0a641e59958ad1b92f37e2d5'},
+    {'CST_S2_2026_SP2.SPK_SIMULIA_CST_Studio_Suite.Linux64.tar.gz':
+     '68ecef1c6db919c7c49a3b3db32c0d8ff7ad729e669dc9c7327ce75653e65c55'},
+]
+
+builddependencies = [
+    ('binutils', '2.42'),
+]
+dependencies = [
+    ('Java', '17', '', SYSTEM),
+    ('motif', '2.3.8'),
+    ('Xvfb', '21.1.14'),
+]
+
+postinstallcmds = [
+    'cd %(installdir)s/LinuxAMD64 && '
+    'sed -i \'s/"${CST_REGSVR32}" -c -s "${CST_OCX}"/"${CST_REGSVR32}" "${CST_OCX}"/\' {modeler,schematic}_AMD64'
+]
+
+license_server = 'eee-cst-ce.bham.ac.uk'
+license_server_port = '27004'
+sp_level = '%(version_minor)s'
+extract_sources = True
+
+modextravars = {'CST_FORCE_SOFTWARE_RENDERER': '1'}
+
+moduleclass = 'cae'
