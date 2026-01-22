@@ -13,16 +13,13 @@ toolchain = {'name': 'foss', 'version': '2022a'}
 
 builddependencies = [
     ('Rust', '1.65.0'),
-#    ('maturin', '1.3.2', '-Rust-1.65.0'),
 ]
 
 dependencies = [
     ('Python', '3.10.4'),
-#    ('Python-bundle-PyPI', '2023.06'),
     ('PyYAML', '6.0'),
     ('SciPy-bundle', '2022.05'),
     ('matplotlib', '3.5.2'),
-#    ('Clang', '13.0.1'),  # needed for bindgen (sourmash rust dep)
 ]
 
 buildininstalldir = True

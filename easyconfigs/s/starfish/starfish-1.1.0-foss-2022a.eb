@@ -65,18 +65,6 @@ buildopts = [' && chmod +x %(installdir)s/{aux/*,bin/cnef,bin/starfish}']
 
 test_cmd = 'PATH="%(installdir)s/bin:$PATH" bash'
 runtest = 'test.sh'
-#sanity_check_commands = [
-#    'starfish annotate',  # tests: metaeuk, hmmer, bedtools
-#    'starfish augment',  # tests: metaeuk, hmmer, bedtools
-#    'starfish flank',  # tests: cnef 
-#    'starfish pair-viz',
-#    'starfish locus-viz',
-#    'starfish genome-viz',  # *-viz tests: circos, gggenomes, mummer4, mafft, minimap2
-#    'starfish group',  # tests: mcl
-#    'starfish sim',  # tests: sourmash
-#    'starfish insert',  # tests: blastn, mummer4
-#    'starfish extend',  # tests: blastn, mummer4
-#]
 sanity_check_paths = {
     'files': ['bin/cnef'],
     'dirs': ['aux', 'main', 'lib', 'bin', 'db']
