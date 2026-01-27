@@ -1,0 +1,34 @@
+easyblock = 'ConfigureMake'
+
+name = 'QD'
+version = '2.3.24'
+
+homepage = 'https://www.davidhbailey.com/dhbsoftware/'
+description = "Quad Double computation package"
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+toolchainopts = {'optarch': False}
+
+github_account = 'BL-highprecision'
+source_urls = [GITHUB_RELEASE]
+sources = ['v%(version)s.tar.gz']
+patches = ['%(name)s-%(version)s_rm-docs.patch']
+checksums = [
+    {'v2.3.24.tar.gz': 'e15c1aa4564da7c25006483005779c9e8fa729c05117c068931a70209d093c6a'},
+    {'QD-2.3.24_rm-docs.patch': '1cb3ca1b3a23fb1821570f8c143ca92a284b345ba6afc44ce4123722b9fafa26'},
+]
+
+builddependencies = [
+    ('libtool', '2.4.7'),
+]
+
+preconfigopts = 'autoreconf -fi && '
+configopts = ' --with-gnu-ld '
+runtest = 'check'
+
+sanity_check_paths = {
+    'files': ['lib/libqdmod.a', 'lib/libqd.a'],
+    'dirs': [],
+}
+
+moduleclass = 'math'
