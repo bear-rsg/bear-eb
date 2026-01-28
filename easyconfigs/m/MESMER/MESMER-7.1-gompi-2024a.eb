@@ -35,6 +35,13 @@ files_to_copy = [
     'License.txt',
 ]
 
+maxparallel = 8 
+
+_pretest = 'sed -i "s/\(mpirun -n \)12/\1 %s/" QA.sh' % maxparallel
+_test = 'for i in */baselines/Linux64 ; do echo TEST: $i; diff "$i"/mesmer.test "$i"/../../mesmer.test  ; done'
+test_cmd = 'cd %%(install_dir)s/MesmerQA && ./QA.sh -u && %s && %s ' % (_pretest, _test)
+runtest = ''
+
 sanity_check_paths = {
     'files': ['bin/%(namelower)s'],
     'dirs': [],
