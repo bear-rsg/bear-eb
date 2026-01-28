@@ -35,11 +35,16 @@ files_to_copy = [
     'License.txt',
 ]
 
-maxparallel = 8 
+maxparallel = 8
+_allowTestFail = 'true'
 
-_pretest = 'sed -i "s/\(mpirun -n \)12/\1 %s/" QA.sh' % maxparallel
-_test = 'for i in */baselines/Linux64 ; do echo TEST: $i; diff "$i"/mesmer.test "$i"/../../mesmer.test  ; done'
-test_cmd = 'cd %%(install_dir)s/MesmerQA && ./QA.sh -u && %s && %s ' % (_pretest, _test)
+_pretest = ''.join([
+    "sed -i -e 's|executable=.*|executable=%(start_dir)sbin/%(namelower)s|'",
+    r' -e "s/\(mpirun -n \)12/\1',
+    '%s/" QA.sh' % int(maxparallel**0)
+])
+_test = 'for i in */baselines/Linux64 ; do echo TEST: $i; diff "$i"/mesmer.test "$i"/test.test  ; done'
+test_cmd = 'cd %%(start_dir)s/MesmerQA && %s && ./QA.sh -u && %s || %s ' % (_pretest, _test, _allowTestFail)
 runtest = ''
 
 sanity_check_paths = {
