@@ -1,0 +1,32 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PackedBinary'
+
+name = 'TNT'
+version = '1.6'
+
+homepage = 'https://www.lillo.org.ar/phylogeny/tnt/'
+description = """
+TNT stands for 'Tree analysis using New Technology'.
+It is a program for phylogenetic analysis under parsimony
+as well as extensive tree handling and diagnosis capabilities.
+"""
+
+toolchain = SYSTEM
+
+sources = ['%(namelower)s-linux.zip']
+checksums = ['ef038c24931b28c47edb64e5ae87ff1cd57efe9aa2309b21e164db930881504e']
+
+dependencies = []
+
+postinstallcmds = [
+    'mkdir -p %(installdir)s/bin',
+    'cp %(builddir)s/TNT-bin/* %(installdir)s/bin/',
+    'cd %(installdir)s/bin && chmod a+x gTNT mpitnt pvm pvmd3 tnt',
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ["bin"]
+}
+
+moduleclass = 'bio'
