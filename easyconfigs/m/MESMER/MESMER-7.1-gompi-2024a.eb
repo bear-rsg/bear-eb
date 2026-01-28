@@ -20,7 +20,9 @@ dependencies = [
 # build internal tinyxml
 prebuildopts = "cd tinyxml && make -f MakeLib DEBUG=NO && cd ../src && "
 # build parallel (i.e. MPI) and set the include and library paths
-buildopts = 'install DEBUG=NO PARALLEL=YES INCS="-I../tinyxml/ -I$EBROOTQD/include -I$EBROOTOPENMPI/include" LIBS="../tinyxml/tinyxml.a $EBROOTQD/lib/libqd.a -L$EBROOTOPENMPI/lib -lmpi" '
+buildopts = 'install DEBUG=NO PARALLEL=YES '
+buildopts += 'INCS="-I../tinyxml/ -I$EBROOTQD/include -I$EBROOTOPENMPI/include" '
+buildopts += 'LIBS="../tinyxml/tinyxml.a $EBROOTQD/lib/libqd.a -L$EBROOTOPENMPI/lib -lmpi" '
 
 files_to_copy = [
     'bin',
