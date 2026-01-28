@@ -21,7 +21,7 @@ dependencies = []
 postinstallcmds = [
     'mkdir -p %(installdir)s/bin',
     'cp %(builddir)s/TNT-bin/* %(installdir)s/bin/',
-    'cd %(installdir)s/bin && chmod 777 gTNT mpitnt pvm pvmd3 tnt',
+    'cd %(installdir)s/bin && chmod a+x gTNT mpitnt pvm pvmd3 tnt',
 ]
 
 sanity_check_paths = {
