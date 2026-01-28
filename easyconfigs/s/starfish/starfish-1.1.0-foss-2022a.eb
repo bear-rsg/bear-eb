@@ -1,0 +1,73 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'ConfigureMake'
+
+name = 'starfish'
+version = '1.1.0'
+
+homepage = "https://github.com/egluckthaler/starfish"
+description = """starfish is a modular toolkit for giant mobile element annotation. Built primarily for
+ annotating Starship elements in fungal genomes, it can be easily adapted to find any large mobile element (≥6kb)
+ that shares the same basic architecture as a fungal Starship or a bacterial integrative and conjugative element:
+ a "captain" gene with zero or more "cargo" genes downstream of its 3' end. It is particularly well suited
+ for annotating low-copy number elements in a content independent manner.
+"""
+citing = """Gluck-Thaler, E., & Vogan, A. A. (2024).
+ Systematic identification of cargo-carrying genetic elements reveals
+ new dimensions of eukaryotic diversity. Nucleic Acids Research, 2024-06
+"""
+github_account = 'egluckthaler'
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+dependencies = [
+    ('Perl', '5.34.1'),
+    ('Boost.MPI', '1.79.0'),
+    ('Cantera', '2.5.1'),
+    ('Circos', '0.69-8'),
+    ('sourmash', '4.6.1'),
+    ('eggnog-mapper', '2.1.12'),
+    ('BEDTools', '2.30.0'),
+    ('SAMtools', '1.16.1'),  # differ from pinned 1.6, but mostly bug-fixes and reliability
+    ('MCL', '14.137'),
+    ('HMMER', '3.3.2'),
+    ('BLAST+', '2.13.0'),  # no major API change compared to pinned 1.12
+    ('minimap2', '2.24'),
+    ('MetaEuk', '6-a5d39d9'),  # excplicit indication of commit, otherwise the exact same version 6
+    ('MAFFT', '7.505', '-with-extensions'),
+    ('MMseqs2', '14-7e284'),
+    ('MUMmer', '4.0.0rc1'),
+]
+source_urls = ['https://github.com/%(github_account)s/%(name)s/archive']
+sources = ['v%(version)s.tar.gz']
+patches = ['%(name)s-%(version)s_updated-version-in-starfish-exe.patch',
+           ('%(name)s-%(version)s_added-utility-script-for-concatenating-annotate-outp.patch', 1),
+           '%(name)s-%(version)s_bug-fix.patch']
+checksums = [
+    {'v1.1.0.tar.gz': '6f734403488d3cc1c2baae45aafdad204d682175556af2721234eab24f9bd49d'},
+    {'starfish-1.1.0_updated-version-in-starfish-exe.patch':
+     'c659b63f9f9cf8ecf8a121ce0ddc33750e3c78464452c367bf9ec145502fca65'},
+    {'starfish-1.1.0_added-utility-script-for-concatenating-annotate-outp.patch':
+     '16a59d1da223a23c03fe0349894d6f230a0be9900e82b7160119aed141810afa'},
+    {'starfish-1.1.0_bug-fix.patch': '49ff8f0c7e390888a332b7bf77eb2af6a96c08cb5bb9040b51253f97533e092a'},
+]
+
+skipsteps = ['configure', 'install']
+
+local_pattern = r's|.*\(boost/.*\.hpp\).*|#include <\1>|'
+local_opts = r' CC=g++ LFLAGS=\"-std=c++11 -I$EBROOTBOOST/include\" '
+
+prebuildopts = "sed -i '5d' build.sh && chmod +x {build.sh,bin/*} && "
+prebuildopts += "sed -i '%s' CNEFinder/qgrams.cc && " % local_pattern
+prebuildopts += 'sed -i "s|Makefile|Makefile %s|" build.sh && ' % local_opts
+prebuildopts += 'PREFIX=%(installdir)s SRC_DIR=%(start_dir)s '
+build_cmd = './build.sh'
+buildopts = [' && chmod +x %(installdir)s/{aux/*,bin/cnef,bin/starfish}']
+
+test_cmd = 'PATH="%(installdir)s/bin:$PATH" bash'
+runtest = 'test.sh'
+sanity_check_paths = {
+    'files': ['bin/cnef'],
+    'dirs': ['aux', 'main', 'lib', 'bin', 'db']
+}
+
+moduleclass = 'bio'

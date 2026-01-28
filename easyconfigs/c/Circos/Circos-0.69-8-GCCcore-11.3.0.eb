@@ -1,0 +1,43 @@
+# #
+# This is an easyconfig file for EasyBuild, see https://github.com/easybuilders/easybuild
+#
+# Author: Jonas Demeulemeester
+# The Francis Crick Insitute, London, UK
+# #
+# This file is an EasyBuild reciPY as per https://github.com/easybuilders/easybuild
+
+easyblock = 'Tarball'
+
+name = 'Circos'
+version = '0.69-8'
+
+homepage = 'https://www.circos.ca/'
+description = """Circos is a software package for visualizing data and information.
+ It visualizes data in a circular layout - this makes Circos ideal for exploring
+ relationships between objects or positions."""
+
+toolchain = {'name': 'GCCcore', 'version': '11.3.0'}
+
+source_urls = ['https://%(namelower)s.ca/distribution/']
+sources = [SOURCELOWER_TGZ]
+checksums = ['6946ab442bef6b1e97b28486dc44554cf7acf112654d7cf00b960e7dbc27f288']
+
+builddependencies = [
+    ('binutils', '2.38'),
+]
+dependencies = [
+    ('Perl', '5.34.1'),
+    ('GD', '2.75'),
+]
+
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': ['lib/%(name)s'],
+}
+
+sanity_check_commands = [('perl', '-e "use %(name)s"')]
+
+modextrapaths = {'PERL5LIB': 'lib'}
+
+moduleclass = 'bio'

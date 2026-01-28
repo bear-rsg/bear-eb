@@ -1,0 +1,58 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'sourmash'
+version = "4.6.1"
+
+homepage = "https://github.com/sourmash-bio/sourmash"
+description = """Quickly search, compare, and analyze genomic and metagenomic data sets. sourmash is
+ a k-mer analysis multitool, and we aim to provide stable, robust programmatic and command-line APIs
+ for a variety of sequence comparisons."""
+
+toolchain = {'name': 'foss', 'version': '2022a'}
+
+builddependencies = [
+    ('Rust', '1.65.0'),
+]
+
+dependencies = [
+    ('Python', '3.10.4'),
+    ('PyYAML', '6.0'),
+    ('SciPy-bundle', '2022.05'),
+    ('matplotlib', '3.5.2'),
+]
+
+buildininstalldir = True
+exts_list = [
+    ('mmh3', '3.0.0', {
+        'checksums': ['d1ec578c09a07d3518ec9be540b87546397fa3455de73c166fcce51eaa5c41c5'],
+    }),
+    ('deprecation', '2.0.6', {
+        'checksums': ['68071e5ae7cd7e9da6c7dffd750922be4825c7c3a6780d29314076009cc39c35'],
+    }),
+    ('bz2file', '0.98', {
+        'checksums': ['64c1f811e31556ba9931953c8ec7b397488726c63e09a4c67004f43bdd28da88'],
+    }),
+    ('screed', '1.0.5', {
+        'checksums': ['ad1b894aac81a8ad32fd587d37acb3fb4e575f6d828da73713038cc180098178'],
+    }),
+    ('cachetools', '4.0.0', {
+        'checksums': ['9a52dd97a85f257f4e4127f15818e71a0c7899f121b34591fcc1173ea79a0198'],
+    }),
+    ('milksnake', '0.1.6', {
+        'checksums': ['0198f8932b4e136c29c0d0d490ff1bac03f82c3a7b2ee6f666e3683b64314fd9'],
+    }),
+    (name, version, {
+        'preinstallopts': "sed -i 's/, orcid=.*/ },/g' pyproject.toml && ",
+        'checksums': ['c8e6712632a4ff4322946a89c4b81e50f7ac06f878e043aba8fd9e1fa013819c'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["%(name)s --help"]
+
+moduleclass = 'bio'
