@@ -1,0 +1,65 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'MakeCp'
+
+name = 'CmdStan'
+version = '2.37.0'
+
+homepage = "https://mc-stan.org/"
+description = """CmdStan is the command line interface to Stan."""
+
+toolchain = {'name': 'gompi', 'version': '2024a'}
+
+sources = [{
+    'filename': SOURCE_TAR_GZ,
+    'git_config': {
+        'url': 'https://github.com/stan-dev/',
+        'repo_name': '%(namelower)s',
+        'tag': 'v%(version)s',
+        'recursive': True,
+    },
+}]
+
+checksums = [
+    {'CmdStan-2.37.0.tar.gz': '7368ff365fb5df990e4bf246d83f166e736afc5ac29d50415461b752282a0ab2'},
+]
+
+builddependencies = [
+    ('binutils', '2.42'),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+]
+
+skipsteps = ['configure']
+
+#  Create /make/local with our options
+prebuildopts = "cp make/local.example make/local && "
+prebuildopts += "sed -i 's/^#\\s*STAN_THREADS=true/STAN_THREADS=true/' make/local && "
+prebuildopts += "sed -i 's/^#\\s*STAN_MPI=true/STAN_MPI=true/' make/local &&"
+prebuildopts += "sed -i 's/^#\\s*STAN_CPP_OPTIMS=true/STAN_CPP_OPTIMS=true/' make/local && "
+prebuildopts += 'echo "LDLIBS += -lmpi" >> make/local && '
+
+#  We need to build the example for CmdStanPy testing
+build_cmd = "make build"
+
+files_to_copy = [
+    (['bin/stanc', 'bin/stansummary', 'bin/diagnose'], 'bin'),
+    (['examples'], ''),
+    (['LICENSE'], ''),
+    (['make'], ''),
+    (['stan'], ''),
+    (['src'], ''),
+    (['makefile', 'runCmdStanTests.py', 'test-all.sh'], ''),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%s' % x for x in ['stanc', 'stansummary', 'diagnose']] + ['makefile'],
+    'dirs': ['examples', 'src'],
+}
+
+sanity_check_commands = [
+    'stanc --help',
+]
+
+moduleclass = 'tools'
