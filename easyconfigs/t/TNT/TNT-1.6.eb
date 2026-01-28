@@ -7,7 +7,8 @@ version = '1.6'
 homepage = 'https://www.lillo.org.ar/phylogeny/tnt/'
 description = """
 TNT stands for 'Tree analysis using New Technology'.
-It is a program for phylogenetic analysis under parsimony as well as extensive tree handling and diagnosis capabilities.
+It is a program for phylogenetic analysis under parsimony
+as well as extensive tree handling and diagnosis capabilities.
 """
 
 toolchain = SYSTEM
