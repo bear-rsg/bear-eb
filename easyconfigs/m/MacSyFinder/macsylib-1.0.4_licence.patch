@@ -1,0 +1,14 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index a60ff60..15d9a5b 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -15,8 +15,7 @@ maintainers = [
+ description = 'MacSyLib: Python library that help to detect of macromolecular, systems genetic pathways… in prokaryotes protein datasets using systems modelling and similarity search.'
+ keywords = ['science', 'research', 'bioinformatic', 'microbiology', 'genomic', 'prokaryote', 'functional gene annotation']
+ readme = "README.md"
+-license = 'GPL-3.0-or-later'
+-license-files = ["COPYING"]
++license = {file = "COPYING"}
+ 
+ classifiers = [
+     "Programming Language :: Python :: 3",
