@@ -1,0 +1,63 @@
+easyblock = 'MakeCp'
+
+name = 'MESMER'
+version = '7.1'
+
+homepage = 'https://www.chem.leeds.ac.uk/mesmer.html'
+description = """MESMER is designed to analyze and simulate reactions in the gas phase that take place on a potential
+ energy surface that is characterized by having one or more potential wells, and which are typically described by
+ rate coefficients that depend on pressure (or concentration) as well as temperature. MESMER allows you to simulate
+ systems over a wide range of pressures and temperatures, extract rate coefficients, analyze experimental data,
+ fit model parameters and represent rate coefficients in formats that can be used directly in large scale simulations
+ (e.g. Cantera or Chemkin).
+"""
+upstream_contacts = 'https://sourceforge.net/p/mesmer/discussion/627433'
+
+toolchain = {'name': 'gompi', 'version': '2024a'}
+
+source_urls = [SOURCEFORGE_SOURCE]
+sources = ['Mesmer%(version)s-source.tar.gz']
+checksums = ['7f9423d627f17ddbfabeac2a4d37d7db8f5702ca44f318d7403b16c19aa27690']
+
+dependencies = [
+    ('QD', '2.3.24'),
+]
+
+# build internal tinyxml
+prebuildopts = "cd tinyxml && make -f MakeLib DEBUG=NO && cd ../src && "
+# build parallel (i.e. MPI) and set the include and library paths
+buildopts = 'install DEBUG=NO PARALLEL=YES '
+buildopts += 'INCS="-I../tinyxml/ -I$EBROOTQD/include -I$EBROOTOPENMPI/include" '
+buildopts += 'LIBS="../tinyxml/tinyxml.a $EBROOTQD/lib/libqd.a -L$EBROOTOPENMPI/lib -lmpi" '
+
+files_to_copy = [
+    'bin',
+    'Documentation',
+    'examples',
+    'MesmerQA',
+    'schemas',
+    '*.xsl',
+    '*.xml',
+    'License.txt',
+]
+
+maxparallel = 8
+_allowTestFail = 'true'
+
+_pretest = ''.join([
+    "sed -i -e 's|executable=.*|executable=%(start_dir)sbin/%(namelower)s|'",
+    r' -e "s/\(mpirun -n \)12/\1',
+    '%s/" QA.sh' % int(maxparallel**0)
+])
+_test = 'for i in */baselines/Linux64 ; do echo TEST: $i; diff "$i"/mesmer.test "$i"/test.test  ; done'
+test_cmd = 'cd %%(start_dir)s/MesmerQA && %s && ./QA.sh -u && %s || %s ' % (_pretest, _test, _allowTestFail)
+runtest = ''
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': [],
+}
+
+sanity_check_commands = ['%(namelower)s --help']
+
+moduleclass = 'chem'
