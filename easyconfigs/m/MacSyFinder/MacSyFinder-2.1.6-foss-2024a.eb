@@ -1,0 +1,57 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'MacSyFinder'
+version = '2.1.6'
+
+homepage = "https://github.com/gem-pasteur/macsyfinder"
+description = """MacSyFinder - Detection of macromolecular systems in protein datasets
+ using systems modelling and similarity search"""
+citing = """MacSyFinder v2: Néron, Bertrand; Denise, Rémi; Coluzzi, Charles;
+ Touchon, Marie; Rocha, Eduardo P.C.; Abby, Sophie S. MacSyFinder v2:
+ Improved modelling and search engine to identify molecular systems in genomes.
+ Peer Community Journal, Volume 3 (2023), article no. e28.
+ doi : 10.24072/pcjournal.250. https://peercommunityjournal.org/articles/10.24072/pcjournal.250/"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('HMMER', '3.4'),
+    ('GitPython', '3.1.43'),  # for macsylib[model]
+    ('lxml', '5.3.0'),  # for macsylyb[model] 
+    ('networkx', '3.4.2'),
+    ('PyYAML', '6.0.2'),
+    ('SciPy-bundle', '2024.05'),
+    ('flit', '3.9.0'), 
+
+]
+
+#source_urls = [PYPI_SOURCE]
+#sources = [SOURCE_TAR_GZ]
+
+exts_list = [
+    ('colorlog', '6.9.0', {
+        'checksums': ['bfba54a1b93b94f54e1f4fe48395725a3d92fd2a4af702f6bd70946bdc0c6ac2'],
+    }),
+    ('macsylib', '1.0.4', {
+        'patches': ['%(name)s-%(version)s_licence.patch'],
+        'use_pip_extras': 'model',
+        'checksums': [
+            {'macsylib-1.0.4.tar.gz': '084cf0ff7c89642d925bd1457f6ed32089d0be50b8ad726c5d75026efa438abb'},
+            {'macsylib-1.0.4_licence.patch': 'e6b67d40815b3910f5f6d72499f4d1cea96f113c580e061325cba70bb2555d45'},
+        ],
+    }),
+    ('macsyfinder', version, {
+        'patches': ['%(name)s-%(version)s_licence.patch'],
+        'use_pip_extras': 'model',
+        'checksums': [
+            {'macsyfinder-2.1.6.tar.gz': 'd05f5eb46b03c62e2183111225aa869a97ca1e4353c07fe342ac28be22cd523e'},
+            {'macsyfinder-2.1.6_licence.patch': 'f67604332e40c30287dbd58fa2aad0c77fd169e4e861cb18f56adf9548657a9b'},
+        ],
+    }),
+]
+
+#sanity_
+
+moduleclass = 'bio'
