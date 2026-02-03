@@ -53,6 +53,8 @@ _test = 'for i in */baselines/Linux64 ; do echo TEST: $i; diff "$i"/mesmer.test 
 test_cmd = 'cd %%(start_dir)s/MesmerQA && %s && ./QA.sh -u && %s || %s ' % (_pretest, _test, _allowTestFail)
 runtest = ''
 
+modextravars = {'MESMER_DIR': '%(installdir)s'}
+
 sanity_check_paths = {
     'files': ['bin/%(namelower)s'],
     'dirs': [],
