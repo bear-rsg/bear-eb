@@ -35,8 +35,8 @@ exts_list = [
         'patches': ['%(name)s-%(version)s_licence.patch'],
         'use_pip_extras': 'model',
         'testinstall': True,
-        # 'runtest': '%(python)s -m unittest discover -vv', # fails to resolve in _pre_sanity_check_hook
-        'runtest': 'python -m unittest discover -vv',
+        # disable test where success depends on screen width
+        'runtest': 'sed -i "s/test_help/_test_help/" tests/test_functional.py && python -m unittest discover -vv',
         'checksums': [
             {'macsylib-1.0.4.tar.gz': '084cf0ff7c89642d925bd1457f6ed32089d0be50b8ad726c5d75026efa438abb'},
             {'macsylib-1.0.4_licence.patch': 'e6b67d40815b3910f5f6d72499f4d1cea96f113c580e061325cba70bb2555d45'},
@@ -46,7 +46,6 @@ exts_list = [
         'patches': ['%(name)s-%(version)s_licence.patch'],
         'use_pip_extras': 'model',
         'testinstall': True,
-        # 'runtest': '%(python)s -m unittest discover -vv',  # fails to resolve template python_cmd
         'runtest': 'python -m unittest discover -vv',
         'checksums': [
             {'macsyfinder-2.1.6.tar.gz': 'd05f5eb46b03c62e2183111225aa869a97ca1e4353c07fe342ac28be22cd523e'},
