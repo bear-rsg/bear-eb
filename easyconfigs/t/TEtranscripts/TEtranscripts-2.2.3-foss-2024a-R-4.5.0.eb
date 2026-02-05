@@ -19,7 +19,7 @@ github_account = 'mhammell-laboratory'
 source_urls = [GITHUB_SOURCE]
 sources = [SOURCE_TAR_GZ]
 checksums = ['e53577e8e73e41c6495fb819977e3e537bbeac7b2fa1635029201a37ee0bf7b8']
-options = {'modulename': 'TEToolkit'} 
+options = {'modulename': 'TEToolkit'}
 
 dependencies = [
     ('Python', '3.12.3'),
