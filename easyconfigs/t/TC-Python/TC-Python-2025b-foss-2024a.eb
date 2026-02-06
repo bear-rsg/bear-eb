@@ -1,0 +1,49 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'TC-Python'
+version = '2025b'
+
+homepage = 'https://thermocalc.com/products/software-development-kits/tc-python'
+description = """TC-Python is a Python language-based SDK available with Thermo-Calc that allows users to openly
+ couple Thermo-Calc calculations with other software. The SDK is built in the popular language Python to give
+ Thermo-Calc users access to many other programs, such as numerical packages like NumPy and SciPy, which can now be
+ used in combination with our calculations.
+ It is truly a tool for Integrated Computational Materials Engineering (ICME)."""
+
+download_instructions = """
+To locate the TC-Python wheel, it must first be copied from the Thermo-Calc directory:
+ [1] Build the Thermo-Calc version specified in the dependencies section
+ [2] Module load Thermo-Calc
+ [3] `cp ${EBROOTTHERMOMINCALC}/SDK/TC-Python/TC_Python-*.whl <easybuild-sources>`
+"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('SciPy-bundle', '2024.05'),
+    ('Thermo-Calc', '2025b'),
+]
+
+exts_list = [
+    ('setuptools-scm', '7.1.0', {
+        'source_tmpl': 'setuptools_scm-7.1.0.tar.gz',
+        'checksums': ['6c508345a771aad7d56ebff0e70628bf2b0ec7573762be9960214730de278f27'],
+    }),
+    ('py4j', '0.10.9.9', {
+        'checksums': ['f694cad19efa5bd1dee4f3e5270eb406613c974394035e5bfc4ec1aba870b879'],
+    }),
+    ('jproperties', '2.1.2', {
+        'checksums': ['036fcd52c10a8a1c21e6fa2a1c292c93892e759b76490acc4809213a36ddc329'],
+    }),
+    (name, version, {
+        'modulename': 'tc_python',
+        'source_tmpl': 'TC_Python-2025.2-30-py3-none-any.whl',
+        'unpack_sources': False,
+        'checksums': ['25a5159f81d9c445eb558f7bf1143647ea5fe5710b558bf883c98979487266e9'],
+    }),
+]
+
+moduleclass = 'cae'
