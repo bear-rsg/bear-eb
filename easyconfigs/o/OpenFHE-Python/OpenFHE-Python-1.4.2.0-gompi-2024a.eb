@@ -24,6 +24,8 @@ dependencies = [
     ('OpenFHE', '1.4.2'),
 ]
 
+postinstallcmds = ['cp -ar %(builddir)s/%(namelower)s-%(version)s/examples %(installdir)s']
+
 modextrapaths = {'PYTHONPATH': ''}
 
 sanity_check_paths = {
@@ -33,7 +35,7 @@ sanity_check_paths = {
 
 sanity_check_commands = [
     "python -c 'import openfhe'",
-    'python %(builddir)s/%(namelower)s-%(version)s/examples/pke/simple-integers.py',
+    'python %(installdir)s/examples/pke/simple-integers.py',
 ]
 
 moduleclass = 'data'

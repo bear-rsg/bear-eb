@@ -35,15 +35,19 @@ dependencies = [
 
 configopts = "-DWITH_NTL=ON "
 configopts += "-DWITH_TCM=ON "
+configopts += "-DBUILD_EXAMPLES=ON "
+configopts += "-DBUILD_BENCHMARKS=ON "
 configopts += "-DWITH_NATIVEOPT=ON "
 configopts += "-DNTL_INCLUDE_DIR=$EBROOTNTL/include -DNTL_LIBRARIES=$EBROOTNTL/lib "
 configopts += "-DGMP_INCLUDE_DIR=$EBROOTGMP/include -DGMP_LIBRARIES=$EBROOTGMP/lib"
 
+
+# Copy the "examples" and "benchmarks" directories to the installation directory
+postinstallcmds = ['cp -ar %(builddir)s/easybuild_obj/bin/* %(installdir)s']
+
 runtest = 'testall'
 
-sanity_check_commands = [
-    '%(builddir)s/easybuild_obj/bin/examples/pke/simple-integers',
-]
+sanity_check_commands = ['%(installdir)s/examples/pke/simple-integers']
 
 sanity_check_paths = {
     'files': [
