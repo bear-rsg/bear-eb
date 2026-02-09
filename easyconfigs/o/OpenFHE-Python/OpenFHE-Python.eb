@@ -1,0 +1,39 @@
+easyblock = 'CMakeMake'
+
+name = 'OpenFHE-Python'
+version = '1.4.2.0'
+
+homepage = 'https://github.com/openfheorg/openfhe-python'
+description = """Python wrapper for the main cryptographic capabilities of the OpenFHE C++ library. OpenFHE-Python
+ provides a more user-friendly interface for Python developers, while keeping the efficiency of C++ FHE operations."""
+
+toolchain = {'name': 'gompi', 'version': '2024a'}
+
+source_urls = ['https://github.com/openfheorg/%(namelower)s/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['29b6d5131936cbbb85aded2766d0071a596aa2c7f77abfe8d8d06e02e1b51407']
+
+builddependencies = [
+    ('CMake', '3.29.3'),
+    ('pybind11', '2.12.0'),
+]
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('OpenFHE', '1.4.2'),
+]
+
+modextrapaths = {'PYTHONPATH': ''}
+
+sanity_check_paths = {
+    'files': ['openfhe.cpython-312-x86_64-linux-gnu.%s' % SHLIB_EXT],
+    'dirs': [],
+}
+
+sanity_check_commands = [
+    "python -c 'import openfhe'",
+    'python %(builddir)s/%(namelower)s-%(version)s/examples/pke/simple-integers.py',
+]
+
+moduleclass = 'data'
