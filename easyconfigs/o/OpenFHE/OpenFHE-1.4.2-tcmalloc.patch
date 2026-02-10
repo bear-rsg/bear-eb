@@ -1,0 +1,46 @@
+--- CMakeLists.txt.orig	2026-02-09 12:10:06.478042773 +0000
++++ CMakeLists.txt	2026-02-09 12:15:20.142917845 +0000
+@@ -582,35 +582,16 @@
+ 
+ ### Handle third-party gperftools for optional tcmalloc
+ 
+-add_custom_target(
+-    tcm
+-    COMMAND ./autogen.sh
+-    COMMAND ./configure --prefix=${CMAKE_CURRENT_BINARY_DIR}/third-party --enable-minimal
+-    COMMAND make
+-    COMMAND make install
+-    WORKING_DIRECTORY ${THIRDPARTYDIR}/gperftools)
+-
+-add_custom_target(
+-    tcm_clean
+-    COMMAND rm -rf include/gperftools include/google lib/libtcmalloc_minimal* lib/pkgconfig/libtcmalloc* lib/pkgconfig/libprofiler.pc share/doc/gperftools
+-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/third-party)
+-
+-if(BUILD_STATIC)
+-    add_library(tcmalloc_static STATIC IMPORTED GLOBAL)
+-    set_target_properties(tcmalloc_static PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/third-party/lib/libtcmalloc_minimal${CMAKE_STATIC_LIBRARY_SUFFIX})
+-endif()
+-
+-if(BUILD_SHARED)
+-    add_library(tcmalloc SHARED IMPORTED GLOBAL)
+-    set_target_properties(tcmalloc PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/third-party/lib/libtcmalloc_minimal${CMAKE_SHARED_LIBRARY_SUFFIX})
+-endif()
+-
+ if(WITH_TCM)
+-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/third-party/lib DESTINATION .
+-        FILES_MATCHING PATTERN "libtcmalloc_minimal.*")
++    # Set location of preinstalled gperftools for tcmalloc.
++    set(TCM_INCLUDE_DIR $ENV{EBROOTGPERFTOOLS}/include)
++    set(TCM_LIBRARIES $ENV{EBROOTGPERFTOOLS}/lib)
++
++    mark_as_advanced(TCM_INCLUDE_DIR TCM_LIBRARIES)
++    include_directories(${TCM_INCLUDE_DIR})
++    link_directories(${TCM_LIBRARIES})
+     list(APPEND THIRDPARTYLIBS "tcmalloc")
+-    list(APPEND THIRDPARTYSTATICLIBS "tcmalloc_static")
+-    install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/third-party/include DESTINATION include/openfhe/third-party/)
++    list(APPEND THIRDPARTYSTATICLIBS "tcmalloc")
+ endif()
+ 
+ if(WITH_NTL)

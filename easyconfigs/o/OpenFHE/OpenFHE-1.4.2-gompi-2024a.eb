@@ -1,0 +1,61 @@
+easyblock = 'CMakeMake'
+
+name = 'OpenFHE'
+version = '1.4.2'
+
+homepage = 'https://openfhe-development.readthedocs.io'
+description = """Fully Homomorphic Encryption (FHE) is a powerful cryptographic primitive that enables performing
+ computations over encrypted data without having access to the secret key. OpenFHE is an open-source FHE library that
+ includes efficient implementations of all common FHE schemes."""
+
+toolchain = {'name': 'gompi', 'version': '2024a'}
+
+sources = [{
+    'filename': SOURCE_TAR_XZ,
+    'git_config': {
+        'url': 'https://github.com/openfheorg',
+        'repo_name': 'openfhe-development',
+        'tag': 'v%(version)s',
+        'recursive': True,
+    }
+}]
+patches = ['OpenFHE-1.4.2-tcmalloc.patch']
+checksums = [
+    {'OpenFHE-1.4.2.tar.xz': 'd790c93b343d06ea97117d486f5323056f03e3c79c3a3090900b90a59b6a767a'},
+    {'OpenFHE-1.4.2-tcmalloc.patch': '4011eba31e8fb4ae42d79ed90050e2ed28488b10ad55e8b66634ffc303caa2a4'},
+]
+
+builddependencies = [('CMake', '3.29.3')]
+
+dependencies = [
+    ('GMP', '6.3.0'),
+    ('NTL', '11.5.1'),
+    ('gperftools', '2.16'),  # for tcmalloc
+]
+
+configopts = "-DWITH_NTL=ON "
+configopts += "-DWITH_TCM=ON "
+configopts += "-DBUILD_EXAMPLES=ON "
+configopts += "-DBUILD_BENCHMARKS=ON "
+configopts += "-DWITH_NATIVEOPT=ON "
+configopts += "-DNTL_INCLUDE_DIR=$EBROOTNTL/include -DNTL_LIBRARIES=$EBROOTNTL/lib "
+configopts += "-DGMP_INCLUDE_DIR=$EBROOTGMP/include -DGMP_LIBRARIES=$EBROOTGMP/lib"
+
+
+# Copy the "examples" and "benchmarks" directories to the installation directory
+postinstallcmds = ['cp -ar %(builddir)s/easybuild_obj/bin/* %(installdir)s']
+
+runtest = 'testall'
+
+sanity_check_commands = ['%(installdir)s/examples/pke/simple-integers']
+
+sanity_check_paths = {
+    'files': [
+        'lib/libOPENFHEbinfhe.%s' % SHLIB_EXT,
+        'lib/libOPENFHEcore.%s' % SHLIB_EXT,
+        'lib/libOPENFHEpke.%s' % SHLIB_EXT,
+    ],
+    'dirs': ['include/openfhe/core', 'include/openfhe/pke', 'lib/OpenFHE'],
+}
+
+moduleclass = 'data'
