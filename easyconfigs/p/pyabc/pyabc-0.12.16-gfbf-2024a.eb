@@ -1,0 +1,27 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'pyabc'
+version = '0.12.16'
+
+homepage = "https://github.com/ICB-DCM/pyABC"
+description = """Distributed, likelihood-free ABC-SMC inference"""
+
+toolchain = {'name': 'gfbf', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('Redis', '7.4.1'),
+    ('redis-py', '5.1.1'),
+    ('dask', '2025.5.1'),
+    ('GitPython', '3.1.43'),
+    ('scikit-learn', '1.5.2'),
+    ('SQLAlchemy', '2.0.36'),
+    ('matplotlib', '3.9.2'),
+    ('jabbar', '0.0.16'),
+]
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+
+moduleclass = 'numlib'
