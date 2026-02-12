@@ -9,6 +9,8 @@ description = """Distributed, likelihood-free ABC-SMC inference"""
 
 toolchain = {'name': 'gfbf', 'version': '2024a'}
 
+builddependencies = [('pytest', '8.3.3')]
+
 dependencies = [
     ('Python', '3.12.3'),
     ('Redis', '7.4.1'),
@@ -20,6 +22,21 @@ dependencies = [
     ('matplotlib', '3.9.2'),
     ('jabbar', '0.0.16'),
 ]
+_tests_to_ignore = ' --ignore='.join([
+    'test/external/test_pyjulia.py',  # julia fom pypi ie pyjulia
+    'test/petab/test_petab.py',  # amici 
+    'test/petab/test_petab_suite.py',  # petabtests
+    'test/visserver/test_dash_server.py',  # dash
+    # deps are available may include:
+    'test/base/test_bytesstorage.py',  # rpy2 3.6.4 would cause bump in toolchain till foss
+    'test/base/test_population.py',  # Arrow 17.0.0
+    'test/base/test_storage.py',  # Arrow 17.0.0 
+    'test/visualization/test_plotly.py',  # plotly.py 5.24.1
+    'test/visualization/test_visserver.py', # Flask 3.0.3
+
+])
+use_pip_extras = 'ot,autograd'
+runtest = 'pytest -n %%(parallel)s test --ignore=%s' % _tests_to_ignore
 
 source_urls = [PYPI_SOURCE]
 sources = [SOURCE_TAR_GZ]
