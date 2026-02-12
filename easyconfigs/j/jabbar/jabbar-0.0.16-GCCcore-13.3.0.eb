@@ -4,8 +4,10 @@ easyblock = 'PythonPackage'
 name = 'jabbar'
 version = '0.0.16'
 
-homepage = "https://github.com/ICB-DCM/pyABC"
-description = """Distributed, likelihood-free ABC-SMC inference"""
+homepage = "https://github.com/yannikschaelte/jabbar"
+description = """Just Another Beautiful progress BAR (some might replace Beautiful by Boring).
+ jabbar is a python package implementing a simple progress bar.
+ For very serious work, you may want to try e.g. the slightly more professional tqdm package."""
 
 toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
