@@ -1,0 +1,43 @@
+easyblock = 'PythonBundle'
+
+name = 'pre-commit'
+version = '4.5.1'
+
+homepage = 'https://pre-commit.com/'
+description = """A framework for managing and maintaining multi-language pre-commit hooks.
+
+Git hook scripts are useful for identifying simple issues before submission to code review.
+ We run our hooks on every commit to automatically point out issues in code such as missing semicolons,
+ trailing whitespace, and debug statements. By pointing these issues out before code review,
+ this allows a code reviewer to focus on the architecture of a change while not wasting time
+ with trivial style nitpicks."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+builddependencies = [
+    ('binutils', '2.42'),
+]
+dependencies = [
+    ('Python', '3.12.3'),
+    ('PyYAML', '6.0.2'),
+    ('virtualenv', '20.26.2'),
+]
+
+
+exts_list = [
+    ('nodeenv', '1.10.0', {
+        'checksums': ['996c191ad80897d076bdfba80a41994c2b47c68e224c542b48feba42ba00f8bb']
+    }),
+    ('identify', '2.6.16', {
+        'checksums': ['846857203b5511bbe94d5a352a48ef2359532bc8f6727b5544077a0dcfb24980']
+    }),
+    ('cfgv', '3.5.0', {
+        'checksums': ['d5b1034354820651caa73ede66a6294d6e95c1b00acc5e9b098e917404669132']
+    }),
+    (name, version, {
+        'source_tmpl': 'pre_commit-%(version)s.tar.gz',
+        'checksums': ['eb545fcff725875197837263e977ea257a402056661f09dae08e4b149b030a61']
+    }),
+]
+
+moduleclass = 'tools'

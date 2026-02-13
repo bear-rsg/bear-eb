@@ -1,0 +1,27 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'pygmt'
+version = '0.17.0'
+
+homepage = "https://github.com/GenericMappingTools/pygmt"
+description = """"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('xarray', '2024.11.0'),
+    ('GMT', '6.5.0'),
+]
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+patches = ['pygmt-0.17.0_licence.patch']
+checksums = [
+    {'pygmt-0.17.0.tar.gz': '06d7581bc35641db318c418aba02163bc519ba267a5a60b5cc419eee40390503'},
+    {'pygmt-0.17.0_licence.patch': '25c64143211ad88cdb825f10016adf44e69c1a495aa622928367da6933b005e7'},
+]
+
+#sanity_check_commands = ['python -c "import %(namelower)s" ']
+moduleclass = 'geo'
