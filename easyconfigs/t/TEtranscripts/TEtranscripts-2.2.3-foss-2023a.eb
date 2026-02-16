@@ -18,7 +18,6 @@ dependencies = [
     ('Pysam', '0.22.0'),
     ('R', '4.4.1'),
     ('R-bundle-Bioconductor', '3.19', '-R-%(rver)s'),
-    ('STAR', '2.7.11b'),  # optional aligner util
 ]
 
 options = {'modulename': 'TEToolkit'}
