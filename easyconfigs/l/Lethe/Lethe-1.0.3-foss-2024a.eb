@@ -1,0 +1,35 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+
+name = 'Lethe'
+version = '1.0.3.1'
+
+homepage = 'https://chaos-polymtl.github.io/lethe'
+description = """ Lethe is an open-source computational fluid dynamics (CFD),
+ discrete element method (DEM) and coupled CFD-DEM software which uses high-order
+ continuous Galerkin formulations to simulate single and multiphase flows."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+toolchainopts = {'pic': True, 'usempi': True}
+
+source_urls = ['https://github.com/chaos-polymtl/lethe/archive/refs/tags/']
+sources = ['v1.0.3.1.tar.gz']
+checksums = ['be5d852e0d7518108f0bee676511553ac294a0164998694fbbdf56de9282a95a']
+
+builddependencies = [
+    ('CMake', '3.29.3'),
+    ('numdiff', '5.9.0'),
+]
+
+dependencies = [
+    ('deal.II', '9.7.1'),
+    ('Perl', '5.38.2'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/lethe-fluid-particles', 'bin/lethe-fluid', 'bin/lethe-fluid-nitsche',
+              'bin/lethe-rpt-l2-projection-3d', 'lib/liblethe-dem.a', 'lib/liblethe-solvers.a'],
+    'dirs': [],
+}
+
+moduleclass = 'cae'

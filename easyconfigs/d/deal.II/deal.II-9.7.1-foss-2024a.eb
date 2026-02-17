@@ -1,0 +1,52 @@
+easyblock = 'CMakeMake'
+
+name = 'deal.II'
+version = '9.7.1'
+
+homepage = 'http://www.dealii.org/'
+description = """A C++ software library supporting the creation of finite element codes and an open community of users
+ and developers."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+toolchainopts = {'usempi': True, 'pic': True, 'strict': True}
+
+source_urls = ['https://www.dealii.org/downloads/']
+sources = ['dealii-%(version)s.tar.gz']
+checksums = ['0f2096ef83db54fdcebe9f3d148fa713f63f1c3f567941b53bcb4a1a8ea7de43']
+
+builddependencies = [
+    ('CMake', '3.29.3'),
+]
+
+dependencies = [
+    ('METIS', '5.1.0'),
+    ('occt', '7.8.0'),
+    # ('p4est', '2.8.7'),  # Lethe test suits need p4est 2.3.6. TESTS fail but applicaiton is said to worK
+    ('p4est', '2.3.6'),
+    ('SUNDIALS', '7.3.0'),
+    ('Taskflow', '4.0.0'),
+    ('Trilinos', '16.1.0',),
+    ('TXR', '302'),
+]
+
+# remove the bundled directory to avoid it polluting the install
+preconfigopts = 'rm -rf ../dealii-*/bundled/ &&'
+configopts = '-DDEAL_II_WITH_MPI=ON '
+configopts += '-DDEAL_II_HAVE_USABLE_FLAGS_RELEASE=ON '
+configopts += '-DDEAL_II_WITH_METIS=ON -DMETIS_DIR=$EBROOTMETIS '
+configopts += '-DDEAL_II_WITH_OPENCASCADE=ON -DOPENCASCADE_DIR=$EBROOTOCCT '
+configopts += '-DDEAL_II_WITH_P4EST=ON -DP4EST_DIR=$EBROOTP4EST '
+configopts += '-DDEAL_II_WITH_SCALAPACK=ON -DSCALAPACK_DIR=$EBROOTSCALAPACK -DSCALAPACK_LIBRARIES="$LIBSCALAPACK -lm" '
+configopts += '-DDEAL_II_WITH_SUNDIALS=ON -DSUNDIALS_DIR=$EBROOTSUNDIALS '
+configopts += '-DDEAL_II_WITH_TRILINOS=ON -DTRILINOS_DIR=$EBROOTTRILINOS '
+configopts += '-DDEAL_II_WITH_TASKFLOW=ON '
+
+# the affinity test fails, as it expects access to all cores, so skip tests
+runtest = 'test'
+
+sanity_check_paths = {
+    'files': [('lib/libdeal_II.so')],
+    'dirs': ['include', 'lib'],
+}
+
+moduleclass = 'numlib'
