@@ -1,0 +1,29 @@
+easyblock = 'CMakeMake'
+
+name = 'Taskflow'
+version = '4.0.0'
+
+homepage = 'https://github.com/taskflow/taskflow'
+description = """Taskflow helps you quickly write task-parallel programs using modern C++"""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+source_urls = ['https://github.com/%(namelower)s/%(namelower)s/archive/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['a9d27ad29caffc95e394976c6a362debb94194f9b3fbb7f25e34aaf54272f497']
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('CMake', '3.29.3'),
+]
+
+configopts = '-DCMAKE_CXX_STANDARD=20 '
+configopts += '-DTF_BUILD_BENCHMARKS=OFF '
+configopts += '-DTF_BUILD_CUDA=OFF '
+
+sanity_check_paths = {
+    'files': [('include/taskflow/taskflow.hpp')],
+    'dirs':  ['include', 'lib'],
+}
+
+moduleclass = 'lib'
