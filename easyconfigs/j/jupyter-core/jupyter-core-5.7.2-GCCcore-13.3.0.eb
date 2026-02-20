@@ -1,0 +1,36 @@
+easyblock = 'PythonPackage'
+
+name = 'jupyter-core'
+version = "5.7.2"
+
+homepage = 'https://jupyter.org/'
+description = """Core common functionality of Jupyter projects.
+ This package contains base application classes and configuration inherited by other projects.
+ It doesn't do much on its own.
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('hatchling', '1.24.2'),
+]
+dependencies = [
+    ('Python', '3.12.3'),
+    ('IPython', '8.28.0'),
+]
+
+source_urls = [PYPI_SOURCE]
+sources = ['jupyter_core-%(version)s.tar.gz']
+patches = ['jupyter-core-%(version)s_fix_jupyter_path.patch']
+
+sanity_check_paths = {
+    'files': ['bin/jupyter'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ['jupyter --paths']
+
+modextrapaths = {'EB_ENV_JUPYTER_ROOT': ''}
+
+moduleclass = 'tools'
