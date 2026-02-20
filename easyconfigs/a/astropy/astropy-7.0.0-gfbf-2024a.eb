@@ -30,7 +30,7 @@ local_pytest_args += " and not remote_data"
 # This test fails if the Easybuild tempdir is in a location for which the path is not equal to the realpath
 local_pytest_args += " and not test_write_jsviewer_local"
 # test fails due to IERS_B out of range after 2024
-local_pytest_args +=" and not test_iers_b_out_of_range_handling"
+local_pytest_args += " and not test_iers_b_out_of_range_handling"
 
 exts_list = [
     ('colorlog', '6.9.0', {
@@ -51,12 +51,12 @@ exts_list = [
     }),
     (name, version, {
         'patches': ['astropy-7.0.0_test_quantities_fitting.patch',
-					'astropy-7.0.0_ut1-IERS_A-predict-table-out-of-date-testskip.patch'],
+                    'astropy-7.0.0_ut1-IERS_A-predict-table-out-of-date-testskip.patch'],
         'checksums': [
             'e92d7c9fee86eb3df8714e5dd41bbf9f163d343e1a183d95bf6bd09e4313c940',  # astropy-7.0.0.tar.gz
             # astropy-7.0.0_test_quantities_fitting.patch
             '2a55b32d8cf85f55343afc8011ea6329d1273a04e450d88414006e856f355563',
-			# astropy-7.0.0_ut1-IERS_A-predict-table-out-of-date-testskip.patch
+            # astropy-7.0.0_ut1-IERS_A-predict-table-out-of-date-testskip.patch
             '013636c1c5812291997860c0ce772ac5d0911dc92fdb6c87292fa87d4931682e',
         ],
         # Create test installation, since Astropy tests cannot be run on the source / build dir since the import at
