@@ -19,9 +19,6 @@ dependencies = [
     ('xarray', '2024.11.0'),
     ('astropy', '7.0.0'),
     ('tqdm', '4.66.5'),
-#    ('pygmt', '0.17.0'),  # optional publication quality maps
-#    ('Cartopy', '0.24.1'),  # optional publication quality maps
-#    ('DUCC0', '0_37_1'),  # optional for higher percision backend
 ]
 
 installopts = ' --no-binary %(namelower)s '

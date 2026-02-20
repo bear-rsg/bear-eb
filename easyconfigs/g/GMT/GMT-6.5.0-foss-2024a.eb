@@ -22,13 +22,13 @@ checksums = ['935947589fc64aa30854497f325a1e5fa06e326f41ad20af374e04c4f8281cbc']
 builddependencies = [('CMake', '3.31.8'), ('Ninja', '1.12.1')]
 dependencies = [
     ('netCDF', '4.9.2'),
-    ('GDAL','3.10.0'),
+    ('GDAL', '3.10.0'),
 ]
 
-_local_executables = ['fz_funcs', 'fz_funcs.sh', 
-                      'fzmodeler',  'fzprofiler',  
-                      'gmt',  'gmt-config',  
-                      'gmt_shell_functions.sh',  
+_local_executables = ['fz_funcs', 'fz_funcs.sh',
+                      'fzmodeler',  'fzprofiler',
+                      'gmt',  'gmt-config',
+                      'gmt_shell_functions.sh',
                       'gmtswitch',  'isogmt']
 
 sanity_check_paths = {

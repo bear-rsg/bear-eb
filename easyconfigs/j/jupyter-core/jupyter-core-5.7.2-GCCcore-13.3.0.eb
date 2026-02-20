@@ -27,7 +27,6 @@ patches = ['jupyter-core-%(version)s_fix_jupyter_path.patch']
 sanity_check_paths = {
     'files': ['bin/jupyter'],
     'dirs': ['lib/python%(pyshortver)s/site-packages'],
-#    'dirs': ['share/jupyter', 'etc/jupyter'],  # only installed if kernel installed
 }
 
 sanity_check_commands = ['jupyter --paths']
