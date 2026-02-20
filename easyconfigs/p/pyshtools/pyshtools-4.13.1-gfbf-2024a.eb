@@ -5,27 +5,29 @@ name = 'pyshtools'
 version = '4.13.1'
 
 homepage = "https://github.com/SHTOOLS/SHTOOLS"
-description = """PySHTOOLS exposes spherical harmonics related functions available in the Fortran SHTOOLS
- library to python. SHTOOLS is written by Mark Wieczorek."""
-docurls = 'https://shtools.github.io/SHTOOLS/'
-citing = """Mark A. Wieczorek and Matthias Meschede (2018). SHTools ---
- Tools for working with spherical harmonics,
- Geochemistry, Geophysics, Geosystems, 19, 2574-2592, doi:10.1029/2018GC007529.\n
- Mark Wieczorek, et al. (2019). SHTOOLS/SHTOOLS. Zenodo, doi:10.5281/zenodo.3457861
+description = """pyshtools is an archive of Python software that can be used for spherical harmonic transforms,
+ multitaper spectral analyses, expansions of gridded data into Slepian basis functions, and standard operations
+ on global gravitational and magnetic field data.
 """
+docurls = ['https://shtools.github.io/SHTOOLS/']
 
 toolchain = {'name': 'gfbf', 'version': '2024a'}
 
+builddependencies = [('meson-python', '0.16.0'), ('jupyter-core', '5.7.2')]
 dependencies = [
     ('Python', '3.12.3'),
     ('xarray', '2024.11.0'),
     ('astropy', '7.0.0'),
-    ('Cartopy', '0.24.1'),
     ('tqdm', '4.66.5'),
+#    ('pygmt', '0.17.0'),  # optional publication quality maps
+#    ('Cartopy', '0.24.1'),  # optional publication quality maps
+#    ('DUCC0', '0_37_1'),  # optional for higher percision backend
 ]
-# https://pypi.org/project/pyshtools/
-installopts = ' --no-binary '
+
+installopts = ' --no-binary %(namelower)s '
+
 source_urls = [PYPI_SOURCE]
 sources = [SOURCE_TAR_GZ]
+checksums = ['cc4a323e9cbc905c04ae9e2e9fedeea6d76f3315a6863ede353a4dec87b8c018']
 
 moduleclass = 'geo'

@@ -1,0 +1,31 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'DUCC0'
+version = '0_37_1'
+
+homepage = "https://gitlab.mpcdf.mpg.de/mtr/ducc"
+description = """Distinctly Useful Code Collection (DUCC)
+ This is a collection of basic programming tools for numerical computation,
+ including Fast Fourier Transforms, Spherical Harmonic Transforms, non-equispaced
+ Fourier transforms, as well as some concrete applications like 4pi convolution
+ on the sphere and gridding/degridding of radio interferometry data.
+ The code is written in C++17, but provides a simple and comprehensive Python
+ interface.
+"""
+docurls = ['https://mtr.pages.mpcdf.de/ducc/cpp', 'https://mtr.pages.mpcdf.de/ducc']
+
+toolchain = {'name': 'gfbf', 'version': '2024a'}
+
+builddependencies = [('CMake', '3.29.3'), ('pybind11', '2.12.0')]
+dependencies = [
+    ('Python', '3.12.3'),
+    ('scikit-build-core', '0.10.6'),
+    ('SciPy-bundle', '2024.05'),
+]
+installopts = ' --no-binary %(namelower)s '
+source_urls = ['https://gitlab.mpcdf.mpg.de/mtr/ducc/-/archive/%(namelower)s_%(version)s']
+sources = ['ducc-%(name)s_%(version)s.tar.gz']
+checksums = ['08983ce8c3c3c494929e73197ba71f6b76ec7769076d43faa16ccc13723ce7b4']
+
+moduleclass = 'numlib'

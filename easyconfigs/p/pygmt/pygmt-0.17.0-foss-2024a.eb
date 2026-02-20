@@ -5,7 +5,10 @@ name = 'pygmt'
 version = '0.17.0'
 
 homepage = "https://github.com/GenericMappingTools/pygmt"
-description = """"""
+description = """PyGMT is a library for processing geospatial and geophysical data
+ and making publication-quality maps and figures. It provides a Pythonic interface
+ for the Generic Mapping Tools (GMT), a command-line program widely used across
+ the Earth, Ocean, and Planetary sciences and beyond."""
 
 toolchain = {'name': 'foss', 'version': '2024a'}
 
@@ -23,5 +26,4 @@ checksums = [
     {'pygmt-0.17.0_licence.patch': '25c64143211ad88cdb825f10016adf44e69c1a495aa622928367da6933b005e7'},
 ]
 
-#sanity_check_commands = ['python -c "import %(namelower)s" ']
 moduleclass = 'geo'
