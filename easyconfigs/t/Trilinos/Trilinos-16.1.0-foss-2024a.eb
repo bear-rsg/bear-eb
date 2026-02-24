@@ -74,8 +74,9 @@ _copts = [
     '-DBUILD_SHARED_LIBS=ON',
     '-DTrilinos_VERBOSE_CONFIGURE=OFF',
     '-DKokkos_ENABLE_AGGRESSIVE_VECTORIZATION=ON',
-    '-DKokkos_ENABLE_OPENMP=OFF',
-    '-DTPL_Cholmod_INCLUDE_DIRS=$EBROOTSUITESPARSE/include/suitesparse/ ',
+    '-DKokkos_ENABLE_OPENMP=ON',  # Relevant for Taskflow build
+    '-DTrilinos_ENABLE_OpenMP=ON',  # Relevant for Taskflow build
+    '-DTPL_Cholmod_INCLUDE_DIRS=$EBROOTSUITESPARSE/include/suitesparse/',
 ]
 
 configopts = ' '.join(_copts)
