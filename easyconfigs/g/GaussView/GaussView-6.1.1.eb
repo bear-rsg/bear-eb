@@ -1,0 +1,40 @@
+easyblock = 'Tarball'
+
+name = 'GaussView'
+version = '6.1.1'
+
+homepage = 'https://gaussian.com/gaussview6/'
+
+description = """
+GaussView 6 is the latest iteration of a graphical interface used with Gaussian. It aids in the creation of Gaussian
+ input files, enables the user to run Gaussian calculations from a graphical interface without the need for using a
+ command line instruction, and helps in the interpretation of Gaussian output (e.g., you can use it to plot properties,
+ animate vibrations, visualize computed spectra, etc.)."""
+
+toolchain = SYSTEM
+
+download_instructions = """Gaussian is licensed software.
+You need to pick the tar file of your choice from the DVD and put it in your sources tree with a proper name.
+This should be a tree that ordinary users can't read due to license restrictions.
+You may neeed to update the sources and checksums in the easyconfig for the file you have."""
+
+sources = ['gv61-linux-x86_64.tbz']
+checksums = ['c9824fd0372c27425b53de350f3a83b27de75ca694219b3ef18cd7d92937db6c']
+
+# Remove top-level `gv` directory when unpacking the tarball
+unpack_options = '--strip-components=1'
+
+sanity_check_paths = {
+    'files': ['exec/gv', 'gview.sh', 'gview.exe', 'gv6.key'],
+    'dirs': ['bin', 'exec', 'lib/MesaGL'],
+}
+
+modextrapaths = {'PATH': 'exec'}
+
+modloadmsg = """GaussView is a graphical interface for Gaussian and therefore requires a Gaussian module to be loaded
+ before it can be used. Please see https://apps.bear.bham.ac.uk/applications/Gaussian"""
+
+moduleclass = 'chem'
+
+# Ensure that only members of the p-gaussian16 group can access the module
+local_bham_group = "p-gaussian16"
