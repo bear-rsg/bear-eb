@@ -1,0 +1,40 @@
+easyblock = 'CMakeMake'
+
+name = 'ONETEP'
+version = '8.0'
+
+homepage = 'https://onetep.org/'
+description = """ONETEP (Order-N Electronic Total Energy Package) is a linear-scaling code for quantum-mechanical
+ calculations based on density-functional theory."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+download_instructions = """Install materials are provided by the licence owner."""
+
+sources = ['onetep_CE_%(version)s_2025_12_29.tar.gz']
+checksums = ['b17a3350c6dc56cc7405d8b6cc16dfdb6fb1a77efa2ab8a0abd0923847cc3eb1']
+
+builddependencies = [
+    ('CMake', '3.29.3'),
+]
+
+configopts = ' '.join([
+    "-DWITH_BLAS=ON",
+    "-DWITH_OPENMP=ON",
+    "-DWITH_SCALAPACK=ON",
+    "-DEXTRA_LIBS=\"flexiblas;fftw3_omp;scalapack\"",
+    "-DEXTRA_INC_PATHS=$EBROOTFFTW/include",
+])
+
+postinstallcmds = ["cd %(installdir)s/bin && ln -s onetep.x onetep"]
+
+sanity_check_paths = {
+    'files': ['bin/onetep'],
+    'dirs': ['bin'],
+}
+
+sanity_check_commands = ["onetep --help"]
+
+moduleclass = 'chem'
+
+local_bham_group = "p-onetep"
