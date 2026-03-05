@@ -13,11 +13,11 @@ docurls = ['https://shtools.github.io/SHTOOLS/']
 
 toolchain = {'name': 'gfbf', 'version': '2024a'}
 
-builddependencies = [('meson-python', '0.16.0'), ('jupyter-core', '5.7.2')]
+builddependencies = [('meson-python', '0.16.0'), ('jupyter-server', '2.14.2')]
 dependencies = [
     ('Python', '3.12.3'),
     ('xarray', '2024.11.0'),
-    ('astropy', '7.0.0'),
+    ('astropy', '7.1.0'),
     ('tqdm', '4.66.5'),
 ]
 

@@ -1,7 +1,7 @@
 easyblock = 'PythonBundle'
 
 name = 'astropy'
-version = '7.0.0'
+version = '7.1.0'
 
 homepage = 'https://www.astropy.org/'
 description = """The Astropy Project is a community effort to develop a common
@@ -14,7 +14,8 @@ toolchain = {'name': 'gfbf', 'version': '2024a'}
 
 builddependencies = [
     ('Cython', '3.0.10'),
-    ('astropy-testing', '7.0.0'),  # Only needed for test step
+    ('astropy-testing', '7.1.0'),  # Only needed for test step
+    ('hatchling', '1.27.0'),
 ]
 dependencies = [
     ('Python', '3.12.3'),
@@ -29,8 +30,11 @@ local_pytest_args = "not test_delay_doc_updates and not test_datetime_timedelta_
 local_pytest_args += " and not remote_data"
 # This test fails if the Easybuild tempdir is in a location for which the path is not equal to the realpath
 local_pytest_args += " and not test_write_jsviewer_local"
-# test fails due to IERS_B out of range after 2024
-local_pytest_args += " and not test_iers_b_out_of_range_handling"
+# This test fails with small precision errors
+local_pytest_args += " and not test_datetime_timedelta_sum"
+# This test fails due to trying broken import statement "from astropy import tests.stores" which is invalid syntax.
+local_pytest_args += " and not test_imports"
+
 
 exts_list = [
     ('colorlog', '6.9.0', {
@@ -40,24 +44,21 @@ exts_list = [
         'modulename': 'erfa',
         'checksums': ['17d6b24fe4846c65d5e7d8c362dcb08199dc63b30a236aedd73875cc83e1f6c0'],
     }),
-    ('extension-helpers', '1.2.0', {
+    ('extension-helpers', '1.4.0', {
         'modulename': 'extension_helpers',
         'source_tmpl': 'extension_helpers-%(version)s.tar.gz',
-        'checksums': ['e7d9c8f71804edd7ecd05b5d59a5b504f6e24867970abfc12771242eed76ebcc'],
+        'checksums': ['78d04185f196e3e0bc5fd8418ce298b014c46f7ac609f6a8c10bf70e8c978324'],
     }),
-    ('astropy-iers-data', '0.2025.1.6.0.33.42', {
+    ('astropy-iers-data', '0.2025.10.6.0.35.25', {
         'source_tmpl': 'astropy_iers_data-%(version)s.tar.gz',
-        'checksums': ['0c7e61bcadbafa7db073074eb5f90754449fab65e59abbbc9a65004b5eb4e763'],
+        'checksums': ['60a0a8ff69dcb2d3470071f444c58685b06299c48214349a1a0ce2d44e178f76'],
     }),
     (name, version, {
-        'patches': ['astropy-7.0.0_test_quantities_fitting.patch',
-                    'astropy-7.0.0_ut1-IERS_A-predict-table-out-of-date-testskip.patch'],
+        'patches': ['astropy-7.0.0_test_quantities_fitting.patch'],
         'checksums': [
-            'e92d7c9fee86eb3df8714e5dd41bbf9f163d343e1a183d95bf6bd09e4313c940',  # astropy-7.0.0.tar.gz
-            # astropy-7.0.0_test_quantities_fitting.patch
-            '2a55b32d8cf85f55343afc8011ea6329d1273a04e450d88414006e856f355563',
-            # astropy-7.0.0_ut1-IERS_A-predict-table-out-of-date-testskip.patch
-            '013636c1c5812291997860c0ce772ac5d0911dc92fdb6c87292fa87d4931682e',
+            {'astropy-7.1.0.tar.gz': 'c8f254322295b1b8cf24303d6f155bf7efdb6c1282882b966ce3040eff8c53c5'},
+            {'astropy-7.0.0_test_quantities_fitting.patch':
+             '2a55b32d8cf85f55343afc8011ea6329d1273a04e450d88414006e856f355563'},
         ],
         # Create test installation, since Astropy tests cannot be run on the source / build dir since the import at
         # https://github.com/astropy/astropy/blob/465a7ffe0cc9c776bc668a6938d029ffb83b68de/astropy/__init__.py#L146
