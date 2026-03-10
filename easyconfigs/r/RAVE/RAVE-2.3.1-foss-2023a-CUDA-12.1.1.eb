@@ -1,0 +1,78 @@
+easyblock = 'PythonBundle'
+
+name = 'RAVE'
+version = '2.3.1'
+versionsuffix = '-CUDA-%(cudaver)s'
+local_pytorch_version = '2.1.2'
+
+homepage = 'https://github.com/acids-ircam/RAVE'
+description = """Official implementation of RAVE: A variational autoencoder for fast and high-quality neural audio
+ synthesis by Antoine Caillon and Philippe Esling."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('hatchling', '1.18.0'),
+]
+
+dependencies = [
+    ('CUDA', '12.1.1', '', SYSTEM),
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('PyTorch', '2.1.2', versionsuffix),
+    ('PyTorch-bundle', local_pytorch_version, versionsuffix),
+    ('PyTorch-Lightning', '2.2.1', versionsuffix),
+    ('librosa', '0.10.1'),
+    ('Flask', '2.3.3'),
+    ('FFmpeg', '6.0'),
+]
+
+exts_list = [
+    ('GPUtil', '1.4.0', {
+        'modulename': 'GPUtil',
+        'checksums': ['099e52c65e512cdfa8c8763fca67f5a5c2afb63469602d5dcb4d296b3661efb9'],
+    }),
+    ('gin-config', '0.5.0', {
+        'modulename': 'gin',
+        'checksums': ['0c6ea5026ded927c8c93c990b01c695257c1df446e45e549a158cfbc79e19ed6'],
+    }),
+    ('einops', '0.8.2', {
+        'checksums': ['609da665570e5e265e27283aab09e7f279ade90c4f01bcfca111f3d3e13f2827'],
+    }),
+    ('cached-conv', '2.5.0', {
+        'preinstallopts': "CACHED_CONV_VERSION=%(version)s ",
+        'checksums': ['14e632b852cd8d5b36a1f0c5e9f2939687c7b488976b53516648b019ef313ed0'],
+    }),
+    ('nn-tilde', '1.6.0', {
+        'preinstallopts': "sed -i -E 's/==.*//g' requirements.txt && NN_TILDE_VERSION=%(version)s ",
+        # TorchScript cannot parse the Python 3.10+ union type operator | in a function annotation, so we need to
+        # replace it with the more verbose Optional[] syntax.
+        'postinstallcmds': [
+            'sed -i "s/int | None/Optional[int]/" '
+            '%(installdir)s/lib/python%(pyshortver)s/site-packages/nn_tilde/module.py'
+        ],
+        'checksums': ['77838f440433f9e2ae168c8da4cab5748ecce53fe1f7630d1dcd0854e1d6f577'],
+    }),
+    ('lmdb', '1.6.2', {
+        'checksums': ['d28e3fa59935ff688858760ec52f202ecb8c1089a3f68d1f162ea3078d151e73'],
+    }),
+    ('udls', '1.1.4', {
+        'preinstallopts': "UDLS_VERSION=%(version)s ",
+        'checksums': ['99f7d2e57efcc99cb25a9cdbf4aab48c115e7201a6322eab4c6d87baf3111f22'],
+    }),
+    ('acids-rave', version, {
+        'runtest': 'pytest',
+        'modulename': 'rave',
+        'preinstallopts': "sed -i 's/==/>=/g' requirements.txt && ",
+        'checksums': ['6c540c29280d24ff2f7c0e447f705d9b2aecbb563cddb2436906a90008ba503d'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(namelower)s'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ["%(namelower)s -h"]
+
+moduleclass = 'ai'
