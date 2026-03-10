@@ -45,8 +45,10 @@ sanity_check_paths = {
 sanity_check_commands = [
     'download_eggnog_data.py --help',
     'create_dbs.py --help',
-    'emapper.py --version | grep %(version)s',
+    'mkdir -p $EGGNOG_DATA_DIR && emapper.py --version | grep %(version)s',
 ]
+
+modextravars = { 'EGGNOG_DATA_DIR': '%(installdir)s/downloaded_db' }
 
 options = {'modulename': 'eggnogmapper'}
 
