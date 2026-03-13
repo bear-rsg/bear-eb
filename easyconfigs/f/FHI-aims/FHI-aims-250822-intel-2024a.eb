@@ -24,8 +24,6 @@ calculations handle up to several thousand atoms and can efficiently use (ten)th
 
 toolchain = {'name': 'intel', 'version': '2024a'}
 toolchainopts = {'opt': True, 'precise': True, 'usempi': True, 'oneapi': True}
-#toolchainopts = {'opt': True, 'precise': True, 'oneapi': True}
-#toolchainopts = {'precise': True, 'usempi': True}
 
 download_instructions = """
 The source code must be downloaded manually from the FHI-aims club
