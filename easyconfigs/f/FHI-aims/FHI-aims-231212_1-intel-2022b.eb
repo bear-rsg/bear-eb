@@ -60,3 +60,5 @@ sanity_check_paths = {
 }
 
 moduleclass = 'chem'
+
+local_bham_group = "p-fhi-aims"

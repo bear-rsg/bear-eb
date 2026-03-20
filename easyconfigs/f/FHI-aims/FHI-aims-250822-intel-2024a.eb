@@ -65,3 +65,5 @@ sanity_check_commands = [
 ]
 
 moduleclass = 'chem'
+
+local_bham_group = "p-fhi-aims"
