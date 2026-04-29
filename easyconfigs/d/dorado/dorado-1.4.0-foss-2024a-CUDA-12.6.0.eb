@@ -61,7 +61,7 @@ configopts = ' '.join(_copts) + ' '
 configopts += "$(if %(rpath_enabled)s; then "
 configopts += "echo '-DCMAKE_SKIP_INSTALL_RPATH=YES -DCMAKE_SKIP_RPATH=YES'; fi) "
 
-prebuildopts = 'sed -i "s/HTSCODECS\_VERSION\_TEXT/HTSCODECS\_VERSION/" htslib_build/htslib/Makefile '
+prebuildopts = r'sed -i "s/HTSCODECS\_VERSION\_TEXT/HTSCODECS\_VERSION/" htslib_build/htslib/Makefile '
 prebuildopts += 'htslib_build/htslib/htscodecs/htscodecs/Makefile.am '
 prebuildopts += 'htslib_build/htslib/htscodecs/htscodecs/htscodecs.c && '
 
