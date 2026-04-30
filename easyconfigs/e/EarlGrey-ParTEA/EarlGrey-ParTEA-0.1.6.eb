@@ -1,0 +1,32 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Conda'
+
+name = 'EarlGrey-ParTEA'
+version = '0.1.6'
+
+homepage = 'https://github.com/TobyBaril/EarlGreyParTEA'
+description = """
+ParTEA (Pangenome Transposable Element Analysis) is a Snakemake-based pipeline
+that brings the party to multi-genome TE annotation!
+It extends EarlGrey to process multiple genomes in parallel,
+build pangenome TE libraries,
+and perform comparative transposable element analysis across species.
+"""
+toolchain = SYSTEM
+
+builddependencies = [('Miniforge3', '25.3.0-3')]
+
+channels = ['bioconda', 'conda-forge', 'toby_baril_bio']
+
+requirements = '%(namelower)s==%(version)s'
+
+postinstallcmds = [
+     "ln -s %(installdir)s/share/RepeatMasker/*.pm %(installdir)s/bin",
+]
+
+sanity_check_paths = {
+    'files': ['bin/earlGreyParTEA'],
+    'dirs': ['bin'],
+}
+
+moduleclass = 'bio'
