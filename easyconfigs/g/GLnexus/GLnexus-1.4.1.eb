@@ -1,0 +1,51 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Binary'
+name = 'GLnexus'
+version = '1.4.1'
+versionsuffix = ''
+
+homepage = "https://github.com/dnanexus-rnd/GLnexus"
+description = """Scalable gVCF merging and joint variant calling for population sequencing projects.
+ (GL, genotype likelihood).
+ GLnexus is a system for joint variant calling designed to scale up to the largest foreseeable human cohorts.
+ It combines scalable joint calling algorithms with a persistent database that grows efficiently
+  as additional participants are sequenced."""
+
+toolchain = SYSTEM
+
+github_account =  'dnanexus-rnd'
+source_urls = []
+sources = [{
+    'filename': '%(namelower)s_v%(version)s.sif',
+    'extract_cmd': 'cp %s %(install_dir)s'
+}]
+
+# skipsteps = ['extract']
+
+builddependencies = [
+#    ('Autotools', '20231222'),
+#    ('CMake', '3.29.3'),
+##    ('Ninja', '1.12.1'),
+#    ('zstd', '1.5.6'),
+#    ('snappy', '1.2.1'),
+#    ('BCFtools', '1.21'),
+##    ('Valgrind', '3.24.0')
+]
+dependencies = [
+#    ('jemalloc', '5.3.0'),
+]
+
+#extract_sources = False
+#install_cmd = ''
+#patches = ['%(name)s-%(version)s_fcmm101-mirror.patch']
+#install_cmd = 'cp %(namelower)s_v%(version)s.sif %(install_dir)s'
+
+sanity_check_paths = {
+    'files': ['%(namelower)s_v%(version)s.sif'],
+    'dirs': [],
+}
+
+modaliases = {
+        'GLnexus': 'apptainer exec %(install_dir)s/%(namelower)s_v%(version)s.sif %(namelower)s_cli'
+}
+moduleclass = 'bio'
