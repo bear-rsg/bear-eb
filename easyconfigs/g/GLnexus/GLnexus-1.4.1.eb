@@ -2,7 +2,6 @@
 easyblock = 'Binary'
 name = 'GLnexus'
 version = '1.4.1'
-versionsuffix = ''
 
 homepage = "https://github.com/dnanexus-rnd/GLnexus"
 description = """Scalable gVCF merging and joint variant calling for population sequencing projects.
@@ -13,32 +12,11 @@ description = """Scalable gVCF merging and joint variant calling for population 
 
 toolchain = SYSTEM
 
-github_account =  'dnanexus-rnd'
-source_urls = []
+download_instructions = f"""apptainer pull $EASYBUILD_SOURCEPATH/{name}/{namelower}_v{version}.sif docker://ghcr.io/dnanexus-rnd/{namelower}:v{version}"""
 sources = [{
     'filename': '%(namelower)s_v%(version)s.sif',
     'extract_cmd': 'cp %s %(install_dir)s'
 }]
-
-# skipsteps = ['extract']
-
-builddependencies = [
-#    ('Autotools', '20231222'),
-#    ('CMake', '3.29.3'),
-##    ('Ninja', '1.12.1'),
-#    ('zstd', '1.5.6'),
-#    ('snappy', '1.2.1'),
-#    ('BCFtools', '1.21'),
-##    ('Valgrind', '3.24.0')
-]
-dependencies = [
-#    ('jemalloc', '5.3.0'),
-]
-
-#extract_sources = False
-#install_cmd = ''
-#patches = ['%(name)s-%(version)s_fcmm101-mirror.patch']
-#install_cmd = 'cp %(namelower)s_v%(version)s.sif %(install_dir)s'
 
 sanity_check_paths = {
     'files': ['%(namelower)s_v%(version)s.sif'],
