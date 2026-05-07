@@ -37,7 +37,6 @@ build_cmd = 'cd pysharc && make install && cd ../source && make install'
 parallel = False
 
 postinstallcmds = [
-#    'rm %(installdir)s/%(namelower)s-%(version)s/bin/{sharcvars.sh,sharcvars.csh}',
     'touch %(installdir)s/%(namelower)s4-%(version)s/bin/{sharcvars.sh,sharcvars.csh}',
 ]
 
