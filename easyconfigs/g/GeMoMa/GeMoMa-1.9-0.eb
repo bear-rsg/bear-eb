@@ -1,0 +1,26 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Conda'
+
+name = 'GeMoMa'
+version = '1.9-0'
+
+homepage = 'https://www.jstacs.de/index.php/GeMoMa'
+description = """
+Gene Model Mapper (GeMoMa) is a homology-based gene prediction program.
+GeMoMa uses the annotation of protein-coding genes in a reference genome
+to infer the annotation of protein-coding genes in a target genome.
+"""
+toolchain = SYSTEM
+
+builddependencies = [('Miniforge3', '25.3.0-3')]
+
+channels = ['bioconda']
+
+requirements = '%(namelower)s==%(version)s'
+
+sanity_check_paths = {
+    'files': ['bin/GeMoMa'],
+    'dirs': ['bin'],
+}
+
+moduleclass = 'bio'
