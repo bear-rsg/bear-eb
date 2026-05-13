@@ -12,7 +12,11 @@ toolchainopts = {'optarch': False}
 
 source_urls = ['https://github.com/sharc-md/sharc4/archive/refs/tags']
 sources = ['v%(version)s.tar.gz']
-checksums = ['b989c18a2cc6aecc02eb5a000a789e5522edf53184a17d255ddbe17ebc9c25ba']
+patches = ['%(name)s-%(version)s_constants.patch']
+checksums = [
+    {'v4.0.2.tar.gz': 'b989c18a2cc6aecc02eb5a000a789e5522edf53184a17d255ddbe17ebc9c25ba'},
+    {'SHARC-4.0.2_constants.patch': 'f4925f3749e244797fac6c00c8a9f661cec4c894db318051334665da6801707b'},
+]
 
 dependencies = [
     ('Python', '3.12.3'),
@@ -41,8 +45,13 @@ postinstallcmds = [
 ]
 
 modextrapaths = {
-    'PYHTONPATH': ['%(namelower)s4-%(version)s/pysharc', '%(namelower)s4-%(version)s/lib'],
+    'PYTHONPATH': [
+        '%(namelower)s4-%(version)s/pysharc',
+        '%(namelower)s4-%(version)s/lib',
+        '%(namelower)s4-%(version)s/pysharc/sharc/pysharc',
+    ],
 }
+
 modextravars = {
     'SHARC': '%(installdir)s/%(namelower)s4-%(version)s/bin',
     'PYSHARC': '%(installdir)s/%(namelower)s4-%(version)s/pysharc',
@@ -53,5 +62,6 @@ sanity_check_paths = {
     'files': ['%(installdir)s/%(namelower)s4-%(version)s/bin/sharc2.x'],
     'dirs': [],
 }
+
 
 moduleclass = 'chem'
