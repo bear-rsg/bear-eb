@@ -1499,7 +1499,6 @@ sanity_check_paths = {
 
 sanity_check_commands = ["%(namelower)s --help"]
 
-# Other crates (no source in Cargo.lock): [('mod_kit', '0.6.1'), ('modkit', '0.6.1'), ('modkit-logging', '0.4.5'), ('ochm', '0.1.0'), ('safe-record', '0.1.0')]
 # Avoid failure, see https://github.com/nanoporetech/modkit/issues/520
 testopts = '-- --test-threads=1'
 
