@@ -45,8 +45,8 @@ dependencies = [
 ]
 
 # don't use vendored HTSlib, use provided HTSlib dependency
-preconfigopts = "rm -r ../dorado/dorado/3rdparty/htslib/ && " # Command worked
-preconfigopts = "rm ../dorado/cmake/Htslib.cmake && " # Command worked
+preconfigopts = "rm -r ../dorado/dorado/3rdparty/htslib/ && "
+preconfigopts = "rm ../dorado/cmake/Htslib.cmake && "
 preconfigopts += "sed -i '/Htslib.cmake/d' ../dorado/CMakeLists.txt && "
 preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/torch_utils/CMakeLists.txt && "
 preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/read_pipeline/base/CMakeLists.txt && "
