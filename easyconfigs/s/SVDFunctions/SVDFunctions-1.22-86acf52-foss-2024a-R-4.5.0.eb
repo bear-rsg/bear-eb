@@ -4,7 +4,6 @@ easyblock = 'Bundle'
 name = 'SVDFunctions'
 version = '1.22'
 local_commit = '86acf52'
-versionsuffix = '-R-%(rver)s'
 
 homepage = 'https://github.com/alexloboda/SVDFunctions'
 description = "Set of Functions for Selecting Matching Genetic Controls without Sharing Genotypes."
@@ -59,7 +58,7 @@ exts_list = [
     }),
     (name, version, {
         'source_urls': ['https://github.com/alexloboda/SVDFunctions/archive/'],
-        'sources': [{'download_filename': '86acf52.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'sources': [{'download_filename': '%s.tar.gz' % local_commit, 'filename': '%(name)s-%(version)s.tar.gz'}],
         'checksums': ['cdbd353512d2149c76e3d2cc210d67747d117c0eb556a9a99e5a9a4568f79022'],
     }),
 ]
