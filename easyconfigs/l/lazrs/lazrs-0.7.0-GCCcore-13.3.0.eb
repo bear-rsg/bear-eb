@@ -3,7 +3,7 @@ easyblock = 'CargoPythonBundle'
 name = 'lazrs'
 version = '0.7.0'
 
-homepage = 'https://github.com/samuelcolvin/pydantic'
+homepage = 'https://github.com/laz-rs/laz-rs'
 description = "Data validation and settings management using Python type hinting."
 
 toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
