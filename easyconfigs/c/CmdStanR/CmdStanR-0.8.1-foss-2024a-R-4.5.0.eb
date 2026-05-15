@@ -1,0 +1,28 @@
+easyblock = 'RPackage'
+
+name = 'CmdStanR'
+version = '0.8.1'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://mc-stan.org/cmdstanr'
+description = "CmdStanR is a lightweight interface to Stan for R users"
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/stan-dev/cmdstanr/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['d151ad183a9aa340bd444ccf3e75e133f0ce4cb9502a917b98406f4f593209f5']
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['%(namelower)s'],
+}
+
+options = {'modulename': '%(namelower)s'}
+
+moduleclass = 'bio'
