@@ -21,9 +21,11 @@ sources = [{
     },
     'filename': SOURCE_TAR_XZ,
 }]
-
+patches = ['%(name)s-%(version)s_dont_install_external_libraries.patch']
 checksums = [
     {'dorado-1.4.0.tar.xz': '9675adf0b75e89c9d6b3e9972403fd79b401cabc3f5e08822364e9aa4a30650a'},
+    {'dorado-1.4.0_dont_install_external_libraries.patch':
+     'f265b7bb6afcdb7b11f4f543d337c08c2038e98a25df18547f752d7fa4463bd8'},
 ]
 
 builddependencies = [
@@ -47,6 +49,7 @@ dependencies = [
 # don't use vendored HTSlib, use provided HTSlib dependency
 preconfigopts = "rm -r ../dorado/dorado/3rdparty/htslib/ && "
 preconfigopts = "rm ../dorado/cmake/Htslib.cmake && "
+preconfigopts += "sed -i '/Htslib.cmake/d' ../dorado/CMakeLists.txt && "
 preconfigopts += "sed -i '/Htslib.cmake/d' ../dorado/CMakeLists.txt && "
 preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/torch_utils/CMakeLists.txt && "
 preconfigopts += "sed -i 's/htslib/hts/g' ../dorado/dorado/read_pipeline/base/CMakeLists.txt && "
