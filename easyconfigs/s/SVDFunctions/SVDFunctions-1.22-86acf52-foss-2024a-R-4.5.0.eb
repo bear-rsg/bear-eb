@@ -1,0 +1,74 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'SVDFunctions'
+version = '1.22'
+local_commit = '86acf52'
+versionsuffix = '-R-%(rver)s'
+
+homepage = 'https://github.com/alexloboda/SVDFunctions'
+description = "Set of Functions for Selecting Matching Genetic Controls without Sharing Genotypes."
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = (
+    "R -q --no-save",
+    'library(%(ext_name)s)',
+)
+
+exts_default_options = {
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',
+        'https://cran.r-project.org/src/contrib/',
+        'https://cran.freestatistics.org/src/contrib'
+    ],
+}
+
+# Order is important!
+exts_list = [
+    ('archetypes', '2.2-0.2', {
+        'checksums': ['cf9d32c85425128129604a341818ed3f53928402879835beef01a294c0ba40b2'],
+    }),
+    ('univOutl', '0.5.0', {
+        'checksums': ['3667357f6986a3a82543577c8d7ac831f5a1c3009a9eaa5e553cd8d9d02f63c2'],
+    }),
+    ('tolerance', '3.0.0', {
+        'checksums': ['ee56c3d3ad4b8ffc010ef2b7246b6ec20decf3de80912a05a837bb8a412c675e'],
+    }),
+    ('ICGE', '0.4.3', {
+        'checksums': ['ddb4c4a1af7f033d7a3f4ffc5e7d42277d6844a54eb05820b7ea0557bd473107'],
+    }),
+    ('shapes', '1.2.8', {
+        'checksums': ['2b1df1abbe8f4836e20bb23844fabe8acb3f7ca09b9fc9fbe9cd55d972463333'],
+    }),
+    ('Anthropometry', '1.21', {
+        'checksums': ['8ad128c4a9aae391dfe4137b88ef74b06977a4451e5a86cc66701c62fd650223'],
+    }),
+    ('adamethods', '1.2.1', {
+        'checksums': ['f29e339766d5b28c8d3686c79d19e298790fa79778a1a018ae614d3ddae20a94'],
+    }),
+    ('seqminer', '9.9', {
+        'checksums': ['8e773b459a8109f4a8c9e2087a87ceb3bc652eca5073fa1d670e4e6cc853b1e8'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/alexloboda/SVDFunctions/archive/'],
+        'sources': [{'download_filename': '86acf52.tar.gz', 'filename': '%(name)s-%(version)s.tar.gz'}],
+        'checksums': ['cdbd353512d2149c76e3d2cc210d67747d117c0eb556a9a99e5a9a4568f79022'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+moduleclass = 'bio'
