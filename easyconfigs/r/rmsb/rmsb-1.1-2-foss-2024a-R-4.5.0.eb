@@ -1,0 +1,49 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'rmsb'
+version = '1.1-2'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=rmsb"
+description = """A Bayesian companion to the 'rms' package, 'rmsb' provides Bayesian model fitting,
+ post-fit estimation, and graphics."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+    ('CmdStanR', '0.8.1', '-R-%(rver)s'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('digest', '0.6.39', {
+        'checksums': ['8bf048b49b2d17077138fae758bda56bbd53278d9437f2fdeaedf979c90a13c9'],
+    }),
+    (name, version, {
+        'checksums': ['a6db5b99b5a54761e8787a2c087e0734573148210fe07119dd4055e6dca2bf00'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['rmsb/R/rmsb'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
