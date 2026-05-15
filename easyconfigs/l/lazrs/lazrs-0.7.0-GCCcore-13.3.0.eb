@@ -4,7 +4,7 @@ name = 'lazrs'
 version = '0.7.0'
 
 homepage = 'https://github.com/laz-rs/laz-rs'
-description = "Data validation and settings management using Python type hinting."
+description = "Implementation or rather, translation of LAZ (laszip compression) format in Rust."
 
 toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
