@@ -1,0 +1,54 @@
+easyblock = 'ConfigureMake'
+
+name = 'CDF'
+version = '3.9.1'
+
+homepage = 'https://cdf.gsfc.nasa.gov/'
+description = """Common Data Format (CDF) is a conceptual data abstraction for storing,
+manipulating, and accessing multidimensional datasets."""
+
+toolchain = {'name': 'GCC', 'version': '13.3.0'}
+
+source_urls = ['https://spdf.gsfc.nasa.gov/pub/software/cdf/dist/latest_cdf/linux/']
+sources = ['cdf39_1-dist-all.tar.gz']
+checksums = ['481d23db6f84298b6d3425ef7c8a3c0c77043775d5f5d922f5c8b90d69ed4028']
+
+dependencies = [
+    ('ncurses', '6.5'),
+    ('zlib', '1.3.1'),
+]
+
+start_dir = 'cdf39_1-dist'
+
+skipsteps = ['configure']
+
+buildopts = 'OS=linux ENV=gnu all'
+installopts = 'INSTALLDIR=%(installdir)s install'
+
+sanity_check_paths = {
+    'files': [
+        'bin/cdfdump',
+        'bin/cdfedit',
+        'bin/cdfconvert',
+        'lib/libcdf.a',
+        'lib/libcdf.so',
+        'include/cdf.h',
+    ],
+    'dirs': ['bin', 'lib', 'include'],
+}
+
+sanity_check_commands = [
+    'cdfdump 2>&1 | grep "Usage"',
+    'cdfconvert 2>&1 | grep "Usage"',
+]
+
+#  These variables are set in the definitions files in /bin/
+#  They might be needed by other applications so I've set them.
+modextravars = {
+    'CDF_BASE': '%(installdir)s',
+    'CDF_LIB':  '%(installdir)s/lib',
+    'CDF_INC':  '%(installdir)s/include',
+    'CDF_BIN':  '%(installdir)s/bin',
+}
+
+moduleclass = 'data'
