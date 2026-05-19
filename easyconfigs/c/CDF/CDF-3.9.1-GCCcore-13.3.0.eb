@@ -7,7 +7,7 @@ homepage = 'https://cdf.gsfc.nasa.gov/'
 description = """Common Data Format (CDF) is a conceptual data abstraction for storing,
 manipulating, and accessing multidimensional datasets."""
 
-toolchain = {'name': 'GCC', 'version': '13.3.0'}
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
 source_urls = ['https://spdf.gsfc.nasa.gov/pub/software/cdf/dist/latest_cdf/linux/']
 sources = ['cdf39_1-dist-all.tar.gz']
