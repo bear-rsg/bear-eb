@@ -14,9 +14,9 @@ toolchain = {'name': 'gfbf', 'version': '2024a'}
 dependencies = [
     ('Python', '3.12.3'),
     ('Python-bundle-PyPI', '2024.06'),
-    ('SciPy-bundle','2024.05'),
-    ('sgp4','2.14'),
-    ('jplephem','2.15'),
+    ('SciPy-bundle', '2024.05'),
+    ('sgp4', '2.14'),
+    ('jplephem', '2.15'),
 ]
 
 source_urls = [PYPI_SOURCE]
