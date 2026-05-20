@@ -1,0 +1,113 @@
+easyblock = 'MakeCp'
+
+name = 'RST'
+version = '5.1.1'
+
+homepage = 'https://superdarn.github.io/dawg/'
+description = """RST is an open source software package (licensed under GPL v3.0)
+ that allows researchers to analyze, model, and quickly visualize the SuperDARN project data..
+"""
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+sources = [{
+    'filename': '%(namelower)s-%(version)s.tar.gz',
+    'git_config': {
+        'url': 'https://github.com/superdarn',
+        'repo_name': 'rst',
+        'tag': 'v%(version)s',
+        'recursive': False,
+    },
+}]
+patches = ['RST-5.1.1_binplotlib_polygon_dep.patch']
+checksums = [
+    {'rst-5.1.1.tar.gz': '2a7c4278c259d479fcc7e3650b1d34d0077c500d4ee5fd3a3aaa69ac2a3f7ba2'},
+    {'RST-5.1.1_binplotlib_polygon_dep.patch': '8a7f412e53a22611f9a6750d8a0285f8ec32287cbf81beb4d8b4c8750478278b'},
+]
+
+builddependencies = [
+    ('binutils', '2.42'),
+]
+
+dependencies = [
+    ('ncurses', '6.5'),
+    ('netCDF', '4.9.2'),
+    ('CDF', '3.9.1'),
+    ('HDF5', '1.14.5'),
+    ('libpng', '1.6.43'),
+    ('X11', '20240607'),
+]
+
+#  Core RST paths required by the build scripts
+#  These are set in the various build scripts and profile setup scripts, but we can't run them nicely in eb
+prebuildopts = 'export RSTPATH=%(builddir)s/rst && '
+
+#  From rst.bash
+prebuildopts += 'export BUILD=${RSTPATH}/build && '
+prebuildopts += 'export CODEBASE=${RSTPATH}/codebase && '
+prebuildopts += 'export LOGPATH=${RSTPATH}/log && '
+prebuildopts += 'export DOCPATH=${RSTPATH}/doc && '
+prebuildopts += 'export LIBPATH=${RSTPATH}/lib && '
+prebuildopts += 'export BINPATH=${RSTPATH}/bin && '
+prebuildopts += 'export IPATH=${RSTPATH}/include && '
+prebuildopts += 'export MAKECFG=${BUILD}/make/makecfg && '
+prebuildopts += 'export MAKEBIN=${BUILD}/make/makebin && '
+prebuildopts += 'export MAKELIB=${BUILD}/make/makelib && '
+prebuildopts += 'export PATH=${PATH}:${BUILD}/bin:${BUILD}/script:${RSTPATH}/bin:${RSTPATH}/script && '
+prebuildopts += 'export LD_LIBRARY_PATH=${LIBPATH}:$EBROOTCDF/lib:${LD_LIBRARY_PATH:-} && '
+
+#  From .profile.bash
+prebuildopts += 'export OSTYPE=linux && '
+prebuildopts += 'export SYSTEM=linux && '
+
+#  From base.bash
+prebuildopts += 'export NETCDF_PATH=$EBROOTNETCDF && '
+prebuildopts += 'export CDF_PATH=$EBROOTCDF && '
+prebuildopts += 'export XPATH=$EBROOTX11 && '
+
+#  From general.bash
+prebuildopts += 'export MAPDATA=${RSTPATH}/tables/general/map_data && '
+prebuildopts += 'export BNDDATA=${RSTPATH}/tables/general/bnd_data && '
+
+#  From superdarn.bash
+prebuildopts += 'export SD_HDWPATH=${RSTPATH}/tables/superdarn/hdw/ && '
+prebuildopts += 'export SD_TDIFFPATH=${RSTPATH}/tables/superdarn/tdiff/ && '
+prebuildopts += 'export SD_RADAR=${RSTPATH}/tables/superdarn/radar.dat && '
+prebuildopts += 'export SD_MODEL_TABLE=${RSTPATH}/tables/superdarn/model && '
+prebuildopts += 'export AACGM_DAT_PREFIX=${RSTPATH}/tables/analysis/aacgm/aacgm_coeffs && '
+prebuildopts += 'export AACGM_v2_DAT_PREFIX=${RSTPATH}/tables/analysis/aacgm/aacgm_coeffs-14- && '
+prebuildopts += 'export IGRF_PATH=${RSTPATH}/tables/analysis/mag/ && '
+prebuildopts += 'export IGRF_COEFFS=${IGRF_PATH}magmodel_1590-2025.txt && '
+prebuildopts += 'export COLOR_TABLE_PATH=${RSTPATH}/tables/base/key/ && '
+
+#  the actual build
+prebuildopts += 'cd ${BUILD}/script && '
+prebuildopts += 'bash make.build && '
+prebuildopts += 'sed -i "s/ARC=-Bstatic/ARC=-Bdynamic/" ${BUILD}/make/makecfg.linux && '
+local_sed_makelib = 'sed -i "s/LFLAGS += -shared/LFLAGS += -shared --allow-shlib-undefined/"'
+local_sed_makebin = 'sed -i "s/LFLAGS += -L\\$(LIBPATH)/LFLAGS += -L\\$(LIBPATH) -lgcc_s -Wl,--allow-shlib-undefined/"'
+prebuildopts += local_sed_makelib + ' ${BUILD}/make/makelib.linux && '
+prebuildopts += local_sed_makebin + ' ${BUILD}/make/makebin.linux && '
+prebuildopts += 'bash make.code && '
+prebuildopts += 'cd %(builddir)s && '
+
+#  we skip build because build_cmd won't work well with the way the build scripts are set up
+buildopts = '|| true'
+
+files_to_copy = ['bin', 'lib', 'include', 'tables', 'log']
+
+modextravars = {
+    'RSTPATH': '%(installdir)s',
+}
+
+sanity_check_paths = {
+    'files': [
+        'bin/make_fit',
+        'bin/map_grd',
+        'lib/libdmap.1.so',
+    ],
+    'dirs': ['bin', 'lib', 'tables'],
+}
+
+sanity_check_commands = ['make_fit --help']
+
+moduleclass = 'data'
