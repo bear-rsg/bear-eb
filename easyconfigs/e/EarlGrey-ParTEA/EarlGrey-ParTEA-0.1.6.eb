@@ -31,6 +31,7 @@ sanity_check_paths = {
     'dirs': ['bin'],
 }
 
+# Sanity command is needed as an additional post install step due to h5py dependency
 sanity_check_commands = [
      "cd $EBROOTEARLGREYMINPARTEA/share/RepeatMasker && \
      $EBROOTEARLGREYMINPARTEA/bin/perl ./configure \
