@@ -22,11 +22,23 @@ requirements = '%(namelower)s==%(version)s'
 
 postinstallcmds = [
      "ln -s %(installdir)s/share/RepeatMasker/*.pm %(installdir)s/bin",
+     "rm -r %(installdir)s/share/RepeatMasker/Libraries/famdb",
+     "ln -s /rds/bear-apps/apps-data/EarlGrey-ParTEA/famdb %(installdir)s/share/RepeatMasker/Libraries/",
 ]
 
 sanity_check_paths = {
     'files': ['bin/earlGreyParTEA'],
     'dirs': ['bin'],
 }
+
+# Sanity command is needed as an additional post install step due to h5py dependency
+sanity_check_commands = [
+     "cd $EBROOTEARLGREYMINPARTEA/share/RepeatMasker && \
+     $EBROOTEARLGREYMINPARTEA/bin/perl ./configure \
+      -libdir $EBROOTEARLGREYMINPARTEA/share/RepeatMasker/Libraries \
+      -trf_prgm $EBROOTEARLGREYMINPARTEA/bin/trf \
+      -rmblast_dir $EBROOTEARLGREYMINPARTEA/bin \
+      -hmmer_dir $EBROOTEARLGREYMINPARTEA/bin -default_search_engine rmblast",
+]
 
 moduleclass = 'bio'
