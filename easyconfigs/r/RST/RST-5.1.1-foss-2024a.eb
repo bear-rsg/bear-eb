@@ -80,9 +80,12 @@ prebuildopts += 'export COLOR_TABLE_PATH=${RSTPATH}/tables/base/key/ && '
 
 #  the actual build
 prebuildopts += 'cd ${BUILD}/script && bash make.build && '
-#  these make files are generated after the build and can't be patched beforehand.
+#  makefiles are generated after the build and can't be patched beforehand.
+#  replace the original -Bstatic in .so links
 prebuildopts += 'sed -i "s/ARC=-Bstatic/ARC=-Bdynamic/" ${BUILD}/make/makecfg.linux && '
+#  constant undeclared inter-library deps, worked-around with --allow-shlib-undefined
 local_sed_makelib = 'sed -i "s/LFLAGS += -shared/LFLAGS += -shared --allow-shlib-undefined/"'
+#  without explicit -lgcc_s,  __muldc3 symbol and others were missing
 local_sed_makebin = 'sed -i "s/LFLAGS += -L\\$(LIBPATH)/LFLAGS += -L\\$(LIBPATH) -lgcc_s -Wl,--allow-shlib-undefined/"'
 prebuildopts += local_sed_makelib + ' ${BUILD}/make/makelib.linux && '
 prebuildopts += local_sed_makebin + ' ${BUILD}/make/makebin.linux && '
