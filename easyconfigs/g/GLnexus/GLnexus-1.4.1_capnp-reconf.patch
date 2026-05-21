@@ -1,0 +1,12 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 50fdcfc..2ffba58 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -165,6 +165,7 @@ include_directories(${SPDLOG_INCLUDE_DIR})
+ ExternalProject_Add(capnp
+     URL https://capnproto.org/capnproto-c++-0.7.0.tar.gz
+     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/external
++    PATCH_COMMAND patch -p2 -i ${CMAKE_BINARY_DIR}/../GLnexus-1.4.1_gcc13-uint8.patch
+     CONFIGURE_COMMAND ./configure --prefix=${CMAKE_BINARY_DIR}/external
+     BUILD_IN_SOURCE 1
+     BUILD_COMMAND bash -c "make -j$(nproc) check"

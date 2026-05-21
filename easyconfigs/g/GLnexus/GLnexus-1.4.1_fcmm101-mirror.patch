@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 50fdcfc..df5b371 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -137,7 +137,7 @@ set(CTPL_INCLUDE_DIR ${source_dir})
+ include_directories(${CTPL_INCLUDE_DIR})
+ 
+ ExternalProject_Add(fcmm
+-    URL https://github.com/giacomodrago/fcmm/archive/v1.0.1.zip
++    URL https://gitee.com/mirrors/fcmm/repository/archive/v1.0.1.zip
+     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/external
+     CONFIGURE_COMMAND ""
+     BUILD_IN_SOURCE 1

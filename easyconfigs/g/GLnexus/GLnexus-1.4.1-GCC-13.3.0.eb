@@ -1,0 +1,54 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+name = 'GLnexus'
+version = '1.4.1'
+versionsuffix = ''
+
+homepage = "https://github.com/dnanexus-rnd/GLnexus"
+description = """Scalable gVCF merging and joint variant calling for population sequencing projects.
+ (GL, genotype likelihood).
+ GLnexus is a system for joint variant calling designed to scale up to the largest foreseeable human cohorts.
+ It combines scalable joint calling algorithms with a persistent database that grows efficiently
+  as additional participants are sequenced."""
+
+toolchain = {'name': 'GCC', 'version': '13.3.0'}
+
+github_account =  'dnanexus-rnd'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+
+builddependencies = [
+    ('Autotools', '20231222'),
+    ('CMake', '3.29.3'),
+    ('Ninja', '1.12.1'),
+    ('zstd', '1.5.6'),
+    ('snappy', '1.2.1'),
+    ('BCFtools', '1.21'),
+#    ('Valgrind', '3.24.0')
+]
+dependencies = [
+    ('jemalloc', '5.3.0'),
+]
+
+#preinstallopts = 'export CMAKE_GENERATOR=Ninja '
+
+preconfigopts = 'cp $EASYBUILD_SOURCEPATH/%(nameletterlower)s/%(name)s/%(name)s-%(version)s_gcc13-uint8.patch %(start_dir)s/../. && '
+#preinstallopts = ' %(name)s-%(version)s_gcc13-uint8.patch '
+#preinstallopts
+
+### capnp fails three tests --needs checking
+# [ TEST ] capnp/compiler/type-id-test.c++:30: type ID generation hasn't changed
+# [ PASS ] capnp/compiler/type-id-test.c++:30: type ID generation hasn't changed (4 μs)
+# 736 test(s) passed
+# 2 test(s) failed
+###
+
+patches = ['%(name)s-%(version)s_fcmm101-mirror.patch',
+           '%(name)s-%(version)s_capnp-reconf.patch']
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
