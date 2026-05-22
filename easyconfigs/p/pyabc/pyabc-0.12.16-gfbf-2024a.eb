@@ -9,6 +9,10 @@ description = """Distributed, likelihood-free ABC-SMC inference"""
 
 toolchain = {'name': 'gfbf', 'version': '2024a'}
 
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['bce549750abcabe74d16783a9db95116d0843955ab7372eb3d3ab484ae73a871']
+
 builddependencies = [('pytest-xdist', '3.6.1')]
 
 dependencies = [
@@ -51,9 +55,5 @@ _tests_to_ignore = ' --ignore='.join([
 ])
 
 runtest = 'pytest -n %%(parallel)s test --ignore=%s' % _tests_to_ignore
-
-source_urls = [PYPI_SOURCE]
-sources = [SOURCE_TAR_GZ]
-checksums = ['bce549750abcabe74d16783a9db95116d0843955ab7372eb3d3ab484ae73a871']
 
 moduleclass = 'numlib'

@@ -11,10 +11,10 @@ description = """Just Another Beautiful progress BAR (some might replace Beautif
 
 toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
-dependencies = [('Python', '3.12.3')]
-
 source_urls = [PYPI_SOURCE]
 sources = [SOURCE_TAR_GZ]
 checksums = ['522f29ca04e44a25fbc3ae0419f7d7bf96af1b9d131bbd8b58899224fc5eb0f5']
+
+dependencies = [('Python', '3.12.3')]
 
 moduleclass = 'lib'
