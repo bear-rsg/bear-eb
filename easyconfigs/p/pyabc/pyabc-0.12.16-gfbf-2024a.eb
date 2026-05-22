@@ -54,5 +54,6 @@ runtest = 'pytest -n %%(parallel)s test --ignore=%s' % _tests_to_ignore
 
 source_urls = [PYPI_SOURCE]
 sources = [SOURCE_TAR_GZ]
+checksums = ['bce549750abcabe74d16783a9db95116d0843955ab7372eb3d3ab484ae73a871']
 
 moduleclass = 'numlib'
