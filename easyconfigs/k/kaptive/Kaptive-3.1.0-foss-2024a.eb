@@ -1,0 +1,39 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'Kaptive'
+version = '3.1.0'
+
+homepage = "https://kaptive-web.erc.monash.edu/"
+description = """Kaptive is a tool for bacterial in silico serotyping. It takes one or more
+pre-assembled genomes and for each finds the best matching locus from a reference database."""
+citing = """Stanton TD, Hetland MAK, Löhr IH, Holt KE, Wyres KL. Fast and Accurate in silico
+ Antigen Typing with Kaptive 3 [Internet]. bioRxiv; 2025 [cited 2025 Feb 27]. p. 2025.02.05.636613.
+ Available from: https://www.biorxiv.org/content/10.1101/2025.02.05.636613v1
+"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('matplotlib', '3.9.2'),
+    ('Biopython', '1.84'),  # conflict: docs say 1.85 but reqs >1.83.
+]
+
+exts_list = [
+    ('dna-features-viewer', '3.1.5', {
+        'sources': ['dna_features_viewer-%(version)s.tar.gz'],
+        'preinstallopts': """sed -i 's/^license = "MIT"$/license = {text = "MIT"}/' pyproject.toml && """,
+        'modulename': 'dna_features_viewer',
+        'checksums': ['4740b018f7c45427054cb1403ff8b11209bcbe4ca9d5b77f28f14ed5ecb144c4'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/klebgenomics/Kaptive/archive'],
+        'sources': ['v%(version)s.tar.gz'],
+        #'modulename': '%(namelower)s',
+        'checksums': ['6e5d2bd8bcd7229be3c63b5f8b1d9077351a3f02f181a02b9a6f9af35587ccaf'],
+    }),
+]
+
+moduleclass = 'bio'
