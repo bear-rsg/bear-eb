@@ -31,7 +31,6 @@ exts_list = [
     (name, version, {
         'source_urls': ['https://github.com/klebgenomics/Kaptive/archive'],
         'sources': ['v%(version)s.tar.gz'],
-        #'modulename': '%(namelower)s',
         'checksums': ['6e5d2bd8bcd7229be3c63b5f8b1d9077351a3f02f181a02b9a6f9af35587ccaf'],
     }),
 ]
