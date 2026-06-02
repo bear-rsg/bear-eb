@@ -20,10 +20,10 @@ dependencies = [
     ('Biopython', '1.84'),  # conflict: docs say 1.85 but reqs >1.83.
     ('AMRFinderPlus', '4.0.23'),
     ('Mash', '2.3'),
-    ('Minimap2', '2.30'),
-    ('Kaptive','3.1.0'),
-    #('ectyper', ''), - https://github.com/phac-nml/ecoli_serotyping
-    #('EzClermont', ''), - https://github.com/nickp60/ezclermont
+    ('minimap2', '2.30'),
+    ('Kaptive', '3.1.0'),
+    ('ECTyper', '2.0.0'),
+    ('EzClermont', '1.0.0'),
 ]
 
 exts_list = [
@@ -39,5 +39,14 @@ exts_list = [
         'checksums': ['868fa066638372c065051284a7eb02e071e53cc762c50054faec47c4eca6861f'],
     }),
 ]
+
+sanity_check_paths = {
+    'files': ['bin/kleborate'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ['kleborate --version']
+
+sanity_pip_check = False  # it can't find mash - but it is installed!
 
 moduleclass = 'bio'
