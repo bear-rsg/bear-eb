@@ -1,0 +1,74 @@
+easyblock = 'PythonBundle'
+
+name = 'medaka'
+version = '2.2.1'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = 'https://github.com/nanoporetech/medaka'
+description = "medaka is a tool to create a consensus sequence from nanopore sequencing data."
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+toolchainopts = {'pic': True}
+
+builddependencies = [('Autotools', '20231222')]
+
+_minimap_ver = '2.29'
+dependencies = [
+    ('CUDA', '12.6.0', '', SYSTEM),
+    ('Python', '3.12.3'),
+    ('Python-bundle-PyPI', '2024.06'),
+    ('PyTorch', '2.7.1', versionsuffix),
+    ('Pysam', '0.22.1'),
+    ('SAMtools', '1.21'),
+    ('minimap2', _minimap_ver),
+    ('HTSlib', '1.21'),  # for tabix, bgzip
+    ('Racon', '1.5.0'),
+    ('edlib', '1.3.9.post1'),
+    ('pyspoa', '0.2.1'),
+    ('python-parasail', '1.3.4'),
+    ('ont-fast5-api', '4.1.3'),
+    ('WhatsHap', '2.6'),
+    ('intervaltree-python', '3.1.0'),
+    ('BCFtools', '1.21'),
+    ('libdeflate', '1.20'),
+    ('tqdm', '4.66.5'),
+    ('h5py', '3.12.1'),
+]
+
+use_pip = True
+sanity_pip_check = True
+
+local_sed_commands = [
+    "sed -i 's/torch.*/torch/g' requirements.txt pyproject.toml",
+    # ont-mappy/ont-parasail on PyPI are just pre-built wheels for mappy/(python-)parasail
+    "sed -i 's/ont-mappy/mappy/g;s/ont-parasail/parasail/g' requirements.txt",
+]
+
+exts_list = [
+    ('mappy', _minimap_ver, {
+    }),
+    ('wurlitzer', '3.1.1', {
+        'source_tmpl': SOURCE_PY3_WHL,
+    }),
+    # medaka >= 1.12.0 requires h5py ~=3.10.0
+    # ('h5py', '3.10.0', {
+    # }),
+    # ('pyabpoa', '1.5.3', {
+    # }),
+    (name, version, {
+        # Some requirements are too strict.
+        'preinstallopts': " && ".join(local_sed_commands) + " && WITHDEFLATE=1 ",
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/medaka', 'bin/medaka_consensus', 'bin/medaka_version_report'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "medaka --help",
+    "medaka_version_report",
+]
+
+moduleclass = 'bio'
