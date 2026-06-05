@@ -10,7 +10,7 @@ description = """This software and the accompanying database are designed to fin
 toolchain = {'name': 'gompi', 'version': '2024a'}
 
 sources = [{
-    'filename': 'amrfinderplus-%(version)s.tar.xz',
+    'filename': 'amrfinderplus-%(version)s.tar.gz',
     'git_config': {
         'url': 'https://github.com/ncbi',
         'repo_name': 'amr',
@@ -18,7 +18,7 @@ sources = [{
         'recursive': True,   # <-- pull submodules so stx/ has a Makefile
     },
 }]
-checksums = ['72e16cefb517429716be78034371105f58f7f7e5bf601a04f2841d11de1066bc']
+checksums = ['0b1a65fb6d28ec9381189631c4979abd88bc7a1605882f49c7a0a0107d9a0580']
 
 dependencies = [
     ('BLAST+', '2.16.0'),
