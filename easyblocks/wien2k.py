@@ -329,10 +329,9 @@ class EB_WIEN2k(EasyBlock):
                          elpa_dict['variant']),
                         (r"Please specify the name of your installed ELPA library \(e.g. elpa or elpa_openmp\):",
                          elpa_dict['variant']),
-                        (r"Q\s+to\s+quit[\s\n]+Selection:", 'Q'),  # added
                         (r"Which parameter to change\? \(q to quit\):", 'q'),  # added
                         (r"A\s+Compile all programs \(suggested\)[\s\n]+Q\s*Quit[\s\n]+Selection:", 'Q'),  # added
-                        (r".*(?P<number>[0-9]+)\t%s\n(.*\n)*" % elpa_dir, '%(number)s'),  # added
+                        (r".*(?P<number>[0-9]+)\t%s\n(.*\n)*" % elpa_dir, '%(number)s'),
                     ])
 
                 else:
