@@ -1,0 +1,45 @@
+easyblock = 'MakeCp'
+
+name = 'GotCloud'
+version = '1.17.5'
+
+homepage = 'https://github.com/statgen/gotcloud'
+description = """To handle the increasing volume of next generation sequencing and genotyping data, 
+ we created and developed software pipelines called Genomes on the Cloud (GotCloud)."""
+citing = """If you use GotCloud, please cite our publication:
+ Jun, Goo, et al. "An efficient and scalable analysis framework for variant extraction and refinement from
+ population scale DNA sequence data." Genome research (2015): gr-176552."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+toolchainopts = {'cstd': 'gnu++11', 'pic': True}
+
+source_urls = ['https://github.com/statgen/gotcloud/archive/']
+sources = ['%(namelower)s.%(version)s.tar.gz']
+checksums = ['680e47d19431c20377aaf4c0ad1263c3d912d768d5adce0d4f79138ffa55b069']
+
+#patches = ['%(name)s-%(version)s-fix-makefile.patch']
+
+dependencies = [
+    ('zlib', '1.3.1'),
+    ('Java', '21'),
+]
+
+maybe buildininstalldir = True
+cd gotcloud/src
+make
+edit gotcloud/src/Makefile
+edit glfFlex/pFile.h
+buildopts = 'CC="$CC" CFLAGS="$CFLAGS -Wno-error"' 
+patch https://github.com/statgen/gotcloud/blob/a3b344e81e4475ade7dce593ecaa68fd2c15e2f2/src/glfFlex/pFile.h
+l204 to if (gzgets(gf, line, MAX_LINE_SIZE) != NULL) {
+
+files_to_copy = [(['src'], 'src')]
+../bin, bin
+
+
+sanity_check_paths = {
+    'files': ['bin/'],
+    'dirs': [],
+}
+
+moduleclass = 'bio'
