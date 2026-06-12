@@ -7,7 +7,7 @@
 # $Id$
 #
 ##
-# Updated 06/26: University of Birmingham 
+# Updated 06/26: University of Birmingham
 # NB: issues with GCC13 - https://github.com/alekseyzimin/masurca/issues/359
 # Rolled in runCA fixes from /pull/18700 + fixed for linting
 
