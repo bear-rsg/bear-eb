@@ -14,6 +14,7 @@ toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
 
 source_urls = ['https://github.com/qupath/qupath/archive']
 sources = ['v%(version)s.tar.gz']
+checksums = ['5cd23875aa49a90d652726ddca0d06338c67084a005e453c39f0d7125623448e']
 
 builddependencies = [
     ('binutils', '2.42'),
