@@ -1,0 +1,18 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'loguru'
+version = '0.7.3'
+
+homepage = "https://github.com/Delgan/loguru"
+description = """Loguru is a library which aims to bring enjoyable logging in Python."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['19480589e77d47b8d85b2c827ad95d49bf31b0dcde16593892eb51dd18706eb6']
+
+dependencies = [('Python', '3.12.3')]
+
+moduleclass = 'tools'
