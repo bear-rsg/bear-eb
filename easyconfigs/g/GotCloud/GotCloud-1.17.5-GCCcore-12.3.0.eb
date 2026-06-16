@@ -1,0 +1,50 @@
+easyblock = 'MakeCp'
+
+name = 'GotCloud'
+version = '1.17.5'
+
+homepage = 'https://github.com/statgen/gotcloud'
+description = """To handle the increasing volume of next generation sequencing and genotyping data,
+ we created and developed software pipelines called Genomes on the Cloud (GotCloud)."""
+citing = """If you use GotCloud, please cite our publication:
+ Jun, Goo, et al. "An efficient and scalable analysis framework for variant extraction and refinement from
+ population scale DNA sequence data." Genome research (2015): gr-176552."""
+
+toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
+toolchainopts = {'cstd': 'gnu++98', 'pic': True}
+
+
+source_urls = ['https://github.com/statgen/gotcloud/archive/']
+sources = ['%(namelower)s.%(version)s.tar.gz']
+patches = [
+    '%(name)s-makefile.patch',
+    '%(name)s-glfFlex-pfile_fix.patch',
+]
+checksums = [
+    {'gotcloud.1.17.5.tar.gz': '680e47d19431c20377aaf4c0ad1263c3d912d768d5adce0d4f79138ffa55b069'},
+    {'GotCloud-makefile.patch': '45cda178999ae3c2270841dcae38b7929ea5d0bdeb89741443b994a3568d501a'},
+    {'GotCloud-glfFlex-pfile_fix.patch': '0623e6a4ec1d81c6065937f4db3d29e2a664dc0ff1fc421af413b7194b5dacec'},
+]
+
+dependencies = [
+    ('zlib', '1.2.13'),
+    ('Java', '17', '', SYSTEM),
+]
+
+start_dir = 'src'
+
+#  -Wno-error is vital
+buildopts = 'USER_WARNINGS="-Wno-error"'
+
+files_to_copy = [
+    (['bin', 'bamUtil', 'glfExtract', 'glfFlex', 'glfMerge', 'glfMultiples',
+      'infoCollector', 'invNorm', 'qplot', 'thunderVCF', 'vcfCooker',
+      'vcfPileup', 'verifyBamID', 'libStatGen', 'libVcf', 'libMach'], '.'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/vcfCooker'],
+    'dirs': ['bin'],
+}
+
+moduleclass = 'bio'
