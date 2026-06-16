@@ -11,35 +11,40 @@ citing = """If you use GotCloud, please cite our publication:
  population scale DNA sequence data." Genome research (2015): gr-176552."""
 
 toolchain = {'name': 'GCCcore', 'version': '12.3.0'}
-toolchainopts = {'cstd': 'gnu++11', 'pic': True}
+toolchainopts = {'cstd': 'gnu++98', 'pic': True}
+
 
 source_urls = ['https://github.com/statgen/gotcloud/archive/']
 sources = ['%(namelower)s.%(version)s.tar.gz']
-checksums = ['680e47d19431c20377aaf4c0ad1263c3d912d768d5adce0d4f79138ffa55b069']
-
-#patches = ['%(name)s-%(version)s-fix-makefile.patch']
-
-dependencies = [
-    ('zlib', '1.3.1'),
-    ('Java', '21'),
+patches = [
+    '%(name)s-makefile.patch',
+    '%(name)s-glfFlex-pfile_fix.patch',
+]
+checksums = [
+    {'gotcloud.1.17.5.tar.gz': '680e47d19431c20377aaf4c0ad1263c3d912d768d5adce0d4f79138ffa55b069'},
+    {'GotCloud-makefile.patch': '45cda178999ae3c2270841dcae38b7929ea5d0bdeb89741443b994a3568d501a'},
+    {'GotCloud-glfFlex-pfile_fix.patch': '0623e6a4ec1d81c6065937f4db3d29e2a664dc0ff1fc421af413b7194b5dacec'},
 ]
 
-maybe buildininstalldir = True
-cd gotcloud/src
-make
-edit gotcloud/src/Makefile
-edit glfFlex/pFile.h
-buildopts = 'CC="$CC" CFLAGS="$CFLAGS -Wno-error"' 
-patch https://github.com/statgen/gotcloud/blob/a3b344e81e4475ade7dce593ecaa68fd2c15e2f2/src/glfFlex/pFile.h
-l204 to if (gzgets(gf, line, MAX_LINE_SIZE) != NULL) {
+dependencies = [
+    ('zlib', '1.2.13'),
+    ('Java', '17', '', SYSTEM),
+]
 
-files_to_copy = [(['src'], 'src')]
-../bin, bin
+start_dir = 'src'
 
+#  -Wno-error is vital
+buildopts = 'USER_WARNINGS="-Wno-error"'
+
+files_to_copy = [
+    (['bin', 'bamUtil', 'glfExtract', 'glfFlex', 'glfMerge', 'glfMultiples',
+      'infoCollector', 'invNorm', 'qplot', 'thunderVCF', 'vcfCooker',
+      'vcfPileup', 'verifyBamID', 'libStatGen', 'libVcf', 'libMach'], '.'),
+]
 
 sanity_check_paths = {
-    'files': ['bin/'],
-    'dirs': [],
+    'files': ['bin/vcfCooker'],
+    'dirs': ['bin'],
 }
 
 moduleclass = 'bio'
