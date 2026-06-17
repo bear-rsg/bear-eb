@@ -1,0 +1,57 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'Monopogen'
+version = '1.6.0'
+
+homepage = "https://github.com/KChen-lab/Monopogen"
+description = """Monopogen is an analysis package for SNV calling from single-cell sequencing,
+ developed and maintained by Ken chen's lab in MDACC. Monopogen works on sequencing datasets
+ generated from single cell RNA 10x 5', 10x 3', single ATAC-seq technoloiges, scDNA-seq etc.
+ """
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/KChen-lab/Monopogen/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['c0783c3296aed13017d337f2d7b9c7e55d72ac7f0397e83ba0d1c14fe38cb91b']
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('Pysam', '0.22.1'),
+    ('Pillow', '10.4.0'),
+    ('Java', '17', '', SYSTEM),
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+]
+
+local_monopogen_scripts = [
+    'bamProcess.py', 'cellScan.py',
+    'Monopogen.py', 'monovar.py', 'somatic.py'
+]
+
+fix_python_shebang_for = ['lib/python%(pyshortver)s/site-packages/Monopogen.py']
+
+local_monopogen_path = "%(installdir)s/lib/python%(pyshortver)s/site-packages/Monopogen.py"
+postinstallcmds = [
+    "mkdir -p %(installdir)s/bin",
+    f"ln -s {local_monopogen_path} %(installdir)s/bin/Monopogen.py",
+    f"chmod +x {local_monopogen_path}"
+]
+
+sanity_check_paths = {
+    'files': ['lib/python%%(pyshortver)s/site-packages/%s' % f for f in local_monopogen_scripts],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = [
+    "Monopogen.py preProcess --help",
+    "Monopogen.py germline --help",
+    "Monopogen.py somatic --help",
+]
+
+#  no Python module to build.
+options = {'modulename': False}
+
+moduleclass = 'bio'
