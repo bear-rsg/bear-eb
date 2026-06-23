@@ -1,0 +1,59 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'Eelbrain'
+version = '0.41.2'
+
+homepage = "https://eelbrain.readthedocs.io/"
+description = """A Python toolkit that makes it straightforward to express cognitive hypotheses
+ as predictive computational models and evaluate those predictions against electrophysiological
+ brain responses."""
+citing = """Christian Brodbeck, Proloy Das, Teon L Brooks, Samir Reddigari, & jpkulasingham.
+ (2023). Eelbrain (0.39). Zenodo. https://doi.org/10.5281/zenodo.7951251"""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+builddependencies = [
+    ('Cython', '3.0.8'),
+]
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('Python-bundle-PyPI', '2023.06'),
+    ('SciPy-bundle', '2023.07'),
+    ('matplotlib', '3.7.2'),
+    ('MNE-Python', '1.7.1'),
+    ('NiBabel', '5.2.0'),
+    ('Pillow', '10.0.0'),
+    ('Seaborn', '0.13.2'),
+    ('Nilearn', '0.10.3'),
+    ('IPython', '8.14.0'),
+    ('tqdm', '4.66.1'),
+    ('wxPython', '4.2.1'),
+    ('mayavi', '4.8.3'),  # for pysurfer
+    ('imageio', '2.33.1'),  # for pysurfer
+]
+
+exts_list = [
+    ('ipdb', '0.13.13', {
+        'checksums': ['e3ac6018ef05126d442af680aad863006ec19d02290561ac88b8b1c0b0cfc726'],
+    }),
+    ('pysurfer', '0.11.2', {
+        'use_pip_extras': 'save_movie',
+        'checksums': ['277a72b0f8ae60c00f4d2702f33917cc6b225a36313fcead1aa119b45197d248'],
+    }),
+    ('colormath', '3.0.0', {
+        'checksums': ['3d4605af344527da0e4f9f504fad7ddbebda35322c566a6c72e28edb1ff31217'],
+    }),
+    ('%(namelower)s', version, {
+        'use_pip_extras': 'full',
+        'preinstallopts': (
+            "sed -i \"s/license = 'BSD-3-Clause'/"
+            "license = { text = 'BSD-3-Clause' }/' "
+            "pyproject.toml && "
+        ),
+        'checksums': ['eb22f189ce95ef93d1a0f41f3c09f7e7708439b5161882bdf60b463574632c03'],
+    }),
+]
+
+moduleclass = 'tools'
