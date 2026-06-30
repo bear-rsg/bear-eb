@@ -1,0 +1,49 @@
+easyblock = 'Conda'
+
+name = 'mmlong2-lite'
+version = '1.2.1'
+
+homepage = 'https://github.com/Serka-M/mmlong2-lite'
+description = """Lightweight workflow for microbial genome recovery using either Nanopore or PacBio HiFi reads.
+mmlong2-lite is the microbial genome production part of the mmlong2 pipeline."""
+
+github_account = 'Serka-M'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['d0ce7fe62d6253ac785b6ae543e755ca5c3f19612622557aead8daf935927743']
+
+toolchain = SYSTEM
+
+dependencies = [('Miniforge3', '24.1.2-0')]
+
+extract_sources = True
+
+channels = ['conda-forge', 'bioconda']
+requirements = 'snakemake=9.9.0 zenodo_get=1.6.1 pv=1.6.6 pigz=2.8 tar=1.35 rsync=3.4.1'
+
+
+postinstallcmds = [
+    'mkdir %(install_dir)s/%(name)s && cp -r %(build_dir)s/%(name)s-%(version)s %(install_dir)s/%(name)s/repo',
+    'mv %(install_dir)s/%(name)s/repo/src/* %(install_dir)s/bin',
+    'chmod +x %(install_dir)s/bin/%(name)s',
+    'sed -i "110s/exit 1/exit 0/" %(install_dir)s/bin/%(name)s',  # return 0 on --help
+#    '%(install_dir)s/bin/zenodo_get -r 17012181 -o %(install_dir)s/bin',
+#    'mkdir -p /dev/shm/$USER/container',
+#    '%(install_dir)s/bin/pv %(install_dir)s/bin/sing-mmlong2-lite*.tar.gz | %(install_dir)s/bin/pigz -dc - '
+#    '| tar xf - -C /dev/shm/$USER/container',
+#    'apptainer build --fix-perm  /dev/shm/$USER/container/sing-mmlong2-lite{.sif,}',
+    'cp -a $EASYBUILD_SOURCEPATH/%(nameletter)s/%(name)s/sing-%(name)s-v%(version)s.sif %(install_dir)s/bin/sing-%(name)s',
+#    'rsync -a /dev/shm/$USER/container/sing-mmlong2-lite.sif %(install_dir)s/bin/sing-mmlong2-lite',
+    'sed -i "168,173d" %(install_dir)s/bin/%(name)s'
+]
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s','bin/sing-mmlong2-lite'],
+    'dirs': ['include', 'lib'],
+}
+
+sanity_check_commands = [
+    "%(name)s -h",
+]
+
+moduleclass = 'bio'
