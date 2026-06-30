@@ -23,24 +23,3 @@ index d11f88b9..d70e37ac 100644
  
  namespace kj {
  namespace _ {  // private
-diff --git a/c++/src/kj/function-test.c++ b/c++/src/kj/function-test.c++
-index 16bdae74..f8af342d 100644
---- a/c++/src/kj/function-test.c++
-+++ b/c++/src/kj/function-test.c++
-@@ -131,7 +131,7 @@ int testFunctionParam(FunctionParam<int(char, bool)> func, char c, bool b) {
- int testFunctionParamRecursive(FunctionParam<int(char, bool)> func, char c, bool b) {
-   return testFunctionParam(func, c, b);
- }
--
-+/*
- KJ_TEST("FunctionParam") {
-   {
-     int i = 123;
-@@ -169,6 +169,6 @@ KJ_TEST("FunctionParam") {
-     KJ_EXPECT(result == 456);
-   }
- }
--
-+*/
- } // namespace
- } // namespace kj

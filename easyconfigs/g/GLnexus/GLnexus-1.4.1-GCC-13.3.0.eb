@@ -1,5 +1,5 @@
 # This easyconfig was created by the BEAR Software team at the University of Birmingham.
-easyblock = 'CMakeMake'
+easyblock = 'CMakeMakeCp'
 name = 'GLnexus'
 version = '1.4.1'
 versionsuffix = ''
@@ -15,40 +15,77 @@ toolchain = {'name': 'GCC', 'version': '13.3.0'}
 
 github_account =  'dnanexus-rnd'
 source_urls = [GITHUB_SOURCE]
-sources = ['v%(version)s.tar.gz']
+sources = [
+    'v%(version)s.tar.gz',
+#    '%(name)s-%(version)s_gcc13-uint8.patch',
+#    '%(name)s-%(version)s_test-skipfailed.patch',
+#    '%(name)s-%(version)s_rocksdb.patch',
+#    '%(name)s-%(version)s_capnp-reconf.patch',
+]
+patches = ['%(name)s-%(version)s_fcmm101-mirror.patch',
+           '%(name)s-%(version)s_capnp-reconf.patch']
+checksums = [
+    {'v1.4.1.tar.gz': '66ed32e2a3180b094c885a1564ce3b4ab3796e553082f83163e496532746ffd0'},
+    {'GLnexus-1.4.1_fcmm101-mirror.patch': '2d83426ba57235ee9196c05227cd125be16173d731f7424b01803df5176145e1'},
+    {'GLnexus-1.4.1_capnp-reconf.patch': 'a0db2fbdbcd8e15463453e40dceb401361c82d38a94264c6adcf0e52a309399a'},
+    {'GLnexus-1.4.1_gcc13-uint8.patch': 'f225498141e803a721cfa9c13d96e78fe35003103a61073c57fe7b6fbd246a8a'},
+    {'GLnexus-1.4.1_test-skipfailed.patch': '16069317d61743723e5c62f235f85c6576d4c1b0239e9a400755a380c0fd8ab1'},
+    {'GLnexus-1.4.1_rocksdb.patch': '549d90dc02212ebd3e4c951cd646a0c9b513041b22f0700f78da1d2204922455'},
+    {'GLnexus-1.4.1_capnp-reconf.patch': '36dd34a97d8fdac86fc0c5d98bdd7159497b405db4ff246ed633417a6b6414ac'},
+]
 
+maxparallel = 1
 builddependencies = [
     ('Autotools', '20231222'),
     ('CMake', '3.29.3'),
-    ('Ninja', '1.12.1'),
+#    ('Ninja', '1.12.1'),
     ('zstd', '1.5.6'),
     ('snappy', '1.2.1'),
     ('BCFtools', '1.21'),
+#    ('lz4', '1.9.4'),
 #    ('Valgrind', '3.24.0')
 ]
 dependencies = [
     ('jemalloc', '5.3.0'),
 ]
 
-#preinstallopts = 'export CMAKE_GENERATOR=Ninja '
+#preconfigopts = 'export CMAKE_GENERATOR=Ninja DEBUG_LEVEL=1 &&'
 
-preconfigopts = 'cp $EASYBUILD_SOURCEPATH/%(nameletterlower)s/%(name)s/%(name)s-%(version)s_gcc13-uint8.patch %(start_dir)s/../. && '
+preconfigopts = 'cp ${EASYBUILD_SOURCEPATH}%(nameletterlower)s/%(name)s/%(name)s-%(version)s'
+preconfigopts += '{_gcc13-uint8,_test-skipfailed,_rocksdb}.patch'
+preconfigopts += ' %(start_dir)s/../ && '
+preconfigopts += ' cp -r %(start_dir)s/capnp %(start_dir)s/../easybuild_obj/. && '
+configopts = ' -DEBBUILDGLNEXUS=%(start_dir)s/../easybuild_obj -DEBGLNEXUS=%(start_dir)s/../%(name)s-%(version)s '
 #preinstallopts = ' %(name)s-%(version)s_gcc13-uint8.patch '
-#preinstallopts
 
 ### capnp fails three tests --needs checking
+#kj/compat/tls-test.c++:487: failed: expected ::kj::_::hasSubstring(e->getDescription(), message); exception description didn't contain expected substring; e->getDescription() = TLS peer's certificate is not trusted; reason = hostname mismatch
+#stack: 62d960 62697c 626bb5 7f90179c34ef 7f90177439b7 7f90179c4801 7f90179c51fc 7f9017770696 7f90177439b7 7f901776cb08 7f90179c24cb 7f9016b4d864 47575d
+#kj/compat/tls-test.c++:487: failed: expected ::kj::_::hasSubstring(e->getDescription(), message); exception description didn't contain expected substring; e->getDescription() = TLS peer's certificate is not trusted; reason = self-signed certificate
+#stack: 62d960 62697c 626d16 7f90179c34ef 7f90177439b7 7f90179c4801 7f90179c51fc 7f9017770696 7f90177439b7 7f901776cb08 7f90179c24cb 7f9016b4d864 47575d
+#[ FAIL ] kj/compat/tls-test.c++:490: TLS certificate validation (44121 μs)
+
+#kj/filesystem-disk-test.c++:887: failed: expected file->stat().spaceUsed == meta.spaceUsed
+#stack: 4b5ac4 4f213e 7f90179c34ef 7f90177439b7 7f90179c4801 7f90179c51fc 7f9017770696 7f90177439b7 7f901776cb08 7f90179c24cb 7f9016b4d864 47575d                                                                    kj/filesystem-disk-test.c++:920: failed: expected file->stat().spaceUsed < meta.spaceUsed
+#stack: 4a6194 4f22f3 7f90179c34ef 7f90177439b7 7f90179c4801 7f90179c51fc 7f9017770696 7f90177439b7 7f901776cb08 7f90179c24cb 7f9016b4d864 47575d
+#[ FAIL ] kj/filesystem-disk-test.c++:833: DiskFile holes (440 μs)
+#kj/filesystem-disk-test.c++:887: failed: expected file->stat().spaceUsed == meta.spaceUsed
+#stack: 4b5b64 4f21f6 7f8ea94e64ef 7f8ea92689b7 7f8ea94e7801 7f8ea94e81fc 7f8ea9295696 7f8ea92689b7 7f8ea9291b08 7f8ea94e54cb 7f8ea8672864 4757fd
+#kj/filesystem-disk-test.c++:920: failed: expected file->stat().spaceUsed < meta.spaceUsed
+#stack: 4a6234 4f2433 7f8ea94e64ef 7f8ea92689b7 7f8ea94e7801 7f8ea94e81fc 7f8ea9295696 7f8ea92689b7 7f8ea9291b08 7f8ea94e54cb 7f8ea8672864 4757fd
+#[ FAIL ] kj/filesystem-disk-test.c++:833: DiskFile holes (434 μs)
+
+
 # [ TEST ] capnp/compiler/type-id-test.c++:30: type ID generation hasn't changed
 # [ PASS ] capnp/compiler/type-id-test.c++:30: type ID generation hasn't changed (4 μs)
 # 736 test(s) passed
 # 2 test(s) failed
 ###
-
-patches = ['%(name)s-%(version)s_fcmm101-mirror.patch',
-           '%(name)s-%(version)s_capnp-reconf.patch']
+files_to_copy = [(['%(namelower)s_cli'], 'bin')]
 
 sanity_check_paths = {
-    'files': [],
-    'dirs': [],
+    'files': ['bin/%(namelower)s_cli'],
+    'dirs': ['bin'],
 }
 
 moduleclass = 'bio'
