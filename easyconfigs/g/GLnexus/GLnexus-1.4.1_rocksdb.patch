@@ -1,0 +1,472 @@
+diff --git a/db/compaction/compaction_iteration_stats.h b/db/compaction/compaction_iteration_stats.h
+index cb7b82c65..226c22b1c 100644
+--- a/db/compaction/compaction_iteration_stats.h
++++ b/db/compaction/compaction_iteration_stats.h
+@@ -5,6 +5,8 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
++
+ #include "rocksdb/rocksdb_namespace.h"
+ 
+ struct CompactionIterationStats {
+diff --git a/db/db_impl/db_impl.cc b/db/db_impl/db_impl.cc
+index 9b4dc3005..e2bdfd75d 100644
+--- a/db/db_impl/db_impl.cc
++++ b/db/db_impl/db_impl.cc
+@@ -1247,11 +1247,11 @@ Status DBImpl::FlushWAL(bool sync) {
+       // future writes
+       IOStatusCheck(io_s);
+       // whether sync or not, we should abort the rest of function upon error
+-      return std::move(io_s);
++      return static_cast<Status>(io_s);
+     }
+     if (!sync) {
+       ROCKS_LOG_DEBUG(immutable_db_options_.info_log, "FlushWAL sync=false");
+-      return std::move(io_s);
++      return static_cast<Status>(io_s);
+     }
+   }
+   if (!sync) {
+@@ -1340,7 +1340,7 @@ Status DBImpl::SyncWAL() {
+ Status DBImpl::LockWAL() {
+   log_write_mutex_.Lock();
+   auto cur_log_writer = logs_.back().writer;
+-  auto status = cur_log_writer->WriteBuffer();
++  IOStatus status = cur_log_writer->WriteBuffer();
+   if (!status.ok()) {
+     ROCKS_LOG_ERROR(immutable_db_options_.info_log, "WAL flush error %s",
+                     status.ToString().c_str());
+@@ -1348,7 +1348,7 @@ Status DBImpl::LockWAL() {
+     // future writes
+     WriteStatusCheck(status);
+   }
+-  return std::move(status);
++  return static_cast<Status>(status);
+ }
+ 
+ Status DBImpl::UnlockWAL() {
+diff --git a/db_stress_tool/db_stress_table_properties_collector.h b/db_stress_tool/db_stress_table_properties_collector.h
+index 536d8a5f3..d1758cbb4 100644
+--- a/db_stress_tool/db_stress_table_properties_collector.h
++++ b/db_stress_tool/db_stress_table_properties_collector.h
+@@ -7,6 +7,7 @@
+ 
+ #include "rocksdb/table.h"
+ #include "util/gflags_compat.h"
++#include "util/random.h"
+ 
+ DECLARE_int32(mark_for_compaction_one_file_in);
+ 
+diff --git a/include/rocksdb/functor_wrapper.h b/include/rocksdb/functor_wrapper.h
+index c5f7414b1..17b021bf7 100644
+--- a/include/rocksdb/functor_wrapper.h
++++ b/include/rocksdb/functor_wrapper.h
+@@ -5,6 +5,7 @@
+ 
+ #pragma once
+ 
++#include <functional>
+ #include <memory>
+ #include <utility>
+ 
+diff --git a/include/rocksdb/thread_status.h b/include/rocksdb/thread_status.h
+index 6b2f5c885..bb2de6c7b 100644
+--- a/include/rocksdb/thread_status.h
++++ b/include/rocksdb/thread_status.h
+@@ -13,13 +13,15 @@
+ 
+ #pragma once
+ 
+-#include <stdint.h>
+ #include <cstddef>
++#include <cstdint>
+ #include <map>
+ #include <string>
+ #include <utility>
+ #include <vector>
+ 
++#include "rocksdb/rocksdb_namespace.h"
++
+ #if !defined(ROCKSDB_LITE) && !defined(NROCKSDB_THREAD_STATUS) && \
+     defined(ROCKSDB_SUPPORT_THREAD_LOCAL)
+ #define ROCKSDB_USING_THREAD_STATUS
+diff --git a/include/rocksdb/universal_compaction.h b/include/rocksdb/universal_compaction.h
+index f4df5c000..9a09d8f4e 100644
+--- a/include/rocksdb/universal_compaction.h
++++ b/include/rocksdb/universal_compaction.h
+@@ -5,10 +5,12 @@
+ 
+ #pragma once
+ 
+-#include <stdint.h>
+ #include <climits>
++#include <cstdint>
+ #include <vector>
+ 
++#include "rocksdb/rocksdb_namespace.h"
++
+ namespace ROCKSDB_NAMESPACE {
+ 
+ //
+diff --git a/include/rocksdb/utilities/ldb_cmd_execute_result.h b/include/rocksdb/utilities/ldb_cmd_execute_result.h
+index c837b47f7..57bac3346 100644
+--- a/include/rocksdb/utilities/ldb_cmd_execute_result.h
++++ b/include/rocksdb/utilities/ldb_cmd_execute_result.h
+@@ -5,6 +5,10 @@
+ //
+ #pragma once
+ 
++#include <string>
++
++#include "rocksdb/rocksdb_namespace.h"
++
+ #ifdef FAILED
+ #undef FAILED
+ #endif
+diff --git a/memory/memory_usage.h b/memory/memory_usage.h
+index 15e8b87cd..4c73cd40b 100644
+--- a/memory/memory_usage.h
++++ b/memory/memory_usage.h
+@@ -5,8 +5,11 @@
+ 
+ #pragma once
+ 
++#include <cstddef>
+ #include <unordered_map>
+ 
++#include "rocksdb/rocksdb_namespace.h"
++
+ namespace ROCKSDB_NAMESPACE {
+ 
+ // Helper methods to estimate memroy usage by std containers.
+diff --git a/table/block_based/block_type.h b/table/block_based/block_type.h
+index b2a913746..0ca899f20 100644
+--- a/table/block_based/block_type.h
++++ b/table/block_based/block_type.h
+@@ -7,6 +7,8 @@
+ 
+ #include <cstdint>
+ 
++#include "rocksdb/rocksdb_namespace.h"
++
+ namespace ROCKSDB_NAMESPACE {
+ 
+ // Represents the types of blocks used in the block based table format.
+diff --git a/table/block_based/data_block_hash_index.h b/table/block_based/data_block_hash_index.h
+index f356395f3..321522175 100644
+--- a/table/block_based/data_block_hash_index.h
++++ b/table/block_based/data_block_hash_index.h
+@@ -5,6 +5,7 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
+ #include <string>
+ #include <vector>
+ 
+diff --git a/table/plain/plain_table_builder.cc b/table/plain/plain_table_builder.cc
+index 3a1f0a41b..11eae7b7d 100644
+--- a/table/plain/plain_table_builder.cc
++++ b/table/plain/plain_table_builder.cc
+@@ -273,7 +273,7 @@ Status PlainTableBuilder::Finish() {
+   IOStatus s = WriteBlock(property_block_builder.Finish(), file_, &offset_,
+                           &property_block_handle);
+   if (!s.ok()) {
+-    return std::move(s);
++    return static_cast<Status>(s);
+   }
+   meta_index_builer.Add(kPropertiesBlock, property_block_handle);
+ 
+diff --git a/table/table_properties_internal.h b/table/table_properties_internal.h
+index a7a92e3e1..171192434 100644
+--- a/table/table_properties_internal.h
++++ b/table/table_properties_internal.h
+@@ -6,7 +6,7 @@
+ #pragma once
+ 
+ #include "rocksdb/status.h"
+-#include "rocksdb/iterator.h"
++#include "table/internal_iterator.h"
+ 
+ namespace ROCKSDB_NAMESPACE {
+ 
+diff --git a/table/table_reader_caller.h b/table/table_reader_caller.h
+index 7a57b5e98..10ec08130 100644
+--- a/table/table_reader_caller.h
++++ b/table/table_reader_caller.h
+@@ -5,6 +5,8 @@
+ 
+ #pragma once
+ 
++#include "rocksdb/rocksdb_namespace.h"
++
+ namespace ROCKSDB_NAMESPACE {
+ // A list of callers for a table reader. It is used to trace the caller that
+ // accesses on a block. This is only used for block cache tracing and analysis.
+diff --git a/util/cast_util.h b/util/cast_util.h
+index d84516fba..c7f515eeb 100644
+--- a/util/cast_util.h
++++ b/util/cast_util.h
+@@ -4,6 +4,9 @@
+ //  (found in the LICENSE.Apache file in the root directory).
+ 
+ #pragma once
++
++#include "rocksdb/rocksdb_namespace.h"
++
+ namespace ROCKSDB_NAMESPACE {
+ // The helper function to assert the move from dynamic_cast<> to
+ // static_cast<> is correct. This function is to deal with legacy code.
+diff --git a/util/channel.h b/util/channel.h
+index 705fa2d28..19b956297 100644
+--- a/util/channel.h
++++ b/util/channel.h
+@@ -10,6 +10,8 @@
+ #include <queue>
+ #include <utility>
+ 
++#include "rocksdb/rocksdb_namespace.h"
++
+ namespace ROCKSDB_NAMESPACE {
+ 
+ template <class T>
+diff --git a/util/crc32c_ppc.h b/util/crc32c_ppc.h
+index 15ed6fae5..f0b0b66d5 100644
+--- a/util/crc32c_ppc.h
++++ b/util/crc32c_ppc.h
+@@ -7,6 +7,9 @@
+ 
+ #pragma once
+ 
++#include <cstddef>
++#include <cstdint>
++
+ #ifdef __cplusplus
+ extern "C" {
+ #endif
+diff --git a/util/defer.h b/util/defer.h
+index cb0b42a36..5c2d453fa 100644
+--- a/util/defer.h
++++ b/util/defer.h
+@@ -7,6 +7,8 @@
+ 
+ #include <functional>
+ 
++#include "rocksdb/rocksdb_namespace.h"
++
+ namespace ROCKSDB_NAMESPACE {
+ 
+ // Defers the execution of the provided function until the Defer
+diff --git a/util/duplicate_detector.h b/util/duplicate_detector.h
+index 72920ca3c..ce1f351db 100644
+--- a/util/duplicate_detector.h
++++ b/util/duplicate_detector.h
+@@ -5,8 +5,7 @@
+ 
+ #pragma once
+ 
+-#include <cinttypes>
+-
++#include "db/db_impl/db_impl.h"
+ #include "util/set_comparator.h"
+ 
+ namespace ROCKSDB_NAMESPACE {
+diff --git a/util/fastrange.h b/util/fastrange.h
+index 871fa830e..a70a980f6 100644
+--- a/util/fastrange.h
++++ b/util/fastrange.h
+@@ -22,6 +22,8 @@
+ #include <cstdint>
+ #include <type_traits>
+ 
++#include "rocksdb/rocksdb_namespace.h"
++
+ #ifdef TEST_UINT128_COMPAT
+ #undef HAVE_UINT128_EXTENSION
+ #endif
+diff --git a/util/math.h b/util/math.h
+index 795efb018..dad539c41 100644
+--- a/util/math.h
++++ b/util/math.h
+@@ -13,6 +13,8 @@
+ #include <cstdint>
+ #include <type_traits>
+ 
++#include "rocksdb/rocksdb_namespace.h"
++
+ namespace ROCKSDB_NAMESPACE {
+ 
+ // Fast implementation of floor(log2(v)). Undefined for 0 or negative
+diff --git a/util/set_comparator.h b/util/set_comparator.h
+index 9b5cfc1dc..e0e64436a 100644
+--- a/util/set_comparator.h
++++ b/util/set_comparator.h
+@@ -5,6 +5,8 @@
+ 
+ #pragma once
+ 
++#include "rocksdb/comparator.h"
++
+ namespace ROCKSDB_NAMESPACE {
+ // A comparator to be used in std::set
+ struct SetComparator {
+diff --git a/util/string_util.h b/util/string_util.h
+index 195ae8b0b..9fa47f8b9 100644
+--- a/util/string_util.h
++++ b/util/string_util.h
+@@ -6,6 +6,7 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
+ #include <sstream>
+ #include <string>
+ #include <unordered_map>
+diff --git a/util/work_queue.h b/util/work_queue.h
+index f120ca77c..94ece85d9 100644
+--- a/util/work_queue.h
++++ b/util/work_queue.h
+@@ -21,6 +21,8 @@
+ #include <mutex>
+ #include <queue>
+ 
++#include "rocksdb/rocksdb_namespace.h"
++
+ namespace ROCKSDB_NAMESPACE {
+ 
+ /// Unbounded thread-safe work queue.
+diff --git a/utilities/blob_db/blob_db_gc_stats.h b/utilities/blob_db/blob_db_gc_stats.h
+index 1e6e4a25d..fea6b0032 100644
+--- a/utilities/blob_db/blob_db_gc_stats.h
++++ b/utilities/blob_db/blob_db_gc_stats.h
+@@ -5,6 +5,10 @@
+ //
+ #pragma once
+ 
++#include <cstdint>
++
++#include "rocksdb/rocksdb_namespace.h"
++
+ #ifndef ROCKSDB_LITE
+ 
+ namespace ROCKSDB_NAMESPACE {
+diff --git a/utilities/cassandra/serialize.h b/utilities/cassandra/serialize.h
+index cd980ade0..8f50a02dd 100644
+--- a/utilities/cassandra/serialize.h
++++ b/utilities/cassandra/serialize.h
+@@ -10,6 +10,11 @@
+ 
+ #pragma once
+ 
++#include <cstdint>
++#include <string>
++
++#include "rocksdb/rocksdb_namespace.h"
++
+ namespace ROCKSDB_NAMESPACE {
+ namespace cassandra {
+ namespace {
+diff --git a/utilities/trace/file_trace_reader_writer.cc b/utilities/trace/file_trace_reader_writer.cc
+index d553e2434..7a27960ed 100644
+--- a/utilities/trace/file_trace_reader_writer.cc
++++ b/utilities/trace/file_trace_reader_writer.cc
+@@ -76,6 +76,10 @@ Status FileTraceReader::Read(std::string* data) {
+   return s;
+ }
+ 
++FileTraceWriter::FileTraceWriter(
++    std::unique_ptr<WritableFileWriter>&& file_writer)
++    : file_writer_(std::move(file_writer)) {}
++
+ FileTraceWriter::~FileTraceWriter() { Close().PermitUncheckedError(); }
+ 
+ Status FileTraceWriter::Close() {
+diff --git a/utilities/trace/file_trace_reader_writer.h b/utilities/trace/file_trace_reader_writer.h
+index a9eafa5af..706cd418c 100644
+--- a/utilities/trace/file_trace_reader_writer.h
++++ b/utilities/trace/file_trace_reader_writer.h
+@@ -33,8 +33,7 @@ class FileTraceReader : public TraceReader {
+ // FileTraceWriter allows writing RocksDB traces to a file.
+ class FileTraceWriter : public TraceWriter {
+  public:
+-  explicit FileTraceWriter(std::unique_ptr<WritableFileWriter>&& file_writer)
+-      : file_writer_(std::move(file_writer)) {}
++  explicit FileTraceWriter(std::unique_ptr<WritableFileWriter>&& file_writer);
+   ~FileTraceWriter();
+ 
+   virtual Status Write(const Slice& data) override;
+diff --git a/include/rocksdb/utilities/checkpoint.h b/include/rocksdb/utilities/checkpoint.h
+index df2a74403..47e4820db 100644
+--- a/include/rocksdb/utilities/checkpoint.h
++++ b/include/rocksdb/utilities/checkpoint.h
+@@ -8,6 +8,7 @@
+ #pragma once
+ #ifndef ROCKSDB_LITE
+ 
++#include <cstdint>
+ #include <string>
+ #include <vector>
+ #include "rocksdb/status.h"
+commit daf7e77a6b432fac116d5842df2eb34f37c8ec1e
+Author: Jay Zhuang <zjay@fb.com>
+Date:   Fri Jul 23 15:54:29 2021 -0700
+
+    Disable DistributedMutex test by default (#8584)
+    
+    Summary:
+    DistributedMutex hasn't been used in the code base and enabling
+    `USE_FOLLY_DISTRIBUTED_MUTEX` only runs the mutex tests from third-party
+    lib. So disabling it for now.
+    The implementation may also out of date, should re-sync with folly before
+    using.
+    
+    Pull Request resolved: https://github.com/facebook/rocksdb/pull/8584
+    
+    Test Plan: CI
+    
+    Reviewed By: ajkr
+    
+    Differential Revision: D29888960
+    
+    Pulled By: jay-zhuang
+    
+    fbshipit-source-id: 3e75f73386c6ed03efb96a1400258d602a724f17
+
+diff --git a/build_tools/build_detect_platform b/build_tools/build_detect_platform
+index 28b21e5a6..1d5138dbf 100755
+--- a/build_tools/build_detect_platform
++++ b/build_tools/build_detect_platform
+@@ -189,9 +189,6 @@ EOF
+                 COMMON_FLAGS="$COMMON_FLAGS -DROCKSDB_IOURING_PRESENT"
+             fi
+         fi
+-        if test -z "$USE_FOLLY_DISTRIBUTED_MUTEX"; then
+-          USE_FOLLY_DISTRIBUTED_MUTEX=1
+-        fi
+         # PORT_FILES=port/linux/linux_specific.cc
+         ;;
+     SunOS)
+diff --git a/build_tools/fbcode_config_platform007.sh b/build_tools/fbcode_config_platform007.sh
+index f7de7fcca..9c8e382e6 100644
+--- a/build_tools/fbcode_config_platform007.sh
++++ b/build_tools/fbcode_config_platform007.sh
+@@ -167,6 +167,4 @@ VALGRIND_VER="$VALGRIND_BASE/bin/"
+ LUA_PATH=
+ LUA_LIB=
+ 
+-USE_FOLLY_DISTRIBUTED_MUTEX=1
+-
+ export CC CXX AR CFLAGS CXXFLAGS EXEC_LDFLAGS EXEC_LDFLAGS_SHARED VALGRIND_VER JEMALLOC_LIB JEMALLOC_INCLUDE CLANG_ANALYZER CLANG_SCAN_BUILD LUA_PATH LUA_LIB
+diff --git a/build_tools/fbcode_config_platform009.sh b/build_tools/fbcode_config_platform009.sh
+index 82c85b09c..9308274aa 100644
+--- a/build_tools/fbcode_config_platform009.sh
++++ b/build_tools/fbcode_config_platform009.sh
+@@ -168,6 +168,4 @@ VALGRIND_VER="$VALGRIND_BASE/bin/"
+ LUA_PATH=
+ LUA_LIB=
+ 
+-USE_FOLLY_DISTRIBUTED_MUTEX=1
+-
+ export CC CXX AR CFLAGS CXXFLAGS EXEC_LDFLAGS EXEC_LDFLAGS_SHARED VALGRIND_VER JEMALLOC_LIB JEMALLOC_INCLUDE CLANG_ANALYZER CLANG_SCAN_BUILD LUA_PATH LUA_LIB
