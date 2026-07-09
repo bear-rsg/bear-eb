@@ -32,6 +32,7 @@ dependencies = [
     ('GDAL', '3.11.3'),  # for sf
     ('MPFR', '4.2.2'),  # for Rmpfr
     ('PostgreSQL', '17.5'),  # for RPostgreSQL
+    ('Arrow', '22.0.0'),  # arrow-R x.y.z[.N] only works with Arrow x.y.z
 ]
 
 # Some R extensions (mclust, quantreg, waveslim for example) require the math library (-lm) to avoid undefined symbols.
@@ -1921,7 +1922,9 @@ exts_list = [
     }),
     ('arrow', '24.0.0', {
         'checksums': ['632ba889554539d684b2f036ba1fa0f1c8c7994fdbcd5b5135e5717ad0d973e7'],
-    }),
+    ('arrow', '22.0.0', {
+        'checksums': ['6a864f5c8b2c77394de2ea8f9b8705b8163f0de00bcbfd1b4f393106fd8ea8ab'],
+        "preinstallopts": "export LIBARROW_BUILD=false && ",
     ('feather', '0.4.0', {
         'checksums': ['427d80378b5acbb2aa096d9c4b5d61a1acb0dae38b8df29a2adde06fe13bee7f'],
     }),
