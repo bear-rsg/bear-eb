@@ -38,7 +38,7 @@ local_monopogen_path = "%(installdir)s/lib/python%(pyshortver)s/site-packages/Mo
 postinstallcmds = [
     "mkdir -p %(installdir)s/bin",
     f"ln -s {local_monopogen_path} %(installdir)s/bin/Monopogen.py",
-    f"chmod +x {local_monopogen_path}"
+    f"chmod +x {local_monopogen_path}",
     f"""sed -i "s|'--app-path', required=True|'--app-path', default='%(installdir)s/apps'|" {local_monopogen_path}""",
     "cp -r apps %(installdir)s/.",
 ]
