@@ -24,20 +24,23 @@ requirements = 'snakemake=9.9.0 zenodo_get=1.6.1 pv=1.6.6 pigz=2.8 tar=1.35 rsyn
 _zenodo_apptainer_src = '17012181'
 local_checksum = '4c7efcca37c5f5ffb1f1c227427d70a44972fe8eb50860e5e11b9b9f5af71eb0'
 _apptainer_build_prefix = '/scratch/$USER/sing'
+_installed_bin = '%(install_dir)s/bin'
 
 postinstallcmds = [
     'mkdir %(install_dir)s/%(name)s && cp -r %(build_dir)s/%(name)s-%(version)s %(install_dir)s/%(name)s/repo',
-    'mv %(install_dir)s/%(name)s/repo/src/* %(install_dir)s/bin',
-    'chmod +x %(install_dir)s/bin/%(name)s',
-    'sed -i "110s/exit 1/exit 0/" %(install_dir)s/bin/%(name)s',  # return 0 on --help
-    'mkdir -p %s' % _apptainer_build_prefix,
-    '%%(install_dir)s/bin/zenodo_get -r %s -o %s' % (_zenodo_apptainer_src, _apptainer_build_prefix),
-    'echo %s %%(install_dir)s/bin/sing-%%(name)s*.tar.gz | sha256sum -c ' % local_checksum,
-    '%(install_dir)s/bin/pv %(install_dir)s/bin/sing-%(name)s-v*.tar.gz | %(install_dir)s/bin/pigz -dc - '
-    f'| tar xf - -C {_apptainer_build_prefix}',
-    'apptainer build --fix-perm  %s/sing-%%(name)s-v*{.sif,}' % _apptainer_build_prefix,
-    'cp -a %s/sing-%%(name)s-v*.sif %%(install_dir)s/bin/sing-%%(name)s' % _apptainer_build_prefix,
-    'sed -i "168,173d" %(install_dir)s/bin/%(name)s'
+    f'mv %(install_dir)s/%(name)s/repo/src/* {_installed_bin}',
+    f'chmod +x {_installed_bin}/%(name)s',
+    f'sed -i "110s/exit 1/exit 0/" {_installed_bin}/%(name)s',  # return 0 on --help
+    f'mkdir -p {_apptainer_build_prefix}',
+    f'export EBLOCALMMLONG2SING={_apptainer_build_prefix}/sing-%(name)s-v%(version_major_minor)s.[0-9]+.tar.gz',
+    f'[[ -e $EBLOCALMMLONG2SING ]] || '
+    f'{_installed_bin}/zenodo_get -r {_zenodo_apptainer_src} -o {_apptainer_build_prefix}',
+    f'echo {local_checksum} $EBLOCALMMLONG2SING | sha256sum -c ',
+    f'{_installed_bin}/pv $EBLOCALMMLONG2SING | {_installed_bin}/pigz -dc - | tar xf - -C {_apptainer_build_prefix}',
+    'apptainer build --fix-perm  ${EBLOCALMMLONG2SING%.tar.gz}{.sif,}',
+    'cp -a ${EBLOCALMMLONG2SING%.tar.gz}.sif '
+    f'{_installed_bin}/sing-%(name)s',
+    f'sed -i "168,173d" {_installed_bin}/%(name)s'
 ]
 
 sanity_check_paths = {
