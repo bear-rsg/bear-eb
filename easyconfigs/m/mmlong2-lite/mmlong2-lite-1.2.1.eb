@@ -32,14 +32,14 @@ postinstallcmds = [
     f'chmod +x {_installed_bin}/%(name)s',
     f'sed -i "110s/exit 1/exit 0/" {_installed_bin}/%(name)s',  # return 0 on --help
     f'mkdir -p {_apptainer_build_prefix}',
-    f'export EBLOCALMMLONG2SING={_apptainer_build_prefix}/sing-%(name)s-v%(version_major_minor)s.[0-9]+.tar.gz',
+    f'export EBLOCALMMLONG2SING="{_apptainer_build_prefix}/sing-%(name)s-v%(version_major_minor)s.[0-9].tar.gz"',
     f'[[ -e $EBLOCALMMLONG2SING ]] || '
     f'{_installed_bin}/zenodo_get -r {_zenodo_apptainer_src} -o {_apptainer_build_prefix}',
-    f'echo {local_checksum} $EBLOCALMMLONG2SING | sha256sum -c ',
+    'EBLOCALMMLONG2SING=( $EBLOCALMMLONG2SING )',
+    f'echo {local_checksum} "$EBLOCALMMLONG2SING" | sha256sum -c ',
     f'{_installed_bin}/pv $EBLOCALMMLONG2SING | {_installed_bin}/pigz -dc - | tar xf - -C {_apptainer_build_prefix}',
     'apptainer build --fix-perm  ${EBLOCALMMLONG2SING%.tar.gz}{.sif,}',
-    'cp -a ${EBLOCALMMLONG2SING%.tar.gz}.sif '
-    f'{_installed_bin}/sing-%(name)s',
+    'cp -a ${EBLOCALMMLONG2SING%.tar.gz}.sif {_installed_bin}/sing-%(name)s',
     f'sed -i "168,173d" {_installed_bin}/%(name)s'
 ]
 
