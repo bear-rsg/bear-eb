@@ -21,19 +21,22 @@ extract_sources = True
 channels = ['conda-forge', 'bioconda']
 requirements = 'snakemake=9.9.0 zenodo_get=1.6.1 pv=1.6.6 pigz=2.8 tar=1.35 rsync=3.4.1'
 
+_zenodo_apptainer_src = '17012181'
+local_checksum = '4c7efcca37c5f5ffb1f1c227427d70a44972fe8eb50860e5e11b9b9f5af71eb0'
+_apptainer_build_prefix = '/scratch/$USER/sing'
 
 postinstallcmds = [
     'mkdir %(install_dir)s/%(name)s && cp -r %(build_dir)s/%(name)s-%(version)s %(install_dir)s/%(name)s/repo',
     'mv %(install_dir)s/%(name)s/repo/src/* %(install_dir)s/bin',
     'chmod +x %(install_dir)s/bin/%(name)s',
     'sed -i "110s/exit 1/exit 0/" %(install_dir)s/bin/%(name)s',  # return 0 on --help
-#    '%(install_dir)s/bin/zenodo_get -r 17012181 -o %(install_dir)s/bin',
-#    'mkdir -p /dev/shm/$USER/container',
-#    '%(install_dir)s/bin/pv %(install_dir)s/bin/sing-mmlong2-lite*.tar.gz | %(install_dir)s/bin/pigz -dc - '
-#    '| tar xf - -C /dev/shm/$USER/container',
-#    'apptainer build --fix-perm  /dev/shm/$USER/container/sing-mmlong2-lite{.sif,}',
-    'cp -a $EASYBUILD_SOURCEPATH/%(nameletter)s/%(name)s/sing-%(name)s-v%(version)s.sif %(install_dir)s/bin/sing-%(name)s',
-#    'rsync -a /dev/shm/$USER/container/sing-mmlong2-lite.sif %(install_dir)s/bin/sing-mmlong2-lite',
+    'mkdir -p %s' % _apptainer_build_prefix,
+    '%%(install_dir)s/bin/zenodo_get -r %s -o %s' % (_zenodo_apptainer_src, _apptainer_build_prefix),
+    'echo %s %%(install_dir)s/bin/sing-%%(name)s*.tar.gz | sha256sum -c ' % local_checksum ,
+    '%(install_dir)s/bin/pv %(install_dir)s/bin/sing-%(name)s-v*.tar.gz | %(install_dir)s/bin/pigz -dc - '
+    f'| tar xf - -C {_apptainer_build_prefix}',
+    'apptainer build --fix-perm  %s/sing-%%(name)s-v*{.sif,}' % _apptainer_build_prefix,
+    'cp -a %s/sing-%%(name)s-v*.sif %%(install_dir)s/bin/sing-%%(name)s' % _apptainer_build_prefix,
     'sed -i "168,173d" %(install_dir)s/bin/%(name)s'
 ]
 
