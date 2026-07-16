@@ -32,7 +32,7 @@ postinstallcmds = [
     'sed -i "110s/exit 1/exit 0/" %(install_dir)s/bin/%(name)s',  # return 0 on --help
     'mkdir -p %s' % _apptainer_build_prefix,
     '%%(install_dir)s/bin/zenodo_get -r %s -o %s' % (_zenodo_apptainer_src, _apptainer_build_prefix),
-    'echo %s %%(install_dir)s/bin/sing-%%(name)s*.tar.gz | sha256sum -c ' % local_checksum ,
+    'echo %s %%(install_dir)s/bin/sing-%%(name)s*.tar.gz | sha256sum -c ' % local_checksum,
     '%(install_dir)s/bin/pv %(install_dir)s/bin/sing-%(name)s-v*.tar.gz | %(install_dir)s/bin/pigz -dc - '
     f'| tar xf - -C {_apptainer_build_prefix}',
     'apptainer build --fix-perm  %s/sing-%%(name)s-v*{.sif,}' % _apptainer_build_prefix,
@@ -41,7 +41,7 @@ postinstallcmds = [
 ]
 
 sanity_check_paths = {
-    'files': ['bin/%(name)s','bin/sing-mmlong2-lite'],
+    'files': ['bin/%(name)s', 'bin/sing-%(name)s'],
     'dirs': ['include', 'lib'],
 }
 
