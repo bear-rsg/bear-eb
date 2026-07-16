@@ -1,0 +1,52 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'Kleborate'
+version = '3.2.4'
+
+homepage = "https://kleborate.readthedocs.io/"
+description = """A genomic surveillance framework and genotyping tool for Klebsiella pneumoniae
+ and its related species complex"""
+citing = """Lam, MMC. et al. A genomic surveillance framework and genotyping tool for Klebsiella pneumoniae
+ and its related species complex, Nature Communications (2021).
+ https://www.nature.com/articles/s41467-021-24448-3
+"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('Biopython', '1.84'),  # conflict: docs say 1.85 but reqs >1.83.
+    ('AMRFinderPlus', '4.0.23'),
+    ('Mash', '2.3'),
+    ('minimap2', '2.30'),
+    ('Kaptive', '3.1.0'),
+    ('ECTyper', '2.0.0'),
+    ('EzClermont', '1.0.0'),
+]
+
+exts_list = [
+    ('dna-features-viewer', '3.1.5', {
+        'sources': ['dna_features_viewer-%(version)s.tar.gz'],
+        'preinstallopts': """sed -i 's/^license = "MIT"$/license = {text = "MIT"}/' pyproject.toml && """,
+        'modulename': 'dna_features_viewer',
+        'checksums': ['4740b018f7c45427054cb1403ff8b11209bcbe4ca9d5b77f28f14ed5ecb144c4'],
+    }),
+    (name, version, {
+        'source_urls': ['https://github.com/klebgenomics/Kleborate/archive'],
+        'sources': ['v%(version)s.tar.gz'],
+        'checksums': ['868fa066638372c065051284a7eb02e071e53cc762c50054faec47c4eca6861f'],
+    }),
+]
+
+sanity_check_paths = {
+    'files': ['bin/kleborate'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ['kleborate --version']
+
+sanity_pip_check = False  # it can't find mash - but it is installed!
+
+moduleclass = 'bio'

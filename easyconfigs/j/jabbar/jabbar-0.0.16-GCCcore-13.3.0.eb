@@ -1,0 +1,20 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'jabbar'
+version = '0.0.16'
+
+homepage = "https://github.com/yannikschaelte/jabbar"
+description = """Just Another Beautiful progress BAR (some might replace Beautiful by Boring).
+ jabbar is a python package implementing a simple progress bar.
+ For very serious work, you may want to try e.g. the slightly more professional tqdm package."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['522f29ca04e44a25fbc3ae0419f7d7bf96af1b9d131bbd8b58899224fc5eb0f5']
+
+dependencies = [('Python', '3.12.3')]
+
+moduleclass = 'lib'

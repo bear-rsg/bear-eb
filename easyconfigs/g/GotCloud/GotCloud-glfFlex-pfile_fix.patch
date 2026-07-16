@@ -1,0 +1,12 @@
+--- src/glfFlex/pFile.h.orig	2026-06-16 11:13:35.338293000 +0100
++++ src/glfFlex/pFile.h	2026-06-16 11:14:41.690183000 +0100
+@@ -201,7 +201,8 @@
+       */
+     case 1:
+       if ( line == NULL ) line = new char[MAX_LINE_SIZE];
+-      if ( gzgets(gf, line, MAX_LINE_SIZE) > 0 ) {
++      //if ( gzgets(gf, line, MAX_LINE_SIZE) > 0 ) {
++      if (gzgets(gf, line, MAX_LINE_SIZE) != NULL) {
+ 	len = strlen(line); // TODO : convert to lazy evaluation
+ 	if ( line[len-1] == '\n' ) {
+ 	  line[len-1] = '\0';

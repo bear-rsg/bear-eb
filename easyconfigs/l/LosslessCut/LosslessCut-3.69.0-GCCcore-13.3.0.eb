@@ -1,0 +1,28 @@
+easyblock = 'Binary'
+
+name = 'LosslessCut'
+version = '3.69.0'
+
+homepage = 'https://losslesscut.app/'
+description = """LosslessCut is a cross-platform desktop application that lets you cut, trim, and merge
+ video and audio files without re-encoding."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+source_urls = ['https://github.com/mifi/lossless-cut/releases/download/v%(version)s/']
+sources = ['%(name)s-linux-x64.tar.bz2']
+checksums = ['cd69d7dda64b2978cead468c56703c1d58077e7a9c2379948a5d08816726a2e5']
+
+dependencies = [
+    ('alsa-lib', '1.2.11'),
+    ('Mesa', '24.1.3'),
+]
+
+extract_sources = True
+
+sanity_check_paths = {
+    'files': ['losslesscut'],
+    'dirs': []
+}
+
+moduleclass = 'tools'

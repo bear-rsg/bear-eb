@@ -1,0 +1,33 @@
+easyblock = 'Conda'
+
+name = 'PlasMAAG'
+version = '1.0.1'
+
+homepage = 'https://github.com/RasmussenLab/PlasMAAG'
+description = """PlasMAAG is a tool to recover plasmids and organisms from metagenomic samples,
+ offering state-of-the-art plasmid reconstruction."""
+
+github_account = 'RasmussenLab'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['afa2d17dff81132810a173f2569e5a9fd326ec9aa20e8da59bcf7296193ca169']
+
+toolchain = SYSTEM
+
+builddependencies = [('Miniforge3', '24.1.2-0')]
+
+extract_sources = True
+preinstallopts = 'export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_PLASMAAG=1.0.1 && '
+
+environment_file = 'envs/PlasMAAG.yaml'
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s'],
+    'dirs': ['include', 'lib/python3.11/site-packages/%(name)s-%(version)s.dist-info'],
+}
+
+sanity_check_commands = [
+    "%(name)s --help",
+]
+
+moduleclass = 'bio'

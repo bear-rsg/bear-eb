@@ -1,0 +1,9 @@
+--- codebase/superdarn/src.lib/tk/binplotlib.1.0/src/makefile.orig	2026-05-20 09:42:34.674982817 +0100
++++ codebase/superdarn/src.lib/tk/binplotlib.1.0/src/makefile	2026-05-20 09:58:04.318818831 +0100
+@@ -35,5 +35,5 @@
+ DSTPATH = $(LIBPATH)
+ OUTPUT = binplot
+ LINK="1"
+-
++LIBS=-lpoly.1
+ include $(MAKELIB).$(SYSTEM)

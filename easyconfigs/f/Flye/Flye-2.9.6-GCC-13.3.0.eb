@@ -1,0 +1,27 @@
+easyblock = 'PythonPackage'
+
+name = 'Flye'
+version = "2.9.6"
+
+homepage = 'https://github.com/fenderglass/Flye'
+description = """Flye is a de novo assembler for long and noisy reads, such as those produced by PacBio
+ and Oxford Nanopore Technologies."""
+
+toolchain = {'name': 'GCC', 'version': '13.3.0'}
+
+source_urls = ['https://github.com/fenderglass/Flye/archive/']
+sources = ['%(version)s.tar.gz']
+checksums = []
+dependencies = [('Python', '3.12.3')]
+
+if ARCH == "aarch64":
+    preinstallopts = 'export arm_neon=1 && export aarch64=1 && '
+
+sanity_check_paths = {
+    'files': ['bin/flye'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages'],
+}
+
+sanity_check_commands = ['%(namelower)s --help']
+
+moduleclass = 'bio'

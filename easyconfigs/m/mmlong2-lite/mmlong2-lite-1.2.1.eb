@@ -14,12 +14,15 @@ checksums = ['d0ce7fe62d6253ac785b6ae543e755ca5c3f19612622557aead8daf935927743']
 
 toolchain = SYSTEM
 
+
 dependencies = [('Miniforge3', '24.1.2-0')]
+
 
 extract_sources = True
 
 channels = ['conda-forge', 'bioconda']
 requirements = 'snakemake=9.9.0 zenodo_get=1.6.1 pv=1.6.6 pigz=2.8 tar=1.35 rsync=3.4.1'
+
 
 _zenodo_apptainer_src = '17012181'
 local_checksum = '4c7efcca37c5f5ffb1f1c227427d70a44972fe8eb50860e5e11b9b9f5af71eb0'
@@ -46,6 +49,7 @@ postinstallcmds = [
 
 sanity_check_paths = {
     'files': ['bin/%(name)s', 'bin/sing-%(name)s'],
+
     'dirs': ['include', 'lib'],
 }
 

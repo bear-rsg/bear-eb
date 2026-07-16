@@ -1,0 +1,57 @@
+easyblock = 'CmdCp'
+
+name = 'QuPath'
+version = '0.7.0'
+versionsuffix = '-Java-%(javaver)s'
+
+homepage = 'https://qupath.github.io'
+description = """QuPath is open source software for bioimage analysis.
+QuPath is often used for digital pathology applications because it offers
+ a powerful set of tools for working with whole slide images - but it can
+ be applied to lots of other kinds of image as well."""
+
+toolchain = {'name': 'GCCcore', 'version': '13.3.0'}
+
+source_urls = ['https://github.com/qupath/qupath/archive']
+sources = ['v%(version)s.tar.gz']
+checksums = ['5cd23875aa49a90d652726ddca0d06338c67084a005e453c39f0d7125623448e']
+
+builddependencies = [
+    ('binutils', '2.42'),
+    ('Gradle', '8.14.3', versionsuffix, SYSTEM),
+    ('patchelf', '0.18.0'),
+]
+
+dependencies = [
+    ('OpenSlide-Java', '0.12.4', versionsuffix),
+    ('Java', '21', '', SYSTEM),
+]
+
+cmds_map = [('.*', 'export GRADLE_USER_HOME=%(builddir)s/gradle && '
+                   'gradle clean jpackage -P openslide=$EBROOTOPENSLIDEMINJAVA/lib/openslide-java/openslide.jar')]
+
+files_to_copy = [
+    'build/dist/%(name)s/bin',
+    'build/dist/%(name)s/lib',
+]
+
+_inject_rpath_cmd = (
+    f"if %(rpath_enabled)s; then "
+    f"  patchelf --set-rpath '$ORIGIN' --force-rpath %(installdir)s/lib/libapplauncher.{SHLIB_EXT}; "
+    f"  patchelf --set-rpath '$ORIGIN' --force-rpath %(installdir)s/bin/QuPath; "
+    f"fi"
+)
+
+# inject missing RPATH entries, if EasyBuild is configured to use it
+postinstallcmds = [_inject_rpath_cmd]
+
+modextrapaths = {'PATH': ['']}
+
+sanity_check_paths = {
+    'files': ['bin/QuPath', f'lib/libapplauncher.{SHLIB_EXT}'],
+    'dirs': ['lib/app', 'lib/runtime'],
+}
+
+sanity_check_commands = ["QuPath --help"]
+
+moduleclass = 'bio'

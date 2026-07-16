@@ -1,0 +1,41 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'ECTyper'
+version = '2.0.0'
+
+homepage = "https://github.com/phac-nml/ecoli_serotyping"
+description = """ECTyper is a standalone versatile serotyping module for Escherichia coli.
+ It supports both fasta (assembled) and fastq (raw reads) file formats.
+"""
+citing = """Bessonov, Kyrylo, Chad Laing, James Robertson, Irene Yong, Kim Ziebell, Victor PJ Gannon,
+ Anil Nichani, Gitanjali Arya, John HE Nash, and Sara Christianson. "ECTyper: in silico Escherichia
+ coli serotype and species prediction from raw and assembled whole-genome sequence data."
+ Microbial genomics 7, no. 12 (2021): 000728.
+ https://www.microbiologyresearch.org/content/journal/mgen/10.1099/mgen.0.000728"""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+source_urls = ['https://github.com/phac-nml/ecoli_serotyping/archive']
+sources = ['%(version)s.tar.gz']
+checksums = ['3d5ec502880e8f842f3a4b7513dd94706f7176cb37cf71baac5403c5c83058ff']
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+    ('Biopython', '1.84'),  # <=1.85
+    ('BLAST+', '2.16.0'),
+    ('Bowtie2', '2.5.4'),
+    ('seqtk', '1.4'),
+    ('BCFtools', '1.21'),
+    ('SAMtools', '1.21'),
+]
+
+sanity_check_paths = {
+    'files': ['bin/ectyper'],
+    'dirs': ['lib/python%(pyshortver)s/site-packages']
+}
+
+sanity_check_commands = ['ectyper --help']
+
+moduleclass = 'bio'

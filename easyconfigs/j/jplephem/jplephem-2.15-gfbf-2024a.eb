@@ -1,0 +1,23 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'jplephem'
+version = '2.15'
+
+homepage = "https://github.com/brandon-rhodes/python-jplephem"
+description = """The package is a Python implementation of the math that standard
+ JPL ephemerides use to predict raw (x,y,z) planetary positions.
+ Use jplephem standalone to generate raw vectors."""
+
+toolchain = {'name': 'gfbf', 'version': '2024a'}
+
+dependencies = [
+    ('Python', '3.12.3'),
+    ('SciPy-bundle', '2024.05'),
+]
+
+source_urls = [PYPI_SOURCE]
+sources = [SOURCE_TAR_GZ]
+checksums = ['e0017de1a45015b247faa8d15ebf35d2014abe949135f3703a3252adb96e43b1']
+
+moduleclass = 'astro'
