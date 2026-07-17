@@ -36,10 +36,6 @@ fix_python_shebang_for = ['lib/python%(pyshortver)s/site-packages/Monopogen.py']
 
 local_monopogen_path = "%(installdir)s/lib/python%(pyshortver)s/site-packages/Monopogen.py"
 
-local_monopogen_apps = [
-    'bcftools', 'bgzip', 'gzip', 'java', 'samtools', 'tabix', 'vcftools'
-]
-
 postinstallcmds = [
     "mkdir -p %(installdir)s/bin",
     f"ln -s {local_monopogen_path} %(installdir)s/bin/Monopogen.py",
