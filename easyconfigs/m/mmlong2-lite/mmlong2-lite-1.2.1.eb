@@ -14,9 +14,7 @@ checksums = ['d0ce7fe62d6253ac785b6ae543e755ca5c3f19612622557aead8daf935927743']
 
 toolchain = SYSTEM
 
-
 dependencies = [('Miniforge3', '24.1.2-0')]
-
 
 extract_sources = True
 
@@ -35,21 +33,20 @@ postinstallcmds = [
     f'chmod +x {_installed_bin}/%(name)s',
     f'sed -i "110s/exit 1/exit 0/" {_installed_bin}/%(name)s',  # return 0 on --help
     f'mkdir -p {_apptainer_build_prefix}',
-    'mkfifo EBLOCALMMLONG2SING',
-    f'cat <<< {_apptainer_build_prefix}/sing-%(name)s-v%(version_major_minor)s.*.tar.gz > EBLOCALMMLONG2SING',
-    f'{_installed_bin}/zenodo_get -r {_zenodo_apptainer_src} -o {_apptainer_build_prefix} --no-overwrite',
-    'cat < EBLOCALMMLONG2SING > EBLOCALMMLONG2SING.txt',
+    f'{_installed_bin}/zenodo_get -r {_zenodo_apptainer_src} -o {_apptainer_build_prefix}',
+    f'echo {_apptainer_build_prefix}/sing-%(name)s-v%(version_major_minor)s.*.tar.gz > EBLOCALMMLONG2SING.txt',
     f'echo {local_checksum} $(cat EBLOCALMMLONG2SING.txt) | sha256sum -c ',
     f'{_installed_bin}/pv $(cat EBLOCALMMLONG2SING.txt) | {_installed_bin}/pigz -dc - '
     f'| tar xf - -C {_apptainer_build_prefix}',
-    'EBLOCALMMLONG2SING=$(<EBLOCALMMLONG2SING) apptainer build --fix-perm  ${EBLOCALMMLONG2SING%.tar.gz}{.sif,}',
-    'EBLOCALMMLONG2SING=$(<EBLOCALMMLONG2SING) cp -a ${EBLOCALMMLONG2SING%.tar.gz}.sif {_installed_bin}/sing-%(name)s',
+    f'unset APPTAINER_BIND; EBLOCALMMLONG=$(<EBLOCALMMLONG2SING.txt); cd {_apptainer_build_prefix}; '
+    r'apptainer build --force ${EBLOCALMMLONG%-*}{.sif,}'
+    ' && '
+    r'cp -a ${EBLOCALMMLONG%-*}.sif ' f'{_installed_bin}/sing-%(name)s',
     f'sed -i "168,173d" {_installed_bin}/%(name)s'
 ]
 
 sanity_check_paths = {
     'files': ['bin/%(name)s', 'bin/sing-%(name)s'],
-
     'dirs': ['include', 'lib'],
 }
 
