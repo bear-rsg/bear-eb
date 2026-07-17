@@ -35,12 +35,14 @@ local_monopogen_scripts = [
 fix_python_shebang_for = ['lib/python%(pyshortver)s/site-packages/Monopogen.py']
 
 local_monopogen_path = "%(installdir)s/lib/python%(pyshortver)s/site-packages/Monopogen.py"
+
 postinstallcmds = [
     "mkdir -p %(installdir)s/bin",
     f"ln -s {local_monopogen_path} %(installdir)s/bin/Monopogen.py",
     f"chmod +x {local_monopogen_path}",
     f"""sed -i "s|'--app-path', required=True|'--app-path', default='%(installdir)s/apps'|" {local_monopogen_path}""",
     "cp -r apps %(installdir)s/.",
+    'find %(installdir)s/apps -maxdepth 1 -type f ! -name "*.jar" ! -name "*.so*" -exec chmod a+x {} \\;',
 ]
 
 sanity_check_paths = {
