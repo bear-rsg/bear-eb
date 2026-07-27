@@ -1,8 +1,8 @@
-#
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
 easyblock = 'CMakeNinja'
 
 name = 'OpenQP'
-version = '1.2.0'
+version = '1.2.1'
 
 homepage = 'https://github.com/Open-Quantum-Platform/openqp/'
 description = """Open Quantum Platform (OpenQP) is a quantum chemical platform featuring
@@ -14,13 +14,14 @@ toolchainopts = {'usempi': True, 'openmp': True}
 
 source_urls = ['https://github.com/Open-Quantum-Platform/openqp/archive/refs/tags/']
 sources = [{'filename': SOURCE_TAR_GZ, 'download_filename': 'v%(version)s.tar.gz'}]
-checksums = ['c4957c7357c441e12f747dd5b2a45a8394d85ac2b08d9a7ce0749a42a7fed4d9']
+checksums = ['91f287130fb72b5940917eb36cc4842c75abd519474fbf8c512fc1669ed8da11']
 
 builddependencies = [
     ('CMake', '3.29.3'),
     ('Ninja', '1.12.1'),
     ('scikit-build', '0.17.6'),
     ('meson-python', '0.16.0'),
+    ('hatchling', '1.27.0'),
 ]
 
 dependencies = [
@@ -30,14 +31,16 @@ dependencies = [
     ('dftd4', '3.7.0'),
     ('mpi4py', '4.0.1'),
     ('networkx', '3.4.2'),
-    ('hatchling', '1.27.0'),
+    ('OpenMM', '8.3.0'),
 ]
 
 configopts = ' '.join([
     '-DENABLE_PYTHON=ON',
-    '-DUSE_LIBINT=OFF',
+    '-DUSE_LIBINT=ON',
     '-DENABLE_OPENMP=ON',
     '-DENABLE_MPI=ON',
+    '-DLINALG_LIB=netlib',
+    '-DENABLE_OPENTRAH=ON',
 ])
 
 exts_defaultclass = 'PythonPackage'
@@ -62,10 +65,10 @@ exts_list = [
         'start_dir': 'pyoqp',
     }),
     ('libdlfind', '0.0.3', {
-        'patches': ['OpenQP-1.2.0-foss-2024a_fix-libdlfind.patch'],
+        'patches': ['OpenQP-1.2.1-foss-2024a_fix-libdlfind.patch'],
         'checksums': [
             {'libdlfind-0.0.3.tar.gz': '1f74754183432b06c5ada827f2cbf6f9d453c16a7638872db85fae164e88d128'},
-            {'OpenQP-1.2.0-foss-2024a_fix-libdlfind.patch':
+            {'OpenQP-1.2.1-foss-2024a_fix-libdlfind.patch':
              '95ec32b23d36522ad4db29f9f61ba9f5636cd49196956aeecba31378a22afdca'},
         ],
     }),
