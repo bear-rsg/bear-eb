@@ -65,10 +65,10 @@ exts_list = [
         'start_dir': 'pyoqp',
     }),
     ('libdlfind', '0.0.3', {
-        'patches': ['OpenQP-1.2.0-foss-2024a_fix-libdlfind.patch'],
+        'patches': ['OpenQP-1.2.1-foss-2024a_fix-libdlfind.patch'],
         'checksums': [
             {'libdlfind-0.0.3.tar.gz': '1f74754183432b06c5ada827f2cbf6f9d453c16a7638872db85fae164e88d128'},
-            {'OpenQP-1.2.0-foss-2024a_fix-libdlfind.patch':
+            {'OpenQP-1.2.1-foss-2024a_fix-libdlfind.patch':
              '95ec32b23d36522ad4db29f9f61ba9f5636cd49196956aeecba31378a22afdca'},
         ],
     }),
