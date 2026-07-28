@@ -14,7 +14,11 @@ toolchainopts = {'usempi': True, 'openmp': True}
 
 source_urls = ['https://github.com/Open-Quantum-Platform/openqp/archive/refs/tags/']
 sources = [{'filename': SOURCE_TAR_GZ, 'download_filename': 'v%(version)s.tar.gz'}]
-checksums = ['91f287130fb72b5940917eb36cc4842c75abd519474fbf8c512fc1669ed8da11']
+patches = ['OpenQP-1.2.1_dtype_support_linalg.patch']
+checksums = [
+    {'OpenQP-1.2.1.tar.gz': '91f287130fb72b5940917eb36cc4842c75abd519474fbf8c512fc1669ed8da11'},
+    {'OpenQP-1.2.1_dtype_support_linalg.patch': 'd788ffdfd94f035256c6723f7ac03d7f4c079ae8c75a76a08ebc84cebebf701a'},
+]
 
 builddependencies = [
     ('CMake', '3.29.3'),
@@ -80,6 +84,7 @@ exts_list = [
 sanity_check_commands = [
     "openqp --help",
     "python -c 'import oqp'",
+    "openqp --run-tests all",
 ]
 
 sanity_check_paths = {

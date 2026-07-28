@@ -1,0 +1,22 @@
+diff --git a/pyoqp/oqp/library/namd.py b/pyoqp/oqp/library/namd.py
+index c4b09ce..7afd84d 100644
+--- a/pyoqp/oqp/library/namd.py
++++ b/pyoqp/oqp/library/namd.py
+@@ -259,7 +259,7 @@ class NAMD:
+         if self.tdc_scheme == 1:
+             from scipy.linalg import logm, sqrtm
+             m = s.T @ s
+-            u = s @ np.linalg.inv(np.real(sqrtm(m)))     # nearest orthogonal (Loewdin)
++            u = s @ np.linalg.inv(np.real(sqrtm(m).astype(np.complex128)))     # nearest orthogonal (Loewdin)
+             t = np.real(logm(u))
+             t = 0.5 * (t - t.T)                          # enforce antisymmetry
+             return t / self.dt
+@@ -1077,7 +1077,7 @@ class NAMD_SOC(NAMD):
+         dt = self.dt
+         nsub = max(1, self.substep)
+ 
+-        tu = t @ np.linalg.inv(sqrtm(t.conj().T @ t))       # nearest unitary
++        tu = t @ np.linalg.inv(sqrtm(t.conj().T @ t).astype(np.complex128))       # nearest unitary
+         # substep local diabatization: split the basis rotation into nsub equal
+         # fractional rotations (tu^{1/nsub}) and integrate the energy phase with
+         # linearly interpolated diagonal energies.  The net full-step propagator
