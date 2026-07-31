@@ -1,0 +1,13 @@
+diff --git a/snakemake_executor_plugin_slurm/__init__.py b/snakemake_executor_plugin_slurm/__init__.py
+index 6fdfbb1..5150a51 100644
+--- a/snakemake_executor_plugin_slurm/__init__.py
++++ b/snakemake_executor_plugin_slurm/__init__.py
+@@ -655,7 +655,7 @@ We leave it to SLURM to resume your job(s)"""
+         """
+         try:
+             out = subprocess.check_output(
+-                r"sinfo -o %P", shell=True, text=True, stderr=subprocess.PIPE
++                r"scontrol show partition | awk -F= '/PartitionName=/ {print $2}'", shell=True, text=True, stderr=subprocess.PIPE
+             )
+         except subprocess.CalledProcessError as e:
+             raise WorkflowError(
