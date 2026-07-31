@@ -14,7 +14,7 @@ checksums = ['d0ce7fe62d6253ac785b6ae543e755ca5c3f19612622557aead8daf935927743']
 
 toolchain = SYSTEM
 
-builddependencies = [('Miniforge3', '24.1.2-0')]
+dependencies = [('Miniforge3', '24.1.2-0')]
 
 extract_sources = True
 
@@ -22,15 +22,31 @@ channels = ['conda-forge', 'bioconda']
 requirements = 'snakemake=9.9.0 zenodo_get=1.6.1 pv=1.6.6 pigz=2.8 tar=1.35 rsync=3.4.1'
 
 
+_zenodo_apptainer_src = '17012181'
+local_checksum = '4c7efcca37c5f5ffb1f1c227427d70a44972fe8eb50860e5e11b9b9f5af71eb0'
+_apptainer_build_prefix = '/scratch/$USER/sing'
+_installed_bin = '%(install_dir)s/bin'
+
 postinstallcmds = [
     'mkdir %(install_dir)s/%(name)s && cp -r %(build_dir)s/%(name)s-%(version)s %(install_dir)s/%(name)s/repo',
-    'mv %(install_dir)s/%(name)s/repo/src/* %(install_dir)s/bin',
-    'chmod +x %(install_dir)s/bin/%(name)s',
-    'sed -i "110s/exit 1/exit 0/" %(install_dir)s/bin/%(name)s'  # return 0 on --help
+    f'mv %(install_dir)s/%(name)s/repo/src/* {_installed_bin}',
+    f'chmod +x {_installed_bin}/%(name)s',
+    f'sed -i "110s/exit 1/exit 0/" {_installed_bin}/%(name)s',  # return 0 on --help
+    f'mkdir -p {_apptainer_build_prefix}',
+    f'{_installed_bin}/zenodo_get -r {_zenodo_apptainer_src} -o {_apptainer_build_prefix}',
+    f'echo {_apptainer_build_prefix}/sing-%(name)s-v%(version_major_minor)s.*.tar.gz > EBLOCALMMLONG2SING.txt',
+    f'echo {local_checksum} $(cat EBLOCALMMLONG2SING.txt) | sha256sum -c ',
+    f'{_installed_bin}/pv $(cat EBLOCALMMLONG2SING.txt) | {_installed_bin}/pigz -dc - '
+    f'| tar xf - -C {_apptainer_build_prefix}',
+    f'unset APPTAINER_BIND; EBLOCALMMLONG=$(<EBLOCALMMLONG2SING.txt); cd {_apptainer_build_prefix}; '
+    r'apptainer build --force ${EBLOCALMMLONG%-*}{.sif,}'
+    ' && '
+    r'cp -a ${EBLOCALMMLONG%-*}.sif ' f'{_installed_bin}/sing-%(name)s',
+    f'sed -i "168,173d" {_installed_bin}/%(name)s'
 ]
 
 sanity_check_paths = {
-    'files': ['bin/%(name)s'],
+    'files': ['bin/%(name)s', 'bin/sing-%(name)s'],
     'dirs': ['include', 'lib'],
 }
 
