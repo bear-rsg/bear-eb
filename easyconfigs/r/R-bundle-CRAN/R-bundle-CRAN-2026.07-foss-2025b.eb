@@ -1925,7 +1925,12 @@ exts_list = [
         'checksums': ['52828c6fe9b78d66bde5474e45ff153efdb153f2bd9f0e52a20a668e842f2dc5'],
     }),
     ('arrow', '22.0.0', {
-        'checksums': ['6a864f5c8b2c77394de2ea8f9b8705b8163f0de00bcbfd1b4f393106fd8ea8ab'],
+        'patches': ['arrow-22_r460-compat.patch'],
+        'preinstallopts': "export LIBARROW_BUILD=false && ",
+        'checksums': [
+            {'arrow_22.0.0.tar.gz': '6a864f5c8b2c77394de2ea8f9b8705b8163f0de00bcbfd1b4f393106fd8ea8ab'},
+            {'arrow-22_r460-compat.patch': '333e963f7e33f8f9f949f358ddb8484bd468246e77eab509b57fce1fac781fde'},
+        ],
         "preinstallopts": "export LIBARROW_BUILD=false && ",
     }),
     ('feather', '0.4.0', {
