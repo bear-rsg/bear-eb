@@ -1,0 +1,35 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'CMakeMake'
+
+name = 'ASPECT'
+version = '3.0.0'
+
+homepage = 'https://aspect.geodynamics.org/'
+description = """ASPECT: The Advanced Solver for Planetary Evolution,
+Convection, and Tectonics. A parallel, extensible finite element code."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+toolchainopts = {'pic': True, 'usempi': True}
+
+source_urls = ['https://github.com/geodynamics/aspect/archive/refs/tags/']
+sources = ['v%(version)s.tar.gz']
+checksums = ['1ba757167b9422b8192206962445d90e6c4ec531a94dec468424bf42debfa4f4']
+
+builddependencies = [
+    ('CMake', '3.29.3'),
+]
+
+dependencies = [
+    ('deal.II', '9.7.1'),
+    ('netCDF', '4.9.2'),
+    ('libdap', '3.21.0-131'),
+]
+
+sanity_check_paths = {
+    'files': [],
+    'dirs': ['bin'],
+}
+
+sanity_check_commands = ['aspect --help']
+
+moduleclass = 'geo'
