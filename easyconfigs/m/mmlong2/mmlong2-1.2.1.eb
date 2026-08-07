@@ -1,0 +1,94 @@
+easyblock = 'Conda'
+
+name = 'mmlong2'
+version = '1.2.1'
+
+homepage = 'https://github.com/Serka-M/mmlong2'
+description = """Genome-centric long-read metagenomics workflow for automated recovery and analysis of
+ prokaryotic genomes with Nanopore or PacBio HiFi sequencing data. The mmlong2 workflow is a continuation
+ of mmlong.
+"""
+
+github_account = 'Serka-M'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+checksums = ['562e598a5a9c62b98ecb9799c9393b322f5e7f4e857c668a62db83c098afa768']
+
+citing = """
+Sereika, M., Mussig, A.J., Jiang, C. et al.
+ Genome-resolved long-read sequencing expands known microbial
+ diversity across terrestrial habitats. Nat Microbiol (2025).
+ https://doi.org/10.1038/s41564-025-02062-z
+"""
+
+toolchain = SYSTEM
+
+dependencies = [('Miniforge3', '25.3.0-3')]
+
+extract_sources = True
+
+channels = ['conda-forge', 'bioconda']
+requirements = ' '.join([
+    'snakemake=9.12.0', 
+    'singularity=3.8.6',
+    'zenodo_get=1.6.1',
+    'pv=1.6.6',
+    'pigz=2.8',
+    'tar=1.35',
+#    'rsync=3.4.1',  # singularityCE requirements resolution conflict, use system's
+    'rsync=3.3.0',  
+    'yq=3.4.3',
+    'ncbi-amrfinderplus=4.0.23',
+    '%(name)s=%(version)s',
+])
+'''
+conda create --prefix mmlong2 -c conda-forge -c bioconda
+
+snakemake=9.12.0 singularity=3.8.6 zenodo_get=1.6.1 pv=1.6.6
+pigz=2.8 tar=1.35 rsync=3.4.1 yq=3.4.3 ncbi-amrfinderplus=4.0.23 -y
+
+conda activate ./mmlong2 || source activate ./mmlong2
+git clone https://github.com/Serka-M/mmlong2 mmlong2/repo
+cp -r mmlong2/repo/src/* mmlong2/bin
+chmod +x mmlong2/bin/mmlong2
+mmlong2 -h
+'''
+
+_zenodo_apptainer_src = '12168493'  # '17012181'
+# local_checksum = '4c7efcca37c5f5ffb1f1c227427d70a44972fe8eb50860e5e11b9b9f5af71eb0'
+_test_prefix = '/scratch/$USER/sing'
+_installed_bin = '%(install_dir)s/bin'
+
+postinstallcmds = [
+    # The following commands are for the purpose to setup singularity instances as final installation components
+    f'mkdir -p {_test_prefix}',  # prepare test_run location
+    # prepare singularity community edition directories 
+    f'sed -i "301,0s|tar xf - -C|tar -xpf - -C {_test_prefix};'  # horrible line as a workaround for setting permission on lite
+    f' cp -ar {_test_prefix}/sing-%(name)s-lite|" {_installed_bin}/mmlong2',
+    f'sed -i "302,0s|tar xf - -C|tar -xpf - -C {_test_prefix};'  # horrible line as a workaround for setting permission on proc
+    f' cp -ar {_test_prefix}/sing-%(name)s-proc|" {_installed_bin}/mmlong2',
+    f'cd {_test_prefix} && {_installed_bin}/zenodo_get -r 12168493 || true',  # get data for the first run
+    f'PATH={_installed_bin}:$PATH mmlong2 -np {_test_prefix}/mmlong2_np.fastq.gz'
+    f' -o {_test_prefix}/mmlong2_testrun_np -p 60 -run binning -myl',  
+    # first run does two things: 1. tests install. 2. fetches containers into install_dir/bin
+]
+""" Dails on database requirement which presumably can be installed into apps-data with:  mmlong2 --install_databases
+[Thu Aug  6 23:00:38 2026]
+Finished jobid: 0 (Rule: Finalise)
+27 of 27 steps (100%) done
+MAG recovery with pipeline version 1.2.1 completed at 2026/08/06 23:00:38
+Thank you for using mmlong2-lite
+ERROR: Provided rRNA database not found at /path/to/rrna/database_file.udb
+Database can be installed by running the workflow with --install_databases option
+"""
+
+sanity_check_paths = {
+    'files': ['bin/%(name)s', 'bin/sing-%(name)s-{lite,proc}'],
+    'dirs': ['include', 'lib'],
+}
+
+sanity_check_commands = [
+    "%(name)s -h",
+]
+
+moduleclass = 'bio'
