@@ -35,53 +35,34 @@ requirements = ' '.join([
     'pv=1.6.6',
     'pigz=2.8',
     'tar=1.35',
-#    'rsync=3.4.1',  # singularityCE requirements resolution conflict, use system's
     'rsync=3.3.0',  
     'yq=3.4.3',
     'ncbi-amrfinderplus=4.0.23',
     '%(name)s=%(version)s',
 ])
-'''
-conda create --prefix mmlong2 -c conda-forge -c bioconda
 
-snakemake=9.12.0 singularity=3.8.6 zenodo_get=1.6.1 pv=1.6.6
-pigz=2.8 tar=1.35 rsync=3.4.1 yq=3.4.3 ncbi-amrfinderplus=4.0.23 -y
-
-conda activate ./mmlong2 || source activate ./mmlong2
-git clone https://github.com/Serka-M/mmlong2 mmlong2/repo
-cp -r mmlong2/repo/src/* mmlong2/bin
-chmod +x mmlong2/bin/mmlong2
-mmlong2 -h
-'''
-
-_zenodo_apptainer_src = '12168493'  # '17012181'
-# local_checksum = '4c7efcca37c5f5ffb1f1c227427d70a44972fe8eb50860e5e11b9b9f5af71eb0'
+_zenodo_apptainer_src = '12168493'
 _test_prefix = '/scratch/$USER/sing'
 _installed_bin = '%(install_dir)s/bin'
+_BEAR_APPS_DATA_VAR = 'EBROOTMMLONG2DATA'
+_BEAR_APPS_DATA_PATH = '$HOME/vidri/data/mmlong2'
 
 postinstallcmds = [
     # The following commands are for the purpose to setup singularity instances as final installation components
     f'mkdir -p {_test_prefix}',  # prepare test_run location
     # prepare singularity community edition directories 
-    f'sed -i "301,0s|tar xf - -C|tar -xpf - -C {_test_prefix};'  # horrible line as a workaround for setting permission on lite
+    f'sed -i "301,0s|tar xf - -C|tar -xpf - -C {_test_prefix};'  # a workaround for setting permission on lite
     f' cp -ar {_test_prefix}/sing-%(name)s-lite|" {_installed_bin}/mmlong2',
-    f'sed -i "302,0s|tar xf - -C|tar -xpf - -C {_test_prefix};'  # horrible line as a workaround for setting permission on proc
+    f'sed -i "302,0s|tar xf - -C|tar -xpf - -C {_test_prefix};'  # a workaround for setting permission on proc
     f' cp -ar {_test_prefix}/sing-%(name)s-proc|" {_installed_bin}/mmlong2',
     f'cd {_test_prefix} && {_installed_bin}/zenodo_get -r 12168493 || true',  # get data for the first run
-    f'PATH={_installed_bin}:$PATH mmlong2 -np {_test_prefix}/mmlong2_np.fastq.gz'
+    f"sed -i 's|/path/to|${_BEAR_APPS_DATA_VAR}|g' {_installed_bin}/mmlong2-proc-config.yaml",  # databases 
+    f'PATH={_installed_bin}:$PATH {_BEAR_APPS_DATA_VAR}={_BEAR_APPS_DATA_PATH} mmlong2'
+    f' --database_gtdb ${_BEAR_APPS_DATA_VAR}'  # wrapper to the data location 
+    f' -np {_test_prefix}/mmlong2_np.fastq.gz'
     f' -o {_test_prefix}/mmlong2_testrun_np -p 60 -run binning -myl',  
     # first run does two things: 1. tests install. 2. fetches containers into install_dir/bin
 ]
-""" Dails on database requirement which presumably can be installed into apps-data with:  mmlong2 --install_databases
-[Thu Aug  6 23:00:38 2026]
-Finished jobid: 0 (Rule: Finalise)
-27 of 27 steps (100%) done
-MAG recovery with pipeline version 1.2.1 completed at 2026/08/06 23:00:38
-Thank you for using mmlong2-lite
-ERROR: Provided rRNA database not found at /path/to/rrna/database_file.udb
-Database can be installed by running the workflow with --install_databases option
-"""
-
 sanity_check_paths = {
     'files': ['bin/%(name)s', 'bin/sing-%(name)s-{lite,proc}'],
     'dirs': ['include', 'lib'],
@@ -90,5 +71,6 @@ sanity_check_paths = {
 sanity_check_commands = [
     "%(name)s -h",
 ]
+modextravars = [f'{_BEAR_APPS_DATA_VAR}': f'{_BEAR_APPS_DATA_PATH}']
 
 moduleclass = 'bio'
