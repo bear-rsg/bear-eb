@@ -36,7 +36,7 @@ exts_list = [
     ('rnaturalearthhires', '1.0.0', {
         'sources': [{
             'source_urls': ['https://github.com/ropensci/rnaturalearthhires/archive/refs/tags/'],
-            'download_filename': 'v%(version)s.tar.gz'
+            'download_filename': 'v%(version)s.tar.gz',
             'filename': '%(name)s_%(version)s.tar.gz',
         }],
         'checksums': ['ced473ee8e79d93b3ddc60ea7d0d8f03753c2dd454a907a274468601a09a884f'],
