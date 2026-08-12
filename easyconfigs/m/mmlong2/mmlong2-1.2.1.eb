@@ -45,7 +45,7 @@ _zenodo_src = '12168493'
 _test_prefix = '/scratch/$USER/sing'
 _installed_bin = '%(install_dir)s/bin'
 _BEAR_APPS_DATA_VAR = 'EBMMLONG2DATA121'  # suggest versioning the data collection
-_BEAR_APPS_DATA_PATH =  '$(eval $BEAR_APPS_DATA/m/%(name)s/%(version)s)'
+_BEAR_APPS_DATA_PATH =  '$(eval "echo $BEAR_APPS_DATA/m/%(name)s/%(version)s")'
 
 postinstallcmds = [
     # The following commands are for the purpose to setup singularity instances as final installation components
