@@ -18,6 +18,7 @@ dependencies = [
     ('betapart', '1.6.1', versionsuffix),
     ('FD', '1.0-12.3', versionsuffix),
     ('RangeShiftR', '1.1.2', versionsuffix),
+    ('rnaturalearth', '1.2.0', versionsuffix),
 ]
 
 moduleclass = 'geo'

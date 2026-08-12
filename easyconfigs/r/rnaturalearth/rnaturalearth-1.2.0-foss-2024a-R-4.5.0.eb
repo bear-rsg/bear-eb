@@ -1,0 +1,56 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'rnaturalearth'
+version = '1.2.0'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://docs.ropensci.org/rnaturalearth/"
+description = """Facilitates mapping by making natural earth map data from <https://www.naturalearthdata.com/> more
+ easily available to R users."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('rnaturalearthdata', '1.0.0', {
+        'checksums': ['e1fefaf1ea575fe242402c933b531c90f0f18772f8efe47b97a221b7eefb1e4d'],
+    }),
+    ('rnaturalearthhires', '1.0.0', {
+        'sources': [{
+            'source_urls': ['https://github.com/ropensci/rnaturalearthhires/archive/refs/tags/'],
+            'download_filename': 'v%(version)s.tar.gz'
+            'filename': '%(name)s_%(version)s.tar.gz',
+        }],
+        'checksums': ['ced473ee8e79d93b3ddc60ea7d0d8f03753c2dd454a907a274468601a09a884f'],
+    }),
+    (name, version, {
+        'checksums': ['36aa5f8d23a7854c221d9f49a753d79fe7c001c83ddf0fcb888477cc7fa287af'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['%(name)s/R/%(name)s'],
+    'dirs': [],
+}
+
+moduleclass = 'tools'
