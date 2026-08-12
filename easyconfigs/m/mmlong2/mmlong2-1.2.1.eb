@@ -29,13 +29,13 @@ extract_sources = True
 
 channels = ['conda-forge', 'bioconda']
 requirements = ' '.join([
-    'snakemake=9.12.0', 
+    'snakemake=9.12.0',
     'singularity=3.8.6',
     'zenodo_get=1.6.1',
     'pv=1.6.6',
     'pigz=2.8',
     'tar=1.35',
-    'rsync=3.3.0',  
+    'rsync=3.3.0',
     'yq=3.4.3',
     'ncbi-amrfinderplus=4.0.23',
     '%(name)s=%(version)s',
@@ -45,36 +45,36 @@ _zenodo_src = '12168493'
 _test_prefix = '/scratch/$USER/sing'
 _installed_bin = '%(install_dir)s/bin'
 _BEAR_APPS_DATA_VAR = 'EBMMLONG2DATA121'  # suggest versioning the data collection
-_BEAR_APPS_DATA_PATH =  '$(printf "%s" "$BEAR_APPS_DATA/m/%(name)s/%(version)s")'
+_BEAR_APPS_DATA_PATH = '$(printf "%s" "$BEAR_APPS_DATA/m/%(name)s/%(version)s")'
 
 postinstallcmds = [
     # The following commands are for the purpose to setup singularity instances as final installation components
     f'mkdir -p {_test_prefix}',  # prepare test_run location
-    # prepare singularity community edition directories 
+    # prepare singularity community edition directories
     f'sed -i "301,0s|tar xf - -C|tar -xpf - -C {_test_prefix};'  # a workaround for setting permission on lite
     f' cp -ar {_test_prefix}/sing-%(name)s-lite|" {_installed_bin}/mmlong2',
     f'sed -i "302,0s|tar xf - -C|tar -xpf - -C {_test_prefix};'  # a workaround for setting permission on proc
     f' cp -ar {_test_prefix}/sing-%(name)s-proc|" {_installed_bin}/mmlong2',
     f'cd {_test_prefix} && {_installed_bin}/zenodo_get -r {_zenodo_src} || true',  # get data for the first run
-    f"sed -i 's|/path/to|${_BEAR_APPS_DATA_VAR}|g' {_installed_bin}/mmlong2-proc-config.yaml",  # databases 
+    f"sed -i 's|/path/to|${_BEAR_APPS_DATA_VAR}|g' {_installed_bin}/mmlong2-proc-config.yaml",  # databases
     r"sed -i 's|\(config\[\"db_\)\([^]]*\]\)|os.path.expandvars(\1\2\)|g'"
-    f" {_installed_bin}/mmlong2-proc.smk",  # interpret expanded environment vars from smk configs for db 
-    r"sed -i '40,44s|\(db_.*=\)\(.*\)|eval \"\1\2\"|'" f" {_installed_bin}/mmlong2", 
+    f" {_installed_bin}/mmlong2-proc.smk",  # interpret expanded environment vars from smk configs for db
+    r"sed -i '40,44s|\(db_.*=\)\(.*\)|eval \"\1\2\"|'" f" {_installed_bin}/mmlong2",
     f'export {_BEAR_APPS_DATA_VAR}="{_BEAR_APPS_DATA_PATH}";'
     f' cd {_test_prefix}; PATH={_installed_bin}:$PATH  mmlong2'
     f' --install_databases'  # database auto install and versioning and persist in config, exits after install
     f' --database_dir {_BEAR_APPS_DATA_PATH}'  # database destdir if uncommented checks install and exists early
-    f' --database_gtdb ${_BEAR_APPS_DATA_VAR}/gtdb/database_dir'  # to the gtdb location 
-    f' --database_bakta ${_BEAR_APPS_DATA_VAR}/bakta/database_dir'  # to the bakta location 
-    f' --database_rrna ${_BEAR_APPS_DATA_VAR}/rrna/database_file.udb'  # to the rrna location 
-    f' --database_gunc ${_BEAR_APPS_DATA_VAR}/gunc/database_file.dmnd'  # to the gunc location 
+    f' --database_gtdb ${_BEAR_APPS_DATA_VAR}/gtdb/database_dir'  # to the gtdb location
+    f' --database_bakta ${_BEAR_APPS_DATA_VAR}/bakta/database_dir'  # to the bakta location
+    f' --database_rrna ${_BEAR_APPS_DATA_VAR}/rrna/database_file.udb'  # to the rrna location
+    f' --database_gunc ${_BEAR_APPS_DATA_VAR}/gunc/database_file.dmnd'  # to the gunc location
     # create empty directory inplace so the install of that database does not fail. URL is invalid as of 12/08/26
     f' $(mkdir -p {_BEAR_APPS_DATA_PATH}/metabuli/database_dir) '
-    f' --database_metabuli ${_BEAR_APPS_DATA_VAR}/metabuli/database_dir',  # to the metabuli location 
-    f'export {_BEAR_APPS_DATA_VAR}="{_BEAR_APPS_DATA_PATH}";' # test-run stage + container install
-    f' cd {_test_prefix}; PATH={_installed_bin}:$PATH  mmlong2' 
+    f' --database_metabuli ${_BEAR_APPS_DATA_VAR}/metabuli/database_dir',  # to the metabuli location
+    f'export {_BEAR_APPS_DATA_VAR}="{_BEAR_APPS_DATA_PATH}";'  # test-run stage + container install
+    f' cd {_test_prefix}; PATH={_installed_bin}:$PATH  mmlong2'
     f' -np {_test_prefix}/mmlong2_np.fastq.gz'
-    f' -o {_test_prefix}/mmlong2_testrun_np -p 60 -run binning -myl',  
+    f' -o {_test_prefix}/mmlong2_testrun_np -p 60 -run binning -myl',
     # first run does two things: 1. tests install. 2. fetches containers into install_dir/bin
 ]
 sanity_check_paths = {
