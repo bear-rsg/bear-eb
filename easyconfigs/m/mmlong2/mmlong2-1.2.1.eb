@@ -45,7 +45,7 @@ _zenodo_src = '12168493'
 _test_prefix = '/scratch/$USER/sing'
 _installed_bin = '%(install_dir)s/bin'
 _BEAR_APPS_DATA_VAR = 'EBMMLONG2DATA121'  # suggest versioning the data collection
-_BEAR_APPS_DATA_PATH =  '$(eval "echo $BEAR_APPS_DATA/m/%(name)s/%(version)s")'
+_BEAR_APPS_DATA_PATH =  '$(printf "%s" "$BEAR_APPS_DATA/m/%(name)s/%(version)s")'
 
 postinstallcmds = [
     # The following commands are for the purpose to setup singularity instances as final installation components
@@ -57,7 +57,10 @@ postinstallcmds = [
     f' cp -ar {_test_prefix}/sing-%(name)s-proc|" {_installed_bin}/mmlong2',
     f'cd {_test_prefix} && {_installed_bin}/zenodo_get -r {_zenodo_src} || true',  # get data for the first run
     f"sed -i 's|/path/to|${_BEAR_APPS_DATA_VAR}|g' {_installed_bin}/mmlong2-proc-config.yaml",  # databases 
-    f'export {_BEAR_APPS_DATA_VAR}={_BEAR_APPS_DATA_PATH};'
+    r"sed -i 's|\(config\[\"db_\)\([^]]*\]\)|os.path.expandvars(\1\2\)|g'"
+    f" {_installed_bin}/mmlong2-proc.smk",  # interpret expanded environment vars from smk configs for db 
+    r"sed -i '40,44s|\(db_.*=\)\(.*\)|eval \"\1\2\"|'" f" {_installed_bin}/mmlong2", 
+    f'export {_BEAR_APPS_DATA_VAR}="{_BEAR_APPS_DATA_PATH}";'
     f' cd {_test_prefix}; PATH={_installed_bin}:$PATH  mmlong2'
     f' --install_databases'  # database auto install and versioning and persist in config, exits after install
     f' --database_dir {_BEAR_APPS_DATA_PATH}'  # database destdir if uncommented checks install and exists early
@@ -68,7 +71,7 @@ postinstallcmds = [
     # create empty directory inplace so the install of that database does not fail. URL is invalid as of 12/08/26
     f' $(mkdir -p {_BEAR_APPS_DATA_PATH}/metabuli/database_dir) '
     f' --database_metabuli ${_BEAR_APPS_DATA_VAR}/metabuli/database_dir',  # to the metabuli location 
-    f'export {_BEAR_APPS_DATA_VAR}={_BEAR_APPS_DATA_PATH};' # test-run stage + container install
+    f'export {_BEAR_APPS_DATA_VAR}="{_BEAR_APPS_DATA_PATH}";' # test-run stage + container install
     f' cd {_test_prefix}; PATH={_installed_bin}:$PATH  mmlong2' 
     f' -np {_test_prefix}/mmlong2_np.fastq.gz'
     f' -o {_test_prefix}/mmlong2_testrun_np -p 60 -run binning -myl',  
@@ -82,6 +85,7 @@ sanity_check_paths = {
 sanity_check_commands = [
     "%(name)s -h",
 ]
-modextravars = {f'{_BEAR_APPS_DATA_VAR}': f'{_BEAR_APPS_DATA_PATH}'}
+modextravars = {f'{_BEAR_APPS_DATA_VAR}': f'{_BEAR_APPS_DATA_PATH}',
+                f'SINGULARITYENV_{_BEAR_APPS_DATA_VAR}': f'{_BEAR_APPS_DATA_PATH}'}
 
 moduleclass = 'bio'
