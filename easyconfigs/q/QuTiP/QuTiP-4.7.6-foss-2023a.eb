@@ -10,7 +10,7 @@ of closed and open quantum systems."""
 
 toolchain = {'name': 'foss', 'version': '2023a'}
 
-sources = ['%(namelower)s-%(version)s.tar.gz']
+sources = [SOURCELOWER_TAR_GZ]
 checksums = ['f569d3e986f07d4017ad6217e6bf502131587138e3753dfa5a353338a34eade9']
 
 dependencies = [
