@@ -1,0 +1,28 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonPackage'
+
+name = 'QuTiP'
+version = '4.7.6'
+
+homepage = "https://qutip.org/"
+description = """QuTiP: Quantum Toolbox in Python is open-source software for simulating the dynamics
+of closed and open quantum systems."""
+
+toolchain = {'name': 'foss', 'version': '2023a'}
+
+sources = [SOURCELOWER_TAR_GZ]
+checksums = ['f569d3e986f07d4017ad6217e6bf502131587138e3753dfa5a353338a34eade9']
+
+dependencies = [
+    ('Python', '3.11.3'),
+    ('SciPy-bundle', '2023.07'),
+    ('Cython', '3.0.10'),
+    ('matplotlib', '3.7.2'),
+    ('Pint', '0.23'),
+]
+
+use_pip = True
+download_dep_fail = True
+sanity_pip_check = True
+
+moduleclass = 'quantum'
