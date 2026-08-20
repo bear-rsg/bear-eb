@@ -1,0 +1,66 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'MCARtest'
+version = '1.3'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=MCARtest"
+description = """Provides functions for carrying out nonparametric hypothesis tests of the MCAR hypothesis
+ based on the theory of Frechet classes and compatibility. Also gives functions for computing
+ halfspace representations of the marginal polytope and related geometric objects."""
+
+toolchain = {'name': 'foss', 'version': '2024a'}
+
+builddependencies = [('CMake', '3.29.3')]
+
+dependencies = [
+    ('R', '4.5.0'),
+    ('R-bundle-CRAN', '2025.06')
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('etm', '1.1.2', {
+        'checksums': ['b2278c7eaa1f1813d4cbb02ba6e3bd112517428dcdea0f0938c436bc992a6d65'],
+    }),
+    ('Epi', '2.66', {
+        'checksums': ['ba837ea590a5ead839966d10bb4114994a18d22d4b873d180f4c3c8deaf45c21'],
+    }),
+    ('Rcsdp', '0.1.57.6', {
+        'checksums': ['c9759206299f63c0b4615b3968fb625275b1778098b807689cbd859910be5b30'],
+    }),
+    ('highs', '1.14.0-2', {
+        'checksums': ['b4a132451d15dc67cd61ac12a346cf3686dbbd03e23686bc6adc91f073049b68'],
+    }),
+    ('rcdd', '1.6-1', {
+        'checksums': ['dbcb408a2db4005139550b9dcebd0c27138dc3fd726d9d3efda57c2ba9d8d20d'],
+    }),
+    ('missMethods', '0.4.0', {
+        'checksums': ['0262b3142166a19619e86bdfb7a2c4d425e8a9c9466a8a33217df45bc2604fef'],
+    }),
+    (name, version, {
+        'checksums': ['8bfe3fd31b4d1133b494fab63999247ad8be2259e86858202547b2077ec654fe'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['MCARtest/R/MCARtest'],
+    'dirs': [],
+}
+
+moduleclass = 'math'
