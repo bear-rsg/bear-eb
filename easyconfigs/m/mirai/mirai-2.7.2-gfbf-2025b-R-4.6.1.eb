@@ -1,0 +1,46 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'Bundle'
+
+name = 'mirai'
+version = '2.7.2'
+versionsuffix = '-R-%(rver)s'
+
+homepage = "https://cran.r-project.org/package=mirai"
+description = """Minimalist Async Evaluation Framework for R"""
+
+toolchain = {'name': 'gfbf', 'version': '2025b'}
+
+dependencies = [
+    ('R', '4.6.1'),
+]
+
+exts_defaultclass = 'RPackage'
+exts_filter = ("R -q --no-save", "library(%(ext_name)s)")
+exts_default_options = {
+    'source_urls': [
+        'https://cran.r-project.org/src/contrib/Archive/%(name)s',  # package archive
+        'https://cran.r-project.org/src/contrib/',  # current version of packages
+        'https://cran.freestatistics.org/src/contrib',  # mirror alternative for current packages
+    ],
+    'source_tmpl': '%(name)s_%(version)s.tar.gz',
+}
+
+
+# Order is important!
+exts_list = [
+    ('nanonext', '1.10.1', {
+        'checksums': ['ea575a20d6aaac3191e16d4931d08b8d5aabeca02bebc927d027d1e5cef9ed9f'],
+    }),
+    (name, version, {
+        'checksums': ['78a32dac63fbc4da00aaa8c4c15d6c2d8b41bb1addf88a0bdaf96add58fb5939'],
+    }),
+]
+
+modextrapaths = {'R_LIBS_SITE': ''}
+
+sanity_check_paths = {
+    'files': ['mirai/R/mirai'],
+    'dirs': [],
+}
+
+moduleclass = 'perf'
