@@ -1,0 +1,41 @@
+easyblock = 'EB_Boost'
+
+name = 'Boost.Python'
+version = '1.88.0'
+
+homepage = 'https://boostorg.github.io/python'
+description = """Boost.Python is a C++ library which enables seamless interoperability between C++
+ and the Python programming language."""
+
+toolchain = {'name': 'intel-compilers', 'version': '2025.2.0'}
+toolchainopts = {'pic': True}
+
+source_urls = ['https://archives.boost.io/release/%(version)s/source/']
+sources = ['boost_%s.tar.gz' % '_'.join(version.split('.'))]
+checksums = ['3621533e820dcab1e8012afd583c0c73cf0f77694952b81352bf38c1488f9cb4']
+
+dependencies = [
+    ('Boost', version),
+    ('Python', '3.13.5'),
+]
+
+# add -pthread to icpx compiler tests
+_sed_cmd = "sed -i 's/icpx -x c++ -std=c++11 ;/icpx -x c++ -std=c++11 -pthread ;/g'"
+preconfigopts = f'{_sed_cmd} tools/build/src/engine/build.sh && '
+
+# -ip is not supported with OneAPI compilers
+# instead of -pch-create ... use -Xclang -emit-pch -o ...
+_sed_cmd2 = """sed -i -e 's/-c -pch-create/-c -Xclang -emit-pch -o/g' -e 's/-O3 -ip/-O3/g' -e 's/"ifort"/"ifx"/g'"""
+preconfigopts += f'{_sed_cmd2} tools/build/src/tools/intel-linux.jam && '
+
+# -wdXXX flags are not supported with OneAPI compilers
+_sed_cmd3 = r'''sed -i -E "/<toolset>intel(-linux|):<cxxflags>(\"|'|)-wd[0-9,]/d"'''
+preconfigopts += fr'find . -type f -name "Jamfile.v2" -exec {_sed_cmd3} {{}} \; && '
+
+# -fabi-version is not supported with OneAPI compilers
+_sed_cmd4 = "sed -i 's/-fabi-version=0//g'"
+preconfigopts += f'{_sed_cmd4} libs/log/CMakeLists.txt libs/log/build/log-arch-config.jam && '
+
+only_python_bindings = True
+
+moduleclass = 'lib'
