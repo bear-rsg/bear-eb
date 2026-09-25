@@ -25,7 +25,7 @@ dependencies = [
 configopts = '-DBLA_VENDOR=Intel10_64_dyn -DSUITESPARSE_INCLUDEDIR_POSTFIX=""'
 
 # make sure that bin/demo can find libsuitesparseconfig.so.5 during build
-#prebuildopts = "export LD_LIBRARY_PATH=%(builddir)s/SuiteSparse-%(version)s/lib:$LD_LIBRARY_PATH && "
+# prebuildopts = "export LD_LIBRARY_PATH=%(builddir)s/SuiteSparse-%(version)s/lib:$LD_LIBRARY_PATH && "
 
 sanity_check_paths = {
     'files': ['include/amd.h', 'include/btf.h', 'include/camd.h', 'include/ccolamd.h',
