@@ -17,7 +17,6 @@ github_account = 'Huang-lab'
 source_urls = [GITHUB_SOURCE]
 sources = ['v%(version)s.tar.gz']
 crates = [
-#    ('fastvep-annotate', '0.3.0'), ('fastvep-cache', '0.3.0'), ('fastvep-classification', '0.3.0'), ('fastvep-cli', '0.3.0'), ('fastvep-consequence', '0.3.0'), ('fastvep-core', '0.3.0'), ('fastvep-filter', '0.3.0'), ('fastvep-genome', '0.3.0'), ('fastvep-hgvs', '0.3.0'), ('fastvep-io', '0.3.0'), ('fastvep-sa', '0.3.0'), ('fastvep-web', '0.3.0'),
     ('adler2', '2.0.1'),
     ('aho-corasick', '1.1.4'),
     ('allocator-api2', '0.2.21'),
@@ -377,5 +376,3 @@ sanity_check_paths = {
 }
 
 moduleclass = 'bio'
-#Other crates (no source in Cargo.lock): [('fastvep-annotate', '0.3.0'), ('fastvep-cache', '0.3.0'), ('fastvep-classification', '0.3.0'), ('fastvep-cli', '0.3.0'), ('fastvep-consequence', '0.3.0'), ('fastvep-core', '0.3.0'), ('fastvep-filter', '0.3.0'), ('fastvep-genome', '0.3.0'), ('fastvep-hgvs', '0.3.0'), ('fastvep-io', '0.3.0'), ('fastvep-sa', '0.3.0'), ('fastvep-web', '0.3.0')]
-# PLACEHOLDER FOR SOURCES/PATCHES WITH CHECKSUMS
