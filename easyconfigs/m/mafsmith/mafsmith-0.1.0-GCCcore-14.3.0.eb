@@ -516,5 +516,3 @@ sanity_check_paths = {
 }
 
 moduleclass = 'bio'
-#Other crates (no source in Cargo.lock): [('mafsmith', '0.1.0')]
-# PLACEHOLDER FOR SOURCES/PATCHES WITH CHECKSUMS
