@@ -368,7 +368,7 @@ builddependencies = [
 
 dependencies = []
 skipsteps = ['install']
-postinstallcmds = ['install -Dm755 target/release/%(namelower)s %(installdir)s/bin']
+postinstallcmds = ['install -Dm755 target/release/%(namelower)s %(installdir)s/bin/%(namelower)s']
 
 sanity_check_paths = {
     'files': ['bin/%(namelower)s'],
