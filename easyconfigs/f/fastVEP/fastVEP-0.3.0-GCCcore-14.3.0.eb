@@ -6,7 +6,7 @@ versionsuffix = ''
 
 homepage = "https://github.com/Huang-lab/fastVEP"
 description = """fastVEP: High-performance Variant Effect Predictor in Rust
- A high-performance Variant Effect Predictor written in Rust. fastVEP predicts the functional consequences of genomic 
+ A high-performance Variant Effect Predictor written in Rust. fastVEP predicts the functional consequences of genomic
  variants (SNPs, insertions, deletions, structural variants) on genes, transcripts, and protein sequences, with direct
  integration of clinical and population databases.
 """
