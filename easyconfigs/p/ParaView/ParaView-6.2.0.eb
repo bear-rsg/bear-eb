@@ -21,7 +21,7 @@ sanity_check_paths = {
 }
 
 modextrapaths = {
-    'LD_LIBRARY_PATH': ['lib/mesa', 'lib/mpi'],
+    'LD_LIBRARY_PATH': ['lib/mesa'],
 }
 
 moduleclass = 'vis'
