@@ -1,7 +1,7 @@
 easyblock = 'Binary'
 
 name = 'ParaView'
-version = "6.2.0-RC1"
+version = "6.2.0"
 
 homepage = "https://www.paraview.org"
 description = "ParaView is a scientific parallel visualizer."
@@ -11,8 +11,9 @@ toolchain = SYSTEM
 _download_suffix = 'download.php?submit=Download&version=v%(version_major_minor)s&type=binary&os=Linux&downloadFile='
 source_urls = ['https://www.paraview.org/paraview-downloads/%s' % _download_suffix]
 sources = ["ParaView-%(version)s-MPI-Linux-Python3.12-%(arch)s.tar.gz"]
-checksums = ['80c6a2b85bf41d5fd548d302a964e7464ae486cecd66d8acf21b9ac6ef40b0b1']
+checksums = ['242052db6569073cb77c9e683c8a81a4cd31c06b0901818f72c9c23546420e46']
 
+#https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v6.2&type=binary&os=Linux&downloadFile=ParaView-6.2.0-RC2-MPI-Linux-Python3.12-x86_64.tar.gz
 extract_sources = True
 
 sanity_check_paths = {
