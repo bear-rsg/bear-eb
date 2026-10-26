@@ -27,7 +27,7 @@ dependencies = [
     ('bzip2', '1.0.8'),
     ('libpng', '1.6.39'),
     ('zlib', '1.2.13'),
-    ('Brotli', '1.0.9'),
+    ('Brotli', '1.0.10'),
 ]
 
 configopts = '--enable-freetype-config --with-harfbuzz=no'
