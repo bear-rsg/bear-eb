@@ -35,7 +35,7 @@ buildopts = "BROTLI_DIR=$EBROOTBROTLI BROTLI_INCLUDE=$EBROOTBROTLI/include"
 # also install dbrunsli binary and missing libraries
 postinstallcmds = [
     "mkdir %(installdir)s/bin",
-    "cp -a dbrunsli %(installdir)s/bin/",
+    "cp --preserve=mode dbrunsli %(installdir)s/bin/",
     "cp libbrunsli*.a %(installdir)s/lib/",
     "cp libbrunsli*.%s %%(installdir)s/lib/" % SHLIB_EXT,
 ]
