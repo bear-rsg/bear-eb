@@ -1,0 +1,55 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'Cellpose'
+version = '4.2.1.1'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = "https://www.cellpose.org/"
+description = """a generalist algorithm for cellular segmentation"""
+
+toolchain = {'name': 'foss', 'version': '2025b'}
+
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('Python', '3.13.5'),
+    ('Python-bundle-PyPI', '2025.07'),
+    ('SciPy-bundle', '2025.07'),
+
+    ('PyTorch', '2.9.1', versionsuffix), #  (https://github.com/easybuilders/easybuild-easyconfigs/pull/24926)
+    ('torchvision', '0.24.1', versionsuffix),  # to build
+
+    ('QtPy', '2.4.3'),
+    ('tqdm', '4.67.1'),
+    ('OpenCV', '4.12.0', '-contrib'), # https://github.com/easybuilders/easybuild-easyconfigs/blob/f23b9a41c87833b4c138f4ee0d71efe49c23eef5/easybuild/easyconfigs/o/OpenCV/OpenCV-4.12.0-foss-2025b-CUDA-12.9.1-contrib.eb
+    ('segment_anything', '1.0'),
+    ('PyQtGraph', '0.14.0'),
+    ('PyQt6', '6.9.1'), #  https://github.com/easybuilders/easybuild-easyconfigs/blob/f23b9a41c87833b4c138f4ee0d71efe49c23eef5/easybuild/easyconfigs/p/PyQt6/PyQt6-6.9.1-GCCcore-14.3.0.eb#L3
+    ('matplotlib', '3.10.5'),
+]
+
+exts_list = [
+    ('superqt', '0.7.6', {
+    }),
+    ('natsort', '8.4.0', {
+    }),
+    ('tifffile', '2025.10.16', {
+    }),
+    ('fastremap', '1.17.7', {
+    }),
+    ('fill-voids', '2.1.1', {
+    }),
+    ('imagecodecs', '2025.11.11 ', {
+        'source_tmpl': '%(name)s-%(version)s-cp312-abi3-manylinux_2_28_x86_64.manylinux2014_x86_64.whl',
+    }),
+    ('roifile', '2025.12.12', {
+    }),
+    (name, version, {
+        # OpenCV provides the required cv2, but it fails a pip check due to missing metadata
+        'preinstallopts': """sed -i "s/'opencv-python-headless',//" setup.py && """,
+        'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'use_pip_extras': 'gui',
+    }),
+]
+
+moduleclass = 'bio'
