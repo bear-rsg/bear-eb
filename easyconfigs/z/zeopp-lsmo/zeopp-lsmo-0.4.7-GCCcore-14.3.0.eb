@@ -31,7 +31,7 @@ checksums = [
 
 dependencies = [('binutils', '2.44'), ('Eigen', '3.4.0')]
 
-prebuildopts = 'cd voro++ && make -j$(nproc) &&  ' 
+prebuildopts = 'cd voro++ && make -j$(nproc) && '
 prebuildopts += 'cd ../zeo++ && '
 
 postinstallcmds = ['make -C voro++ install PREFIX=%(installdir)s']
