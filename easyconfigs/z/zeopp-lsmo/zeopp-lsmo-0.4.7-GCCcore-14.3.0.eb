@@ -36,8 +36,6 @@ prebuildopts += 'cd ../zeo++ && '
 
 postinstallcmds = ['make -C voro++ install PREFIX=%(installdir)s']
 _executable_bins = ['zeo++/network', 'zeo++/framework_builder', 'zeo++/molecule_to_abstract']
-#_executable_libs = ['zeo++/libzeo++.so', 'zeo++/libzeo++.a'] 
-#_executable_libs = ['zeo++/libzeo++.so'] # wont compile as voro++.a wasnt compiled with -fPIC
 
 files_to_copy = [(_executable_bins, 'bin')]
 

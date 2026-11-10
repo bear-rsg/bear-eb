@@ -1,0 +1,28 @@
+diff --git a/.github/build.sh b/.github/build.sh
+old mode 100755
+new mode 100644
+diff --git a/cython_wrapper/setup.py b/cython_wrapper/setup.py
+old mode 100755
+new mode 100644
+diff --git a/cython_wrapper/setup_alt.py b/cython_wrapper/setup_alt.py
+old mode 100755
+new mode 100644
+diff --git a/voro++/src/worklist_gen.pl b/voro++/src/worklist_gen.pl
+old mode 100755
+new mode 100644
+diff --git a/wget.csh b/wget.csh
+old mode 100755
+new mode 100644
+diff --git a/zeo++/OMS.h b/zeo++/OMS.h
+index 120cdd7..8a66184 100644
+--- a/zeo++/OMS.h
++++ b/zeo++/OMS.h
+@@ -18,7 +18,7 @@
+ #include <iostream>
+ #include <vector>
+ 
+-#include "eigen3/Eigen/Dense"
++#include "Eigen/Dense"
+ #include "zeo_consts.h"
+ 
+ #define DIM 3
