@@ -1,0 +1,47 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'MakeCp'
+name = 'zeopp-lsmo'
+version = '0.4.7'
+
+homepage = "https://www.zeoplusplus.org/"
+description = """High-throughput analysis of crystalline porous materials By Maciej Haranczyk, Chris H Rycroft,
+ Richard L Martin, Thomas F Willems\n
+ Zeo++ is a software package for high-throughput analysis of structure and topology of crystalline porous materials.
+ For a given material's structure, the code calculates the geometrical parameters describing pores. The tool is
+ based on the Voronoi decomposition, which for a given arrangement of atoms in a periodic domain provides a
+ graph representation of the void space. The resulting Voronoi network is analyzed to obtain the diameter of the
+ largest included sphere and the largest free sphere, which are two geometrical parameters that are frequently used to
+ describe pore geometry. Accessibility of nodes in the network is also determined for a given guest molecule and
+ the resulting information is later used to retrieve dimensionality of channel systems as well as in Monte
+ Carlo sampling of accessible surfaces, volumes and pore size distributions. The code also offers some aids
+ with structure analysis, e.g. MOF open metal site detection, and simluations, e.g. generation of blocking
+ spheres.
+"""
+
+toolchain = {'name': 'GCCcore', 'version': '14.3.0'}
+
+github_account = 'lsmo-epfl'
+source_urls = [GITHUB_SOURCE]
+sources = ['v%(version)s.tar.gz']
+patches = ['%(name)s-%(version)s_eigen-head.patch']
+checksums = [
+    {'v0.4.7.tar.gz': '3c0cac4c15d39f9bb59436f62df617ab40c345fdf27b6aa707d199c91f3d69b0'},
+    {'zeopp-lsmo-0.4.7_eigen-head.patch': '68406d84537ff7e5887b1b337db32fd3a22ad116ef4ea6cb2e01b3a3b150ce37'},
+]
+
+dependencies = [('binutils', '2.44'), ('Eigen', '3.4.0')]
+
+prebuildopts = 'cd voro++ && make -j$(nproc) && '
+prebuildopts += 'cd ../zeo++ && '
+
+postinstallcmds = ['make -C voro++ install PREFIX=%(installdir)s']
+_executable_bins = ['zeo++/network', 'zeo++/framework_builder', 'zeo++/molecule_to_abstract']
+
+files_to_copy = [(_executable_bins, 'bin')]
+
+sanity_check_paths = {
+    'files': ['bin/network'],
+    'dirs': ['lib'],
+}
+
+moduleclass = 'chem'
