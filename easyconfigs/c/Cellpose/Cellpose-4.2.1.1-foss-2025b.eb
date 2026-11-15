@@ -1,0 +1,60 @@
+# This easyconfig was created by the BEAR Software team at the University of Birmingham.
+easyblock = 'PythonBundle'
+
+name = 'Cellpose'
+version = '4.2.1.1'
+versionsuffix = '-CUDA-%(cudaver)s'
+
+homepage = "https://www.cellpose.org/"
+description = """a generalist algorithm for cellular segmentation"""
+
+toolchain = {'name': 'foss', 'version': '2025b'}
+
+dependencies = [
+    ('CUDA', '12.9.1', '', SYSTEM),
+    ('Python', '3.13.5'),
+    ('Python-bundle-PyPI', '2025.07'),
+    ('SciPy-bundle', '2025.07'),
+    ('PyTorch', '2.9.1', versionsuffix),
+    ('torchvision', '0.24.1', versionsuffix),
+    ('QtPy', '2.4.3'),
+    ('tqdm', '4.67.1'),
+    ('OpenCV', '4.12.0', '-CUDA-12.9.1-contrib'),
+    ('segment_anything', '1.0'),
+    ('PyQtGraph', '0.14.0'),
+    ('PyQt6', '6.9.1'),
+    ('matplotlib', '3.10.5'),
+]
+
+exts_list = [
+    ('superqt', '0.7.6', {
+        'checksums': ['822fdba71dc391929c9d3db839f78ca2a861e2f2876926f969a288dfb2a9787e'],
+    }),
+    ('natsort', '8.4.0', {
+        'checksums': ['45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581'],
+    }),
+    ('tifffile', '2025.10.16', {
+        'checksums': ['425179ec7837ac0e07bc95d2ea5bea9b179ce854967c12ba07fc3f093e58efc1'],
+    }),
+    ('fastremap', '1.17.7', {
+        'checksums': ['42776172867d8f2b3348754cf29405ba878af4b06917f12a969514d3097910dc'],
+    }),
+    ('fill-voids', '2.1.1', {
+        'checksums': ['469f543e4ab236cf11aacef106af8e73c730f2a90f1bfae760dc8de29d4d6634'],
+    }),
+    ('imagecodecs', '2025.11.11', {
+        'source_tmpl': '%(name)s-%(version)s-cp311-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl',
+        'checksums': ['d4a3894b62ca6ad0c4d75cb0a0aac2a525c4a5c4a2a60defc5d7fb716a4bb355'],
+    }),
+    ('roifile', '2025.12.12', {
+        'checksums': ['c51bff51f886412e654cb059370759b001e609e1b496b0fd20dc26c258b23830'],
+    }),
+    (name, version, {
+        'preinstallopts': """sed -i "s/'opencv-python-headless',//" setup.py && """,
+        'source_tmpl': '%(namelower)s-%(version)s.tar.gz',
+        'use_pip_extras': 'gui',
+        'checksums': ['229eedea3977184202b2c87b3bd41c609facd742c7203bb4ad3cebd7b6bc6839'],
+    }),
+]
+
+moduleclass = 'bio'
