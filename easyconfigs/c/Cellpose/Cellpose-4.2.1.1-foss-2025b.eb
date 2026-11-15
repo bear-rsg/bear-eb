@@ -20,7 +20,7 @@ dependencies = [
     ('QtPy', '2.4.3'),
     ('tqdm', '4.67.1'),
     ('OpenCV', '4.12.0', '-CUDA-12.9.1-contrib'),
-    ('segment_anything', '1.0'),
+    ('segment-anything', '1.0'),
     ('PyQtGraph', '0.14.0'),
     ('PyQt6', '6.9.1'),
     ('matplotlib', '3.10.5'),
