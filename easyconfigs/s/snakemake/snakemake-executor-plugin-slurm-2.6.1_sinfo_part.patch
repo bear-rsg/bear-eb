@@ -1,16 +1,17 @@
 diff --git a/snakemake_executor_plugin_slurm/partitions.py b/snakemake_executor_plugin_slurm/partitions.py
-index 15e0b7f..cb178b6 100644
+index 15e0b7f..77e4b21 100644
 --- a/snakemake_executor_plugin_slurm/partitions.py
 +++ b/snakemake_executor_plugin_slurm/partitions.py
-@@ -21,9 +21,9 @@ def get_default_partition(
+@@ -21,9 +21,10 @@ def get_default_partition(
      if no partition is given, checks whether a fallback onto a default
      partition is possible
      """
 -    cmd = shlex.split("sinfo -o %P")
-+    cmd = r"scontrol show partition | awk -F= '/PartitionName=/ {print $2}'"
++    cmd = shlex.split('scontrol show partition')
      try:
 -        out = subprocess.check_output(cmd, text=True, stderr=subprocess.PIPE)
-+        out = subprocess.check_output(cmd, shell=True, text=True, stderr=subprocess.PIPE)
++        out_part = subprocess.check_output(cmd, text=True, stderr=subprocess.PIPE)
++        out = '\n'.join([ l.split('=', 1)[1] for l in out_part.splitlines() if l.startswith('PartitionName=') ])
      except subprocess.CalledProcessError as e:
          raise WorkflowError(
              f"Failed to run sinfo for retrieval of cluster partitions: {e.stderr}"
