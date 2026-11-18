@@ -142,7 +142,7 @@ exts_list = [
             {'snakemake_executor_plugin_slurm-2.6.1.tar.gz':
              '3fec93025d4c0f4956e4e836f46faa90b15a52d3730f9a439762e64774d4d7bc'},
             {'snakemake-executor-plugin-slurm-2.6.1_sinfo_part.patch':
-             'ada6b69718e8a3b081dfc094208b5184eed63a17b7ba9dd95390d49d548d3f27'},
+             '94efe030226605b4b1cfd3c373a6bb213e6dab3573faaa80f85dba1068bfb3f4'},
         ],
     }),
     ('snakemake-executor-plugin-cluster-sync', '0.1.5', {
