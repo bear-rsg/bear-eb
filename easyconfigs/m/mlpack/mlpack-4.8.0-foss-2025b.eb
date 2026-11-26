@@ -1,0 +1,31 @@
+easyblock = 'CMakeMake'
+
+name = 'mlpack'
+version = '4.8.0'
+
+homepage = 'https://www.mlpack.org/'
+description = """mlpack is a fast, header-only C++ machine learning library
+written in C++ and built on the Armadillo linear algebra library, the ensmallen
+numerical optimization library, and the cereal serialization library."""
+
+toolchain = {'name': 'foss', 'version': '2025b'}
+
+source_urls = ['https://github.com/%(name)s/%(name)s/archive/refs/tags/']
+sources = [VERSION_TAR_GZ]
+
+builddependencies = [
+    ('CMake', '3.31.8'),
+]
+dependencies = [
+    ('Armadillo', '15.2.6'),
+    ('ensmallen', '3.11.2'),
+    ('Cereal', '1.3.2'),
+]
+
+
+sanity_check_paths = {
+    'files': ['bin/mlpack_pca', 'include/%(name)s.hpp'],
+    'dirs': ['bin', 'include', 'lib64'],
+}
+
+moduleclass = 'numlib'

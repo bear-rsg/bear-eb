@@ -1,0 +1,27 @@
+easyblock = 'CMakeMake'
+
+name = 'ensmallen'
+version = '3.11.2'
+
+homepage = 'https://ensmallen.org/'
+description = "ensmallen is a high-quality C++ library for non-linear numerical optimization"
+
+toolchain = {'name': 'foss', 'version': '2025b'}
+
+source_urls = ['https://github.com/mlpack/%(name)s/archive/refs/tags/']
+sources = [VERSION_TAR_GZ]
+
+builddependencies = [
+    ('CMake', '3.31.8'),
+]
+dependencies = [
+    ('Armadillo', '15.2.6'),
+]
+
+
+sanity_check_paths = {
+    'files': ['include/%(name)s.hpp', 'include/ensmallen_bits/function.hpp'],
+    'dirs': ['lib', 'include', 'include/ensmallen_bits/', 'lib/cmake'],
+}
+
+moduleclass = 'numlib'
